@@ -1,22 +1,20 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <BootstrapTest/>
+    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-import BootstrapTest from './components/BootstrapTest'
+<script lang="ts">
+import { Component, Vue } from 'vue-property-decorator';
+import HelloWorld from './components/HelloWorld.vue';
 
-export default {
-  name: 'App',
+@Component({
   components: {
     HelloWorld,
-    BootstrapTest
-  }
-}
+  },
+})
+export default class App extends Vue {}
 </script>
 
 <style>
