@@ -29,7 +29,7 @@
           </div>
           <div class="modal-footer">
             New To MyWebsite.com?
-            <GooleLogin  :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GooleLogin>
+            <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
             <a href="#" class="btn btn-primary">Register</a>
           </div>
         </div>
