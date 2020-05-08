@@ -10,9 +10,6 @@
     <ul>
       <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-typescript" target="_blank" rel="noopener">typescript</a></li>
     </ul>
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-      Launch demo modal
-    </button>
     <LoginDialog />
     <h3>Essential Links</h3>
     <ul>
@@ -33,17 +30,12 @@
   </div>
 </template>
 
-<script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
-import LoginDialog from './LoginDialog.vue';
-
-@Component({
-  components: {
-    LoginDialog,
-  },
-})
-export default class HelloWorld extends Vue {
-  @Prop() private msg!: string;
+<script>
+export default {
+  name: 'Hello World',
+  props: {
+    msg: String
+  }
 }
 </script>
 
