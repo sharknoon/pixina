@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <LoginDialog />
+    <LoginPage/>
   </div>
 </template>
 
 <script>
-import LoginDialog from './components/LoginDialog.vue';
+import LoginPage from './components/LoginPage.vue';
 
 export default {
   name: 'App',
   components: {
-    LoginDialog
+    LoginPage
   }
 }
 </script>
@@ -23,6 +22,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
