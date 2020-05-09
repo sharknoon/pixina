@@ -10,8 +10,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">x</button>
-            <h3>Login to MyWebsite.com</h3>
+            <h3>Anmelden</h3>
           </div>
           <div class="modal-body">
             <form method="post" action name="login_form">
@@ -28,8 +27,8 @@
             </form>
           </div>
           <div class="modal-footer">
-            New To MyWebsite.com?
-            <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Login</GoogleLogin>
+            Neu auf der Webseite?
+            <GoogleLogin :params="params" :onSuccess="onSuccess" :onFailure="onFailure">Google Login</GoogleLogin>
             <a href="#" class="btn btn-primary">Register</a>
           </div>
         </div>
@@ -59,6 +58,14 @@ export default {
         },
         components: {
             GoogleLogin
+        },
+        methods: {
+          onSuccess(googleUser) {
+            console.log('User logged in: ' + googleUser);
+          },
+          onFailure(error) {
+            console.error('Login attempt error: ' + error);
+          }
         }
     }
 </script>
