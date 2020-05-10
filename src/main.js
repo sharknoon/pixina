@@ -1,31 +1,62 @@
+// Vue
 import Vue from 'vue'
+// Vuex
 import Vuex from 'vuex'
-import App from './App.vue'
+// Bootstrap 
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
+// Pixina 
+import Pixina from './Pixina.vue'
+// Fontawesome
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-Vue.config.productionTip = false
+///////////////////////////////////////////
+//             FontAwesome               //
+///////////////////////////////////////////
 
-const loginStore = new Vuex.Store({
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
+import { faGoogle } from '@fortawesome/free-brands-svg-icons'
+import { faApple } from '@fortawesome/free-brands-svg-icons'
+import { faMicrosoft } from '@fortawesome/free-brands-svg-icons'
+import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+
+library.add(
+  faEnvelope,
+  faGoogle,
+  faApple,
+  faMicrosoft,
+  faArrowRight
+)
+
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
+
+///////////////////////////////////////////
+//                Vuex                   //
+///////////////////////////////////////////
+
+Vue.use(Vuex)
+
+const store = new Vuex.Store({
   state: {
     loginState: 0
   },
   mutations: {
-    enterEmail (state) {
-      state.loginState = 0
-    },
-    enterPassword (state) {
-      state.loginState = 1
-    },
-    enterRegistrationData (state) {
-      state.loginState = 1
+    setLoginState(state, newState) {
+      state.loginState = newState
     }
   }
 })
 
-new Vue({
-  render: h => h(App),
-  store: loginStore
-}).$mount('#app')
+///////////////////////////////////////////
+//                 Vue                   //
+///////////////////////////////////////////
 
-Vue.use(Vuex)
+Vue.config.productionTip = false
+
+new Vue({
+  el: '#app',
+  render: h => h(Pixina),
+  store: store
+})

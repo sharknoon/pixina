@@ -8,7 +8,7 @@
 import LoginPage from './components/LoginPage.vue';
 
 export default {
-  name: 'App',
+  name: 'Pixina',
   components: {
     LoginPage
   }
