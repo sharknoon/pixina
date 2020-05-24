@@ -6,26 +6,14 @@
       <img id="login-logo" class="align-self-stretch mb-3" src="./../../assets/logo.svg" />
       <h5 class="text-muted">Willkommen zurück</h5>
       <div>Hattest du einen schönen Tag?</div>
-      <div v-if="this.$store.state.loginState == 0">
-        <EnterEmail />
-      </div>
-      <div v-if="this.$store.state.loginState == 1">
-        <EnterPassword />
-      </div>
+      <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-import EnterEmail from "./EnterEmail";
-import EnterPassword from "./EnterPassword";
-
 export default {
   name: "LoginPage",
-  components: {
-    EnterEmail,
-    EnterPassword
-  },
   methods: {
     changeState(newState) {
       this.$store.commit("setLoginState", newState);

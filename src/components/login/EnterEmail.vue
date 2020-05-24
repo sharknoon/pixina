@@ -1,44 +1,20 @@
 <template>
   <div>
-    <form class="needs-validation d-none d-md-block mt-4" novalidate>
+    <form class="d-none d-md-block mt-4" @submit="checkEmail" novalidate="true">
       <div class="input-group">
-        <input
-          type="email"
-          class="form-control"
-          placeholder="E-Mail-Adresse"
-          aria-label="E-Mail-Adresse"
-          aria-describedby="emailInput"
-          required
-        />
+        <input type="email" v-model="email" class="form-control" placeholder="E-Mail-Adresse" />
         <div class="input-group-append">
-          <button
-            class="btn btn-secondary"
-            type="submit"
-            id="emailInput"
-            
-          >
+          <button class="btn btn-secondary" type="submit">
             <font-awesome-icon class="mr-2" :icon="['fas', 'envelope']" />Weiter mit E-Mail-Adresse
           </button>
         </div>
       </div>
-      <div class="invalid-feedback">Bitte eine gültige E-Mail-Adresse eingeben</div>
+      <div v-if="!correctEmail">Bitte eine gültige E-Mail-Adresse eingeben</div>
     </form>
-    <form class="needs-validation d-md-none mt-4" novalidate>
-      <input
-        type="email"
-        class="form-control mb-2"
-        placeholder="E-Mail-Adresse"
-        aria-label="E-Mail-Adresse"
-        aria-describedby="emailInput"
-        required
-      />
-      <div class="invalid-feedback">Bitte eine gültige E-Mail-Adresse eingeben</div>
-      <button
-        class="btn btn-block btn-secondary"
-        type="submit"
-        id="emailInput"
-        @click="changeState(1)"
-      >
+    <form class="needs-validation d-md-none mt-4" @submit="checkEmail" novalidate="true">
+      <input type="email" v-model="email" class="form-control mb-2" placeholder="E-Mail-Adresse" />
+      <div v-if="!correctEmail">Bitte eine gültige E-Mail-Adresse eingeben</div>
+      <button class="btn btn-block btn-secondary" type="submit">
         <font-awesome-icon class="mr-2" :icon="['fas', 'envelope']" />Weiter mit E-Mail-Adresse
       </button>
     </form>
@@ -62,10 +38,13 @@
         </GoogleLogin>
       </div>
       <div id="appleid-signin" class="col-md mb-2">
-        <button type="button" class="btn btn-lg btn-block btn-dark btn-apple disabled">
-          <font-awesome-icon class="mr-2" :icon="['fab', 'apple']" />
-          <small>Weiter mit Microsoft</small>
-        </button>
+        <!-- Temporary span for using the tooltip on disabled elements -->
+        <span tabindex="0" data-toggle="tooltip" title="Disabled tooltip">
+          <button type="button" class="btn btn-lg btn-block btn-dark btn-apple disabled">
+            <font-awesome-icon class="mr-2" :icon="['fab', 'apple']" />
+            <small>Weiter mit Apple</small>
+          </button>
+        </span>
       </div>
       <div class="col-md mb-2">
         <button type="button" class="btn btn-lg btn-block btn-light disabled">
@@ -81,11 +60,15 @@
 <script>
 //Login Components
 import GoogleLogin from "vue-google-login";
+//Store to store general data
+import Store from "@/store";
 
 export default {
   name: "EnterEmail",
   data() {
     return {
+      email: null,
+      correctEmail: true,
       // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
       params: {
         client_id:
@@ -96,35 +79,6 @@ export default {
   components: {
     GoogleLogin
   },
-  mounted() {
-    (function() {
-      "use strict";
-      window.addEventListener(
-        "load",
-        function() {
-          // Fetch all the forms we want to apply custom Bootstrap validation styles to
-          var forms = document.getElementsByClassName("needs-validation");
-          // Loop over them and prevent submission
-          /*var validation = */ Array.prototype.filter.call(forms, function(
-            form
-          ) {
-            form.addEventListener(
-              "submit",
-              function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                form.classList.add("was-validated");
-              },
-              false
-            );
-          });
-        },
-        false
-      );
-    })();
-  },
   methods: {
     onSuccess(googleUser) {
       console.log("User logged in: " + googleUser);
@@ -132,8 +86,22 @@ export default {
     onFailure(error) {
       console.error("Login attempt error: " + error);
     },
-    changeState(newState) {
+    changeLoginState(newState) {
       this.$store.commit("setLoginState", newState);
+    },
+    checkEmail(form) {
+      form.preventDefault();
+      if (!this.email || !this.validEmail(this.email)) {
+        this.correctEmail = false;
+      } else {
+        console.log("correct")
+        Store.email = this.email;
+        this.$router.push("/login/enter-password");
+      }
+    },
+    validEmail(email) {
+      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   }
 };

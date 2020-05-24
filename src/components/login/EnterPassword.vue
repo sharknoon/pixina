@@ -1,23 +1,24 @@
 <template>
   <div>
-    <form class="needs-validation d-none d-md-block mt-4" novalidate>
+    <form class="needs-validation d-none d-md-block mt-4" novalidate="true">
       <div class="input-group">
         <input
           type="password"
+          v-model="password"
           class="form-control"
           placeholder="Passwort"
           aria-label="Passwort"
           aria-describedby="passwordInput"
         />
         <div class="input-group-append">
-          <button class="btn btn-primary" type="button" id="passwordInput" @click="changeState(99)">
+          <button class="btn btn-primary" type="button" id="passwordInput" @click="login">
             <font-awesome-icon class="mr-2" :icon="['fas', 'arrow-right']" />Anmelden
           </button>
         </div>
         <div class="invalid-feedback">Das Passwort ist nicht korrekt</div>
       </div>
     </form>
-    <form class="needs-validation d-md-none mt-4" novalidate>
+    <form class="needs-validation d-md-none mt-4" novalidate="true">
       <input
         type="password"
         class="form-control mb-2"
@@ -32,7 +33,7 @@
     </form>
     <div class="row mt-4">
       <div class="col">
-        <button class="btn btn-outline-secondary" @click="changeState(0)">Zurück</button>
+        <button class="btn btn-outline-secondary" @click="goBack">Zurück</button>
       </div>
       <div class="col-auto">
         <button class="btn btn-link">Passwort vergessen</button>
@@ -43,8 +44,16 @@
 
 
 <script>
+//Store to store general data
+import Store from "@/store";
+
 export default {
   name: "EnterPassword",
+  data() {
+    return {
+      password: null
+    };
+  },
   mounted() {
     (function() {
       "use strict";
@@ -77,6 +86,16 @@ export default {
   methods: {
     changeState(newState) {
       this.$store.commit("setLoginState", newState);
+    },
+    login() {
+      //let email = Store.email
+      //TODO actual login
+      //api(email, password)
+      Store.isLoggedIn = true;
+      this.$router.push("/");
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   }
 };
