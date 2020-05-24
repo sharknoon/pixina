@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import LoginPage from './components/LoginPage.vue';
+import LoginPage from './components/login/LoginPage.vue';
 
 export default {
   name: 'Pixina',
