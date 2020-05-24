@@ -2,19 +2,35 @@
   <div>
     <form class="d-none d-md-block mt-4" @submit="checkEmail" novalidate="true">
       <div class="input-group">
-        <input type="email" v-model="email" class="form-control" placeholder="E-Mail-Adresse" />
+        <input
+          type="email"
+          v-model="email"
+          class="form-control"
+          :class="{ 'is-invalid': validationFailed }"
+          placeholder="E-Mail-Adresse"
+        />
         <div class="input-group-append">
           <button class="btn btn-secondary" type="submit">
             <font-awesome-icon class="mr-2" :icon="['fas', 'envelope']" />Weiter mit E-Mail-Adresse
           </button>
         </div>
       </div>
-      <div v-if="!correctEmail">Bitte eine gültige E-Mail-Adresse eingeben</div>
+      <div v-if="validationFailed" class="text-danger">
+        <small>Bitte eine gültige E-Mail-Adresse eingeben</small>
+      </div>
     </form>
-    <form class="needs-validation d-md-none mt-4" @submit="checkEmail" novalidate="true">
-      <input type="email" v-model="email" class="form-control mb-2" placeholder="E-Mail-Adresse" />
-      <div v-if="!correctEmail">Bitte eine gültige E-Mail-Adresse eingeben</div>
-      <button class="btn btn-block btn-secondary" type="submit">
+    <form class="d-md-none mt-4" @submit="checkEmail" novalidate="true">
+      <input
+        type="email"
+        v-model="email"
+        class="form-control"
+        :class="{ 'is-invalid': validationFailed }"
+        placeholder="E-Mail-Adresse"
+      />
+      <div v-if="validationFailed" class="text-danger">
+        <small>Bitte eine gültige E-Mail-Adresse eingeben</small>
+      </div>
+      <button class="btn btn-block btn-secondary mt-2" type="submit">
         <font-awesome-icon class="mr-2" :icon="['fas', 'envelope']" />Weiter mit E-Mail-Adresse
       </button>
     </form>
@@ -29,7 +45,7 @@
       <div class="col-md mb-2">
         <GoogleLogin
           class="btn btn-lg btn-block btn-primary"
-          :params="params"
+          :params="{ client_id: this.$store.state.googleClientId }"
           :onSuccess="onSuccess"
           :onFailure="onFailure"
         >
@@ -60,42 +76,41 @@
 <script>
 //Login Components
 import GoogleLogin from "vue-google-login";
-//Store to store general data
-import Store from "@/store";
 
 export default {
   name: "EnterEmail",
   data() {
     return {
-      email: null,
-      correctEmail: true,
-      // client_id is the only required property but you can add several more params, full list down bellow on the Auth api section
-      params: {
-        client_id:
-          "861982955154-8dnmcg5ob5oih4af5ge0be64iv1mh9uv.apps.googleusercontent.com"
-      }
+      validationFailed: false
     };
+  },
+  computed: {
+    email: {
+      get() {
+        return this.$store.state.email;
+      },
+      set(value) {
+        this.$store.commit("setEmailAddress", value);
+      }
+    }
   },
   components: {
     GoogleLogin
   },
   methods: {
-    onSuccess(googleUser) {
-      console.log("User logged in: " + googleUser);
+    onSuccess(/*googleUser*/) {
+        this.$store.commit("setLoginState", 99);
+        this.$router.push("/");
     },
     onFailure(error) {
       console.error("Login attempt error: " + error);
     },
-    changeLoginState(newState) {
-      this.$store.commit("setLoginState", newState);
-    },
     checkEmail(form) {
       form.preventDefault();
       if (!this.email || !this.validEmail(this.email)) {
-        this.correctEmail = false;
+        this.validationFailed = true;
       } else {
-        console.log("correct")
-        Store.email = this.email;
+        this.$store.commit("setLoginState", 1);
         this.$router.push("/login/enter-password");
       }
     },

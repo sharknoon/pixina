@@ -12,8 +12,6 @@ import Pixina from './Pixina.vue'
 // Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-// Store to save any cross-component data
-import Store from '@/store'
 
 ///////////////////////////////////////////
 //             FontAwesome               //
@@ -49,11 +47,23 @@ const store = new Vuex.Store({
     // 2 = register user details
     // 3 = confirm email
     // 99 = logged in
-    loginState: 0
+    loginState: 0,
+    // The E-Mail the user has entered
+    email: null,
+    //The Google clientId
+    googleClientId: "861982955154-8dnmcg5ob5oih4af5ge0be64iv1mh9uv.apps.googleusercontent.com"
+  },
+  getters: {
+    isLoggedIn: state => {
+      return state.loginState == 99
+    }
   },
   mutations: {
     setLoginState(state, newState) {
       state.loginState = newState
+    },
+    setEmailAddress(state, email) {
+      state.email = email
     }
   }
 })
@@ -83,6 +93,10 @@ const router = new VueRouter({
         {
           path: 'enter-password',
           component: () => import('@/components/login/EnterPassword.vue')
+        },
+        {
+          path: 'enter-user-details',
+          component: () => import('@/components/login/EnterUserDetails.vue')
         }
         //TODO passwort vergessen
         //TODO registrierung
@@ -99,7 +113,7 @@ const router = new VueRouter({
 //Check if the user is authenticated, otherwise reroute them
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!Store.isLoggedIn) {
+    if (!store.getters.isLoggedIn) {
       next({
         path: "/login"
       })
