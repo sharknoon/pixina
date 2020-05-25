@@ -1,3 +1,3 @@
 FROM nginx
-RUN pwd
+RUN ls
 COPY dist /usr/share/nginx/html
