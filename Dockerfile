@@ -1,4 +1,2 @@
 FROM nginx
-RUN pwd
-RUN ls
-COPY * /usr/share/nginx/html/
+COPY dist /usr/share/nginx/html
