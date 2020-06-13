@@ -1,10 +1,17 @@
 <template>
-  <div class="container d-flex flex-column justify-content-center text-left">
-    <div class="login-container">
-      <img id="login-logo" class="align-self-stretch mb-3" src="./../../assets/logo.svg" />
+  <div class="background">
+    <div class="login-container p-4">
+      <router-link to="/">
+        <img
+          id="login-logo"
+          class="align-self-stretch mb-3"
+          src="./../../assets/logo.svg"
+          style="z-index: 3;"
+        />
+      </router-link>
       <h5 class="text-muted">Willkommen zurück</h5>
       <div>Hattest du einen schönen Tag?</div>
-      <router-view></router-view>
+      <router-view class="mt-auto"></router-view>
     </div>
   </div>
 </template>
@@ -24,13 +31,39 @@ export default {
 #login-logo {
   max-height: 4rem;
 }
-.container {
-  min-height: 100vh;
-}
 .login-container {
-  min-height: 30rem;
+  background: inherit;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  position: relative;
+  background: inherit;
+  overflow: hidden;
+  z-index: 1;
 }
-body {
-  background: url("./../../assets/background.jpg") no-repeat center center fixed;
+
+.login-container:before {
+  content: "";
+  position: absolute;
+  background: inherit;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+  filter: blur(10px);
+  margin: -20px;
+  z-index: -1;
+}
+
+.background {
+  background: url("./../../assets/background.jpg") no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding-bottom: 20vh;
+  overflow: hidden;
 }
 </style>

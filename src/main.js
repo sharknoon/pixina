@@ -8,7 +8,7 @@ import VueRouter from 'vue-router'
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 // Pixina 
-import Pixina from './Pixina.vue'
+import Pixina from '@/Pixina.vue'
 // Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -22,6 +22,7 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
 import { faMicrosoft } from '@fortawesome/free-brands-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
+import vuetify from '@/plugins/vuetify';
 
 library.add(
   faEnvelope,
@@ -135,6 +136,7 @@ new Vue({
   el: '#app',
   router: router,
   render: h => h(Pixina),
+  vuetify,
   store: store
 })
 
