@@ -10,7 +10,7 @@
           </router-link>
         </div>
         <!-- Items Area -->
-        <router-link class="ns-item" to="/">
+        <router-link to="/home">
           <font-awesome-icon :icon="['fal', 'home']" />Home
         </router-link>
         <router-link to="/profile">

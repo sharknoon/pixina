@@ -104,7 +104,12 @@ const router = new VueRouter({
       component: () => import('@/components/user/Navigation.vue'),
       meta: { requiresAuth: true }, 
       children: [
-
+        {
+          path: '/home',
+          alias: '',
+          component: () => import('@/components/user/Home.vue'),
+          meta: { requiresAuth: true }
+        },
         {
           path: '/profile',
           component: () => import('@/components/user/Profile.vue'),
