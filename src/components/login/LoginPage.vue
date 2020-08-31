@@ -1,17 +1,17 @@
 <template>
   <div class="background">
-    <div class="login-container p-4">
+    <div :class="{'min-width': $vuetify.breakpoint.mdAndUp}" class="login-container p-4">
       <router-link to="/">
         <img
           id="login-logo"
-          class="align-self-stretch mb-3"
+          class="mb-2"
           src="./../../assets/logo.svg"
-          style="z-index: 3;"
         />
       </router-link>
-      <h5 class="text-muted">Willkommen zurück</h5>
-      <div>Hattest du einen schönen Tag?</div>
-      <router-view class="mt-auto"></router-view>
+      <div class="m-3"></div>
+      <h5 id="welcome-header">Willkommen zurück</h5>
+      <div id="welcome-message">Hattest du einen schönen Tag?</div>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -29,7 +29,7 @@ export default {
 
 <style>
 #login-logo {
-  max-height: 4rem;
+  max-height: 4.5rem;
 }
 .login-container {
   background: inherit;
@@ -38,6 +38,7 @@ export default {
   background: inherit;
   overflow: hidden;
   z-index: 1;
+  border-radius: 0.25rem;
 }
 
 .login-container:before {
@@ -65,5 +66,14 @@ export default {
   height: 100vh;
   padding-bottom: 20vh;
   overflow: hidden;
+  image-rendering: crisp-edges;
+}
+
+.min-width {
+  min-width: 40rem;
+}
+
+#welcome-header, #welcome-message {
+  color: black;
 }
 </style>

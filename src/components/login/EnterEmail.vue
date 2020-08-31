@@ -47,14 +47,20 @@
       <div id="appleid-signin" class="col-md pb-0">
         <!-- Temporary span for using the tooltip on disabled elements -->
         <span tabindex="0" data-toggle="tooltip" title="Disabled tooltip">
-          <button type="button" class="third-party-login-button btn btn-large btn-block btn-dark btn-apple disabled">
+          <button
+            type="button"
+            class="third-party-login-button btn btn-large btn-block btn-dark btn-apple disabled"
+          >
             <font-awesome-icon class="mr-2" :icon="['fab', 'apple']" />
             <small>Weiter mit Apple</small>
           </button>
         </span>
       </div>
       <div class="col-md pb-0">
-        <button type="button" class="third-party-login-button btn btn-large btn-block btn-light disabled">
+        <button
+          type="button"
+          class="third-party-login-button btn btn-large btn-block btn-light disabled"
+        >
           <font-awesome-icon class="mr-2" :icon="['fab', 'microsoft']" />
           <small>Weiter mit Microsoft</small>
         </button>

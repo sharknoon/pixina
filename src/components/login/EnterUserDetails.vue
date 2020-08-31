@@ -1,10 +1,16 @@
 <template>
   <div>
-    <form class="mt-4" @submit="checkEmail" novalidate="true">
+    <form class="mt-2 text-left" @submit="checkUserDetails" novalidate="true">
       <div class="form-row">
         <div class="col-md-6">
           <label for="firstNameInput">Vorname</label>
-          <input type="text" id="firstNameInput" class="form-control" placeholder="z.B. Max" />
+          <input
+            v-model="first_name"
+            type="text"
+            id="firstNameInput"
+            class="form-control"
+            placeholder="z.B. Max"
+          />
           <div v-if="firstNameValidationFailed" class="text-danger">
             <small>Der Vorname ist ungültig</small>
           </div>
@@ -12,7 +18,13 @@
 
         <div class="col-md-6">
           <label for="lastNameInput">Nachname</label>
-          <input type="text" id="lastNameInput" class="form-control" placeholder="z.B. Mustermann" />
+          <input
+            v-model="last_name"
+            type="text"
+            id="lastNameInput"
+            class="form-control"
+            placeholder="z.B. Mustermann"
+          />
           <div v-if="lastNameValidationFailed" class="text-danger">
             <small>Der Nachname ist ungültig</small>
           </div>
@@ -20,78 +32,121 @@
       </div>
 
       <div class="form-row">
-        <div class="col-md-6">
+        <div class="col-md-6 pb-0">
           <label for="passwortInput1">Passwort</label>
-          <input type="password" id="passwortInput1" class="form-control" placeholder="Tipp: Nutze einen Passwort Manager!" />
-          <div  >
-            <small v-if="firstNameValidationFailed" class="text-danger">Das Passwort ist zu kurz</small>
-            <small v-else>Mindestens 8 Zeichen, einen Groß- und Kleinbuchstaben und eine Zahl</small>
-          </div>
+          <input
+            v-model="password_1"
+            type="password"
+            id="passwortInput1"
+            class="form-control"
+            placeholder="Tipp: Nutze einen Passwort Manager!"
+          />
         </div>
 
-        <div class="col-md-6">
-          <label for="passwortInput2">Passwort erneut eingeben</label>
-          <input type="password" id="passwortInput2" class="form-control" placeholder="Passwort muss identisch sein" />
-          <div v-if="lastNameValidationFailed" class="text-danger">
-            <small>Das Passwort ist nicht identisch</small>
-          </div>
+        <div class="col-md-6 pb-0">
+          <label for="passwortInput2">Passwort wiederholen</label>
+          <input
+            v-model="password_2"
+            type="password"
+            id="passwortInput2"
+            class="form-control"
+            placeholder="Passwort muss identisch sein"
+          />
+        </div>
+      </div>
+
+      <div class="col-12 p-0 pb-2">
+        <small
+          v-if="!firstNameValidationFailed"
+        >Mindestens 8 Zeichen, einen Groß- und Kleinbuchstaben und eine Zahl</small>
+        <small v-else class="text-danger">Das Passwort ist zu kurz oder nicht identisch</small>
+      </div>
+
+      <!-- Buttons -->
+      <div class="row text-left">
+        <!-- Back Button -->
+        <div class="col pb-0">
+          <button class="btn btn-outline-secondary" @click="goBack">Zurück</button>
+        </div>
+        <!-- Register Button -->
+        <div class="col-auto pb-0">
+          <button class="btn btn-primary" type="submit">
+            <font-awesome-icon class="mr-2" :icon="['fas', 'arrow-right']" />Registrieren
+          </button>
         </div>
       </div>
     </form>
-
-    <!-- Buttons -->
-    <div class="row mt-4">
-      <!-- Back Button -->
-      <div class="col">
-        <button class="btn btn-outline-secondary" @click="goBack">Zurück</button>
-      </div>
-      <!-- Register Button -->
-      <div class="col-auto">
-        <button class="btn btn-primary"><font-awesome-icon class="mr-2" :icon="['fas', 'arrow-right']" />Registrieren</button>
-      </div>
-    </div>
   </div>
 </template>
 
 
 <script>
+const bcrypt = require("bcryptjs");
+
 export default {
-  name: "EnterEmail",
+  name: "EnterUserDetails",
   data() {
     return {
-      validationFailed: false
+      firstNameValidationFailed: false,
+      lastNameValidationFailed: false,
+      passwordValidationFailed: false,
+      first_name: this.$store.state.first_name,
+      last_name: this.$store.state.last_name,
+      password_1: null,
+      password_2: null
     };
   },
   computed: {
-    email: {
-      get() {
-        return this.$store.state.email;
-      },
-      set(value) {
-        this.$store.commit("setEmailAddress", value);
-      }
+    hashed_password() {
+      return bcrypt.hashSync(this.password_1);
     }
   },
   methods: {
-    onSuccess(/*googleUser*/) {
-      this.$store.commit("setLoginState", 99);
-      this.$router.push("/");
-    },
-    onFailure(error) {
-      console.error("Login attempt error: " + error);
-    },
-    checkEmail(form) {
+    checkUserDetails(form) {
       form.preventDefault();
-      if (!this.email || !this.validEmail(this.email)) {
-        this.validationFailed = true;
-      } else {
-        this.$store.commit("setLoginState", 1);
-        this.$router.push("/login/enter-password");
+      var errors = false;
+      if (!this.first_name || !this.validFirstName(this.first_name)) {
+        this.firstNameValidationFailed = true;
+        errors = true;
+      }
+      if (!this.last_name || !this.validLastName(this.last_name)) {
+        this.lastNameValidationFailed = true;
+        errors = true;
+      }
+      if (
+        !this.password_1 ||
+        !this.password_2 ||
+        !this.validPassword(this.password_1, this.password_2)
+      ) {
+        this.passwordValidationFailed = true;
+        errors = true;
+      }
+      if (!errors) {
+        this.$store.commit("setLoginState", 3);
+        this.$router.push("/login/confirm-mail");
       }
     },
-    validEmail(email) {
-      var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+    validFirstName(name) {
+      var valid = this.validName(name);
+      this.firstNameValidationFailed = !valid;
+      return valid;
+    },
+    validLastName(name) {
+      var valid = this.validName(name);
+      this.lastNameValidationFailed = !valid;
+      return valid;
+    },
+    validName(name) {
+      return /([A-Za-z0-9. -]+)/.test(name);
+    },
+    validPassword(password_1, password_2) {
+      if (password_1 != password_2 || password_1.length < 6) {
+        this.passwordValidationFailed = true;
+        return false;
+      } else {
+        this.passwordValidationFailed = false;
+        return true;
+      }
     },
     goBack() {
       this.$router.go(-1);
@@ -101,10 +156,4 @@ export default {
 </script>
 
 <style>
-.btn-apple,
-.btn-apple:hover,
-.btn-apple:active,
-.btn-apple:visited {
-  background-color: #000000 !important;
-}
 </style>

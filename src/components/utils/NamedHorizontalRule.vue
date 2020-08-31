@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "Named Horizonzal Rule",
+  name: "NamedHorizonzalRule",
   props: {
     text: {
       type: String,
