@@ -27,7 +27,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #login-logo {
   max-height: 4.5rem;
 }
