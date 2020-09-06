@@ -31,6 +31,7 @@ import { faHistory } from '@fortawesome/pro-light-svg-icons'
 import { faCompass } from '@fortawesome/pro-light-svg-icons'
 import { faWrench } from '@fortawesome/pro-light-svg-icons'
 import { faPowerOff } from '@fortawesome/pro-light-svg-icons'
+import { faBoxCheck } from '@fortawesome/pro-light-svg-icons'
 import vuetify from '@/plugins/vuetify';
 
 library.add(
@@ -47,7 +48,8 @@ library.add(
   faHistory,
   faCompass,
   faWrench,
-  faPowerOff
+  faPowerOff,
+  faBoxCheck
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)

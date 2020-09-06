@@ -11,7 +11,7 @@
       </div>
       <!-- Items Area -->
       <router-link to="/" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" />Home
+        <div class="align-middle"><font-awesome-icon class="mr-2" :icon="['fal', 'home']" />Home</div>
       </router-link>
       <router-link to="/profile" class="router-link">
         <font-awesome-icon class="mr-2" :icon="['fal', 'user-circle']" />Profil
@@ -23,7 +23,7 @@
         <font-awesome-icon class="mr-2" :icon="['fal', 'comments']" />Chats
       </router-link>
       <router-link to="/reservations" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" />Reservierungen
+        <font-awesome-icon class="mr-2" :icon="['fal', 'box-check']" />Reservierungen
       </router-link>
       <router-link to="/place" class="router-link">
         <font-awesome-icon class="mr-2" :icon="['fal', 'image']" />Place
@@ -60,12 +60,13 @@
   }
 
   .router-link {
-    font-size: x-large;
-    color: black;
+    font-size: larger;
+    color: white;
     margin-right: -0.75rem;
     margin-left: 1.5rem;
     padding: 0.2rem 0 0.2rem 0.6rem;
-    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
     text-decoration: initial;
   }
 
