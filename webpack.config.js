@@ -1,3 +1,5 @@
+const GoogleFontsPlugin = require("google-fonts-webpack-plugin")
+
 module.exports = {
     module: {
       rules: [
@@ -13,5 +15,12 @@ module.exports = {
         }
       ]
     },
-    // plugin omitted
+    plugins: [
+      new GoogleFontsPlugin({
+          fonts: [
+              { family: "Kumbh Sans", variants: [ "300", "Regular", "700" ] },
+              { family: "Roboto", variants: [ "400", "700italic" ] }
+          ]
+      })
+  ]
   }

@@ -1,5 +1,7 @@
 <template>
-    <div>
-        Templates
-    </div>
+  <div>
+    <h2>Vorlagen</h2>
+  </div>
 </template>
+<script>
+</script>
