@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Connect to Production Host
-        run: sshpass -p "${{ secrets.SERVER_PASS }}" ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}
+        run: sshpass -p "${{ secrets.SERVER_PASS }}" ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p ${{ secrets.SERVER_PORT }}
         
       - name: Test Connection
         run: echo Test123  
