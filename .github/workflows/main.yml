@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Build and Push Docker Image
+name: Take Pixina live 🚀
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -12,7 +12,16 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Connect to Production Host
+        run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p ${{ secrets.SERVER_PASS }}
+        
+      - name: Test Connection
+        run: echo Test123  
+# This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -30,3 +39,4 @@ jobs:
         
       - name: Push Image to Registry
         run: docker push main:latest
+
