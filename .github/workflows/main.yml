@@ -22,10 +22,11 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: GithubPackages-Docker
-        uses: Kolkies/githubpackages-docker@master
-        with:
-          # Access token which is used to deploy the image to the repository. I advise to use GITHUB_TOKEN
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          # Name for the docker image
-          image-name: pixina
+      - name: Login to Github Package Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login -u ${{ GITHUB_ACTOR }} --password-stdin
+        
+      - name: Build Docker Image
+        run: docker build -t main:latest .
+        
+      - name: Push Image to Registry
+        run: docker push main:latest
