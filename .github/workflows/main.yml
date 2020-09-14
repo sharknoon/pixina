@@ -17,7 +17,7 @@ jobs:
     
     steps:
       - name: Connect to Production Host
-        run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p ${{ secrets.SERVER_PASS }}
+        run: ssh ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} -p "${{ secrets.SERVER_PASS }}"
         
       - name: Test Connection
         run: echo Test123  
