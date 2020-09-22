@@ -16,7 +16,7 @@
     "@fortawesome/pro-light-svg-icons": "^5.14.0",
     "@fortawesome/pro-regular-svg-icons": "^5.14.0",
     "@fortawesome/pro-solid-svg-icons": "^5.14.0",
-    "@fortawesome/vue-fontawesome": "^0.1.10",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
     "axios": "^0.20.0",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.2",
