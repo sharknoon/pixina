@@ -36,7 +36,7 @@ jobs:
       - name: Start new Container
         uses: garygrossgarten/github-action-ssh@release
         with:
-          command: echo ${{ secrets.GHCR_PAT }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin && sudo docker pull ghcr.io/sharknoon/pixina && sudo docker run -d --name pixina --network traefik-net --restart=always ghcr.io/sharknoon/pixina
+          command: echo ${{ secrets.GHCR_PAT }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin && sudo docker pull ghcr.io/sharknoon/pixina && sudo docker run -d --name pixina --network traefik-net -v pixina_config:/etc/nginx/conf.d --restart=always ghcr.io/sharknoon/pixina
           host: ${{ secrets.SERVER_HOST }}
           port: ${{ secrets.SERVER_PORT }}
           username: ${{ secrets.SERVER_USER }}
