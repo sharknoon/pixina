@@ -1,41 +1,42 @@
 <template>
-  <div class="row mx-0 h-100">
+  <div class="h-100 d-flex">
     <!-- Navigation Sidebar -->
     <div
       id="navigation-sidebar"
-      class="col-md-2 col-1 text-left h-100 d-flex flex-column background"
+      class="text-left h-100 d-none d-md-flex flex-column background p-2"
     >
       <!-- Logo Area -->
       <div class="ns-logo">
         <img id="navigation-logo" class="img-fluid mb-2" src="./../../assets/logo.svg" />
       </div>
       <!-- Items Area -->
-      <router-link to="/" class="router-link">
-        <div class="align-middle"><font-awesome-icon class="mr-2" :icon="['fal', 'home']" />Home</div>
+      <router-link to="/" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" /><span class="pt-2">Home</span>
       </router-link>
-      <router-link to="/profile" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'user-circle']" />Profil
+      <router-link to="/profile" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'user-circle']" /><span class="pt-2">Profil</span>
+        <i class="fas fa-10x fa-globe"></i>
       </router-link>
-      <router-link to="/templates" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" />Vorlagen
+      <router-link to="/templates" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" /><span class="pt-2">Vorlagen</span>
       </router-link>
-      <router-link to="/chats" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'comments']" />Chats
+      <router-link to="/chats" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'comments']" /><span class="pt-2">Chats</span>
       </router-link>
-      <router-link to="/reservations" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'box-check']" />Reservierungen
+      <router-link to="/reservations" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'box-check']" /><span class="pt-2">Reservierungen</span>
       </router-link>
-      <router-link to="/place" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'image']" />Place
+      <router-link to="/place" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'image']" /><span class="pt-2">Place</span>
       </router-link>
-      <router-link to="/history" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'history']" />Entstehung
+      <router-link to="/history" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'history']" /><span class="pt-2">Entstehung</span>
       </router-link>
-      <router-link to="/atlas" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'compass']" />Atlas
+      <router-link to="/atlas" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'compass']" /><span class="pt-2">Atlas</span>
       </router-link>
-      <router-link to="/tools" class="router-link">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'wrench']" />Werkzeuge
+      <router-link to="/tools" class="router-link d-flex align-items-center">
+        <font-awesome-icon class="mr-2" :icon="['fal', 'wrench']" /><span class="pt-2">Werkzeuge</span>
       </router-link>
       <!-- Footer Area -->
       <div class="ns-footer mt-auto">
@@ -53,6 +54,7 @@
 </template>
 <style scoped lang="scss">
 #navigation-sidebar {
+  min-width: 20rem;
   box-shadow: inset -0.5rem 0 2rem -0.5rem rgba(0, 0, 0, 0.15);
 
   * {
@@ -68,6 +70,10 @@
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
     text-decoration: initial;
+    text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
+    svg {
+      filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+    }
   }
 
   .router-link-exact-active {
@@ -75,6 +81,10 @@
     border-radius: 0.6rem 0 0 0.6rem;
     color: black;
     box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    text-shadow: none;
+    svg {
+      filter: none;
+    }
   }
 
   #navigation-logo {

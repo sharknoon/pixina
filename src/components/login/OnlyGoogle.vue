@@ -26,12 +26,11 @@
 import GoogleLogin from "vue-google-login";
 
 export default {
-  name: "EnterEmail",
+  name: "Google",
   data() {
     return {
-      validationFailed: false,
-      email: this.$store.state.email
-    };
+      
+    }
   },
   components: {
     GoogleLogin
