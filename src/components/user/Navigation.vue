@@ -1,10 +1,10 @@
 <template>
-  <div style="">
-    <div class="h-100 d-flex">
-      <!-- Navigation Sidebar Desktop-->
+  <div class="h-100">
+    <!-- Navigation Sidebar Desktop-->
+    <div class="h-100 d-none d-md-flex">
       <div
         id="navigation-sidebar"
-        class="text-left h-100 d-none d-md-flex flex-column background p-2"
+        class="text-left h-100 d-flex flex-column background p-2"
       >
         <!-- Logo Area -->
         <div class="ns-logo">
@@ -22,10 +22,10 @@
             :to="item.to"
             class="router-link d-flex align-items-center"
           >
-            <font-awesome-icon class="mr-2" :icon="item.icon" /><span
-              class="pt-2"
-              >{{ item.name }}</span
-            >
+            <font-awesome-icon class="mr-2" :icon="item.icon" />
+            <span class="pt-2">
+              {{ item.name }}
+            </span>
           </router-link>
         </nav>
         <!-- Footer Area -->
@@ -45,6 +45,50 @@
           </GoogleLogin>
         </div>
       </div>
+      <div id="main-content">
+        <router-view></router-view>
+      </div>
+    </div>
+    <div class="h-100 d-flex flex-column d-md-none">
+      <!-- Navigation bar Mobile -->
+      <nav
+        id="navigation-bar"
+        class="navbar navbar-expand-lg navbar-light p-2 background"
+      >
+        <!-- Logo Area -->
+        <img
+          id="navigation-logo"
+          class="img-fluid navbar-brand p-0"
+          src="./../../assets/images/logo-white.svg"
+        />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li v-for="item in items" :key="item.name" class="nav-item active">
+              <router-link
+                :to="item.to"
+                class="nav-link router-link d-flex align-items-center"
+              >
+                <font-awesome-icon class="mr-2" :icon="item.icon" />
+                <span class="pt-2">
+                  {{ item.name }}
+                </span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+      </nav>
       <div id="main-content">
         <router-view></router-view>
       </div>
@@ -196,29 +240,56 @@ export default {
     margin-left: 1.5rem;
     filter: drop-shadow(0rem 0.25rem 1.5rem rgba(0, 0, 0, 0.95));
   }
+
+  &.background {
+    background: url("./../../assets/images/background.jpg") no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: left;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+
+  &.background:before {
+    content: "";
+    position: absolute;
+    background: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+    filter: blur(10px);
+    margin: -20px;
+  }
 }
 
-.background {
-  background: url("./../../assets/images/background.jpg") no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  background-position: center;
-  height: 100%;
-  overflow: hidden;
-  image-rendering: crisp-edges;
-  position: relative;
-}
+#navigation-bar {
+  z-index: 1;
+  #navigation-logo {
+    max-height: 2.5rem;
+  }
 
-.background:before {
-  content: "";
-  position: absolute;
-  background: inherit;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-  filter: blur(10px);
-  margin: -20px;
+  &.background {
+    background: url("./../../assets/images/background.jpg") no-repeat;
+    background-size: cover;
+    background-position: top;
+    overflow: hidden;
+  }
+
+    &.background:before {
+    content: "";
+    position: absolute;
+    background: inherit;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
+    filter: blur(10px);
+    margin: -20px;
+    z-index: -1;
+  }
 }
 </style>

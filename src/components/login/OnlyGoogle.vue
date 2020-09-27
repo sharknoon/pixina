@@ -1,7 +1,6 @@
 <template>
   <div>
-
-  <div class="m-4"></div>
+    <div class="m-4"></div>
 
     <div class="row">
       <div class="col-md pb-0">
@@ -15,7 +14,6 @@
           <small>Anmelden mit Google</small>
         </GoogleLogin>
       </div>
-
     </div>
   </div>
 </template>
@@ -28,12 +26,10 @@ import GoogleLogin from "vue-google-login";
 export default {
   name: "Google",
   data() {
-    return {
-      
-    }
+    return {};
   },
   components: {
-    GoogleLogin
+    GoogleLogin,
   },
   methods: {
     onSuccess(/*googleUser*/) {
@@ -57,8 +53,8 @@ export default {
     validEmail(email) {
       var re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
       return re.test(email);
-    }
-  }
+    },
+  },
 };
 </script>
 

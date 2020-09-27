@@ -39,6 +39,7 @@ export default {
   overflow: hidden;
   z-index: 1;
   border-radius: 0.25rem;
+  text-align: center;
 }
 
 .login-container:before {
