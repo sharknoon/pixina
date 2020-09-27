@@ -12,6 +12,8 @@ import Pixina from '@/Pixina.vue'
 // Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+//Vuetify
+import vuetify from '@/plugins/vuetify'
 
 ///////////////////////////////////////////
 //             FontAwesome               //
@@ -22,17 +24,6 @@ import { faGoogle } from '@fortawesome/free-brands-svg-icons'
 import { faApple } from '@fortawesome/free-brands-svg-icons'
 import { faMicrosoft } from '@fortawesome/free-brands-svg-icons'
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons'
-import { faHome } from '@fortawesome/pro-light-svg-icons'
-import { faUserCircle } from '@fortawesome/pro-light-svg-icons'
-import { faTh } from '@fortawesome/free-solid-svg-icons'
-import { faComments } from '@fortawesome/pro-light-svg-icons'
-import { faImage } from '@fortawesome/pro-light-svg-icons'
-import { faHistory } from '@fortawesome/pro-light-svg-icons'
-import { faCompass } from '@fortawesome/pro-light-svg-icons'
-import { faWrench } from '@fortawesome/pro-light-svg-icons'
-import { faPowerOff } from '@fortawesome/pro-light-svg-icons'
-import { faBoxCheck } from '@fortawesome/pro-light-svg-icons'
-import vuetify from '@/plugins/vuetify';
 
 library.add(
   faEnvelope,
@@ -40,16 +31,6 @@ library.add(
   faApple,
   faMicrosoft,
   faArrowRight,
-  faHome,
-  faUserCircle,
-  faTh,
-  faComments,
-  faImage,
-  faHistory,
-  faCompass,
-  faWrench,
-  faPowerOff,
-  faBoxCheck
 )
 
 Vue.component('font-awesome-icon', FontAwesomeIcon)
@@ -69,6 +50,9 @@ const store = new Vuex.Store({
     // 3 = confirm email
     // 99 = logged in
     loginState: 0,
+    // google
+    // facebook
+    identityProvier: null,
     // The E-Mail the user has entered
     email: null,
     // The user registration data
@@ -81,6 +65,9 @@ const store = new Vuex.Store({
   getters: {
     isLoggedIn: state => {
       return state.loginState == 99
+    },
+    isGoogleIdentityProvider: state => {
+      return state.identityProvier == "google"
     }
   },
   mutations: {
@@ -89,6 +76,9 @@ const store = new Vuex.Store({
     },
     setEmailAddress(state, email) {
       state.email = email
+    },
+    setIdentityProvier(state, provider){
+      state.identityProvier = provider
     }
   }
 })

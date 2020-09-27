@@ -37,6 +37,7 @@ export default {
   },
   methods: {
     onSuccess(/*googleUser*/) {
+      this.$store.commit("setIdentityProvier", "google");
       this.$store.commit("setLoginState", 99);
       this.$router.push("/");
     },

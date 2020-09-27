@@ -16,13 +16,11 @@ var _fontawesomeSvgCore = require("@fortawesome/fontawesome-svg-core");
 
 var _vueFontawesome = require("@fortawesome/vue-fontawesome");
 
+var _vuetify = _interopRequireDefault(require("@/plugins/vuetify"));
+
 var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
 
 var _freeBrandsSvgIcons = require("@fortawesome/free-brands-svg-icons");
-
-var _proLightSvgIcons = require("@fortawesome/pro-light-svg-icons");
-
-var _vuetify = _interopRequireDefault(require("@/plugins/vuetify"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -32,7 +30,7 @@ function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return 
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { "default": obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj["default"] = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
-_fontawesomeSvgCore.library.add(_freeSolidSvgIcons.faEnvelope, _freeBrandsSvgIcons.faGoogle, _freeBrandsSvgIcons.faApple, _freeBrandsSvgIcons.faMicrosoft, _freeSolidSvgIcons.faArrowRight, _proLightSvgIcons.faHome, _proLightSvgIcons.faUserCircle, _freeSolidSvgIcons.faTh, _proLightSvgIcons.faComments, _proLightSvgIcons.faImage, _proLightSvgIcons.faHistory, _proLightSvgIcons.faCompass, _proLightSvgIcons.faWrench, _proLightSvgIcons.faPowerOff, _proLightSvgIcons.faBoxCheck);
+_fontawesomeSvgCore.library.add(_freeSolidSvgIcons.faEnvelope, _freeBrandsSvgIcons.faGoogle, _freeBrandsSvgIcons.faApple, _freeBrandsSvgIcons.faMicrosoft, _freeSolidSvgIcons.faArrowRight);
 
 _vue["default"].component('font-awesome-icon', _vueFontawesome.FontAwesomeIcon); ///////////////////////////////////////////
 //                Vuex                   //
@@ -49,6 +47,9 @@ var store = new _vuex["default"].Store({
     // 3 = confirm email
     // 99 = logged in
     loginState: 0,
+    // google
+    // facebook
+    identityProvier: null,
     // The E-Mail the user has entered
     email: null,
     // The user registration data
@@ -61,6 +62,9 @@ var store = new _vuex["default"].Store({
   getters: {
     isLoggedIn: function isLoggedIn(state) {
       return state.loginState == 99;
+    },
+    isGoogleIdentityProvider: function isGoogleIdentityProvider(state) {
+      return state.identityProvier == "google";
     }
   },
   mutations: {
@@ -69,6 +73,9 @@ var store = new _vuex["default"].Store({
     },
     setEmailAddress: function setEmailAddress(state, email) {
       state.email = email;
+    },
+    setIdentityProvier: function setIdentityProvier(state, provider) {
+      state.identityProvier = provider;
     }
   }
 }); ///////////////////////////////////////////

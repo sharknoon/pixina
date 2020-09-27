@@ -1,57 +1,161 @@
 <template>
-  <div class="h-100 d-flex">
-    <!-- Navigation Sidebar -->
-    <div
-      id="navigation-sidebar"
-      class="text-left h-100 d-none d-md-flex flex-column background p-2"
-    >
-      <!-- Logo Area -->
-      <div class="ns-logo">
-        <img id="navigation-logo" class="img-fluid mb-2" src="./../../assets/logo.svg" />
+  <div style="">
+    <div class="h-100 d-flex">
+      <!-- Navigation Sidebar Desktop-->
+      <div
+        id="navigation-sidebar"
+        class="text-left h-100 d-none d-md-flex flex-column background p-2"
+      >
+        <!-- Logo Area -->
+        <div class="ns-logo">
+          <img
+            id="navigation-logo"
+            class="img-fluid mb-2"
+            src="./../../assets/images/logo-white.svg"
+          />
+        </div>
+        <!-- Items Area -->
+        <nav>
+          <router-link
+            v-for="item in items"
+            :key="item.name"
+            :to="item.to"
+            class="router-link d-flex align-items-center"
+          >
+            <font-awesome-icon class="mr-2" :icon="item.icon" /><span
+              class="pt-2"
+              >{{ item.name }}</span
+            >
+          </router-link>
+        </nav>
+        <!-- Footer Area -->
+        <div class="ns-footer mt-auto">
+          <GoogleLogin
+            v-if="this.$store.getters.isGoogleIdentityProvider"
+            class="btn btn-danger btn-block"
+            :params="{ client_id: this.$store.state.googleClientId }"
+            :onSuccess="onSuccess"
+            :onFailure="onFailure"
+            :logoutButton="true"
+          >
+            <font-awesome-icon
+              class="mr-2"
+              :icon="['fal', 'power-off']"
+            />Abmelden
+          </GoogleLogin>
+        </div>
       </div>
-      <!-- Items Area -->
-      <router-link to="/" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" /><span class="pt-2">Home</span>
-      </router-link>
-      <router-link to="/profile" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'user-circle']" /><span class="pt-2">Profil</span>
-        <i class="fas fa-10x fa-globe"></i>
-      </router-link>
-      <router-link to="/templates" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'home']" /><span class="pt-2">Vorlagen</span>
-      </router-link>
-      <router-link to="/chats" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'comments']" /><span class="pt-2">Chats</span>
-      </router-link>
-      <router-link to="/reservations" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'box-check']" /><span class="pt-2">Reservierungen</span>
-      </router-link>
-      <router-link to="/place" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'image']" /><span class="pt-2">Place</span>
-      </router-link>
-      <router-link to="/history" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'history']" /><span class="pt-2">Entstehung</span>
-      </router-link>
-      <router-link to="/atlas" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'compass']" /><span class="pt-2">Atlas</span>
-      </router-link>
-      <router-link to="/tools" class="router-link d-flex align-items-center">
-        <font-awesome-icon class="mr-2" :icon="['fal', 'wrench']" /><span class="pt-2">Werkzeuge</span>
-      </router-link>
-      <!-- Footer Area -->
-      <div class="ns-footer mt-auto">
-        <router-link to="/logout">
-          <div class="btn btn-danger btn-block">
-            <font-awesome-icon class="mr-2" :icon="['fal', 'power-off']" />Abmelden
-          </div>
-        </router-link>
+      <div id="main-content">
+        <router-view></router-view>
       </div>
-    </div>
-    <div id="main-content">
-      <router-view></router-view>
     </div>
   </div>
 </template>
+<script>
+//Logout Buttons
+import GoogleLogin from "vue-google-login";
+// Fontawesome
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faHome } from "@fortawesome/pro-light-svg-icons";
+import { faUserCircle } from "@fortawesome/pro-light-svg-icons";
+import { faBoxCheck } from "@fortawesome/pro-light-svg-icons";
+import { faBookOpen } from "@fortawesome/pro-light-svg-icons";
+import { faComments } from "@fortawesome/pro-light-svg-icons";
+import { faImage } from "@fortawesome/pro-light-svg-icons";
+import { faHistory } from "@fortawesome/pro-light-svg-icons";
+import { faCompass } from "@fortawesome/pro-light-svg-icons";
+import { faWrench } from "@fortawesome/pro-light-svg-icons";
+import { faPowerOff } from "@fortawesome/pro-light-svg-icons";
+
+library.add(
+  faHome,
+  faUserCircle,
+  faBookOpen,
+  faComments,
+  faBoxCheck,
+  faImage,
+  faHistory,
+  faCompass,
+  faWrench,
+  faPowerOff
+);
+
+export default {
+  name: "Navigation",
+  data() {
+    return {
+      items: [
+        {
+          name: "Home",
+          icon: ["fal", "home"],
+          to: "/",
+        },
+        {
+          name: "Profil",
+          icon: ["fal", "user-circle"],
+          to: "/profile",
+        },
+        {
+          name: "Vorlagen",
+          icon: ["fal", "book-open"],
+          to: "/templates",
+        },
+        {
+          name: "Chats",
+          icon: ["fal", "comments"],
+          to: "/chats",
+        },
+        {
+          name: "Reservierungen",
+          icon: ["fal", "box-check"],
+          to: "/reservations",
+        },
+        {
+          name: "Place",
+          icon: ["fal", "image"],
+          to: "/place",
+        },
+        {
+          name: "Entstehung",
+          icon: ["fal", "history"],
+          to: "/history",
+        },
+        {
+          name: "Atlas",
+          icon: ["fal", "compass"],
+          to: "/atlas",
+        },
+        {
+          name: "Werkzeuge",
+          icon: ["fal", "wrench"],
+          to: "/tools",
+        },
+      ],
+    };
+  },
+  components: {
+    GoogleLogin,
+  },
+  methods: {
+    logout() {
+      let idendityProvider = this.$store.state.identityProvier;
+      switch (idendityProvider) {
+        case "google":
+          console.log("Google Logout TODO");
+          break;
+      }
+    },
+    onSuccess(/*googleUser*/) {
+      this.$store.commit("setIdentityProvier", null);
+      this.$store.commit("setLoginState", 0);
+      this.$router.push("/login");
+    },
+    onFailure(error) {
+      console.error("Login attempt error: " + error);
+    },
+  },
+};
+</script>
 <style scoped lang="scss">
 #navigation-sidebar {
   min-width: 20rem;
@@ -81,24 +185,25 @@
     border-radius: 0.6rem 0 0 0.6rem;
     color: black;
     box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    text-shadow: none;
+    text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
     svg {
-      filter: none;
+      filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
     }
   }
 
   #navigation-logo {
     max-height: 4.5rem;
     margin-left: 1.5rem;
+    filter: drop-shadow(0rem 0.25rem 1.5rem rgba(0, 0, 0, 0.95));
   }
 }
 
 .background {
-  background: url("./../../assets/background.jpg") no-repeat;
+  background: url("./../../assets/images/background.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   image-rendering: crisp-edges;
   position: relative;

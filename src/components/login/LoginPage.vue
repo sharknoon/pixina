@@ -5,7 +5,7 @@
         <img
           id="login-logo"
           class="mb-2"
-          src="./../../assets/logo.svg"
+          src="./../../assets/images/logo.svg"
         />
       </router-link>
       <div class="m-3"></div>
@@ -56,15 +56,15 @@ export default {
 }
 
 .background {
-  background: url("./../../assets/background.jpg") no-repeat;
+  background: url("./../../assets/images/background.jpg") no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
   display: grid;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  padding-bottom: 20vh;
+  height: 100%;
+  padding-bottom: 20%;
   overflow: hidden;
   image-rendering: crisp-edges;
 }
