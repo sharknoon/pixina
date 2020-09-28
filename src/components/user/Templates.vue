@@ -1,19 +1,14 @@
 <template>
-  <div class="h-100">
-    <div class="h-100 overflow-auto p-4">
-      <v-photoswipe-gallery
-        :isOpen="isOpenGallery"
-        :options="optionsGallery"
-        :items="items"
-      >
-        <img
-          slot-scope="props"
-          :src="props.item.src"
-          alt="picture"
-          class="p-2"
-        />
-      </v-photoswipe-gallery>
-    </div>
+  <div>
+    <!-- TODO -->
+    <v-photoswipe-gallery
+      class="p-0"
+      :isOpen="isOpenGallery"
+      :options="optionsGallery"
+      :items="items"
+    >
+      <img slot-scope="props" :src="props.item.src" alt="picture" class="p-2" />
+    </v-photoswipe-gallery>
     <v-photoswipe
       :isOpen="isOpen"
       :items="items"

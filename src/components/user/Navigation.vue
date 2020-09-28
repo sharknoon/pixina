@@ -1,10 +1,10 @@
 <template>
   <div class="h-100">
     <!-- Navigation Sidebar Desktop-->
-    <div class="h-100 d-none d-md-flex">
+    <div class="d-none d-md-flex h-100">
       <div
         id="navigation-sidebar"
-        class="text-left h-100 d-flex flex-column background p-2"
+        class="text-left d-flex flex-column background p-2"
       >
         <!-- Logo Area -->
         <div class="ns-logo">
@@ -45,22 +45,24 @@
           </GoogleLogin>
         </div>
       </div>
-      <div id="main-content">
+      <div id="main-content" class="overflow-auto">
         <router-view></router-view>
       </div>
     </div>
-    <div class="h-100 d-flex flex-column d-md-none">
+    <div class="h-100 d-md-none">
       <!-- Navigation bar Mobile -->
       <nav
         id="navigation-bar"
         class="navbar navbar-expand-lg navbar-light p-2 background"
       >
         <!-- Logo Area -->
-        <img
-          id="navigation-logo"
-          class="img-fluid navbar-brand p-0"
-          src="./../../assets/images/logo-white.svg"
-        />
+        <router-link class="navbar-brand p-0" to="/">
+          <img
+            id="navigation-logo"
+            class="img-fluid"
+            src="./../../assets/images/logo-white.svg"
+          />
+        </router-link>
         <button
           class="navbar-toggler"
           type="button"
@@ -74,11 +76,13 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto">
+          <ul class="navbar-nav mr-auto pt-2">
             <li v-for="item in items" :key="item.name" class="nav-item active">
               <router-link
                 :to="item.to"
                 class="nav-link router-link d-flex align-items-center"
+                data-toggle="collapse"
+                data-target=".navbar-collapse"
               >
                 <font-awesome-icon class="mr-2" :icon="item.icon" />
                 <span class="pt-2">
@@ -86,10 +90,21 @@
                 </span>
               </router-link>
             </li>
+            <li>
+              <router-link
+                to="/login"
+                class="nav-link router-link d-flex align-items-center sign-out-router-link bg-danger text-white"
+                data-toggle="collapse"
+                data-target=".navbar-collapse"
+              >
+                <font-awesome-icon class="mr-2" :icon="['fal', 'power-off']" />
+                <span class="pt-2">Abmelden</span>
+              </router-link>
+            </li>
           </ul>
         </div>
       </nav>
-      <div id="main-content">
+      <div id="main-content" class="mh-100 overflow-auto">
         <router-view></router-view>
       </div>
     </div>
@@ -267,8 +282,40 @@ export default {
 
 #navigation-bar {
   z-index: 1;
+
+  .router-link:not(.navbar-brand) {
+    font-size: larger;
+    color: white;
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+    text-decoration: initial;
+    text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
+    svg {
+      filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+    }
+  }
+
+  .router-link-exact-active:not(.navbar-brand) {
+    background: white;
+    border-radius: 0.6rem;
+    color: black;
+    box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
+    svg {
+      filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
+    }
+  }
+
+  .sign-out-router-link {
+    @extend .router-link-exact-active;
+  }
+
   #navigation-logo {
     max-height: 2.5rem;
+    filter: drop-shadow(0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95));
   }
 
   &.background {
@@ -278,7 +325,7 @@ export default {
     overflow: hidden;
   }
 
-    &.background:before {
+  &.background:before {
     content: "";
     position: absolute;
     background: inherit;

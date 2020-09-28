@@ -18,6 +18,8 @@ var _vueFontawesome = require("@fortawesome/vue-fontawesome");
 
 var _vuetify = _interopRequireDefault(require("@/plugins/vuetify"));
 
+var _vuexPersistedstate = _interopRequireDefault(require("vuex-persistedstate"));
+
 var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
 
 var _freeBrandsSvgIcons = require("@fortawesome/free-brands-svg-icons");
@@ -40,6 +42,7 @@ _vue["default"].component('font-awesome-icon', _vueFontawesome.FontAwesomeIcon);
 _vue["default"].use(_vuex["default"]);
 
 var store = new _vuex["default"].Store({
+  plugins: [(0, _vuexPersistedstate["default"])()],
   state: {
     // 0 = enter email or single signin
     // 1 = enter password
@@ -85,6 +88,7 @@ var store = new _vuex["default"].Store({
 _vue["default"].use(_vueRouter["default"]);
 
 var router = new _vueRouter["default"]({
+  //mode: history,
   routes: [{
     path: '/',
     component: function component() {

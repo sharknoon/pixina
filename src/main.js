@@ -12,8 +12,10 @@ import Pixina from '@/Pixina.vue'
 // Fontawesome
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-//Vuetify
+// Vuetify
 import vuetify from '@/plugins/vuetify'
+// VueX Persisted State
+import createPersistedState from "vuex-persistedstate";
 
 ///////////////////////////////////////////
 //             FontAwesome               //
@@ -43,6 +45,7 @@ Vue.component('font-awesome-icon', FontAwesomeIcon)
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
+  plugins: [createPersistedState()],
   state: {
     // 0 = enter email or single signin
     // 1 = enter password
@@ -90,6 +93,7 @@ const store = new Vuex.Store({
 Vue.use(VueRouter)
 
 const router = new VueRouter({
+  //mode: history,
   routes: [
     {
       path: '/',
