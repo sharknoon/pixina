@@ -49,11 +49,11 @@
         <router-view></router-view>
       </div>
     </div>
-    <div class="h-100 d-md-none">
+    <div class="h-100 d-md-none d-flex flex-column justify-content-center">
       <!-- Navigation bar Mobile -->
       <nav
         id="navigation-bar"
-        class="navbar navbar-expand-lg navbar-light p-2 background"
+        class="navbar navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
       >
         <!-- Logo Area -->
         <router-link class="navbar-brand p-0" to="/">
@@ -104,7 +104,7 @@
           </ul>
         </div>
       </nav>
-      <div id="main-content" class="mh-100 overflow-auto">
+      <div id="main-content" class="overflow-auto">
         <router-view></router-view>
       </div>
     </div>

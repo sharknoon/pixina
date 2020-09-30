@@ -1,13 +1,12 @@
 <template>
   <div>
-    <!-- TODO -->
     <v-photoswipe-gallery
-      class="p-0"
+      class="p-2"
       :isOpen="isOpenGallery"
       :options="optionsGallery"
       :items="items"
     >
-      <img slot-scope="props" :src="props.item.src" alt="picture" class="p-2" />
+      <img slot-scope="props" :src="props.item.src_template" alt="picture" class="p-2" height="150px" />
     </v-photoswipe-gallery>
     <v-photoswipe
       :isOpen="isOpen"
@@ -47,6 +46,9 @@ export default {
     getTemplateUrl(number) {
       return require("./../../assets/templates/" + number + ".png");
     },
+    getDetailedTemplateUrl(number) {
+      return require("./../../assets/templates/" + number + "-detailed.png");
+    },
     pad(num, size) {
       var s = num + "";
       while (s.length < size) s = "0" + s;
@@ -57,7 +59,8 @@ export default {
     this.items = [];
     for (let index = 0; index < 500; index++) {
       let item = {
-        src: this.getTemplateUrl(index),
+        src_template: this.getTemplateUrl(index),
+        src: this.getDetailedTemplateUrl(index),
         w: 5000,
         h: 4000,
         title: "Bild Nr. " + index,
@@ -68,7 +71,13 @@ export default {
 };
 </script>
 <style>
-.pswp__img {
+.pswp-thumbnails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.pswp__img, .pswp-thumbnail {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
