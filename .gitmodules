@@ -1,0 +1,3 @@
+[submodule "src/submodules/place-atlas"]
+	path = src/submodules/place-atlas
+	url = https://github.com/RolandR/place-atlas.git
