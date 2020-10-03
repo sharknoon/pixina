@@ -6,13 +6,16 @@
       :options="optionsGallery"
       :items="items"
     >
-      <img
-        slot-scope="props"
-        :src="props.item.src_template"
-        alt="picture"
-        class="p-2"
-        height="75px"
-      />
+      <div class="thumbnail-container" slot-scope="props">
+        <img
+          :src="props.item.src_template"
+          alt="picture"
+          width="75px"
+        />
+        <div class="thumbnail-footer">
+          {{ getTemplateTitle(props.item.number, false) }}
+        </div>
+      </div>
     </v-photoswipe-gallery>
     <v-photoswipe
       :isOpen="isOpen"
@@ -35,12 +38,12 @@ export default {
       isOpen: false,
       isOpenGallery: false,
       options: {
-        index: 0
+        index: 0,
       },
       optionsGallery: {
         counterEl: false,
         arrowEl: false,
-        loop: false
+        loop: false,
       },
       items: [],
     };
@@ -60,28 +63,42 @@ export default {
       return require("./../../assets/templates/" + number + "-detailed.png");
     },
     getCoordinates(number) {
-      let x = number % 20
-      let y = Math.floor(number / 20)
-      return [x,y]
-    }
+      let x = number % 20;
+      let y = Math.floor(number / 20);
+      return [x, y];
+    },
+    getTemplateTitle(number, long = true) {
+      let coordinates = this.getCoordinates(number);
+      let short = number +
+        " (" +
+        coordinates[0] +
+        "|" +
+        coordinates[1] +
+        ")";
+        if (long) {
+          return "Bild Nr. " + short;
+        }else{
+          return short;
+        }
+    },
   },
   created() {
     this.items = [];
     for (let index = 0; index < 500; index++) {
-      let coordinates = this.getCoordinates(index)
       let item = {
         src_template: this.getTemplateUrl(index),
         src: this.getDetailedTemplateUrl(index),
         w: 5000,
         h: 4000,
-        title: "Bild Nr. " + index + " (" + coordinates[0] + "|" + coordinates[1] + ")",
+        title: this.getTemplateTitle(index),
+        number: index
       };
       this.items.push(item);
     }
   },
 };
 </script>
-<style>
+<style lang=scss>
 .pswp-thumbnails {
   display: flex;
   flex-wrap: wrap;
@@ -95,9 +112,26 @@ export default {
   image-rendering: crisp-edges;
 }
 .pswp__caption__center {
-  text-align: center;
+  text-align: center !important;
 }
 html {
   overflow: hidden;
+}
+.pswp-thumbnail {
+  .thumbnail-container {
+    position: relative;
+    margin: 0.5rem;
+  }
+
+  .thumbnail-footer {
+    position: absolute; /* Position the background text */
+    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+    /* Black background with 0.5 opacity */
+    background: rgba(255, 255, 255, 0.7);
+    width: 100%; /* Full width */
+    padding: 0.1rem; /* Some padding */
+    color: black;
+    font-size: small;
+  }
 }
 </style>
