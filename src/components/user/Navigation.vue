@@ -49,7 +49,7 @@
         <router-view></router-view>
       </div>
     </div>
-    <div class="h-100 d-md-none d-flex flex-column justify-content-center">
+    <div class="h-100 d-md-none d-flex flex-column">
       <!-- Navigation bar Mobile -->
       <nav
         id="navigation-bar"
