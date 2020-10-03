@@ -1,6 +1,9 @@
 <template>
   <div class="background">
-    <div :class="{'min-width': $vuetify.breakpoint.mdAndUp}" class="login-container p-4">
+    <div
+      :class="{ 'min-width': $vuetify.breakpoint.mdAndUp }"
+      class="login-container p-4"
+    >
       <router-link to="/">
         <img
           id="login-logo"
@@ -22,8 +25,8 @@ export default {
   methods: {
     changeState(newState) {
       this.$store.commit("setLoginState", newState);
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -31,29 +34,13 @@ export default {
 #login-logo {
   max-height: 4.5rem;
 }
-.login-container {
-  background: inherit;
-  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
-  position: relative;
-  background: inherit;
-  overflow: hidden;
-  z-index: 1;
-  border-radius: 0.25rem;
-  text-align: center;
-}
 
-.login-container:before {
-  content: "";
-  position: absolute;
-  background: inherit;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-  filter: blur(10px);
-  margin: -20px;
-  z-index: -1;
+.login-container {
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+    border-radius: 0.25rem;
+    text-align: center;
+    margin-bottom: 50%;
 }
 
 .background {
@@ -65,16 +52,14 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  padding-bottom: 20%;
-  overflow: hidden;
-  image-rendering: crisp-edges;
 }
 
 .min-width {
   min-width: 40rem;
 }
 
-#welcome-header, #welcome-message {
+#welcome-header,
+#welcome-message {
   color: black;
 }
 </style>

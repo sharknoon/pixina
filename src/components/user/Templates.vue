@@ -38,12 +38,12 @@ export default {
       isOpen: false,
       isOpenGallery: false,
       options: {
-        index: 0,
+        index: 0
       },
       optionsGallery: {
         counterEl: false,
         arrowEl: false,
-        loop: false,
+        loop: false
       },
       items: [],
     };
@@ -113,9 +113,6 @@ export default {
 }
 .pswp__caption__center {
   text-align: center !important;
-}
-html {
-  overflow: hidden;
 }
 .pswp-thumbnail {
   .thumbnail-container {

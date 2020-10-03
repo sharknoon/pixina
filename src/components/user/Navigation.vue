@@ -45,7 +45,7 @@
           </GoogleLogin>
         </div>
       </div>
-      <div id="main-content" class="overflow-auto">
+      <div id="main-content" class="overflow-auto w-100 h-100">
         <router-view></router-view>
       </div>
     </div>
@@ -104,7 +104,7 @@
           </ul>
         </div>
       </nav>
-      <div id="main-content" class="overflow-auto">
+      <div id="main-content" class="overflow-auto w-100 h-100">
         <router-view></router-view>
       </div>
     </div>
@@ -227,7 +227,7 @@ export default {
   .router-link {
     font-size: larger;
     color: white;
-    margin-right: -0.75rem;
+    margin-right: -0.5rem;
     margin-left: 1.5rem;
     padding: 0.2rem 0 0.2rem 0.6rem;
     margin-top: 0.25rem;
@@ -257,27 +257,12 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background.jpg") no-repeat;
+    background: url("./../../assets/images/background-blurry.jpg") no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: left;
-    height: 100%;
-    overflow: hidden;
-    position: relative;
   }
 
-  &.background:before {
-    content: "";
-    position: absolute;
-    background: inherit;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-    filter: blur(10px);
-    margin: -20px;
-  }
 }
 
 #navigation-bar {
@@ -319,24 +304,10 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background.jpg") no-repeat;
+    background: url("./../../assets/images/background-blurry.jpg") no-repeat;
     background-size: cover;
     background-position: top;
-    overflow: hidden;
   }
 
-  &.background:before {
-    content: "";
-    position: absolute;
-    background: inherit;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.5);
-    filter: blur(10px);
-    margin: -20px;
-    z-index: -1;
-  }
 }
 </style>
