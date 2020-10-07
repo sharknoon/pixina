@@ -38,7 +38,7 @@ export default {
       this.$router.push("/");
     },
     onFailure(error) {
-      console.error("Login attempt error: " + error);
+      console.error("Login attempt error: " + JSON.stringify(error));
     },
     checkEmail(form) {
       form.preventDefault();
