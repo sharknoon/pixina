@@ -1,18 +1,6 @@
 <template>
-  <div class="iframe-container">
-    <iframe src="submodules/place-atlas/web/index.html"></iframe>
-  </div>
+  <iframe class="w-100 h-100 border-0" src="./place-atlas/web/index.html"></iframe>
 </template>
-<style scoped>
-.iframe-container {
-  overflow: hidden;
-  height: 100%;
-  width: 100%;
-}
-
-iframe {
-  border: 0rem;
-  height: 100%;
-  width: 100%;
-}
-</style>
+<script>
+//src="~html/place-atlas/web/index.html"
+</script>

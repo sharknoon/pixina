@@ -36,11 +36,17 @@ export default {
 }
 
 .login-container {
-  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(10px);
-    border-radius: 0.25rem;
-    text-align: center;
-    margin-bottom: 50%;
+  border-radius: 0.25rem;
+  text-align: center;
+  margin-bottom: 50%;
+  box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.8);
+}
+
+@supports (backdrop-filter: none) {
+  .login-container {
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.7);
+  }
 }
 
 .background {

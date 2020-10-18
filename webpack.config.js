@@ -16,7 +16,7 @@ module.exports = {
         use: [
           'file-loader',
         ]
-      }
+      },
     ]
   }
 }
