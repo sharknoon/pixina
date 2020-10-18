@@ -1,8 +1,8 @@
 name: Build & Deploy
 on:
   push:
-    tags:
-      - '*'
+    branches:
+    - master
 
 jobs:
   build:
