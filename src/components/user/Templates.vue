@@ -57,10 +57,10 @@ export default {
       this.isOpen = false;
     },
     getTemplateUrl(number) {
-      return require("./../../assets/images/templates/" + number + ".png");
+      return require("./../../assets/images/templates/" + number + ".webp");
     },
     getDetailedTemplateUrl(number) {
-      return require("./../../assets/images/templates/" + number + "-detailed.png");
+      return require("./../../assets/images/templates/" + number + "-detailed.webp");
     },
     getCoordinates(number) {
       let x = number % 20;
