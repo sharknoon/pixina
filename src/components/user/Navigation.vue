@@ -257,7 +257,7 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background-blurry.jpg") no-repeat;
+    background: url("./../../assets/images/background-blurry.webp") no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: left;
@@ -304,7 +304,7 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background-blurry.jpg") no-repeat;
+    background: url("./../../assets/images/background-blurry.webp") no-repeat;
     background-size: cover;
     background-position: top;
   }

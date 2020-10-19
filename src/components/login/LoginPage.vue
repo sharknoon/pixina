@@ -50,7 +50,7 @@ export default {
 }
 
 .background {
-  background: url("./../../assets/images/background.jpg") no-repeat;
+  background: url("./../../assets/images/background.webp") no-repeat;
   background-size: cover;
   background-attachment: fixed;
   background-position: center;
