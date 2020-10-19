@@ -1,4 +1,4 @@
-FROM node:latest as build-stage
+FROM node as build-stage
 ARG FONTAWESOME_NPM_AUTH_TOKEN
 WORKDIR /app
 COPY package*.json ./
