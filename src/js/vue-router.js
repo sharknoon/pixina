@@ -148,4 +148,12 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+//Set the title of the tab
+router.afterEach((to, from) => {
+  document.title = 'Pixina'
+  if (to.meta.title) {
+    document.title += ' - ' + to.meta.title
+  }
+})
+
 export default router;
