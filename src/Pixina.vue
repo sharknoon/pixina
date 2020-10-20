@@ -6,15 +6,7 @@
 
 <script>
 export default {
-  name: "Pixina",
-  watch: {
-    '$route' (to, _) {
-      document.title = 'Pixina'
-      if (to.meta.title) {
-        document.title += ' - ' + to.meta.title
-      }
-    }
-  },
+  name: "Pixina"
 };
 </script>
 
