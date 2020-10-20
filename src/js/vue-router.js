@@ -20,53 +20,83 @@ const router = new VueRouter({
           path: '/',
           alias: '/home',
           component: () => import('@/components/user/Home.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: ''
+          }
         },
         {
           path: '/profile',
           component: () => import('@/components/user/Profile.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Profil'
+          }
         },
         {
           path: '/templates',
           component: () => import('@/components/user/Templates.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Vorlagen'
+          }
         },
         {
           path: '/chats',
           component: () => import('@/components/user/Chats.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Chats'
+          }
         },
         {
           path: '/reservations',
           component: () => import('@/components/user/Reservations.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Reservierungen'
+          }
         },
         {
           path: '/place',
           component: () => import('@/components/user/Place.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Place'
+          }
         },
         {
           path: '/history',
           component: () => import('@/components/user/History.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Entstehung'
+          }
         },
         {
           path: '/atlas',
           component: () => import('@/components/user/Atlas.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Atlas'
+          }
         },
         {
           path: '/tools',
           component: () => import('@/components/user/Tools.vue'),
-          meta: { requiresAuth: true }
+          meta: {
+            requiresAuth: true,
+            title: 'Werkzeuge'
+          }
         }
       ]
     },
     {
       path: '/login',
       component: () => import('@/components/login/LoginPage.vue'),
+      meta: {
+        title: 'Anmeldung'
+      },
       children: [
         {
           path: 'only-google',
@@ -95,7 +125,10 @@ const router = new VueRouter({
     {//Must be at the bottom, because of the asterix (*) path
       path: '/not-found',
       alias: '*',
-      component: () => import('@/components/misc/NotFound.vue')
+      component: () => import('@/components/misc/NotFound.vue'),
+      meta: {
+        title: 'Nicht gefunden'
+      }
     },
   ]
 });
