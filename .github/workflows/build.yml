@@ -19,7 +19,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-pixina }}
+          key: ${{ runner.os }}-pixina
 
       - name: Build Docker Image
         run: docker build -t ghcr.io/sharknoon/pixina --build-arg FONTAWESOME_NPM_AUTH_TOKEN=${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} .
