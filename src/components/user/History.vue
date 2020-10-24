@@ -1,18 +1,25 @@
 <template>
-  <div>
-    <img id="place_history_image" :src="items[current_item].src" />
-    <form>
-      <input
-        type="range"
-        class="custom-range"
-        min="0"
-        max="99"
-        v-model="current_item"
-      />
-    </form>
+  <div id="history-wrapper" class="h-100 d-flex flex-column">
+    <v-progress-circular :value="items.length"></v-progress-circular>
+    <pinch-zoom 
+    limitZoom="10"
+    backgroundColor="white"
+    style="flex: 0 1 auto">
+      <img :src="items[current_item].src" />
+    </pinch-zoom>
+    <input
+      type="range"
+      class="custom-range p-4"
+      :max="items.length - 1"
+      v-model="current_item"
+    />
   </div>
 </template>
 <script>
+import Vue from "vue";
+import PinchZoom from "vue-pinch-zoom";
+
+Vue.component("pinch-zoom", PinchZoom);
 
 export default {
   name: "History",
@@ -36,3 +43,17 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+#history-wrapper {
+
+  img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  input {
+
+  }
+}
+</style>
