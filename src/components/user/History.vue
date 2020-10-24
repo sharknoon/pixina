@@ -1,12 +1,19 @@
 <template>
-    <div>
-        <img :src="items[current_item].src">
-        <form>
-            <input type="range" class="form-control-range" min="0" max="99" v-model="current_item">
-        </form>
-    </div>
+  <div>
+    <img id="place_history_image" :src="items[current_item].src" />
+    <form>
+      <input
+        type="range"
+        class="custom-range"
+        min="0"
+        max="99"
+        v-model="current_item"
+      />
+    </form>
+  </div>
 </template>
 <script>
+
 export default {
   name: "History",
   data() {

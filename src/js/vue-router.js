@@ -134,7 +134,7 @@ const router = new VueRouter({
 });
 
 //Check if the user is authenticated, otherwise reroute them
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, _from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!store.getters.isLoggedIn) {
       next({
@@ -149,7 +149,7 @@ router.beforeEach((to, from, next) => {
 });
 
 //Set the title of the tab
-router.afterEach((to, from) => {
+router.afterEach((to) => {
   document.title = 'Pixina'
   if (to.meta.title) {
     document.title += ' - ' + to.meta.title
