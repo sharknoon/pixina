@@ -20,16 +20,13 @@
 
 
 <script>
-//Login Components
-import GoogleLogin from "vue-google-login";
-
 export default {
   name: "Google",
   data() {
     return {};
   },
   components: {
-    GoogleLogin,
+    GoogleLogin: () => import('vue-google-login')
   },
   methods: {
     onSuccess(/*googleUser*/) {

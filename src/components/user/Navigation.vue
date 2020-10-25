@@ -111,8 +111,6 @@
   </div>
 </template>
 <script>
-//Logout Buttons
-import GoogleLogin from "vue-google-login";
 // Fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faHome } from "@fortawesome/pro-light-svg-icons";
@@ -193,7 +191,7 @@ export default {
     };
   },
   components: {
-    GoogleLogin,
+    GoogleLogin: () => import('vue-google-login')
   },
   methods: {
     logout() {

@@ -1,10 +1,10 @@
 <template>
   <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <v-progress-circular :value="items.length"></v-progress-circular>
     <pinch-zoom 
-    limitZoom="10"
+    limitZoom="15"
     backgroundColor="white"
-    style="flex: 0 1 auto">
+    disableZoomControl="disable"
+    class="h-100 flex-grow-1">
       <img :src="items[current_item].src" />
     </pinch-zoom>
     <input
@@ -16,18 +16,16 @@
   </div>
 </template>
 <script>
-import Vue from "vue";
-import PinchZoom from "vue-pinch-zoom";
-
-Vue.component("pinch-zoom", PinchZoom);
-
 export default {
   name: "History",
   data() {
     return {
-      items: [],
+      items: [{src:''}],
       current_item: 0,
     };
+  },
+  components: {
+    PinchZoom: () => import('vue-pinch-zoom')
   },
   methods: {
     getItemUrl(number) {
@@ -35,6 +33,7 @@ export default {
     },
   },
   mounted() {
+    this.items = [];
     for (let index = 0; index < 100; index++) {
       let image = new Image();
       image.src = this.getItemUrl(index);
