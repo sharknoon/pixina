@@ -9,7 +9,7 @@ import router from '@/js/vue-router'
 //Pixina
 import Pixina from '@/Pixina.vue'
 //Vuetify
-import vuetify from '@/plugins/vuetify'
+import vuetify from '@/js/vuetify'
 //Vuex
 import store from '@/js/vuex'
 
