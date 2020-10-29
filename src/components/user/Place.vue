@@ -17,6 +17,7 @@
             id="place-toggle-original"
             checked
           />
+          <font-awesome-icon :icon="['fas', 'certificate']" />
           Original
         </label>
         <label class="btn btn-secondary">
@@ -25,20 +26,31 @@
             name="place-toggle-image"
             id="place-toggle-cleaned"
           />
+          <font-awesome-icon :icon="['fas', 'sparkles']" />
           Bereinigt
         </label>
       </div>
       <div class="btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary">
           <input type="checkbox"/>
+          <font-awesome-icon :icon="['far', 'th']" />
           Raster
-          <v-icon>mdi-grid</v-icon>
         </label>
       </div>
     </div>
   </div>
 </template>
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faTh } from "@fortawesome/pro-regular-svg-icons";
+import { faCertificate } from "@fortawesome/pro-solid-svg-icons";
+import { faSparkles } from "@fortawesome/pro-solid-svg-icons";
+library.add(
+  faTh,
+  faCertificate,
+  faSparkles,
+);
+
 export default {
   name: "Place",
   data() {
