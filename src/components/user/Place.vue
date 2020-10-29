@@ -6,7 +6,7 @@
       disableZoomControl="disable"
       class="h-100 flex-grow-1"
     >
-      <img src="" />
+      <img :src="placeUrl" />
     </pinch-zoom>
     <div class="d-flex justify-content-between p-4">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
@@ -14,8 +14,7 @@
           <input
             type="radio"
             name="place-toggle-image"
-            id="place-toggle-original"
-            checked
+            v-model="selectedImage"
           />
           <font-awesome-icon :icon="['fas', 'certificate']" />
           Original
@@ -24,7 +23,7 @@
           <input
             type="radio"
             name="place-toggle-image"
-            id="place-toggle-cleaned"
+            v-model="selectedImage"
           />
           <font-awesome-icon :icon="['fas', 'sparkles']" />
           Bereinigt
@@ -32,7 +31,10 @@
       </div>
       <div class="btn-group-toggle" data-toggle="buttons">
         <label class="btn btn-secondary">
-          <input type="checkbox"/>
+          <input
+            type="checkbox"
+            v-model="isGridVisible"
+          />
           <font-awesome-icon :icon="['far', 'th']" />
           Raster
         </label>
@@ -59,6 +61,13 @@ export default {
       selectedImage: 0,
     };
   },
+  computed: {
+    placeUrl: function () {
+      let fileName = (selectedImage == 0) ? "original" : "cleaned;
+      filename += isGridVisible ? "_grid" : "";
+      return require("./../../assets/images/place/" + fileName + ".webp");
+    }
+  }
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
   },
