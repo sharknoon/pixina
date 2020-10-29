@@ -51,8 +51,5 @@ export default {
     image-rendering: crisp-edges;
   }
 
-  input {
-
-  }
 }
 </style>
