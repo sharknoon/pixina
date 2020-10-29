@@ -13,8 +13,9 @@
         <label class="btn btn-secondary active">
           <input
             type="radio"
-            name="place-toggle-image"
+            value="0"
             v-model="selectedImage"
+            checked
           />
           <font-awesome-icon :icon="['fas', 'certificate']" />
           Original
@@ -22,7 +23,7 @@
         <label class="btn btn-secondary">
           <input
             type="radio"
-            name="place-toggle-image"
+            value="1"
             v-model="selectedImage"
           />
           <font-awesome-icon :icon="['fas', 'sparkles']" />
