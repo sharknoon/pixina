@@ -67,14 +67,9 @@ export default {
       filename += isGridVisible ? "_grid" : "";
       return require("./../../assets/images/place/" + fileName + ".webp");
     }
-  }
+  },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
-  },
-  methods: {
-    getItemUrl(number) {
-      return require("./../../assets/images/history/" + number + ".webp");
-    },
-  },
+  }
 };
 </script>
