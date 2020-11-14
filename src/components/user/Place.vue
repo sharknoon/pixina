@@ -10,7 +10,7 @@
     </pinch-zoom>
     <div class="d-flex justify-content-between p-4">
       <div class="btn-group btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-secondary active">
+        <label class="btn"  :class="selectedImage == 0 ? 'btn-secondary active' : 'btn-outline-secondary'">
           <input
             type="radio"
             value="0"
@@ -20,7 +20,7 @@
           <font-awesome-icon :icon="['fas', 'certificate']" />
           Original
         </label>
-        <label class="btn btn-secondary">
+        <label class="btn" :class="selectedImage == 1 ? 'btn-secondary active' : 'btn-outline-secondary'">
           <input
             type="radio"
             value="1"
@@ -36,7 +36,8 @@
             type="checkbox"
             v-model="isGridVisible"
           />
-          <font-awesome-icon :icon="['far', 'th']" />
+          <font-awesome-icon v-if="isGridVisible" :icon="['far', 'th']" />
+          <font-awesome-icon v-if="!isGridVisible" :icon="['far', 'square']" />
           Raster
         </label>
       </div>
@@ -46,10 +47,12 @@
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faTh } from "@fortawesome/pro-regular-svg-icons";
+import { faSquare } from "@fortawesome/pro-regular-svg-icons";
 import { faCertificate } from "@fortawesome/pro-solid-svg-icons";
 import { faSparkles } from "@fortawesome/pro-solid-svg-icons";
 library.add(
   faTh,
+  faSquare,
   faCertificate,
   faSparkles,
 );
