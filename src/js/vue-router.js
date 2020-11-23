@@ -14,15 +14,15 @@ const router = new VueRouter({
     {
       path: '/',
       component: () => import('@/components/user/Navigation.vue'),
-      meta: { requiresAuth: true }, 
+      meta: { requiresAuth: true },
       children: [
         {
           path: '/',
-          alias: '/home',
-          component: () => import('@/components/user/Home.vue'),
+          alias: '/templates',
+          component: () => import('@/components/user/Templates.vue'),
           meta: {
             requiresAuth: true,
-            title: ''
+            title: 'Vorlagen'
           }
         },
         {
@@ -34,11 +34,11 @@ const router = new VueRouter({
           }
         },
         {
-          path: '/templates',
-          component: () => import('@/components/user/Templates.vue'),
+          path: '/statistics',
+          component: () => import('@/components/user/Statistics.vue'),
           meta: {
             requiresAuth: true,
-            title: 'Vorlagen'
+            title: 'Statistik'
           }
         },
         {

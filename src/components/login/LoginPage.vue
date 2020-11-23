@@ -1,9 +1,6 @@
 <template>
   <div class="background">
-    <div
-      :class="{ 'min-width': $vuetify.breakpoint.mdAndUp }"
-      class="login-container p-4"
-    >
+    <div class="login-container p-4">
       <router-link to="/">
         <img
           id="login-logo"
@@ -20,6 +17,13 @@
 </template>
 
 <script>
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+
+library.add(
+  faGoogle
+);
+
 export default {
   name: "LoginPage",
   methods: {
@@ -30,7 +34,11 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
 #login-logo {
   max-height: 4.5rem;
 }
@@ -40,6 +48,12 @@ export default {
   text-align: center;
   margin-bottom: 50%;
   box-shadow: inset 0 0 2000px rgba(255, 255, 255, 0.8);
+}
+
+@include media-breakpoint-up(sm) {
+  .login-container {
+    min-width: 35rem;
+  }
 }
 
 @supports (backdrop-filter: none) {

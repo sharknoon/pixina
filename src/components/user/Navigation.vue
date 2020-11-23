@@ -113,7 +113,7 @@
 <script>
 // Fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHome } from "@fortawesome/pro-light-svg-icons";
+import { faChartLine } from "@fortawesome/pro-light-svg-icons";
 import { faUserCircle } from "@fortawesome/pro-light-svg-icons";
 import { faBoxCheck } from "@fortawesome/pro-light-svg-icons";
 import { faBookOpen } from "@fortawesome/pro-light-svg-icons";
@@ -125,7 +125,7 @@ import { faWrench } from "@fortawesome/pro-light-svg-icons";
 import { faPowerOff } from "@fortawesome/pro-light-svg-icons";
 
 library.add(
-  faHome,
+  faChartLine,
   faUserCircle,
   faBookOpen,
   faComments,
@@ -143,8 +143,8 @@ export default {
     return {
       items: [
         {
-          name: "Home",
-          icon: ["fal", "home"],
+          name: "Vorlagen",
+          icon: ["fal", "book-open"],
           to: "/",
         },
         {
@@ -153,9 +153,9 @@ export default {
           to: "/profile",
         },
         {
-          name: "Vorlagen",
-          icon: ["fal", "book-open"],
-          to: "/templates",
+          name: "Statistiken",
+          icon: ["fal", "chart-line"],
+          to: "/statistics",
         },
         {
           name: "Chats",
@@ -191,7 +191,7 @@ export default {
     };
   },
   components: {
-    GoogleLogin: () => import('vue-google-login')
+    GoogleLogin: () => import("vue-google-login"),
   },
   methods: {
     logout() {
@@ -260,14 +260,13 @@ export default {
     background-attachment: fixed;
     background-position: left;
   }
-
 }
 
 #navigation-bar {
   z-index: 1;
 
   .navbar-toggler {
-    border-color: rgba(0,0,0,.5);
+    border-color: rgba(0, 0, 0, 0.5);
     border-width: 0.15rem;
   }
 
@@ -311,6 +310,5 @@ export default {
     background-size: cover;
     background-position: top;
   }
-
 }
 </style>

@@ -8,8 +8,6 @@ import Vue from 'vue'
 import router from '@/js/vue-router'
 //Pixina
 import Pixina from '@/Pixina.vue'
-//Vuetify
-import vuetify from '@/js/vuetify'
 //Vuex
 import store from '@/js/vuex'
 
@@ -19,6 +17,5 @@ new Vue({
   el: '#app',
   router: router,
   render: h => h(Pixina),
-  vuetify,
   store: store
 })
