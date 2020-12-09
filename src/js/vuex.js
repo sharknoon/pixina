@@ -32,7 +32,7 @@ export default new Vuex.Store({
     },
     getters: {
         isLoggedIn: state => {
-            return state.loginState == 99
+            return state.loginState == "logged_in"
         },
         isGoogleIdentityProvider: state => {
             return state.identityProvier == "google"
