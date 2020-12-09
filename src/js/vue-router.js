@@ -4,7 +4,6 @@
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import store from '@/js/vuex'
 
 Vue.use(VueRouter)
 
