@@ -28,22 +28,6 @@
             </span>
           </router-link>
         </nav>
-        <!-- Footer Area -->
-        <div class="ns-footer mt-auto">
-          <GoogleLogin
-            v-if="this.$store.getters.isGoogleIdentityProvider"
-            class="btn btn-danger w-100"
-            :params="{ client_id: this.$store.state.googleClientId }"
-            :onSuccess="onSuccess"
-            :onFailure="onFailure"
-            :logoutButton="true"
-          >
-            <font-awesome-icon
-              class="me-2"
-              :icon="['fal', 'power-off']"
-            />Abmelden
-          </GoogleLogin>
-        </div>
       </div>
       <div id="main-content" class="overflow-auto w-100 h-100">
         <router-view></router-view>
@@ -88,17 +72,6 @@
                 <span class="pt-2">
                   {{ item.name }}
                 </span>
-              </router-link>
-            </li>
-            <li>
-              <router-link
-                to="/login"
-                class="nav-link router-link d-flex align-items-center sign-out-router-link bg-danger text-white"
-                data-bs-toggle="collapse"
-                data-bs-target=".navbar-collapse"
-              >
-                <font-awesome-icon class="me-2" :icon="['fal', 'power-off']" />
-                <span class="pt-2">Abmelden</span>
               </router-link>
             </li>
           </ul>
@@ -167,27 +140,6 @@ export default {
         },
       ],
     };
-  },
-  components: {
-    GoogleLogin: () => import("vue-google-login"),
-  },
-  methods: {
-    logout() {
-      let idendityProvider = this.$store.state.identityProvier;
-      switch (idendityProvider) {
-        case "google":
-          console.log("Google Logout TODO");
-          break;
-      }
-    },
-    onSuccess(/*googleUser*/) {
-      this.$store.commit("setIdentityProvier", null);
-      this.$store.commit("setLoginState", "logged_out");
-      this.$router.push("/login");
-    },
-    onFailure(error) {
-      console.error("Login attempt error: " + error);
-    },
   },
 };
 </script>
@@ -272,10 +224,6 @@ export default {
     svg {
       filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
     }
-  }
-
-  .sign-out-router-link {
-    @extend .router-link-exact-active;
   }
 
   #navigation-logo {
