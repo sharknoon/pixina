@@ -18,7 +18,7 @@ jobs:
       - name: Cache npm
         uses: actions/cache@v2
         with:
-          path: '**/node_modules'
+          path: '/var/lib/docker'
           key: ${{ runner.os }}-pixina
 
       - name: Build Docker Image
