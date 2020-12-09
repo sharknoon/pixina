@@ -117,7 +117,6 @@ import { faChartLine } from "@fortawesome/pro-light-svg-icons";
 import { faUserCircle } from "@fortawesome/pro-light-svg-icons";
 import { faBoxCheck } from "@fortawesome/pro-light-svg-icons";
 import { faBookOpen } from "@fortawesome/pro-light-svg-icons";
-import { faComments } from "@fortawesome/pro-light-svg-icons";
 import { faImage } from "@fortawesome/pro-light-svg-icons";
 import { faHistory } from "@fortawesome/pro-light-svg-icons";
 import { faCompass } from "@fortawesome/pro-light-svg-icons";
@@ -128,7 +127,6 @@ library.add(
   faChartLine,
   faUserCircle,
   faBookOpen,
-  faComments,
   faBoxCheck,
   faImage,
   faHistory,
@@ -156,11 +154,6 @@ export default {
           name: "Statistiken",
           icon: ["fal", "chart-line"],
           to: "/statistics",
-        },
-        {
-          name: "Chats",
-          icon: ["fal", "comments"],
-          to: "/chats",
         },
         {
           name: "Reservierungen",
