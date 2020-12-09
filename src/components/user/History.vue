@@ -1,15 +1,16 @@
 <template>
   <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <pinch-zoom 
-    limitZoom="15"
-    backgroundColor="white"
-    disableZoomControl="disable"
-    class="h-100 flex-grow-1">
+    <pinch-zoom
+      limitZoom="15"
+      backgroundColor="white"
+      disableZoomControl="disable"
+      class="h-100 flex-grow-1"
+    >
       <img :src="items[current_item].src" />
     </pinch-zoom>
     <input
       type="range"
-      class="custom-range p-4"
+      class="form-range p-4"
       :max="items.length - 1"
       v-model="current_item"
     />
@@ -20,12 +21,12 @@ export default {
   name: "History",
   data() {
     return {
-      items: [{src:''}],
+      items: [{ src: "" }],
       current_item: 0,
     };
   },
   components: {
-    PinchZoom: () => import('vue-pinch-zoom')
+    PinchZoom: () => import("vue-pinch-zoom"),
   },
   methods: {
     getItemUrl(number) {
@@ -44,12 +45,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 #history-wrapper {
-
   img {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
   }
-
 }
 </style>

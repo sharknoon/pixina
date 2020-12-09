@@ -10,7 +10,7 @@
         <img
           :src="props.item.src_template"
           alt="picture"
-          width="4.75rem"
+          width="75px"
         />
         <div class="thumbnail-footer">
           {{ getTemplateTitle(props.item.number, false) }}

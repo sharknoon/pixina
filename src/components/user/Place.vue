@@ -9,33 +9,41 @@
       <img :src="placeUrl" />
     </pinch-zoom>
     <div class="d-flex justify-content-between p-4">
-      <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
-        <label class="btn"  :class="selectedImage == 0 ? 'btn-secondary active' : 'btn-outline-secondary'">
-          <input
-            type="radio"
-            value="0"
-            v-model="selectedImage"
-            checked
-          />
-          <font-awesome-icon :icon="['fas', 'certificate']" />
-          Original
+      <div class="btn-group" role="group" aria-label="Image type">
+        <input
+          type="radio"
+          class="btn-check"
+          id="btn-check-original"
+          autocomplete="off"
+          value="0"
+          v-model="selectedImage"
+          checked
+        />
+        <label class="btn btn-outline-secondary" for="btn-check-original">
+          <font-awesome-icon :icon="['fas', 'certificate']" /> Original
         </label>
-        <label class="btn" :class="selectedImage == 1 ? 'btn-secondary active' : 'btn-outline-secondary'">
-          <input
-            type="radio"
-            value="1"
-            v-model="selectedImage"
-          />
-          <font-awesome-icon :icon="['fas', 'sparkles']" />
-          Bereinigt
+
+        <input
+          type="radio"
+          class="btn-check"
+          id="btn-check-cleaned"
+          autocomplete="off"
+          value="1"
+          v-model="selectedImage"
+        />
+        <label class="btn btn-outline-secondary" for="btn-check-cleaned">
+          <font-awesome-icon :icon="['fas', 'sparkles']" /> Bereinigt
         </label>
       </div>
-      <div class="btn-group-toggle" data-bs-toggle="buttons">
-        <label class="btn btn-secondary">
-          <input
-            type="checkbox"
-            v-model="isGridVisible"
-          />
+
+      <div>
+        <input
+          v-model="isGridVisible"
+          type="checkbox"
+          class="btn-check"
+          autocomplete="off"
+        />
+        <label class="btn btn-secondary" for="btn-check">
           <font-awesome-icon v-if="isGridVisible" :icon="['far', 'th']" />
           <font-awesome-icon v-if="!isGridVisible" :icon="['far', 'square']" />
           Raster
@@ -50,12 +58,7 @@ import { faTh } from "@fortawesome/pro-regular-svg-icons";
 import { faSquare } from "@fortawesome/pro-regular-svg-icons";
 import { faCertificate } from "@fortawesome/pro-solid-svg-icons";
 import { faSparkles } from "@fortawesome/pro-solid-svg-icons";
-library.add(
-  faTh,
-  faSquare,
-  faCertificate,
-  faSparkles,
-);
+library.add(faTh, faSquare, faCertificate, faSparkles);
 
 export default {
   name: "Place",
@@ -67,24 +70,22 @@ export default {
   },
   computed: {
     placeUrl: function () {
-      let fileName = (this.selectedImage == 0) ? "original" : "cleaned";
+      let fileName = this.selectedImage == 0 ? "original" : "cleaned";
       fileName += this.isGridVisible ? "_grid" : "";
       return require("./../../assets/images/place/" + fileName + ".webp");
-    }
+    },
   },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
 #place-wrapper {
-
   img {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
   }
-
 }
 </style>
