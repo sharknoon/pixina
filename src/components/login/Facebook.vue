@@ -49,7 +49,7 @@ export default {
     // Check if user is already signed in, if so redirect him
     FB.getLoginStatus(function (response) {
       if (response.status == "connected") {
-        this.$store.commit("setLoginState", 99);
+        this.$store.commit("setLoginState", "logged_in");
         this.$router.push("/");
       }
     });

@@ -122,7 +122,7 @@ export default {
         errors = true;
       }
       if (!errors) {
-        this.$store.commit("setLoginState", 3);
+        this.$store.commit("setLoginState", "email_confirmation");
         this.$router.push("/login/confirm-mail");
       }
     },

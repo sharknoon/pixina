@@ -25,12 +25,7 @@ library.add(
 );
 
 export default {
-  name: "LoginPage",
-  methods: {
-    changeState(newState) {
-      this.$store.commit("setLoginState", newState);
-    },
-  },
+  name: "LoginPage"
 };
 </script>
 

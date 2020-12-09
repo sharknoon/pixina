@@ -31,7 +31,7 @@ export default {
   methods: {
     onSuccess(/*googleUser*/) {
       this.$store.commit("setIdentityProvier", "google");
-      this.$store.commit("setLoginState", 99);
+      this.$store.commit("setLoginState", "logged_in");
       this.$router.push("/");
     },
     onFailure(error) {
@@ -43,7 +43,7 @@ export default {
         this.validationFailed = true;
       } else {
         this.$store.commit("setEmailAddress", this.email);
-        this.$store.commit("setLoginState", 1);
+        this.$store.commit("setLoginState", "email_entered_registered");
         this.$router.push("/login/enter-password");
       }
     },

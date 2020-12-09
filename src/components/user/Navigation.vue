@@ -197,7 +197,7 @@ export default {
     },
     onSuccess(/*googleUser*/) {
       this.$store.commit("setIdentityProvier", null);
-      this.$store.commit("setLoginState", 0);
+      this.$store.commit("setLoginState", "logged_out");
       this.$router.push("/login");
     },
     onFailure(error) {

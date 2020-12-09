@@ -55,15 +55,12 @@ export default {
     };
   },
   methods: {
-    changeState(newState) {
-      this.$store.commit("setLoginState", newState);
-    },
     login(form) {
       form.preventDefault();
       //let email = this.$store.state.email
       //TODO actual login
       //api(email, password)
-      this.$store.commit("setLoginState", 99);
+      this.$store.commit("setLoginState", "logged_in");
       this.$router.push("/");
     },
     goBack() {
