@@ -21,35 +21,7 @@ const router = new VueRouter({
                     component: () =>
                         import ('@/components/user/Templates.vue'),
                     meta: {
-                        requiresAuth: true,
                         title: 'Vorlagen'
-                    }
-                },
-                {
-                    path: '/profile',
-                    component: () =>
-                        import ('@/components/user/Profile.vue'),
-                    meta: {
-                        requiresAuth: true,
-                        title: 'Profil'
-                    }
-                },
-                {
-                    path: '/statistics',
-                    component: () =>
-                        import ('@/components/user/Statistics.vue'),
-                    meta: {
-                        requiresAuth: true,
-                        title: 'Statistik'
-                    }
-                },
-                {
-                    path: '/reservations',
-                    component: () =>
-                        import ('@/components/user/Reservations.vue'),
-                    meta: {
-                        requiresAuth: true,
-                        title: 'Reservierungen'
                     }
                 },
                 {
@@ -57,7 +29,6 @@ const router = new VueRouter({
                     component: () =>
                         import ('@/components/user/Place.vue'),
                     meta: {
-                        requiresAuth: true,
                         title: 'Place'
                     }
                 },
@@ -66,7 +37,6 @@ const router = new VueRouter({
                     component: () =>
                         import ('@/components/user/History.vue'),
                     meta: {
-                        requiresAuth: true,
                         title: 'Entstehung'
                     }
                 },
@@ -75,7 +45,6 @@ const router = new VueRouter({
                     component: () =>
                         import ('@/components/user/Atlas.vue'),
                     meta: {
-                        requiresAuth: true,
                         title: 'Atlas'
                     }
                 },
@@ -84,46 +53,9 @@ const router = new VueRouter({
                     component: () =>
                         import ('@/components/user/Tools.vue'),
                     meta: {
-                        requiresAuth: true,
                         title: 'Werkzeuge'
                     }
                 }
-            ]
-        },
-        {
-            path: '/login',
-            component: () =>
-                import ('@/components/login/LoginPage.vue'),
-            meta: {
-                title: 'Anmeldung'
-            },
-            children: [{
-                    path: 'only-google',
-                    alias: '',
-                    component: () =>
-                        import ('@/components/login/OnlyGoogle.vue')
-                },
-                {
-                    path: 'enter-email',
-                    component: () =>
-                        import ('@/components/login/EnterEmail.vue')
-                },
-                {
-                    path: 'enter-password',
-                    component: () =>
-                        import ('@/components/login/EnterPassword.vue')
-                },
-                {
-                    path: 'enter-user-details',
-                    component: () =>
-                        import ('@/components/login/EnterUserDetails.vue')
-                },
-                {
-                    path: 'confirm-mail',
-                    component: () =>
-                        import ('@/components/login/ConfirmMail.vue')
-                }
-                //TODO passwort vergessen
             ]
         },
         { //Must be at the bottom, because of the asterix (*) path
@@ -136,21 +68,6 @@ const router = new VueRouter({
             }
         },
     ]
-});
-
-//Check if the user is authenticated, otherwise reroute them
-router.beforeEach((to, _from, next) => {
-    if (to.matched.some(record => record.meta.requiresAuth)) {
-        if (!store.getters.isLoggedIn) {
-            next({
-                path: "/login"
-            })
-        } else {
-            next()
-        }
-    } else {
-        next()
-    }
 });
 
 //Set the title of the tab

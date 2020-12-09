@@ -4,7 +4,7 @@
     <div class="d-none d-md-flex h-100">
       <div
         id="navigation-sidebar"
-        class="text-left d-flex flex-column background p-2"
+        class="text-start d-flex flex-column background p-2"
       >
         <!-- Logo Area -->
         <div class="ns-logo">
@@ -22,7 +22,7 @@
             :to="item.to"
             class="router-link d-flex align-items-center"
           >
-            <font-awesome-icon class="mr-2" :icon="item.icon" />
+            <font-awesome-icon class="me-2" :icon="item.icon" />
             <span class="pt-2">
               {{ item.name }}
             </span>
@@ -32,14 +32,14 @@
         <div class="ns-footer mt-auto">
           <GoogleLogin
             v-if="this.$store.getters.isGoogleIdentityProvider"
-            class="btn btn-danger btn-block"
+            class="btn btn-danger w-100"
             :params="{ client_id: this.$store.state.googleClientId }"
             :onSuccess="onSuccess"
             :onFailure="onFailure"
             :logoutButton="true"
           >
             <font-awesome-icon
-              class="mr-2"
+              class="me-2"
               :icon="['fal', 'power-off']"
             />Abmelden
           </GoogleLogin>
@@ -66,8 +66,8 @@
         <button
           class="navbar-toggler"
           type="button"
-          data-toggle="collapse"
-          data-target="#navbarSupportedContent"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent"
           aria-expanded="false"
           aria-label="Toggle navigation"
@@ -76,15 +76,15 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mr-auto pt-2">
+          <ul class="navbar-nav me-auto pt-2">
             <li v-for="item in items" :key="item.name" class="nav-item active">
               <router-link
                 :to="item.to"
                 class="nav-link router-link d-flex align-items-center"
-                data-toggle="collapse"
-                data-target=".navbar-collapse"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse"
               >
-                <font-awesome-icon class="mr-2" :icon="item.icon" />
+                <font-awesome-icon class="me-2" :icon="item.icon" />
                 <span class="pt-2">
                   {{ item.name }}
                 </span>
@@ -94,10 +94,10 @@
               <router-link
                 to="/login"
                 class="nav-link router-link d-flex align-items-center sign-out-router-link bg-danger text-white"
-                data-toggle="collapse"
-                data-target=".navbar-collapse"
+                data-bs-toggle="collapse"
+                data-bs-target=".navbar-collapse"
               >
-                <font-awesome-icon class="mr-2" :icon="['fal', 'power-off']" />
+                <font-awesome-icon class="me-2" :icon="['fal', 'power-off']" />
                 <span class="pt-2">Abmelden</span>
               </router-link>
             </li>
@@ -144,21 +144,6 @@ export default {
           name: "Vorlagen",
           icon: ["fal", "book-open"],
           to: "/",
-        },
-        {
-          name: "Profil",
-          icon: ["fal", "user-circle"],
-          to: "/profile",
-        },
-        {
-          name: "Statistiken",
-          icon: ["fal", "chart-line"],
-          to: "/statistics",
-        },
-        {
-          name: "Reservierungen",
-          icon: ["fal", "box-check"],
-          to: "/reservations",
         },
         {
           name: "Place",

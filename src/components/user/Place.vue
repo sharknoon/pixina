@@ -9,7 +9,7 @@
       <img :src="placeUrl" />
     </pinch-zoom>
     <div class="d-flex justify-content-between p-4">
-      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+      <div class="btn-group btn-group-toggle" data-bs-toggle="buttons">
         <label class="btn"  :class="selectedImage == 0 ? 'btn-secondary active' : 'btn-outline-secondary'">
           <input
             type="radio"
@@ -30,7 +30,7 @@
           Bereinigt
         </label>
       </div>
-      <div class="btn-group-toggle" data-toggle="buttons">
+      <div class="btn-group-toggle" data-bs-toggle="buttons">
         <label class="btn btn-secondary">
           <input
             type="checkbox"
