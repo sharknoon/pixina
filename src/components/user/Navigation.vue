@@ -20,7 +20,7 @@
             v-for="item in items"
             :key="item.name"
             :to="item.to"
-            class="router-link d-flex align-items-center"
+            class="router-link d-flex align-items-center py-1"
           >
             <font-awesome-icon class="me-2" :icon="item.icon" />
             <span class="pt-2">
@@ -86,27 +86,13 @@
 <script>
 // Fontawesome
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faChartLine } from "@fortawesome/pro-light-svg-icons";
-import { faUserCircle } from "@fortawesome/pro-light-svg-icons";
-import { faBoxCheck } from "@fortawesome/pro-light-svg-icons";
 import { faBookOpen } from "@fortawesome/pro-light-svg-icons";
 import { faImage } from "@fortawesome/pro-light-svg-icons";
 import { faHistory } from "@fortawesome/pro-light-svg-icons";
 import { faCompass } from "@fortawesome/pro-light-svg-icons";
 import { faWrench } from "@fortawesome/pro-light-svg-icons";
-import { faPowerOff } from "@fortawesome/pro-light-svg-icons";
 
-library.add(
-  faChartLine,
-  faUserCircle,
-  faBookOpen,
-  faBoxCheck,
-  faImage,
-  faHistory,
-  faCompass,
-  faWrench,
-  faPowerOff
-);
+library.add(faBookOpen, faImage, faHistory, faCompass, faWrench);
 
 export default {
   name: "Navigation",

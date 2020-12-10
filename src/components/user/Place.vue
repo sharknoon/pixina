@@ -41,9 +41,10 @@
           v-model="isGridVisible"
           type="checkbox"
           class="btn-check"
+          id="btn-check-grid"
           autocomplete="off"
         />
-        <label class="btn btn-secondary" for="btn-check">
+        <label class="btn btn-secondary" for="btn-check-grid">
           <font-awesome-icon v-if="isGridVisible" :icon="['far', 'th']" />
           <font-awesome-icon v-if="!isGridVisible" :icon="['far', 'square']" />
           Raster

@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div v-if="webShareApiSupported">
+      <button @click="shareViaWebShare">Sharetest</button>
+    </div>
     <v-photoswipe-gallery
       class="p-2"
       :isOpen="isOpenGallery"
@@ -7,11 +10,7 @@
       :items="items"
     >
       <div class="thumbnail-container" slot-scope="props">
-        <img
-          :src="props.item.src_template"
-          alt="picture"
-          width="75px"
-        />
+        <img :src="props.item.src_template" alt="picture" width="75px" />
         <div class="thumbnail-footer">
           {{ getTemplateTitle(props.item.number, false) }}
         </div>
@@ -38,12 +37,12 @@ export default {
       isOpen: false,
       isOpenGallery: false,
       options: {
-        index: 0
+        index: 0,
       },
       optionsGallery: {
         counterEl: false,
         arrowEl: false,
-        loop: false
+        loop: false,
       },
       items: [],
     };
@@ -60,7 +59,9 @@ export default {
       return require("./../../assets/images/templates/" + number + ".webp");
     },
     getDetailedTemplateUrl(number) {
-      return require("./../../assets/images/templates/" + number + "-detailed.webp");
+      return require("./../../assets/images/templates/" +
+        number +
+        "-detailed.webp");
     },
     getCoordinates(number) {
       let x = number % 20;
@@ -69,17 +70,24 @@ export default {
     },
     getTemplateTitle(number, long = true) {
       let coordinates = this.getCoordinates(number);
-      let short = number +
-        " (" +
-        coordinates[0] +
-        "|" +
-        coordinates[1] +
-        ")";
-        if (long) {
-          return "Bild Nr. " + short;
-        }else{
-          return short;
-        }
+      let short = number + " (" + coordinates[0] + "|" + coordinates[1] + ")";
+      if (long) {
+        return "Bild Nr. " + short;
+      } else {
+        return short;
+      }
+    },
+    shareViaWebShare() {
+      navigator.share({
+        title: "Title to be shared",
+        text: "Text to be shared",
+        url: "URL to be shared",
+      });
+    },
+  },
+  computed: {
+    webShareApiSupported() {
+      return navigator.share;
     },
   },
   created() {
@@ -91,7 +99,7 @@ export default {
         w: 5000,
         h: 4000,
         title: this.getTemplateTitle(index),
-        number: index
+        number: index,
       };
       this.items.push(item);
     }
