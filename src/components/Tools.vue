@@ -86,7 +86,7 @@ export default {
     },
   },
   computed: {
-    isTileSelected(number) {
+    isTileSelected: function(number) {
       return this.selected_tiles.includes(number);
     },
   },

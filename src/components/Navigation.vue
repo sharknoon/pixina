@@ -7,13 +7,13 @@
         class="text-start d-flex flex-column background p-2"
       >
         <!-- Logo Area -->
-        <div class="ns-logo">
+        <router-link to="/">
           <img
             id="navigation-logo"
             class="img-fluid mb-2"
             src="./../assets/images/logo-white.svg"
           />
-        </div>
+        </router-link>
         <!-- Items Area -->
         <nav>
           <router-link
@@ -130,6 +130,12 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+// Common styles for mobile and desktop
+.background {
+  background: url("./../assets/images/background-blurry.webp") no-repeat;
+  background-size: cover;
+}
+
 #navigation-sidebar {
   min-width: 20rem;
   box-shadow: inset -0.5rem 0 2rem -0.5rem rgba(0, 0, 0, 0.15);
@@ -138,29 +144,31 @@ export default {
     z-index: 2;
   }
 
-  .router-link {
-    font-size: larger;
-    color: white;
-    margin-right: -0.5rem;
-    margin-left: 1.5rem;
-    padding: 0.2rem 0 0.2rem 0.6rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    text-decoration: initial;
-    text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
-    svg {
-      filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+  nav {
+    .router-link {
+      font-size: larger;
+      color: white;
+      margin-right: -0.5rem;
+      margin-left: 1.5rem;
+      padding: 0.2rem 0 0.2rem 0.6rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      text-decoration: initial;
+      text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
+      svg {
+        filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+      }
     }
-  }
 
-  .router-link-exact-active {
-    background: white;
-    border-radius: 0.6rem 0 0 0.6rem;
-    color: black;
-    box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
-    svg {
-      filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
+    .router-link-exact-active {
+      background: white;
+      border-radius: 0.6rem 0 0 0.6rem;
+      color: black;
+      box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
+      svg {
+        filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
+      }
     }
   }
 
@@ -171,8 +179,6 @@ export default {
   }
 
   &.background {
-    background: url("./../assets/images/background-blurry.webp") no-repeat;
-    background-size: cover;
     background-attachment: fixed;
     background-position: left;
   }
@@ -186,29 +192,31 @@ export default {
     border-width: 0.15rem;
   }
 
-  .router-link:not(.navbar-brand) {
-    font-size: larger;
-    color: white;
-    margin-right: 0.5rem;
-    margin-left: 0.5rem;
-    padding: 0.25rem 0.75rem 0.25rem 0.75rem;
-    margin-top: 0.25rem;
-    margin-bottom: 0.25rem;
-    text-decoration: initial;
-    text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
-    svg {
-      filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+  .navbar-nav {
+    .router-link {
+      font-size: larger;
+      color: white;
+      margin-right: 0.5rem;
+      margin-left: 0.5rem;
+      padding: 0.25rem 0.75rem 0.25rem 0.75rem;
+      margin-top: 0.25rem;
+      margin-bottom: 0.25rem;
+      text-decoration: initial;
+      text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
+      svg {
+        filter: drop-shadow(0rem 0.25rem 0.25rem rgba(0, 0, 0, 0.95));
+      }
     }
-  }
 
-  .router-link-exact-active:not(.navbar-brand) {
-    background: white;
-    border-radius: 0.6rem;
-    color: black;
-    box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
-    svg {
-      filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
+    .router-link-exact-active {
+      background: white;
+      border-radius: 0.6rem;
+      color: black;
+      box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
+      svg {
+        filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
+      }
     }
   }
 
@@ -218,8 +226,6 @@ export default {
   }
 
   &.background {
-    background: url("./../assets/images/background-blurry.webp") no-repeat;
-    background-size: cover;
     background-position: top;
   }
 }
