@@ -100,11 +100,11 @@ export default {
           this.selected_tiles.length - 1
         ];
         if (last_selected_tile < number) {
-          fromNumber = last_selected_tile;
+          fromNumber = last_selected_tile + 1;
           toNumber = number;
         } else {
           fromNumber = number;
-          toNumber = last_selected_tile;
+          toNumber = last_selected_tile - 1;
         }
       }
 
