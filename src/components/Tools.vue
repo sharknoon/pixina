@@ -32,38 +32,46 @@
         </div>
       </div>
     </div>
-    <div v-else-if="state == 'counted-colors'" class="flex-grow-1">
-      <div
-        v-for="color in colors"
-        :key="color.number"
-        class="card position-relative"
-      >
-        <div class="row g-0">
-          <div class="col-3" :style="'background: ' + color.rgb"></div>
-          <div class="col-9">
-            <div class="card-body">
-              <h5 class="card-title">{{ color.name }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ color.number }}</h6>
-              <p class="card-text">
-                <font-awesome-icon :icon="['fas', 'cubes']"></font-awesome-icon>
-                {{ color.amount }}
-              </p>
-              <p class="card-text">
-                <font-awesome-icon :icon="['fas', 'th']"></font-awesome-icon>
-                {{ Math.floor(color.amount / 140) }} Farbquadrate +
-                {{ color.amount % 140 }} Pixel
-              </p>
-              <a
-                href="#"
-                class="btn btn-light position-absolute top-0 end-0 p-2"
-              >
-                <font-awesome-icon :icon="['far', 'info-circle']">
-                </font-awesome-icon>
-              </a>
-              <a href="#" class="btn btn-light">
-                <font-awesome-icon :icon="['fas', 'cut']"></font-awesome-icon>
-                Zuschneiden
-              </a>
+    <div
+      v-else-if="state == 'counted-colors'"
+      class="flex-grow-1 overflow-auto"
+    >
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+        <div v-for="color in colors" :key="color.number" class="col">
+          <div class="card m-2 position-relative">
+            <div class="row g-0">
+              <div class="col-3" :style="'background: ' + color.rgb"></div>
+              <div class="col-9">
+                <div class="card-body">
+                  <h5 class="card-title">{{ color.name }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">
+                    {{ color.number }}
+                  </h6>
+                  <p class="card-text">
+                    <font-awesome-icon :icon="['fas', 'cubes']" />
+                    {{ color.amount }}
+                    <font-awesome-icon :icon="['fas', 'th']" />
+                    {{ Math.floor(color.amount / 140) }} Farbquadrate +
+                    {{ color.amount % 140 }} Pixel
+                  </p>
+                  <a
+                    href="#"
+                    class="btn btn-light position-absolute top-0 end-0 m-2"
+                  >
+                    <font-awesome-icon
+                      :icon="['far', 'info-circle']"
+                      class="align-middle"
+                    />
+                  </a>
+                  <a href="#" class="btn btn-light">
+                    <font-awesome-icon
+                      :icon="['fas', 'cut']"
+                      class="align-middle"
+                    />
+                    Zuschneiden
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -119,7 +127,7 @@ export default {
       // "image-selection" or "counted-colors"
       state: "image-selection",
       selected_tiles: [],
-      colors: []
+      colors: [],
     };
   },
   methods: {
@@ -175,13 +183,41 @@ export default {
         name: "Pink",
         number: 103,
         rgb: "#e7c0c3",
-        rgb_place: "ffa7d1"
+        rgb_place: "ffa7d1",
+      });
+      this.colors.push({
+        amount: 1203,
+        name: "Pink",
+        number: 103,
+        rgb: "#e7c0c3",
+        rgb_place: "ffa7d1",
+      });
+      this.colors.push({
+        amount: 1203,
+        name: "Pink",
+        number: 103,
+        rgb: "#e7c0c3",
+        rgb_place: "ffa7d1",
+      });
+      this.colors.push({
+        amount: 1203,
+        name: "Pink",
+        number: 103,
+        rgb: "#e7c0c3",
+        rgb_place: "ffa7d1",
+      });
+      this.colors.push({
+        amount: 1203,
+        name: "Pink",
+        number: 103,
+        rgb: "#e7c0c3",
+        rgb_place: "ffa7d1",
       });
     },
     selectImages() {
       this.selectImages = [];
       this.state = "image-selection";
-    }
+    },
   },
   created() {
     this.tiles = [];
