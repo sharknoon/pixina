@@ -34,10 +34,10 @@
     </div>
     <div
       v-else-if="state == 'counted-colors'"
-      class="flex-grow-1 overflow-auto"
+      class="flex-grow-1 overflow-auto p-2"
     >
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
-        <div v-for="color in colors" :key="color.number" class="col">
+      <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
+        <div v-for="color in colors" :key="color.number" class="col p-0">
           <div class="card m-2 position-relative">
             <div class="row g-0">
               <div class="col-3" :style="'background: ' + color.rgb"></div>
@@ -50,6 +50,7 @@
                   <p class="card-text">
                     <font-awesome-icon :icon="['fas', 'cubes']" />
                     {{ color.amount }}
+                    <br>
                     <font-awesome-icon :icon="['fas', 'th']" />
                     {{ Math.floor(color.amount / 140) }} Farbquadrate +
                     {{ color.amount % 140 }} Pixel
@@ -101,7 +102,7 @@
         v-else-if="state == 'counted-colors'"
         class="d-flex align-items-center justify-content-between"
       >
-        <div>X von 16 Farben</div>
+        <div>{{ colors.length }} von 16 Farben</div>
         <button type="button" class="btn btn-primary" @click="selectImages()">
           Fertig
         </button>
