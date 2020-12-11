@@ -1,6 +1,6 @@
 <template>
-  <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <div class="d-flex flex-wrap justify-content-evenly p-2">
+  <div id="tools-wrapper" class="h-100 d-flex flex-column">
+    <div class="d-flex flex-wrap justify-content-evenly p-2 overflow-auto">
       <div
         v-for="tile in tiles"
         :key="tile.number"
@@ -39,7 +39,13 @@
           {{ selected_tiles.length == 1 ? "Bild" : "Bilder" }} ausgewählt
         </div>
         <div>
-          <button type="button" class="btn btn-primary">Weiter</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            :disabled="selected_tiles.length < 1"
+          >
+            Weiter
+          </button>
         </div>
       </div>
       <div v-if="state == 'counted-colors'"></div>
@@ -98,6 +104,9 @@ export default {
         }
       }
 
+      console.log("fromNumber: " + fromNumber);
+      console.log("toNumber: " + toNumber);
+
       for (let number = fromNumber; number <= toNumber; number++) {
         let index = this.selected_tiles.indexOf(number);
         if (index >= 0) {
@@ -125,6 +134,15 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
+#tools-wrapper {
+  user-drag: none;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
 .thumbnail {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
