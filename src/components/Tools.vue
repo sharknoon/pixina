@@ -5,21 +5,23 @@
         v-for="tile in tiles"
         :key="tile.number"
         class="position-relative m-2"
-        @click="toggleTileSelection(tile.number)"
+        @click.left.exact="toggleTileSelection($event, tile.number)"
       >
-        <div
-          v-if="selected_tiles.includes(tile.number)"
-          class="position-absolute top-0 end-0"
-        >
-          <font-awesome-icon :icon="['fas', 'check-circle']" />
-        </div>
         <img
           :src="tile.src_thumbnail"
           alt="picture"
           width="75px"
           class="thumbnail"
-          :class="selected_tiles.includes(tile.number) ? 'thumbnail-selected' : ''"
+          :class="
+            selected_tiles.includes(tile.number) ? 'thumbnail-selected' : ''
+          "
         />
+        <div
+          v-if="selected_tiles.includes(tile.number)"
+          class="position-absolute top-0 end-0"
+        >
+          <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
+        </div>
         <div
           class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
         >
@@ -28,7 +30,10 @@
       </div>
     </div>
     <div class="p-4">
-      <div v-if="state == 'image-selection'" class="d-flex">
+      <div
+        v-if="state == 'image-selection'"
+        class="d-flex align-items-center justify-content-between"
+      >
         <div>
           {{ selected_tiles.length }}
           {{ selected_tiles.length == 1 ? "Bild" : "Bilder" }} ausgewählt
@@ -76,12 +81,30 @@ export default {
       let short = number + " (" + coordinates[0] + "|" + coordinates[1] + ")";
       return short;
     },
-    toggleTileSelection(number) {
-      let index = this.selected_tiles.indexOf(number);
-      if (index >= 0) {
-        this.selected_tiles.splice(index, 1);
-      } else {
-        this.selected_tiles.push(number);
+    toggleTileSelection(event, number) {
+      let fromNumber = number; // inclusive
+      let toNumber = number; // inclusive
+
+      if (event.shiftKey) {
+        let last_selected_tile = this.selected_tiles[
+          this.selected_tiles.length - 1
+        ];
+        if (last_selected_tile < number) {
+          fromNumber = last_selected_tile;
+          toNumber = number;
+        } else {
+          fromNumber = number;
+          toNumber = last_selected_tile;
+        }
+      }
+
+      for (let number = fromNumber; number <= toNumber; number++) {
+        let index = this.selected_tiles.indexOf(number);
+        if (index >= 0) {
+          this.selected_tiles.splice(index, 1);
+        } else {
+          this.selected_tiles.push(number);
+        }
       }
     },
   },
@@ -109,7 +132,7 @@ export default {
 }
 
 .thumbnail-selected {
-  filter: opacity(0.75);
+  filter: opacity(0.25);
 }
 
 .thumbnail-footer {
