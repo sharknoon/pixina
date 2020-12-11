@@ -1,13 +1,14 @@
 <template>
   <div class="d-flex flex-wrap justify-content-evenly p-2">
-    <div
-      v-for="item in items"
-      :key="item.number"
-      class="position-relative m-2"
-    >
-      <img :src="item.src_template" alt="picture" width="75px" />
+    <div v-for="item in items" :key="item.number" class="position-relative m-2">
+      <img
+        :src="item.src_template"
+        alt="picture"
+        width="75px"
+        class="thumbnail"
+      />
       <div
-        class="thumbnail-footer position-absolute bottom-0 bg-light text-dark fs-5 fw-bold w-100"
+        class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
       >
         {{ getTemplateTitle(item.number, false) }}
       </div>
@@ -62,9 +63,16 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="scss" scoped>
+.thumbnail {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
 .thumbnail-footer {
-  padding: 0.1rem; /* Some padding */
+  padding: 0.1rem;
   font-family: arial;
+  font-size: small;
+  background: rgba(255, 255, 255, 0.9);
 }
 </style>

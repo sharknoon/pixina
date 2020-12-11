@@ -129,12 +129,11 @@ export default {
   }
 
   .thumbnail-footer {
-    position: absolute; /* Position the background text */
-    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
-    /* Black background with 0.5 opacity */
-    background: rgba(255, 255, 255, 0.8);
-    width: 100%; /* Full width */
-    padding: 0.1rem; /* Some padding */
+    position: absolute;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    width: 100%;
+    padding: 0.1rem;
     color: black;
     font-size: small;
     font-family: arial;
