@@ -1,11 +1,11 @@
 <template>
-  <div class="d-flex flex-wrap justify-content-evenly">
+  <div class="d-flex flex-wrap justify-content-evenly p-2">
     <div
       v-for="item in items"
       :key="item.number"
       class="position-relative m-2"
     >
-      <img :src="item.src_template" alt="picture" width="4.75rem" />
+      <img :src="item.src_template" alt="picture" width="75px" />
       <div
         class="thumbnail-footer position-absolute bottom-0 bg-light text-dark fs-5 fw-bold w-100"
       >
