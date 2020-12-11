@@ -215,7 +215,7 @@ export default {
       });
     },
     selectImages() {
-      this.selectImages = [];
+      this.selected_tiles = [];
       this.state = "image-selection";
     },
   },
