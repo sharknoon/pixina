@@ -1,24 +1,21 @@
 <template>
   <div>
-    <div v-if="webShareApiSupported">
-      <button @click="shareViaWebShare">Sharetest</button>
-    </div>
     <v-photoswipe-gallery
       class="p-2"
       :isOpen="isOpenGallery"
       :options="optionsGallery"
-      :items="items"
+      :items="tiles"
     >
       <div class="thumbnail-container" slot-scope="props">
-        <img :src="props.item.src_template" alt="picture" width="75px" />
+        <img :src="props.item.src_thumbnail" alt="picture" width="75px" />
         <div class="thumbnail-footer">
-          {{ getTemplateTitle(props.item.number, false) }}
+          {{ getTileTitle(props.item.number, false) }}
         </div>
       </div>
     </v-photoswipe-gallery>
     <v-photoswipe
       :isOpen="isOpen"
-      :items="items"
+      :items="tiles"
       :options="options"
       @close="hidePhotoSwipe"
     ></v-photoswipe>
@@ -44,7 +41,7 @@ export default {
         arrowEl: false,
         loop: false,
       },
-      items: [],
+      tiles: [],
     };
   },
   methods: {
@@ -55,21 +52,21 @@ export default {
     hidePhotoSwipe() {
       this.isOpen = false;
     },
-    getTemplateUrl(number) {
+    getTileThumbnail(number) {
       return require("./../../assets/images/templates/" + number + ".webp");
     },
-    getDetailedTemplateUrl(number) {
+    getTile(number) {
       return require("./../../assets/images/templates/" +
         number +
         "-detailed.webp");
     },
-    getCoordinates(number) {
+    getTileCoordinates(number) {
       let x = number % 20;
       let y = Math.floor(number / 20);
       return [x, y];
     },
-    getTemplateTitle(number, long = true) {
-      let coordinates = this.getCoordinates(number);
+    getTileTitle(number, long = true) {
+      let coordinates = this.getTileCoordinates(number);
       let short = number + " (" + coordinates[0] + "|" + coordinates[1] + ")";
       if (long) {
         return "Bild Nr. " + short;
@@ -77,31 +74,19 @@ export default {
         return short;
       }
     },
-    shareViaWebShare() {
-      navigator.share({
-        title: "Title to be shared",
-        text: "Text to be shared",
-        url: "URL to be shared",
-      });
-    },
-  },
-  computed: {
-    webShareApiSupported() {
-      return navigator.share;
-    },
   },
   created() {
-    this.items = [];
+    this.tiles = [];
     for (let index = 0; index < 500; index++) {
-      let item = {
-        src_template: this.getTemplateUrl(index),
-        src: this.getDetailedTemplateUrl(index),
+      let tile = {
+        src_thumbnail: this.getTileThumbnail(index),
+        src: this.getTile(index),
         w: 5000,
         h: 4000,
-        title: this.getTemplateTitle(index),
+        title: this.getTileTitle(index),
         number: index,
       };
-      this.items.push(item);
+      this.tiles.push(tile);
     }
   },
 };

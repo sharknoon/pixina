@@ -12,13 +12,13 @@ const router = new VueRouter({
     routes: [{
             path: '/',
             component: () =>
-                import ('@/components/user/Navigation.vue'),
+                import ('@/components/Navigation.vue'),
             meta: { requiresAuth: true },
             children: [{
                     path: '/',
                     alias: '/templates',
                     component: () =>
-                        import ('@/components/user/Templates.vue'),
+                        import ('@/components/Templates.vue'),
                     meta: {
                         title: 'Vorlagen'
                     }
@@ -26,7 +26,7 @@ const router = new VueRouter({
                 {
                     path: '/place',
                     component: () =>
-                        import ('@/components/user/Place.vue'),
+                        import ('@/components/Place.vue'),
                     meta: {
                         title: 'Place'
                     }
@@ -34,7 +34,7 @@ const router = new VueRouter({
                 {
                     path: '/history',
                     component: () =>
-                        import ('@/components/user/History.vue'),
+                        import ('@/components/History.vue'),
                     meta: {
                         title: 'Entstehung'
                     }
@@ -42,7 +42,7 @@ const router = new VueRouter({
                 {
                     path: '/atlas',
                     component: () =>
-                        import ('@/components/user/Atlas.vue'),
+                        import ('@/components/Atlas.vue'),
                     meta: {
                         title: 'Atlas'
                     }
@@ -50,7 +50,7 @@ const router = new VueRouter({
                 {
                     path: '/tools',
                     component: () =>
-                        import ('@/components/user/Tools.vue'),
+                        import ('@/components/Tools.vue'),
                     meta: {
                         title: 'Werkzeuge'
                     }
@@ -61,7 +61,7 @@ const router = new VueRouter({
             path: '/not-found',
             alias: '*',
             component: () =>
-                import ('@/components/misc/NotFound.vue'),
+                import ('@/components/NotFound.vue'),
             meta: {
                 title: 'Nicht gefunden'
             }
