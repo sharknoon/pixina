@@ -119,7 +119,7 @@ export default {
       // "image-selection" or "counted-colors"
       state: "image-selection",
       selected_tiles: [],
-      colors = []
+      colors: []
     };
   },
   methods: {
@@ -168,7 +168,7 @@ export default {
       }
     },
     countColors() {
-      this.colors = []
+      this.colors = [];
       this.state = "counted-colors";
       this.colors.push({
         amount: 1203,
@@ -179,7 +179,7 @@ export default {
       });
     },
     selectImages() {
-      this.selectImages = []
+      this.selectImages = [];
       this.state = "image-selection";
     }
   },
