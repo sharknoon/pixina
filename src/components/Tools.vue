@@ -8,7 +8,7 @@
         @click="toggleTileSelection(tile.number)"
       >
         <div
-          v-if="isTileSelected(tile.number)"
+          v-if="this.selected_tiles.includes(tile.number)"
           class="position-absolute top-0 end-0"
         >
           <font-awesome-icon :icon="['fas', 'check-circle']" />
@@ -18,7 +18,7 @@
           alt="picture"
           width="75px"
           class="thumbnail"
-          :class="isTileSelected(tile.number) ? 'thumbnail-selected' : ''"
+          :class="this.selected_tiles.includes(tile.number) ? 'thumbnail-selected' : ''"
         />
         <div
           class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
@@ -83,11 +83,6 @@ export default {
       } else {
         this.selected_tiles.push(number);
       }
-    },
-  },
-  computed: {
-    isTileSelected: function(number) {
-      return this.selected_tiles.includes(number);
     },
   },
   created() {
