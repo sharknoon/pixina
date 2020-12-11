@@ -32,7 +32,43 @@
         </div>
       </div>
     </div>
-    <div v-if="state == 'counted-colors'"></div>
+    <div v-else-if="state == 'counted-colors'" class="flex-grow-1">
+      <div
+        v-for="color in colors"
+        :key="color.number"
+        class="card position-relative"
+      >
+        <div class="row g-0">
+          <div class="col-3" :style="'background: ' + color.rgb"></div>
+          <div class="col-9">
+            <div class="card-body">
+              <h5 class="card-title">{{ color.name }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ color.number }}</h6>
+              <p class="card-text">
+                <font-awesome-icon :icon="['fas', 'cubes']"></font-awesome-icon>
+                {{ color.amount }}
+              </p>
+              <p class="card-text">
+                <font-awesome-icon :icon="['fas', 'th']"></font-awesome-icon>
+                {{ Math.floor(color.amount / 140) }} Farbquadrate +
+                {{ color.amount % 140 }} Pixel
+              </p>
+              <a
+                href="#"
+                class="btn btn-light position-absolute top-0 end-0 p-2"
+              >
+                <font-awesome-icon :icon="['far', 'info-circle']">
+                </font-awesome-icon>
+              </a>
+              <a href="#" class="btn btn-light">
+                <font-awesome-icon :icon="['fas', 'cut']"></font-awesome-icon>
+                Zuschneiden
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="p-4">
       <div
         v-if="state == 'image-selection'"
@@ -46,21 +82,34 @@
           <button
             type="button"
             class="btn btn-primary"
+            @click="countColors()"
             :disabled="selected_tiles.length < 1"
           >
             Weiter
           </button>
         </div>
       </div>
-      <div v-if="state == 'counted-colors'">X von 16 Farben</div>
+      <div
+        v-else-if="state == 'counted-colors'"
+        class="d-flex align-items-center justify-content-between"
+      >
+        <div>X von 16 Farben</div>
+        <button type="button" class="btn btn-primary" @click="selectImages()">
+          Fertig
+        </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCheckCircle } from "@fortawesome/pro-solid-svg-icons";
+import { faInfoCircle } from "@fortawesome/pro-regular-svg-icons";
+import { faCut } from "@fortawesome/pro-solid-svg-icons";
+import { faCubes } from "@fortawesome/pro-solid-svg-icons";
+import { faTh } from "@fortawesome/pro-solid-svg-icons";
 
-library.add(faCheckCircle);
+library.add(faCheckCircle, faInfoCircle, faCut, faCubes, faTh);
 
 export default {
   name: "Tools",
@@ -70,6 +119,7 @@ export default {
       // "image-selection" or "counted-colors"
       state: "image-selection",
       selected_tiles: [],
+      colors = []
     };
   },
   methods: {
@@ -108,9 +158,6 @@ export default {
         }
       }
 
-      console.log("fromNumber: " + fromNumber);
-      console.log("toNumber: " + toNumber);
-
       for (let number = fromNumber; number <= toNumber; number++) {
         let index = this.selected_tiles.indexOf(number);
         if (index >= 0) {
@@ -120,6 +167,21 @@ export default {
         }
       }
     },
+    countColors() {
+      this.colors = []
+      this.state = "counted-colors";
+      this.colors.push({
+        amount: 1203,
+        name: "Pink",
+        number: 103,
+        rgb: "#e7c0c3",
+        rgb_place: "ffa7d1"
+      });
+    },
+    selectImages() {
+      this.selectImages = []
+      this.state = "image-selection";
+    }
   },
   created() {
     this.tiles = [];
