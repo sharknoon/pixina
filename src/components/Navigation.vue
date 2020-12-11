@@ -11,7 +11,7 @@
           <img
             id="navigation-logo"
             class="img-fluid mb-2"
-            src="./../../assets/images/logo-white.svg"
+            src="./../assets/images/logo-white.svg"
           />
         </div>
         <!-- Items Area -->
@@ -44,7 +44,7 @@
           <img
             id="navigation-logo"
             class="img-fluid"
-            src="./../../assets/images/logo-white.svg"
+            src="./../assets/images/logo-white.svg"
           />
         </router-link>
         <button
@@ -171,7 +171,7 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background-blurry.webp") no-repeat;
+    background: url("./../assets/images/background-blurry.webp") no-repeat;
     background-size: cover;
     background-attachment: fixed;
     background-position: left;
@@ -218,7 +218,7 @@ export default {
   }
 
   &.background {
-    background: url("./../../assets/images/background-blurry.webp") no-repeat;
+    background: url("./../assets/images/background-blurry.webp") no-repeat;
     background-size: cover;
     background-position: top;
   }

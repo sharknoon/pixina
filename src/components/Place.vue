@@ -73,7 +73,7 @@ export default {
     placeUrl: function () {
       let fileName = this.selectedImage == 0 ? "original" : "cleaned";
       fileName += this.isGridVisible ? "_grid" : "";
-      return require("./../../assets/images/place/" + fileName + ".webp");
+      return require("./../assets/images/place/" + fileName + ".webp");
     },
   },
   components: {

@@ -53,10 +53,10 @@ export default {
       this.isOpen = false;
     },
     getTileThumbnail(number) {
-      return require("./../../assets/images/templates/" + number + ".webp");
+      return require("./../assets/images/templates/" + number + ".webp");
     },
     getTile(number) {
-      return require("./../../assets/images/templates/" +
+      return require("./../assets/images/templates/" +
         number +
         "-detailed.webp");
     },
