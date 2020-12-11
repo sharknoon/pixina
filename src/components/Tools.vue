@@ -1,11 +1,14 @@
 <template>
   <div id="tools-wrapper" class="h-100 d-flex flex-column">
-    <div class="d-flex flex-wrap justify-content-evenly p-2 overflow-auto">
+    <div
+      v-if="state == 'image-selection'"
+      class="d-flex flex-wrap justify-content-evenly p-2 overflow-auto"
+    >
       <div
         v-for="tile in tiles"
         :key="tile.number"
         class="position-relative m-2"
-        @click.left.exact="toggleTileSelection($event, tile.number)"
+        @click="toggleTileSelection($event, tile.number)"
       >
         <img
           :src="tile.src_thumbnail"
@@ -18,7 +21,7 @@
         />
         <div
           v-if="selected_tiles.includes(tile.number)"
-          class="position-absolute top-0 end-0"
+          class="position-absolute top-0 end-0 p-1"
         >
           <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
         </div>
@@ -29,6 +32,7 @@
         </div>
       </div>
     </div>
+    <div v-if="state == 'counted-colors'"></div>
     <div class="p-4">
       <div
         v-if="state == 'image-selection'"
@@ -48,7 +52,7 @@
           </button>
         </div>
       </div>
-      <div v-if="state == 'counted-colors'"></div>
+      <div v-if="state == 'counted-colors'">X von 16 Farben</div>
     </div>
   </div>
 </template>
@@ -135,10 +139,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 #tools-wrapper {
-  user-drag: none;
   user-select: none;
   -moz-user-select: none;
-  -webkit-user-drag: none;
   -webkit-user-select: none;
   -ms-user-select: none;
 }
@@ -147,6 +149,8 @@ export default {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+  user-drag: none;
+  -webkit-user-drag: none;
 }
 
 .thumbnail-selected {
