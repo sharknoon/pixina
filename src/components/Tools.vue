@@ -54,7 +54,7 @@
                   <p class="card-text">
                     <font-awesome-icon :icon="['fas', 'cubes']" />
                     {{ color.amount }}
-                    <span v-if="amount > 140">
+                    <span v-if="color.amount > 140">
                       <br />
                       <font-awesome-icon :icon="['fas', 'th']" />
                       {{ Math.floor(color.amount / 140) }} Farbquadrate +
@@ -93,11 +93,11 @@
             <div class="modal-dialog modal-dialog-centered">
               <div class="modal-content">
                 <div class="modal-header">
-                                      <font-awesome-icon
-                      :icon="['far', 'info-circle']"
-                      size="lg"
-                      class="align-middle mb-1 me-2"
-                    />
+                  <font-awesome-icon
+                    :icon="['far', 'info-circle']"
+                    size="lg"
+                    class="align-middle mb-1 me-2"
+                  />
                   <h5 class="modal-title" id="exampleModalLabel">
                     Farbinformationen
                   </h5>
@@ -110,7 +110,7 @@
                 </div>
                 <div class="modal-body">
                   <table class="table mb-0">
-                 <tr>
+                    <tr>
                       <th>Farbe</th>
                       <td :style="'background: ' + color.hex_place"></td>
                     </tr>
