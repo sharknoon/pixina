@@ -4,3 +4,5 @@ import '@/js/vue'
 import '@/js/bootstrap'
 // Fontawesome
 import '@/js/fontawesome'
+// Service Worker
+import '@/js/registerServiceWorker'

@@ -132,7 +132,7 @@ export default {
 <style scoped lang="scss">
 // Common styles for mobile and desktop
 .background {
-  background: url("./../assets/images/background-blurry.webp") no-repeat;
+  background: url("./../assets/images/background.webp") no-repeat;
   background-size: cover;
 }
 
