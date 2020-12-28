@@ -34,42 +34,45 @@
         id="navigation-bar"
         class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
       >
-        <!-- Logo Area -->
-        <router-link class="navbar-brand p-0" to="/">
-          <img
-            id="navigation-logo"
-            class="img-fluid"
-            src="./../assets/images/logo-white.svg"
-          />
-        </router-link>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-          aria-controls="navbarSupportedContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="container-fluid p-0">
+          <!-- Logo Area -->
+          <router-link class="navbar-brand p-0 ps-2" to="/">
+            <img
+              id="navigation-logo"
+              class="img-fluid"
+              src="./../assets/images/logo-white.svg"
+            />
+          </router-link>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav me-auto pt-2">
-            <li v-for="item in items" :key="item.name" class="nav-item active">
-              <router-link
-                :to="item.to"
-                class="nav-link router-link d-flex align-items-center"
-                data-bs-toggle="collapse"
-                data-bs-target=".navbar-collapse"
-              >
-                <font-awesome-icon class="me-2" :icon="item.icon" />
-                <span class="pt-2">
-                  {{ item.name }}
-                </span>
-              </router-link>
-            </li>
-          </ul>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto pt-2">
+              <li v-for="item in items" :key="item.name" class="nav-item">
+                <router-link :to="item.to" class="nav-link router-link">
+                  <div
+                    class="d-flex align-items-center"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                  >
+                    <font-awesome-icon class="me-2" :icon="item.icon" />
+                    <span class="pt-2">
+                      {{ item.name }}
+                    </span>
+                  </div>
+                </router-link>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
       <div id="main-content" class="overflow-auto w-100 h-100">
@@ -192,11 +195,9 @@ export default {
     .router-link {
       font-size: larger;
       color: white;
-      margin-right: 0.5rem;
-      margin-left: 0.5rem;
+      border-radius: 0.6rem;
       padding: 0.25rem 0.75rem 0.25rem 0.75rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
+      margin: 0.25rem;
       text-decoration: initial;
       text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
       svg {
@@ -206,7 +207,6 @@ export default {
 
     .router-link-exact-active {
       background: white;
-      border-radius: 0.6rem;
       color: black;
       box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
       text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
