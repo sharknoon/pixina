@@ -1,7 +1,7 @@
 <template>
   <div id="tools-wrapper" class="h-100 d-flex flex-column">
     <div
-      v-if="state == 'image-selection'"
+      v-if="state == 'tile-selection'"
       class="d-flex flex-wrap justify-content-evenly p-2 overflow-auto"
     >
       <div
@@ -38,29 +38,30 @@
       class="flex-grow-1 overflow-auto p-2 position-relative"
     >
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div v-for="color in colors" :key="color.number" class="col p-0">
-          <div class="card m-2 position-relative">
-            <div class="row g-0">
+        <div v-for="color in colors" :key="color.number" class="col p-2">
+          <div class="card position-relative h-100">
+            <div class="flex-fill row g-0">
               <div
                 class="col-3"
-                :style="'background: ' + color.hex_place"
+                :style="
+                  'background: ' +
+                  color.hex_place +
+                  '; border-radius: 0.25rem 0 0 0.25rem'
+                "
               ></div>
-              <div class="col-9">
+              <div class="col-9 d-flex flex-column">
                 <div class="card-body">
                   <h5 class="card-title">{{ color.name }}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">
                     {{ color.number }}
                   </h6>
-                  <p class="card-text">
-                    <font-awesome-icon :icon="['fas', 'cubes']" />
-                    {{ color.amount }}
-                    <span v-if="color.amount > 140">
-                      <br />
-                      <font-awesome-icon :icon="['fas', 'th']" />
-                      {{ Math.floor(color.amount / 140) }} Farbquadrate +
-                      {{ color.amount % 140 }} Pixel
-                    </span>
-                  </p>
+                  <font-awesome-icon :icon="['fas', 'cubes']" />
+                  {{ color.amount }} Pixel
+                  <div v-if="color.amount > 140" class="d-flex">
+                    <font-awesome-icon :icon="['fas', 'th']" class="me-1" />
+                    {{ Math.floor(color.amount / 140) }} Farbquadrate +
+                    {{ color.amount % 140 }} Pixel
+                  </div>
                   <a
                     href="#"
                     class="btn btn-light position-absolute top-0 end-0 m-2"
@@ -72,10 +73,12 @@
                       class="align-middle"
                     />
                   </a>
+                </div>
+                <div class="card-footer p-2">
                   <a href="#" class="btn btn-light">
                     <font-awesome-icon
                       :icon="['fas', 'cut']"
-                      class="align-middle"
+                      class="align-middle mb-1"
                     />
                     Zuschneiden
                   </a>
@@ -151,7 +154,7 @@
     </div>
     <div class="p-4">
       <div
-        v-if="state == 'image-selection'"
+        v-if="state == 'tile-selection'"
         class="d-flex align-items-center justify-content-between"
       >
         <div>
@@ -174,7 +177,7 @@
         class="d-flex align-items-center justify-content-between"
       >
         <div>{{ Object.keys(colors).length }} von 16 Farben</div>
-        <button type="button" class="btn btn-primary" @click="selectImages()">
+        <button type="button" class="btn btn-primary" @click="selectTiles()">
           Fertig
         </button>
       </div>
@@ -196,8 +199,8 @@ export default {
   data() {
     return {
       tiles: [],
-      // "image-selection" or "counted-colors"
-      state: "image-selection",
+      // "tile-selection" or "counted-colors"
+      state: "tile-selection",
       selected_tiles: [],
       processed_tiles: 0,
       colors: {},
@@ -401,9 +404,9 @@ export default {
         };
       }
     },
-    selectImages() {
+    selectTiles() {
       this.selected_tiles = [];
-      this.state = "image-selection";
+      this.state = "tile-selection";
     },
   },
   created() {
@@ -454,5 +457,8 @@ export default {
 .spinner-border {
   width: 3rem;
   height: 3rem;
+}
+.card {
+  min-height: 12rem;
 }
 </style>
