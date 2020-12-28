@@ -28,7 +28,7 @@
         </router-link>
       </nav>
     </div>
-    <div class="d-flex flex-column">
+    <div class="d-flex flex-grow-1 flex-column">
       <!-- In case of mobile view, display top navigation bar -->
       <nav
         id="navigation-bar"
