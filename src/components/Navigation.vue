@@ -1,43 +1,38 @@
 <template>
-  <div class="h-100">
-    <!-- Navigation Sidebar Desktop-->
-    <div class="d-none d-md-flex h-100">
-      <div
-        id="navigation-sidebar"
-        class="text-start d-flex flex-column background p-2"
-      >
-        <!-- Logo Area -->
-        <router-link to="/">
-          <img
-            id="navigation-logo"
-            class="img-fluid mb-2"
-            src="./../assets/images/logo-white.svg"
-          />
+  <div class="h-100 d-flex">
+    <!-- In case of desktop wiew, display left navigation bar -->
+    <div
+      id="navigation-sidebar"
+      class="text-start d-none d-md-flex flex-column background p-2"
+    >
+      <!-- Logo Area -->
+      <router-link to="/">
+        <img
+          id="navigation-logo"
+          class="img-fluid mb-2"
+          src="./../assets/images/logo-white.svg"
+        />
+      </router-link>
+      <!-- Items Area -->
+      <nav>
+        <router-link
+          v-for="item in items"
+          :key="item.name"
+          :to="item.to"
+          class="router-link d-flex align-items-center py-1"
+        >
+          <font-awesome-icon class="me-2" :icon="item.icon" />
+          <span class="pt-2">
+            {{ item.name }}
+          </span>
         </router-link>
-        <!-- Items Area -->
-        <nav>
-          <router-link
-            v-for="item in items"
-            :key="item.name"
-            :to="item.to"
-            class="router-link d-flex align-items-center py-1"
-          >
-            <font-awesome-icon class="me-2" :icon="item.icon" />
-            <span class="pt-2">
-              {{ item.name }}
-            </span>
-          </router-link>
-        </nav>
-      </div>
-      <div id="main-content" class="overflow-auto w-100 h-100">
-        <router-view></router-view>
-      </div>
+      </nav>
     </div>
-    <div class="h-100 d-md-none d-flex flex-column">
-      <!-- Navigation bar Mobile -->
+    <div class="d-flex flex-column">
+      <!-- In case of mobile view, display top navigation bar -->
       <nav
         id="navigation-bar"
-        class="navbar navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
+        class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
       >
         <!-- Logo Area -->
         <router-link class="navbar-brand p-0" to="/">
@@ -190,6 +185,7 @@ export default {
   .navbar-toggler {
     border-color: rgba(0, 0, 0, 0.5);
     border-width: 0.15rem;
+    backdrop-filter: blur(0.5rem);
   }
 
   .navbar-nav {
