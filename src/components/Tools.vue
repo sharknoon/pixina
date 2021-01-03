@@ -75,7 +75,12 @@
                   </a>
                 </div>
                 <div class="card-footer p-2">
-                  <a href="#" class="btn btn-light">
+                  <a
+                    href="#"
+                    class="btn btn-light"
+                    data-bs-toggle="modal"
+                    :data-bs-target="'#cuttingModal' + color.number"
+                  >
                     <font-awesome-icon
                       :icon="['fas', 'cut']"
                       class="align-middle mb-1"
@@ -86,6 +91,7 @@
               </div>
             </div>
           </div>
+          <!-- Color Info Modal -->
           <div
             class="modal fade"
             :id="'infoModal' + color.number"
@@ -138,6 +144,48 @@
               </div>
             </div>
           </div>
+          <!-- Cutting Modal -->
+          <div
+            class="modal fade"
+            :id="'cuttingModal' + color.number"
+            tabindex="-1"
+            :aria-labelledby="'cuttingModal' + color.number + 'Label'"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <font-awesome-icon
+                    :icon="['far', 'info-circle']"
+                    size="lg"
+                    class="align-middle mb-1 me-2"
+                  />
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Schneideinformation
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <h5>
+                    {{ Math.floor(color.amount / 140) }} ganze Platte{{
+                      Math.floor(color.amount / 140) != 1 ? "n" : ""
+                    }}
+                    +
+                  </h5>
+                  <ColorPlate
+                    :color="color"
+                    :withCuttingLine="true"
+                    :usedPixels="color.amount % 140"
+                  ></ColorPlate>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div
@@ -185,6 +233,8 @@
   </div>
 </template>
 <script>
+import ColorPlate from "./tools/ColorPlate";
+
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faCheckCircle } from "@fortawesome/pro-solid-svg-icons";
 import { faInfoCircle } from "@fortawesome/pro-regular-svg-icons";
@@ -205,6 +255,9 @@ export default {
       processed_tiles: 0,
       colors: {},
     };
+  },
+  components: {
+    ColorPlate,
   },
   methods: {
     getTileThumbnail(number) {
