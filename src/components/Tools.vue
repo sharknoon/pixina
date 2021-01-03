@@ -254,10 +254,18 @@ export default {
       selected_tiles: [],
       processed_tiles: 0,
       colors: {},
+      tempColors: {},
     };
   },
   components: {
     ColorPlate,
+  },
+  watch: {
+    processed_tiles: function (val) {
+      if (val >= this.selected_tiles.length) {
+        this.colors = this.tempColors;
+      }
+    },
   },
   methods: {
     getTileThumbnail(number) {
@@ -307,6 +315,7 @@ export default {
     countColors() {
       this.processed_tiles = 0;
       this.colors = {};
+      this.tempColors = {};
       this.state = "counted-colors";
 
       this.selected_tiles.forEach((number) => {
@@ -322,11 +331,12 @@ export default {
           for (x = 0; x < img.width; x++) {
             for (y = 0; y < img.height; y++) {
               let color = context.getImageData(x, y, 1, 1).data;
-              if (color in self.colors) {
-                self.colors[color].amount = self.colors[color].amount + 1;
+              if (color in self.tempColors) {
+                self.tempColors[color].amount =
+                  self.tempColors[color].amount + 1;
               } else {
-                self.colors[color] = self.getColorInformations(color);
-                self.colors[color].amount = 1;
+                self.tempColors[color] = self.getColorInformations(color);
+                self.tempColors[color].amount = 1;
               }
             }
           }

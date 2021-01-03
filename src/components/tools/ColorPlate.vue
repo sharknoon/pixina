@@ -24,12 +24,12 @@ export default {
     this.drawPlateCanvas();
   },
   methods: {
-    getContrastColor(hexcolor) {
+    isDarkContrast(hexcolor) {
       let color = hexcolor.substring(1, hexcolor.length - 1); // remove #
       let r = parseInt(color.substring(0, 2), 16); // hexToR
       let g = parseInt(color.substring(2, 4), 16); // hexToG
       let b = parseInt(color.substring(4, 6), 16); // hexToB
-      return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? "#000" : "#fff";
+      return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? true : false;
     },
     calculateCutting(amountPixels) {
       const n = 12;
@@ -68,6 +68,14 @@ export default {
       let c = document.getElementById(
         "plate-canvas-" + this.color.number + "-" + (this.color.amount % 140)
       );
+      if (this.isDarkContrast(this.color.hex_place)) {
+        let modalContent = c.parentElement.parentElement;
+        modalContent.style.background = "#1e1e1e";
+        modalContent.style.color = "white";
+        modalContent.getElementsByClassName("btn-close").forEach((btn) => {
+          btn.classList += " btn-close-white";
+        });
+      }
       c.width = 1000;
       c.height = 1000;
       let ctx = c.getContext("2d");
@@ -80,8 +88,8 @@ export default {
       let mainStrokeWidth = Math.min(c.height, c.width) / 37;
       let smallStrokeWidth = mainStrokeWidth / 2;
       let mainColor = this.color.hex_place;
-      let cuttingColor = "red";
-      let cuttingLineDash = [30, 30];
+      let cuttingColor = this.color.number == 155 ? "black" : "red";
+      let cuttingLineDash = [30];
       let mainFont = "Arial";
       let mainFontSize = Math.min(c.height, c.width) / 20;
       let mainFontHorizontalAlignment = "center";
@@ -127,9 +135,13 @@ export default {
       ctx.fill();
 
       // Text in the circle
-      ctx.fillStyle = this.getContrastColor(this.color.hex_place);
+      if (this.isDarkContrast(this.color.hex_place)) {
+        ctx.fillStyle = "black";
+      } else {
+        ctx.fillStyle = "white";
+      }
       ctx.fillText(this.color.number, c.width / 2, c.height / 2);
-      ctx.fillStyle = mainColor;
+      ctx.restore();
 
       // The pixels itself
       let innerColumnWidth = columnWidth - mainStrokeWidth;
@@ -210,8 +222,6 @@ export default {
       ctx.setLineDash(cuttingLineDash);
 
       const info = this.calculateCutting(this.color.amount);
-      console.log(this.color.name);
-      console.log(info);
       for (let xCoordinate = 0; xCoordinate < info.length; xCoordinate++) {
         for (
           let yCoordinate = 0;
