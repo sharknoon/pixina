@@ -69,12 +69,7 @@ export default {
         "plate-canvas-" + this.color.number + "-" + (this.color.amount % 140)
       );
       if (this.isDarkContrast(this.color.hex_place)) {
-        let modalContent = c.parentElement.parentElement;
-        modalContent.style.background = "#1e1e1e";
-        modalContent.style.color = "white";
-        modalContent.getElementsByClassName("btn-close").forEach((btn) => {
-          btn.classList += " btn-close-white";
-        });
+        c.parentElement.parentElement.classList += " modal-content-dark";
       }
       c.width = 1000;
       c.height = 1000;
@@ -283,5 +278,17 @@ canvas {
   image-rendering: crisp-edges;
 
   width: 100%;
+}
+</style>
+
+<style lang="scss">
+@import "bootstrap";
+
+.modal-content-dark {
+  background: #1e1e1e;
+  color: white;
+  .btn-close {
+    @extend .btn-close-white;
+  }
 }
 </style>
