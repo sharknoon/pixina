@@ -77,7 +77,7 @@
         disableZoomControl="disable"
         class="bg-dark flex-grow-1 h-100"
       >
-        <img :src="tile.src" />
+        <img :src="tile.src" class="tile" />
       </pinch-zoom>
     </div>
     <TileColors
@@ -166,5 +166,10 @@ export default {
 <style lang="scss" scoped>
 .share-dropdown-icon {
   min-width: 1.25rem;
+}
+.tile {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
 }
 </style>

@@ -179,8 +179,6 @@ export default {
 }
 
 #navigation-bar {
-  z-index: 1;
-
   .navbar-toggler {
     border-color: rgba(0, 0, 0, 0.5);
     border-width: 0.15rem;
