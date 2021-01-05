@@ -22,7 +22,7 @@
           class="router-link d-flex align-items-center py-1"
         >
           <font-awesome-icon class="me-2" :icon="item.icon" />
-          <span class="pt-2">
+          <span class="pt-1">
             {{ item.name }}
           </span>
         </router-link>
@@ -65,7 +65,7 @@
                     data-bs-target="#navbarSupportedContent"
                   >
                     <font-awesome-icon class="me-2" :icon="item.icon" />
-                    <span class="pt-2">
+                    <span class="pt-1">
                       {{ item.name }}
                     </span>
                   </div>
@@ -137,10 +137,6 @@ export default {
 #navigation-sidebar {
   min-width: 20rem;
   box-shadow: inset -0.5rem 0 2rem -0.5rem rgba(0, 0, 0, 0.15);
-
-  * {
-    z-index: 2;
-  }
 
   nav {
     .router-link {
