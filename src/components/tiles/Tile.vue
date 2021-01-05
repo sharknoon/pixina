@@ -2,9 +2,8 @@
   <div class="position-fixed top-0 end-0 bottom-0 start-0">
     <div v-if="infoTile == null" class="d-flex flex-column h-100">
       <div class="bg-dark text-light row p-2">
-        <div class="col"></div>
-        <div class="col d-flex justify-content-center align-items-center">
-          Bild Nr. {{ tile.title }}
+        <div class="col d-flex align-items-center">
+          <span class="ms-2">Bild Nr. {{ tile.title }}</span>
         </div>
         <div class="col d-flex justify-content-end align-items-center">
           <div class="dropdown">
