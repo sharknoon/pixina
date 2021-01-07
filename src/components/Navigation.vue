@@ -100,7 +100,7 @@ export default {
         {
           name: "Vorlagen",
           icon: ["fal", "book-open"],
-          to: "/",
+          to: "/templates",
         },
         {
           name: "Place",

@@ -15,25 +15,23 @@ const router = new VueRouter({
                 import ('@/components/Navigation.vue'),
             children: [{
                     path: '',
-                    redirect: 'tiles'
+                    redirect: 'templates'
                 },
                 {
-                    path: 'tiles',
-                    children: [{
-                        path: '',
-                        component: () =>
-                            import ('@/components/Templates.vue'),
-                        meta: {
-                            title: 'Vorlagen'
-                        },
-                    }, {
-                        path: ':number',
-                        component: () =>
-                            import ('@/components/tiles/Tile.vue'),
-                        meta: {
-                            title: 'Vorlage'
-                        },
-                    }]
+                    path: 'templates',
+                    component: () =>
+                        import ('@/components/Templates.vue'),
+                    meta: {
+                        title: 'Vorlagen'
+                    },
+                },
+                {
+                    path: 'templates/:number',
+                    component: () =>
+                        import ('@/components/tiles/Tile.vue'),
+                    meta: {
+                        title: 'Vorlage'
+                    }
                 },
                 {
                     path: 'colorCount',
