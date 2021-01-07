@@ -16,7 +16,7 @@
             <li v-for="network in shareNetworks" :key="network.name">
               <ShareNetwork
                 :network="network.name.toLowerCase()"
-                :url="window.location.origin + $route.fullPath"
+                :url="url"
                 :title="title"
                 :description="
                   'Diese Kachel dient zur Vorlage, um sie mit Pixelhobby Pixeln nachzubauen.' +
@@ -150,6 +150,9 @@ export default {
     },
     number: function () {
       return this.$route.params.number;
+    },
+    url: function () {
+      return window.location.href;
     },
   },
   methods: {

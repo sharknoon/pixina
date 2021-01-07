@@ -13,26 +13,30 @@ const router = new VueRouter({
             path: '/',
             component: () =>
                 import ('@/components/Navigation.vue'),
-            meta: { requiresAuth: true },
             children: [{
-                    path: '/',
-                    alias: '/templates',
-                    component: () =>
-                        import ('@/components/Templates.vue'),
-                    meta: {
-                        title: 'Vorlagen'
-                    }
+                    path: '',
+                    redirect: 'tiles'
                 },
                 {
-                    path: '/tile/:number',
-                    component: () =>
-                        import ('@/components/tiles/Tile.vue'),
-                    meta: {
-                        title: 'Kachel'
-                    }
+                    path: 'tiles',
+                    children: [{
+                        path: '',
+                        component: () =>
+                            import ('@/components/Templates.vue'),
+                        meta: {
+                            title: 'Vorlagen'
+                        },
+                    }, {
+                        path: ':number',
+                        component: () =>
+                            import ('@/components/tiles/Tile.vue'),
+                        meta: {
+                            title: 'Vorlage'
+                        },
+                    }]
                 },
                 {
-                    path: '/colorCount',
+                    path: 'colorCount',
                     component: () =>
                         import ('@/components/tools/TileColors.vue'),
                     meta: {
@@ -40,7 +44,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/place',
+                    path: 'place',
                     component: () =>
                         import ('@/components/Place.vue'),
                     meta: {
@@ -48,7 +52,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/history',
+                    path: 'history',
                     component: () =>
                         import ('@/components/History.vue'),
                     meta: {
@@ -56,7 +60,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/atlas',
+                    path: 'atlas',
                     component: () =>
                         import ('@/components/Atlas.vue'),
                     meta: {
@@ -64,7 +68,7 @@ const router = new VueRouter({
                     }
                 },
                 {
-                    path: '/tools',
+                    path: 'tools',
                     component: () =>
                         import ('@/components/Tools.vue'),
                     meta: {
