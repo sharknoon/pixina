@@ -130,23 +130,22 @@ export default {
   },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
-    TileColors: () => import("../tools/TileColors.vue"),
   },
   computed: {
     title: function () {
       return (
         "Bild Nr. " +
-        number +
+        this.number +
         " (" +
-        (number % 20) +
+        (this.number % 20) +
         "|" +
-        Math.floor(number / 20) +
+        Math.floor(this.number / 20) +
         ")"
       );
     },
     src: function () {
       return require("./../../assets/images/templates/" +
-        number +
+        this.number +
         "-detailed.webp");
     },
     number: function () {

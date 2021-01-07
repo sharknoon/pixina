@@ -7,21 +7,12 @@
   </div>
 </template>
 <script>
-import Tile from "./tiles/Tile";
 import TileSelection from "./tools/TileSelection.vue";
 
 export default {
   name: "Templates",
-  data() {
-    return {
-      tiles: [],
-    };
-  },
   components: {
-    Tile,
     TileSelection,
   },
 };
 </script>
-<style lang=scss scoped>
-</style>
