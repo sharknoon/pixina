@@ -1,90 +1,86 @@
 <template>
   <div class="position-fixed top-0 end-0 bottom-0 start-0">
-    <div v-if="infoTile == null" class="d-flex flex-column h-100">
-      <div class="bg-dark text-light row p-2">
-        <div class="col d-flex align-items-center">
-          <span class="ms-2">Bild Nr. {{ tile.title }}</span>
+    <div class="d-flex flex-column h-100 bg-dark">
+      <div class="text-light d-flex justify-content-end align-items-center p-2">
+        <div class="dropdown">
+          <button
+            class="btn btn-dark ms-2"
+            type="button"
+            id="shareMenuButton"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            <font-awesome-icon :icon="['fal', 'share']" size="lg" />
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="shareMenuButton">
+            <li v-for="network in shareNetworks" :key="network.name">
+              <ShareNetwork
+                :network="network.name.toLowerCase()"
+                url="https://news.vuejs.org/issues/180"
+                title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
+                description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
+                class="dropdown-item"
+              >
+                <font-awesome-icon
+                  :icon="network.icon"
+                  class="me-1 share-dropdown-icon"
+                />
+                {{ network.name }}
+              </ShareNetwork>
+            </li>
+          </ul>
         </div>
-        <div class="col d-flex justify-content-end align-items-center">
-          <div class="dropdown">
-            <button
-              class="btn btn-dark ms-2"
-              type="button"
-              id="shareMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <font-awesome-icon :icon="['fal', 'share']" size="lg" />
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="shareMenuButton">
-              <li v-for="network in shareNetworks" :key="network.name">
-                <ShareNetwork
-                  :network="network.name.toLowerCase()"
-                  url="https://news.vuejs.org/issues/180"
-                  title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-                  description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
-                  class="dropdown-item"
-                >
-                  <font-awesome-icon
-                    :icon="network.icon"
-                    class="me-1 share-dropdown-icon"
-                  />
-                  {{ network.name }}
-                </ShareNetwork>
-              </li>
-            </ul>
-          </div>
 
-          <button
-            type="button"
-            class="btn btn-dark ms-2"
-            @click="infoTile = tile"
-          >
-            <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
-          </button>
-          <button
-            type="button"
-            class="btn btn-dark ms-2"
-            @click="$store.commit('toggleFavoriteTile', tile.number)"
-          >
-            <font-awesome-icon
-              :icon="[
-                $store.getters.isFavorite(tile.number) ? 'fas' : 'fal',
-                'star',
-              ]"
-              size="lg"
-            />
-          </button>
-          <button
-            type="button"
-            class="btn btn-dark ms-2"
-            @click="printTile(tile)"
-          >
-            <font-awesome-icon :icon="['fal', 'print']" size="lg" />
-          </button>
-          <button
-            type="button"
-            class="btn btn-dark ms-2"
-            @click="$emit('closeTile')"
-          >
-            <font-awesome-icon :icon="['fal', 'times']" size="lg" />
-          </button>
-        </div>
+        <button
+          type="button"
+          class="btn btn-dark ms-2"
+          @click="infoTile = tile"
+        >
+          <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark ms-2"
+          @click="$store.commit('toggleFavoriteTile', tile.number)"
+        >
+          <font-awesome-icon
+            :icon="[
+              $store.getters.isFavorite(tile.number) ? 'fas' : 'fal',
+              'star',
+            ]"
+            size="lg"
+          />
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark ms-2"
+          @click="printTile(tile)"
+        >
+          <font-awesome-icon :icon="['fal', 'print']" size="lg" />
+        </button>
+        <button
+          type="button"
+          class="btn btn-dark ms-2"
+          @click="$emit('closeTile')"
+        >
+          <font-awesome-icon :icon="['fal', 'times']" size="lg" />
+        </button>
       </div>
       <pinch-zoom
         limitZoom="15"
         disableZoomControl="disable"
-        class="bg-dark flex-grow-1 h-100"
+        class="flex-grow-1 h-100 bg-transparent"
       >
         <img :src="tile.src" class="tile" />
       </pinch-zoom>
+      <div class="text-light p-2 text-center">Bild Nr. {{ tile.title }}</div>
     </div>
     <TileColors
       v-if="infoTile != null"
       :tiles="[this.tile]"
       :withFavorites="true"
       @close="infoTile = null"
-      class="bg-white"
+      class="position-fixed top-0 end-0 bottom-0 start-0 bg-white"
     />
   </div>
 </template>
@@ -170,5 +166,10 @@ export default {
   image-rendering: pixelated;
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
+}
+</style>
+<style lang="scss">
+.bg-transparent {
+  background-color: transparent;
 }
 </style>
