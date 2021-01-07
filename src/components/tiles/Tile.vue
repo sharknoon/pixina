@@ -100,7 +100,6 @@ import {
   faTelegramPlane,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/pro-solid-svg-icons";
-import func from "../../../vue-temp/vue-editor-bridge";
 
 library.add(
   faPrint,
