@@ -165,7 +165,7 @@ export default {
           }
         }
       } else {
-        this.$router.push("/tile/" + number);
+        this.$router.push("/templates/" + number);
       }
     },
     getTile(number) {

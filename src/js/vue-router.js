@@ -10,6 +10,23 @@ Vue.use(VueRouter)
 const router = new VueRouter({
     mode: 'history',
     routes: [{
+            path: 'templates/:number',
+            component: () =>
+                import ('@/components/tiles/Tile.vue'),
+            meta: {
+                title: 'Vorlage'
+            }
+        },
+        {
+            path: 'templates/:number/colorCount',
+            component: () =>
+                import ('@/components/tools/TileColors.vue'),
+            meta: {
+                title: 'Farbenzählung'
+            }
+        },
+        {
+            // Navigation menu
             path: '/',
             component: () =>
                 import ('@/components/Navigation.vue'),
@@ -24,22 +41,6 @@ const router = new VueRouter({
                     meta: {
                         title: 'Vorlagen'
                     },
-                },
-                {
-                    path: 'templates/:number',
-                    component: () =>
-                        import ('@/components/tiles/Tile.vue'),
-                    meta: {
-                        title: 'Vorlage'
-                    }
-                },
-                {
-                    path: 'colorCount',
-                    component: () =>
-                        import ('@/components/tools/TileColors.vue'),
-                    meta: {
-                        title: 'Farbenzählung'
-                    }
                 },
                 {
                     path: 'place',
@@ -72,7 +73,15 @@ const router = new VueRouter({
                     meta: {
                         title: 'Werkzeuge'
                     }
-                }
+                },
+                {
+                    path: 'tools/colorCount',
+                    component: () =>
+                        import ('@/components/tools/TileColors.vue'),
+                    meta: {
+                        title: 'Farbenzählung'
+                    }
+                },
             ]
         },
         { //Must be at the bottom, because of the asterix (*) path
