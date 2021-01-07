@@ -98,14 +98,14 @@ export default {
     tiles: function () {
       if (this.onlyFavorites) {
         return this.$store.state.favoriteTiles
-          .map((number) => getTile(number))
+          .map((number) => this.getTile(number))
           .sort(function (tileA, tileB) {
             return tileA.number - tileB.number;
           });
       } else {
         let tiles = [];
         for (let number = 0; number < 500; number++) {
-          tiles.push(getTile(number));
+          tiles.push(this.getTile(number));
         }
         return tiles;
       }
