@@ -64,7 +64,12 @@
         <button
           type="button"
           class="btn btn-primary"
-          @click="$emit('tiles-selected', selected_tiles)"
+          @click="
+            $router.push({
+              path: '/colorCount',
+              query: { tiles: selected_tiles_numbers },
+            })
+          "
           :disabled="selected_tiles.length < 1"
         >
           Weiter
@@ -91,25 +96,16 @@ export default {
   },
   computed: {
     tiles: function () {
-      let self = this;
-      let createTile = function (number) {
-        return {
-          src_thumbnail: self.getTileThumbnail(number),
-          src: self.getTile(number),
-          title: self.getTileTitle(number),
-          number: number,
-        };
-      };
       if (this.onlyFavorites) {
         return this.$store.state.favoriteTiles
-          .map((number) => createTile(number))
+          .map((number) => getTile(number))
           .sort(function (tileA, tileB) {
             return tileA.number - tileB.number;
           });
       } else {
         let tiles = [];
         for (let number = 0; number < 500; number++) {
-          tiles.push(createTile(number));
+          tiles.push(getTile(number));
         }
         return tiles;
       }
@@ -169,13 +165,21 @@ export default {
           }
         }
       } else {
-        this.$emit("tile-selected", this.tiles[number]);
+        this.$router.push("/tile/" + number);
       }
+    },
+    getTile(number) {
+      return {
+        src_thumbnail: this.getTileThumbnail(number),
+        src: this.getTileTemplate(number),
+        title: this.getTileTitle(number),
+        number: number,
+      };
     },
     getTileThumbnail(number) {
       return require("./../../assets/images/templates/" + number + ".webp");
     },
-    getTile(number) {
+    getTileTemplate(number) {
       return require("./../../assets/images/templates/" +
         number +
         "-detailed.webp");

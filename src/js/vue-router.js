@@ -24,6 +24,22 @@ const router = new VueRouter({
                     }
                 },
                 {
+                    path: '/tile/:number',
+                    component: () =>
+                        import ('@/components/tiles/Tile.vue'),
+                    meta: {
+                        title: 'Kachel'
+                    }
+                },
+                {
+                    path: '/colorCount',
+                    component: () =>
+                        import ('@/components/tools/TileColors.vue'),
+                    meta: {
+                        title: 'Farbenzählung'
+                    }
+                },
+                {
                     path: '/place',
                     component: () =>
                         import ('@/components/Place.vue'),

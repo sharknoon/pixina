@@ -1,18 +1,9 @@
 <template>
   <div>
     <h3 class="p-3 pb-0 m-0">Favoriten</h3>
-    <TileSelection
-      v-if="openTile == null"
-      @tile-selected="setOpenTile"
-      :onlyFavorites="true"
-    />
+    <TileSelection :onlyFavorites="true" />
     <h3 class="p-3 pb-0 m-0">Alle Vorlagen</h3>
-    <TileSelection v-if="openTile == null" @tile-selected="setOpenTile" />
-    <Tile
-      v-if="openTile != null"
-      :tile="openTile"
-      @closeTile="openTile = null"
-    />
+    <TileSelection />
   </div>
 </template>
 <script>
@@ -24,13 +15,7 @@ export default {
   data() {
     return {
       tiles: [],
-      openTile: null,
     };
-  },
-  methods: {
-    setOpenTile(tile) {
-      this.openTile = tile;
-    },
   },
   components: {
     Tile,

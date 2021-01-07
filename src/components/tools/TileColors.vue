@@ -166,7 +166,7 @@
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>{{ Object.keys(colors).length }} von 16 Farben</div>
-      <button type="button" class="btn btn-primary" @click="$emit('close')">
+      <button type="button" class="btn btn-primary" @click="goBack()">
         Fertig
       </button>
     </div>
@@ -189,14 +189,13 @@ export default {
       tempColors: {},
     };
   },
-  props: {
-    tiles: {
-      type: Array,
-      required: true,
-    },
-  },
   components: {
     ColorPlate,
+  },
+  computed: {
+    tiles: function () {
+      return this.$route.query.tiles;
+    },
   },
   watch: {
     processed_tiles: function (val) {
@@ -209,12 +208,15 @@ export default {
     this.countColors();
   },
   methods: {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+    },
     countColors() {
       this.processed_tiles = 0;
       this.colors = {};
       this.tempColors = {};
 
-      this.tiles.forEach((tile) => {
+      this.tiles.forEach((number) => {
         let img = new Image();
         let self = this;
         img.onload = function () {
@@ -238,7 +240,7 @@ export default {
           }
           self.processed_tiles = self.processed_tiles + 1;
         };
-        img.src = tile.src_thumbnail;
+        img.src = require("./../../assets/images/templates/" + number + ".webp");
       });
     },
 

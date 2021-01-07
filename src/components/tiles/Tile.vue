@@ -16,9 +16,17 @@
             <li v-for="network in shareNetworks" :key="network.name">
               <ShareNetwork
                 :network="network.name.toLowerCase()"
-                url="https://news.vuejs.org/issues/180"
-                title="Say hi to Vite! A brand new, extremely fast development setup for Vue."
-                description="This week, I’d like to introduce you to 'Vite', which means 'Fast'. It’s a brand new development setup created by Evan You."
+                :url="window.location.origin + $route.fullPath"
+                :title="title"
+                :description="
+                  'Diese Kachel dient zur Vorlage, um sie mit Pixelhobby Pixeln nachzubauen.' +
+                  ' Sie repräsentiert einen kleinen Teil (0,2%) des Gesamtbildes.' +
+                  ' Im Gesamtbild liegt diese Kachel in der ' +
+                  (Math.floor(number / 20) + 1) +
+                  '. Reihe (von unten) und ' +
+                  (number % 20) +
+                  '. Spalte.'
+                "
                 class="dropdown-item"
               >
                 <font-awesome-icon
@@ -34,35 +42,26 @@
         <button
           type="button"
           class="btn btn-dark ms-2"
-          @click="infoTile = tile"
+          @click="
+            $router.push({ path: '/colorCount', query: { tiles: [number] } })
+          "
         >
           <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
         </button>
         <button
           type="button"
           class="btn btn-dark ms-2"
-          @click="$store.commit('toggleFavoriteTile', tile.number)"
+          @click="$store.commit('toggleFavoriteTile', number)"
         >
           <font-awesome-icon
-            :icon="[
-              $store.getters.isFavorite(tile.number) ? 'fas' : 'fal',
-              'star',
-            ]"
+            :icon="[$store.getters.isFavorite(number) ? 'fas' : 'fal', 'star']"
             size="lg"
           />
         </button>
-        <button
-          type="button"
-          class="btn btn-dark ms-2"
-          @click="printTile(tile)"
-        >
+        <button type="button" class="btn btn-dark ms-2" @click="printTile()">
           <font-awesome-icon :icon="['fal', 'print']" size="lg" />
         </button>
-        <button
-          type="button"
-          class="btn btn-dark ms-2"
-          @click="$emit('closeTile')"
-        >
+        <button type="button" class="btn btn-dark ms-2" @click="goBack()">
           <font-awesome-icon :icon="['fal', 'times']" size="lg" />
         </button>
       </div>
@@ -71,17 +70,12 @@
         disableZoomControl="disable"
         class="flex-grow-1 h-100 bg-transparent"
       >
-        <img :src="tile.src" class="tile" />
+        <img :src="src" class="tile" />
       </pinch-zoom>
-      <div class="text-light p-2 text-center">Bild Nr. {{ tile.title }}</div>
+      <div class="text-light p-2 text-center">
+        {{ title }}
+      </div>
     </div>
-    <TileColors
-      v-if="infoTile != null"
-      :tiles="[this.tile]"
-      :withFavorites="true"
-      @close="infoTile = null"
-      class="position-fixed top-0 end-0 bottom-0 start-0 bg-white"
-    />
   </div>
 </template>
 <script>
@@ -106,6 +100,7 @@ import {
   faTelegramPlane,
 } from "@fortawesome/free-brands-svg-icons";
 import { faEnvelope } from "@fortawesome/pro-solid-svg-icons";
+import func from "../../../vue-temp/vue-editor-bridge";
 
 library.add(
   faPrint,
@@ -125,7 +120,6 @@ export default {
   name: "Tile",
   data() {
     return {
-      infoTile: null,
       shareNetworks: [
         { name: "Email", icon: ["fas", "envelope"] },
         { name: "WhatsApp", icon: ["fab", "whatsapp"] },
@@ -135,22 +129,40 @@ export default {
       ],
     };
   },
-  props: {
-    tile: {
-      type: Object,
-      required: true,
-    },
-  },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
     TileColors: () => import("../tools/TileColors.vue"),
   },
+  computed: {
+    title: function () {
+      return (
+        "Bild Nr. " +
+        number +
+        " (" +
+        (number % 20) +
+        "|" +
+        Math.floor(number / 20) +
+        ")"
+      );
+    },
+    src: function () {
+      return require("./../../assets/images/templates/" +
+        number +
+        "-detailed.webp");
+    },
+    number: function () {
+      return this.$route.params.number;
+    },
+  },
   methods: {
-    printTile(tile) {
+    goBack() {
+      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+    },
+    printTile() {
       printJS({
-        printable: tile.src,
+        printable: this.src,
         type: "image",
-        header: tile.title,
+        header: this.title,
         headerStyle: "font-family: Arial;",
         style: "@page { size: auto;  margin: 0mm; } html { margin: 10% }",
       });
