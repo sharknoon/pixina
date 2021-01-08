@@ -2,12 +2,12 @@ module.exports = {
   runtimeCompiler: true,
   pwa: {
     name: 'Pixina',
-    themeColor: '#EC1054',
-    msTileColor: '#EC1054',
+    themeColor: '#dc143c',
+    // This means, Apple can display it as a fullscreen app
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
     manifestOptions: {
-      background_color: "#ffffff",
+      background_color: "#fff",
       icons: [
         {
           src: "./img/icons/android-chrome-192x192.png",

@@ -9,7 +9,7 @@
       <img :src="placeUrl" />
     </pinch-zoom>
     <div class="d-flex justify-content-between p-4">
-      <div class="btn-group" role="group" aria-label="Image type">
+      <div class="btn-group me-2" role="group" aria-label="Image type">
         <input
           type="radio"
           class="btn-check"
