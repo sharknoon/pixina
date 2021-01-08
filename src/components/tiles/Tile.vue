@@ -23,9 +23,9 @@
                   ' Sie repräsentiert einen kleinen Teil (0,2%) des Gesamtbildes.' +
                   ' Im Gesamtbild liegt diese Kachel in der ' +
                   (Math.floor(number / 20) + 1) +
-                  '. Reihe (von unten) und ' +
+                  '. Reihe von unten und in der ' +
                   (number % 20) +
-                  '. Spalte.'
+                  '. Spalte von links.'
                 "
                 class="dropdown-item"
               >
@@ -43,7 +43,7 @@
           type="button"
           class="btn btn-dark ms-2"
           @click="
-            $router.push({ path: '/colorCount', query: { tiles: [number] } })
+            $router.push({ name: 'ColorCountTile', query: { tiles: [number] } })
           "
         >
           <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
@@ -149,7 +149,7 @@ export default {
         "-detailed.webp");
     },
     number: function () {
-      return this.$route.params.number;
+      return parseInt(this.$route.params.number);
     },
     url: function () {
       return window.location.href;

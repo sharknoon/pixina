@@ -66,7 +66,7 @@
           class="btn btn-primary"
           @click="
             $router.push({
-              path: '/colorCount',
+              name: 'colorCountTools',
               query: { tiles: selected_tiles_numbers },
             })
           "
