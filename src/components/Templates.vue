@@ -2,6 +2,7 @@
   <div>
     <h3 class="p-3 pb-0 m-0">Favoriten</h3>
     <TileSelection :onlyFavorites="true" />
+    <div v-if="$store.state.favoriteTiles.length < 1" class="d-flex justify-content-center">Keine Favoriten vorhanden</div>
     <h3 class="p-3 pb-0 m-0">Alle Vorlagen</h3>
     <TileSelection />
   </div>
