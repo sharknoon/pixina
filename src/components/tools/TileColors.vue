@@ -372,6 +372,7 @@ export default {
 <style lang="scss" scoped>
 .loading-overlay {
   backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .spinner-border {
