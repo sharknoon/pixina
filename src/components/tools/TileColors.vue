@@ -165,7 +165,7 @@
       </div>
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
-      <div>{{ Object.keys(colors).length }} von 16 Farben</div>
+      <div>{{ colors.length }} von 16 Farben</div>
       <button type="button" class="btn btn-primary" @click="goBack()">
         Fertig
       </button>
@@ -185,7 +185,7 @@ export default {
   data() {
     return {
       processed_tiles: 0,
-      colors: {},
+      colors: [],
       tempColors: {},
     };
   },
@@ -200,7 +200,9 @@ export default {
   watch: {
     processed_tiles: function (val) {
       if (val >= this.tiles.length) {
-        this.colors = this.tempColors;
+        this.colors = Object.values(this.tempColors).sort(function(a, b) {
+          return b.amount - a.amount;
+        });
       }
     },
   },
@@ -213,7 +215,7 @@ export default {
     },
     countColors() {
       this.processed_tiles = 0;
-      this.colors = {};
+      this.colors = [];
       this.tempColors = {};
 
       this.tiles.forEach((number) => {
