@@ -183,6 +183,7 @@ export default {
     border-color: rgba(0, 0, 0, 0.5);
     border-width: 0.15rem;
     backdrop-filter: blur(0.5rem);
+    -webkit-backdrop-filter: blur(0.5rem);
   }
 
   .navbar-nav {
