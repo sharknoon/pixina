@@ -46,9 +46,8 @@ export default {
 <style lang="scss" scoped>
 #history-wrapper {
   img {
-    image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
+    image-rendering: pixelated;
   }
 }
 </style>

@@ -273,9 +273,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 canvas {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: pixelated;
 
   width: 100%;
 }

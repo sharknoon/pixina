@@ -206,9 +206,8 @@ export default {
 }
 
 .thumbnail {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: pixelated;
   user-drag: none;
   -webkit-user-drag: none;
 }

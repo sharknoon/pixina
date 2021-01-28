@@ -176,9 +176,8 @@ export default {
   min-width: 1.25rem;
 }
 .tile {
-  image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
-  image-rendering: crisp-edges;
+	image-rendering: -moz-crisp-edges;
+	image-rendering: pixelated;
 }
 </style>
 <style lang="scss">
