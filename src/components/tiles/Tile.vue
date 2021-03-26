@@ -1,67 +1,23 @@
 <template>
   <div class="position-fixed top-0 end-0 bottom-0 start-0">
     <div class="d-flex flex-column h-100 bg-dark">
-      <div class="text-light d-flex justify-content-end align-items-center p-2">
-        <div class="dropdown">
-          <button
-            class="btn btn-dark ms-2"
-            type="button"
-            id="shareMenuButton"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <font-awesome-icon :icon="['fal', 'share']" size="lg" />
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="shareMenuButton">
-            <li v-for="network in shareNetworks" :key="network.name">
-              <ShareNetwork
-                :network="network.name.toLowerCase()"
-                :url="url"
-                :title="title"
-                :description="
-                  'Diese Kachel dient zur Vorlage, um sie mit Pixelhobby Pixeln nachzubauen.' +
-                  ' Sie repräsentiert einen kleinen Teil (0,2%) des Gesamtbildes.' +
-                  ' Im Gesamtbild liegt diese Kachel in der ' +
-                  (Math.floor(number / 20) + 1) +
-                  '. Reihe von unten und in der ' +
-                  (number % 20) +
-                  '. Spalte von links.'
-                "
-                class="dropdown-item"
-              >
-                <font-awesome-icon
-                  :icon="network.icon"
-                  class="me-1 share-dropdown-icon"
-                />
-                {{ network.name }}
-              </ShareNetwork>
-            </li>
-          </ul>
-        </div>
+      <div class="text-light d-flex justify-content-end p-2">
+        <Share v-if="webShareApiSupported" :tileNumber="number" />
+        <Download :tileNumber="number"></Download>
 
-        <button
-          type="button"
-          class="btn btn-dark ms-2"
-          @click="
-            $router.push({ name: 'ColorCountTile', query: { tiles: [number] } })
-          "
-        >
+        <button class="btn btn-dark" @click="showTileInfo()">
           <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
         </button>
-        <button
-          type="button"
-          class="btn btn-dark ms-2"
-          @click="$store.commit('toggleFavoriteTile', number)"
-        >
-          <font-awesome-icon
-            :icon="[$store.getters.isFavorite(number) ? 'fas' : 'fal', 'star']"
-            size="lg"
-          />
+
+        <button class="btn btn-dark" @click="toggleTileFavorite()">
+          <font-awesome-icon :icon="[favoriteButtonIcon, 'star']" size="lg" />
         </button>
-        <button type="button" class="btn btn-dark ms-2" @click="printTile()">
+
+        <button class="btn btn-dark" @click="printTile()">
           <font-awesome-icon :icon="['fal', 'print']" size="lg" />
         </button>
-        <button type="button" class="btn btn-dark ms-2" @click="goBack()">
+
+        <button class="btn btn-dark" @click="goBack()">
           <font-awesome-icon :icon="['fal', 'times']" size="lg" />
         </button>
       </div>
@@ -80,40 +36,8 @@
 </template>
 <script>
 import printJS from "print-js";
-import Vue from "vue";
-import VueSocialSharing from "vue-social-sharing";
-Vue.use(VueSocialSharing);
-
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faPrint,
-  faStar as falStar,
-  faInfoCircle,
-  faShare,
-  faTimes,
-} from "@fortawesome/pro-light-svg-icons";
-import { faStar as fasStar } from "@fortawesome/pro-solid-svg-icons";
-import {
-  faWhatsapp,
-  faFacebookF,
-  faTwitter,
-  faTelegramPlane,
-} from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/pro-solid-svg-icons";
-
-library.add(
-  faPrint,
-  falStar,
-  fasStar,
-  faInfoCircle,
-  faShare,
-  faTimes,
-  faEnvelope,
-  faWhatsapp,
-  faFacebookF,
-  faTwitter,
-  faTelegramPlane
-);
+import Share from "./Share";
+import Download from "./Download.vue";
 
 export default {
   name: "Tile",
@@ -130,9 +54,11 @@ export default {
   },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
+    Share,
+    Download,
   },
   computed: {
-    title: function () {
+    title() {
       return (
         "Bild Nr. " +
         this.number +
@@ -143,16 +69,22 @@ export default {
         ")"
       );
     },
-    src: function () {
-      return require("./../../assets/images/templates/" +
+    src() {
+      return require("@/assets/images/templates/" +
         this.number +
         "-detailed.webp");
     },
-    number: function () {
+    number() {
       return parseInt(this.$route.params.number);
     },
-    url: function () {
+    url() {
       return window.location.href;
+    },
+    webShareApiSupported() {
+      return navigator.share;
+    },
+    favoriteButtonIcon() {
+      return this.$store.getters.isFavorite(this.number) ? "fas" : "fal";
     },
   },
   methods: {
@@ -168,16 +100,22 @@ export default {
         style: "@page { size: auto;  margin: 0mm; } html { margin: 10% }",
       });
     },
+    toggleTileFavorite() {
+      this.$store.commit("toggleFavoriteTile", this.number);
+    },
+    showTileInfo() {
+      this.$router.push({
+        name: "ColorCountTile",
+        query: { tiles: [this.number] },
+      });
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
-.share-dropdown-icon {
-  min-width: 1.25rem;
-}
 .tile {
-	image-rendering: -moz-crisp-edges;
-	image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
 }
 </style>
 <style lang="scss">

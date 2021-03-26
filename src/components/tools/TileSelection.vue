@@ -79,14 +79,6 @@
   </div>
 </template>
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import {
-  faCheckCircle,
-  faStar as fasStar,
-} from "@fortawesome/pro-solid-svg-icons";
-import { faStar as farStar } from "@fortawesome/pro-regular-svg-icons";
-library.add(faCheckCircle, fasStar, farStar);
-
 export default {
   name: "TileSelection",
   data() {
@@ -206,8 +198,8 @@ export default {
 }
 
 .thumbnail {
-	image-rendering: -moz-crisp-edges;
-	image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
   user-drag: none;
   -webkit-user-drag: none;
 }

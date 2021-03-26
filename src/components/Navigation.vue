@@ -82,16 +82,6 @@
   </div>
 </template>
 <script>
-// Fontawesome
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faBookOpen } from "@fortawesome/pro-light-svg-icons";
-import { faImage } from "@fortawesome/pro-light-svg-icons";
-import { faHistory } from "@fortawesome/pro-light-svg-icons";
-import { faCompass } from "@fortawesome/pro-light-svg-icons";
-import { faWrench } from "@fortawesome/pro-light-svg-icons";
-
-library.add(faBookOpen, faImage, faHistory, faCompass, faWrench);
-
 export default {
   name: "Navigation",
   data() {

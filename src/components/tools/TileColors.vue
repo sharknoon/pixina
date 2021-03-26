@@ -175,11 +175,6 @@
 <script>
 import ColorPlate from "./ColorPlate";
 
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faInfoCircle } from "@fortawesome/pro-regular-svg-icons";
-import { faCut, faCubes, faTh } from "@fortawesome/pro-solid-svg-icons";
-library.add(faInfoCircle, faCut, faCubes, faTh);
-
 export default {
   name: "TileColors",
   data() {
@@ -200,7 +195,7 @@ export default {
   watch: {
     processed_tiles: function (val) {
       if (val >= this.tiles.length) {
-        this.colors = Object.values(this.tempColors).sort(function(a, b) {
+        this.colors = Object.values(this.tempColors).sort(function (a, b) {
           return b.amount - a.amount;
         });
       }
@@ -242,7 +237,9 @@ export default {
           }
           self.processed_tiles = self.processed_tiles + 1;
         };
-        img.src = require("./../../assets/images/templates/" + number + ".webp");
+        img.src = require("./../../assets/images/templates/" +
+          number +
+          ".webp");
       });
     },
 

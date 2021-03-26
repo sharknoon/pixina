@@ -54,13 +54,6 @@
   </div>
 </template>
 <script>
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faTh } from "@fortawesome/pro-regular-svg-icons";
-import { faSquare } from "@fortawesome/pro-regular-svg-icons";
-import { faCertificate } from "@fortawesome/pro-solid-svg-icons";
-import { faSparkles } from "@fortawesome/pro-solid-svg-icons";
-library.add(faTh, faSquare, faCertificate, faSparkles);
-
 export default {
   name: "Place",
   data() {
@@ -84,8 +77,8 @@ export default {
 <style lang="scss" scoped>
 #place-wrapper {
   img {
-	image-rendering: -moz-crisp-edges;
-	image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: pixelated;
   }
 }
 </style>
