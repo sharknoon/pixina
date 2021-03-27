@@ -144,7 +144,7 @@ export default {
       }
     }
 
-    .router-link-exact-active {
+    .router-link-active {
       background: white;
       border-radius: 0.6rem 0 0 0.6rem;
       color: black;
@@ -190,7 +190,7 @@ export default {
       }
     }
 
-    .router-link-exact-active {
+    .router-link-active {
       background: white;
       color: black;
       box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);

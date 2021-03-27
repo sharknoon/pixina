@@ -1,0 +1,17 @@
+{
+  "templates": "Templates",
+  "place": "Place",
+  "history": "History",
+  "atlas": "Atlas",
+  "tools": "Tools",
+  "favorites": "Favorites",
+  "no-favorites": "No favorites available",
+  "add-favorites": "Add favorites by selecting {icon}",
+  "all-templates": "All templates",
+  "original": "Original",
+  "cleaned": "Cleaned",
+  "grid": "Grid",
+  "tile-selection-counter": "No images selected | {amount} image selected | {amount} images selected",
+  "next": "Next",
+  "tile-title": "Tile Nr. {number} ({x}|{y})"
+}

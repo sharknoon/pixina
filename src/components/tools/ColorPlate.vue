@@ -1,6 +1,6 @@
 <template>
   <canvas
-    :id="'plate-canvas-' + color.number + '-' + (color.amount % 140)"
+    :id="'plate-canvas-' + color.number_pixelhobby + '-' + (color.amount % 140)"
   ></canvas>
 </template>
 <script>
@@ -66,7 +66,10 @@ export default {
     },
     drawPlateCanvas() {
       let c = document.getElementById(
-        "plate-canvas-" + this.color.number + "-" + (this.color.amount % 140)
+        "plate-canvas-" +
+          this.color.number_pixelhobby +
+          "-" +
+          (this.color.amount % 140)
       );
       if (this.isDarkContrast(this.color.hex_place)) {
         c.parentElement.parentElement.classList += " modal-content-dark";
@@ -83,7 +86,7 @@ export default {
       let mainStrokeWidth = Math.min(c.height, c.width) / 37;
       let smallStrokeWidth = mainStrokeWidth / 2;
       let mainColor = this.color.hex_place;
-      let cuttingColor = this.color.number == 155 ? "black" : "red";
+      let cuttingColor = this.color.number_pixelhobby == 155 ? "black" : "red";
       let cuttingLineDash = [30];
       let mainFont = "Arial";
       let mainFontSize = Math.min(c.height, c.width) / 20;
@@ -135,7 +138,7 @@ export default {
       } else {
         ctx.fillStyle = "white";
       }
-      ctx.fillText(this.color.number, c.width / 2, c.height / 2);
+      ctx.fillText(this.color.number_pixelhobby, c.width / 2, c.height / 2);
       ctx.restore();
 
       // The pixels itself
@@ -273,8 +276,8 @@ export default {
 </script>
 <style lang="scss" scoped>
 canvas {
-	image-rendering: -moz-crisp-edges;
-	image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
 
   width: 100%;
 }

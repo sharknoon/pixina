@@ -15,8 +15,8 @@
           class="btn-check"
           id="btn-check-original"
           autocomplete="off"
-          value="0"
-          v-model="selectedImage"
+          value="original"
+          v-model="placeVariant"
           checked
         />
         <label class="btn btn-outline-secondary" for="btn-check-original">
@@ -28,8 +28,8 @@
           class="btn-check"
           id="btn-check-cleaned"
           autocomplete="off"
-          value="1"
-          v-model="selectedImage"
+          value="cleaned"
+          v-model="placeVariant"
         />
         <label class="btn btn-outline-secondary" for="btn-check-cleaned">
           <font-awesome-icon :icon="['fas', 'sparkles']" /> Bereinigt
@@ -38,15 +38,15 @@
 
       <div>
         <input
-          v-model="isGridVisible"
+          v-model="grid"
           type="checkbox"
           class="btn-check"
           id="btn-check-grid"
           autocomplete="off"
         />
         <label class="btn btn-secondary" for="btn-check-grid">
-          <font-awesome-icon v-if="isGridVisible" :icon="['far', 'th']" />
-          <font-awesome-icon v-if="!isGridVisible" :icon="['far', 'square']" />
+          <font-awesome-icon v-if="grid" :icon="['far', 'th']" />
+          <font-awesome-icon v-if="!grid" :icon="['far', 'square']" />
           Raster
         </label>
       </div>
@@ -58,14 +58,57 @@ export default {
   name: "Place",
   data() {
     return {
-      isGridVisible: false,
-      selectedImage: 0,
+      grid: false,
+      placeVariant: "original",
     };
+  },
+  mounted() {
+    const variant = this.$route.query.variant;
+    if (variant !== null) {
+      switch (variant.toLowerCase()) {
+        case "original":
+          this.placeVariant = "original";
+          break;
+        case "cleaned":
+          this.placeVariant = "cleaned";
+          break;
+      }
+    }
+    const grid = this.$route.query.grid;
+    if (grid !== null) {
+      switch (grid.toLowerCase()) {
+        case "true":
+          this.grid = true;
+          break;
+        case "false":
+          this.grid = false;
+          break;
+      }
+    }
+  },
+  watch: {
+    placeVariant() {
+      this.updateQueryParams();
+    },
+    grid() {
+      this.updateQueryParams();
+    },
+  },
+  methods: {
+    updateQueryParams() {
+      const query = {};
+      if (this.placeVariant === "cleaned") {
+        query["variant"] = this.placeVariant;
+      }
+      if (this.grid) {
+        query["grid"] = this.grid;
+      }
+      this.$router.replace({ query: query });
+    },
   },
   computed: {
     placeUrl: function () {
-      let fileName = this.selectedImage == 0 ? "original" : "cleaned";
-      fileName += this.isGridVisible ? "_grid" : "";
+      let fileName = this.placeVariant + (this.grid ? "_grid" : "");
       return require("./../assets/images/place/" + fileName + ".webp");
     },
   },

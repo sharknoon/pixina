@@ -2,7 +2,11 @@
   <div class="h-100 d-flex flex-column">
     <div class="flex-grow-1 overflow-auto p-2 position-relative">
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div v-for="color in colors" :key="color.number" class="col p-2">
+        <div
+          v-for="color in colors"
+          :key="color.number_pixelhobby"
+          class="col p-2"
+        >
           <div class="card position-relative h-100">
             <div class="flex-fill row g-0">
               <div
@@ -15,9 +19,9 @@
               ></div>
               <div class="col-9 d-flex flex-column">
                 <div class="card-body">
-                  <h5 class="card-title">{{ color.name }}</h5>
+                  <h5 class="card-title">{{ color.name_place }}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">
-                    {{ color.number }}
+                    {{ color.number_pixelhobby }}
                   </h6>
                   <font-awesome-icon :icon="['fas', 'cubes']" />
                   {{ color.amount }} Pixel
@@ -30,7 +34,7 @@
                     href="#"
                     class="btn btn-light position-absolute top-0 end-0 m-2"
                     data-bs-toggle="modal"
-                    :data-bs-target="'#infoModal' + color.number"
+                    :data-bs-target="'#infoModal' + color.number_pixelhobby"
                   >
                     <font-awesome-icon
                       :icon="['far', 'info-circle']"
@@ -43,7 +47,7 @@
                     href="#"
                     class="btn btn-light"
                     data-bs-toggle="modal"
-                    :data-bs-target="'#cuttingModal' + color.number"
+                    :data-bs-target="'#cuttingModal' + color.number_pixelhobby"
                   >
                     <font-awesome-icon
                       :icon="['fas', 'cut']"
@@ -58,9 +62,9 @@
           <!-- Color Info Modal -->
           <div
             class="modal fade"
-            :id="'infoModal' + color.number"
+            :id="'infoModal' + color.number_pixelhobby"
             tabindex="-1"
-            :aria-labelledby="'infoModal' + color.number + 'Label'"
+            :aria-labelledby="'infoModal' + color.number_pixelhobby + 'Label'"
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
@@ -82,27 +86,61 @@
                   ></button>
                 </div>
                 <div class="modal-body">
-                  <table class="table mb-0">
-                    <tr>
-                      <th>Farbe</th>
-                      <td :style="'background: ' + color.hex_place"></td>
-                    </tr>
-                    <tr>
-                      <th>Name</th>
-                      <td>{{ color.name }}</td>
-                    </tr>
-                    <tr>
-                      <th>Pixelhobby-Code</th>
-                      <td>{{ color.number }}</td>
-                    </tr>
-                    <tr>
-                      <th>Pixelhobby-RGB</th>
-                      <td>{{ color.hex }}</td>
-                    </tr>
-                    <tr>
-                      <th>Place-RGB</th>
-                      <td>{{ color.hex_place }}</td>
-                    </tr>
+                  <h6>
+                    <font-awesome-icon :icon="['fas', 'image']" />
+                    Originalbild
+                  </h6>
+                  <table class="table table-borderless">
+                    <colgroup>
+                      <col class="w-50" />
+                      <col class="w-50" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>Farbe</th>
+                        <td :style="'background: ' + color.hex_place"></td>
+                      </tr>
+                      <tr>
+                        <th>Name</th>
+                        <td>{{ color.name_place }}</td>
+                      </tr>
+                      <tr>
+                        <th>RGB</th>
+                        <td>{{ color.hex_place }}</td>
+                      </tr>
+                      <tr>
+                        <th>Index</th>
+                        <td>{{ color.number_place }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <h6>
+                    <font-awesome-icon :icon="['fas', 'cubes']" />
+                    Pixelhobby Pixels
+                  </h6>
+                  <table class="table table-borderless mb-0">
+                    <colgroup>
+                      <col class="w-50" />
+                      <col class="w-50" />
+                    </colgroup>
+                    <tbody>
+                      <tr>
+                        <th>Farbe</th>
+                        <td :style="'background: ' + color.hex_pixelhobby"></td>
+                      </tr>
+                      <tr>
+                        <th>Name</th>
+                        <td>{{ color.name_pixelhobby }}</td>
+                      </tr>
+                      <tr>
+                        <th>RGB</th>
+                        <td>{{ color.hex_pixelhobby }}</td>
+                      </tr>
+                      <tr>
+                        <th>Code</th>
+                        <td>{{ color.number_pixelhobby }}</td>
+                      </tr>
+                    </tbody>
                   </table>
                 </div>
               </div>
@@ -111,9 +149,11 @@
           <!-- Cutting Modal -->
           <div
             class="modal fade"
-            :id="'cuttingModal' + color.number"
+            :id="'cuttingModal' + color.number_pixelhobby"
             tabindex="-1"
-            :aria-labelledby="'cuttingModal' + color.number + 'Label'"
+            :aria-labelledby="
+              'cuttingModal' + color.number_pixelhobby + 'Label'
+            "
             aria-hidden="true"
           >
             <div class="modal-dialog modal-dialog-centered">
@@ -146,6 +186,7 @@
                     :withCuttingLine="true"
                     :usedPixels="color.amount % 140"
                   ></ColorPlate>
+                  {{ color.amount % 140 }} Pixel
                 </div>
               </div>
             </div>
@@ -244,124 +285,158 @@ export default {
     },
 
     getColorInformations(color) {
-      if (color[0] == 228 && color[1] == 228 && color[2] == 228) {
+      if (color[0] == 255 && color[1] == 255 && color[2] == 255) {
         return {
-          name: "Hellgrau",
-          number: 411,
-          hex: "#c4c4c4",
-          hex_place: "#e4e4e4",
-        };
-      } else if (color[0] == 34 && color[1] == 34 && color[2] == 34) {
-        return {
-          name: "Schwarz",
-          number: 441,
-          hex: "#1f2a32",
-          hex_place: "#222222",
-        };
-      } else if (color[0] == 255 && color[1] == 255 && color[2] == 255) {
-        return {
-          name: "Weiß",
-          number: 100,
-          hex: "#e8ebed",
+          name_place: "Weiß",
+          name_pixelhobby: "Weiß",
           hex_place: "#ffffff",
+          hex_pixelhobby: "#e8ebed",
+          number_place: 0,
+          number_pixelhobby: 100,
+        };
+      } else if (color[0] == 228 && color[1] == 228 && color[2] == 228) {
+        return {
+          name_place: "Hellgrau",
+          name_pixelhobby: "Turteltauben Grau",
+          hex_place: "#e4e4e4",
+          hex_pixelhobby: "#c4c7c8",
+          number_place: 1,
+          number_pixelhobby: 411,
         };
       } else if (color[0] == 136 && color[1] == 136 && color[2] == 136) {
         return {
-          name: "Grau",
-          number: 172,
-          hex: "#b0d3cd",
+          name_place: "Grau",
+          name_pixelhobby: "Granitgrau",
           hex_place: "#888888",
+          hex_pixelhobby: "#b0d3cd",
+          number_place: 2,
+          number_pixelhobby: 172,
         };
-      } else if (color[0] == 0 && color[1] == 131 && color[2] == 199) {
+      } else if (color[0] == 34 && color[1] == 34 && color[2] == 34) {
         return {
-          name: "Wasser-Blau",
-          number: 469,
-          hex: "#459bc1",
-          hex_place: "#0083c7",
-        };
-      } else if (color[0] == 0 && color[1] == 0 && color[2] == 234) {
-        return {
-          name: "Blau",
-          number: 293,
-          hex: "#005eab",
-          hex_place: "#0000ea",
-        };
-      } else if (color[0] == 2 && color[1] == 190 && color[2] == 1) {
-        return {
-          name: "Grün",
-          number: 245,
-          hex: "#328529",
-          hex_place: "#02be01",
-        };
-      } else if (color[0] == 229 && color[1] == 0 && color[2] == 0) {
-        return {
-          name: "Rot",
-          number: 155,
-          hex: "#b22e23",
-          hex_place: "#e50000",
+          name_place: "Schwarz",
+          name_pixelhobby: "Schwarz",
+          hex_place: "#222222",
+          hex_pixelhobby: "#1f2a32",
+          number_place: 3,
+          number_pixelhobby: 441,
         };
       } else if (color[0] == 255 && color[1] == 167 && color[2] == 209) {
         return {
-          name: "Pink",
-          number: 103,
-          hex: "#e7c0c3",
+          name_place: "Pink",
+          name_pixelhobby: "Helles Altrosa",
           hex_place: "#ffa7d1",
+          hex_pixelhobby: "#e7c0c3",
+          number_place: 4,
+          number_pixelhobby: 103,
+        };
+      } else if (color[0] == 229 && color[1] == 0 && color[2] == 0) {
+        return {
+          name_place: "Rot",
+          name_pixelhobby: "Leuchtendes Rot",
+          hex_place: "#e50000",
+          hex_pixelhobby: "#b22e23",
+          number_place: 5,
+          number_pixelhobby: 155,
         };
       } else if (color[0] == 229 && color[1] == 149 && color[2] == 0) {
         return {
-          name: "Orange",
-          number: 266,
-          hex: "#e79523",
+          name_place: "Orange",
+          name_pixelhobby: "Mandarinenorange",
           hex_place: "#e59500",
-        };
-      } else if (color[0] == 0 && color[1] == 211 && color[2] == 221) {
-        return {
-          name: "Grün-Blau",
-          number: 370,
-          hex: "#00a99d",
-          hex_place: "#00d3dd",
-        };
-      } else if (color[0] == 229 && color[1] == 217 && color[2] == 0) {
-        return {
-          name: "Gelb",
-          number: 133,
-          hex: "#d6cd30",
-          hex_place: "#e5d900",
-        };
-      } else if (color[0] == 148 && color[1] == 224 && color[2] == 68) {
-        return {
-          name: "Hellgrün",
-          number: 246,
-          hex: "#75a958",
-          hex_place: "#94e044",
+          hex_pixelhobby: "#e79523",
+          number_place: 6,
+          number_pixelhobby: 266,
         };
       } else if (color[0] == 160 && color[1] == 106 && color[2] == 66) {
         return {
-          name: "Braun",
-          number: 461,
-          hex: "#9a6944",
+          name_place: "Braun",
+          name_pixelhobby: "Mokkabraun",
           hex_place: "#a06a42",
+          hex_pixelhobby: "#9a6944",
+          number_place: 7,
+          number_pixelhobby: 461,
+        };
+      } else if (color[0] == 229 && color[1] == 217 && color[2] == 0) {
+        return {
+          name_place: "Gelb",
+          name_pixelhobby: "Zitronengelb",
+          hex_place: "#e5d900",
+          hex_pixelhobby: "#d6cd30",
+          number_place: 8,
+          number_pixelhobby: 133,
+        };
+      } else if (color[0] == 148 && color[1] == 224 && color[2] == 68) {
+        return {
+          name_place: "Hellgrün",
+          name_pixelhobby: "Frühlingsgrün",
+          hex_place: "#94e044",
+          hex_pixelhobby: "#75a958",
+          number_place: 9,
+          number_pixelhobby: 246,
+        };
+      } else if (color[0] == 2 && color[1] == 190 && color[2] == 1) {
+        return {
+          name_place: "Grün",
+          name_pixelhobby: "Grün",
+          hex_place: "#02be01",
+          hex_pixelhobby: "#328529",
+          number_place: 10,
+          number_pixelhobby: 245,
+        };
+      } else if (color[0] == 0 && color[1] == 211 && color[2] == 221) {
+        return {
+          name_place: "Grün-Blau",
+          name_pixelhobby: "Dunkles Meergrün",
+          hex_place: "#00d3dd",
+          hex_pixelhobby: "#00a99d",
+          number_place: 11,
+          number_pixelhobby: 370,
+        };
+      } else if (color[0] == 0 && color[1] == 131 && color[2] == 199) {
+        return {
+          name_place: "Wasserblau",
+          name_pixelhobby: "Meerblau",
+          hex_place: "#0083c7",
+          hex_pixelhobby: "#459bc1",
+          number_place: 12,
+          number_pixelhobby: 469,
+        };
+      } else if (color[0] == 0 && color[1] == 0 && color[2] == 234) {
+        return {
+          name_place: "Blau",
+          name_pixelhobby: "Königsblau",
+          hex_place: "#0000ea",
+          hex_pixelhobby: "#005eab",
+          number_place: 13,
+          number_pixelhobby: 293,
         };
       } else if (color[0] == 207 && color[1] == 110 && color[2] == 228) {
         return {
-          name: "Violett",
-          number: 442,
-          hex: "#b285af",
+          name_place: "Violett",
+          name_pixelhobby: "Helles Lila-Rosa",
           hex_place: "#cf6ee4",
+          hex_pixelhobby: "#b285af",
+          number_place: 14,
+          number_pixelhobby: 442,
         };
       } else if (color[0] == 130 && color[1] == 0 && color[2] == 128) {
         return {
-          name: "Lila",
-          number: 351,
-          hex: "#97326b",
+          name_place: "Lila",
+          name_pixelhobby: "Fuchsia",
           hex_place: "#820080",
+          hex_pixelhobby: "#97326b",
+          number_place: 15,
+          number_pixelhobby: 351,
         };
       } else {
         return {
-          name: "Unbekannt",
-          number: -1,
-          hex: "#00000000",
+          name_place: "Unbekannt",
+          name_pixelhobby: "Unbekannt",
           hex_place: "#00000000",
+          hex_pixelhobby: "#00000000",
+          number_place: -1,
+          number_pixelhobby: -1,
         };
       }
     },
@@ -381,5 +456,9 @@ export default {
 
 .card {
   min-height: 12rem;
+}
+
+.table > :not(caption) > * > * {
+  padding: 0;
 }
 </style>

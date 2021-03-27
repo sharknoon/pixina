@@ -41,17 +41,6 @@ import Download from "./Download.vue";
 
 export default {
   name: "Tile",
-  data() {
-    return {
-      shareNetworks: [
-        { name: "Email", icon: ["fas", "envelope"] },
-        { name: "WhatsApp", icon: ["fab", "whatsapp"] },
-        { name: "Facebook", icon: ["fab", "facebook-f"] },
-        { name: "Twitter", icon: ["fab", "twitter"] },
-        { name: "Telegram", icon: ["fab", "telegram-plane"] },
-      ],
-    };
-  },
   components: {
     PinchZoom: () => import("vue-pinch-zoom"),
     Share,
