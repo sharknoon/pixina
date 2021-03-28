@@ -64,7 +64,7 @@ export default {
   },
   mounted() {
     const variant = this.$route.query.variant;
-    if (variant !== null) {
+    if (variant) {
       switch (variant.toLowerCase()) {
         case "original":
           this.placeVariant = "original";
@@ -75,7 +75,7 @@ export default {
       }
     }
     const grid = this.$route.query.grid;
-    if (grid !== null) {
+    if (grid) {
       switch (grid.toLowerCase()) {
         case "true":
           this.grid = true;
