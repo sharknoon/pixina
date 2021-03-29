@@ -85,11 +85,10 @@ module.exports = {
       ]
     }
   },
-
   pluginOptions: {
     i18n: {
-      locale: 'en',
-      fallbackLocale: 'en',
+      locale: 'de-DE',
+      fallbackLocale: 'en-US',
       localeDir: 'locales',
       enableInSFC: false
     }

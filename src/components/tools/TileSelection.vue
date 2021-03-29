@@ -57,8 +57,11 @@
       class="p-4 d-flex align-items-center justify-content-between"
     >
       <div>
-        {{ selected_tiles.length }}
-        {{ selected_tiles.length == 1 ? "Bild" : "Bilder" }} ausgewählt
+        {{
+          $tc("tile-selection-counter", selected_tiles.length, {
+            amount: selected_tiles.length,
+          })
+        }}
       </div>
       <div>
         <button
@@ -72,7 +75,7 @@
           "
           :disabled="selected_tiles.length < 1"
         >
-          Weiter
+          {{ $t("next") }}
         </button>
       </div>
     </div>

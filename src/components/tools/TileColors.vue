@@ -19,16 +19,33 @@
               ></div>
               <div class="col-9 d-flex flex-column">
                 <div class="card-body">
-                  <h5 class="card-title">{{ color.name_place }}</h5>
+                  <h5 class="card-title">{{ $t(color.name_place) }}</h5>
                   <h6 class="card-subtitle mb-2 text-muted">
                     {{ color.number_pixelhobby }}
                   </h6>
                   <font-awesome-icon :icon="['fas', 'cubes']" />
-                  {{ color.amount }} Pixel
+                  {{
+                    $tc("amount-pixels", color.amount, {
+                      amount: color.amount,
+                    })
+                  }}
                   <div v-if="color.amount > 140" class="d-flex">
                     <font-awesome-icon :icon="['fas', 'th']" class="me-1" />
-                    {{ Math.floor(color.amount / 140) }} Farbquadrate +
-                    {{ color.amount % 140 }} Pixel
+                    {{
+                      $tc(
+                        "amount-colorplates",
+                        Math.floor(color.amount / 140),
+                        {
+                          amount: Math.floor(color.amount / 140),
+                        }
+                      )
+                    }}
+                    +
+                    {{
+                      $tc("amount-pixels", color.amount % 140, {
+                        amount: color.amount % 140,
+                      })
+                    }}
                   </div>
                   <a
                     href="#"
@@ -53,7 +70,7 @@
                       :icon="['fas', 'cut']"
                       class="align-middle mb-1"
                     />
-                    Zuschneiden
+                    {{ $t("cut") }}
                   </a>
                 </div>
               </div>
@@ -76,7 +93,7 @@
                     class="align-middle mb-1 me-2"
                   />
                   <h5 class="modal-title" id="exampleModalLabel">
-                    Farbinformationen
+                    {{ $t("color-informations") }}
                   </h5>
                   <button
                     type="button"
@@ -88,7 +105,7 @@
                 <div class="modal-body">
                   <h6>
                     <font-awesome-icon :icon="['fas', 'image']" />
-                    Originalbild
+                    {{ $t("original-image") }}
                   </h6>
                   <table class="table table-borderless">
                     <colgroup>
@@ -97,26 +114,26 @@
                     </colgroup>
                     <tbody>
                       <tr>
-                        <th>Farbe</th>
+                        <th>{{ $t("color") }}</th>
                         <td :style="'background: ' + color.hex_place"></td>
                       </tr>
                       <tr>
-                        <th>Name</th>
-                        <td>{{ color.name_place }}</td>
+                        <th>{{ $t("name") }}</th>
+                        <td>{{ $t(color.name_place) }}</td>
                       </tr>
                       <tr>
-                        <th>RGB</th>
+                        <th>{{ $t("color-value") }}</th>
                         <td>{{ color.hex_place }}</td>
                       </tr>
                       <tr>
-                        <th>Index</th>
+                        <th>{{ $t("index") }}</th>
                         <td>{{ color.number_place }}</td>
                       </tr>
                     </tbody>
                   </table>
                   <h6>
                     <font-awesome-icon :icon="['fas', 'cubes']" />
-                    Pixelhobby Pixels
+                    {{ $t("pixelhobby-pixels") }}
                   </h6>
                   <table class="table table-borderless mb-0">
                     <colgroup>
@@ -125,19 +142,19 @@
                     </colgroup>
                     <tbody>
                       <tr>
-                        <th>Farbe</th>
+                        <th>{{ $t("color") }}</th>
                         <td :style="'background: ' + color.hex_pixelhobby"></td>
                       </tr>
                       <tr>
-                        <th>Name</th>
-                        <td>{{ color.name_pixelhobby }}</td>
+                        <th>{{ $t("name") }}</th>
+                        <td>{{ $t(color.name_pixelhobby) }}</td>
                       </tr>
                       <tr>
-                        <th>RGB</th>
+                        <th>{{ $t("color-value") }}</th>
                         <td>{{ color.hex_pixelhobby }}</td>
                       </tr>
                       <tr>
-                        <th>Code</th>
+                        <th>{{ $t("code") }}</th>
                         <td>{{ color.number_pixelhobby }}</td>
                       </tr>
                     </tbody>
@@ -165,7 +182,7 @@
                     class="align-middle mb-1 me-2"
                   />
                   <h5 class="modal-title" id="exampleModalLabel">
-                    Schneideinformation
+                    {{ $t("cutting-information") }}
                   </h5>
                   <button
                     type="button"
@@ -176,8 +193,14 @@
                 </div>
                 <div class="modal-body">
                   <h5>
-                    {{ Math.floor(color.amount / 140) }} ganze Platte{{
-                      Math.floor(color.amount / 140) != 1 ? "n" : ""
+                    {{
+                      $tc(
+                        "amount-colorplates",
+                        Math.floor(color.amount / 140),
+                        {
+                          amount: Math.floor(color.amount / 140),
+                        }
+                      )
                     }}
                     +
                   </h5>
@@ -186,7 +209,11 @@
                     :withCuttingLine="true"
                     :usedPixels="color.amount % 140"
                   ></ColorPlate>
-                  {{ color.amount % 140 }} Pixel
+                  {{
+                    $tc("amount-pixels", color.amount % 140, {
+                      amount: color.amount % 140,
+                    })
+                  }}
                 </div>
               </div>
             </div>
@@ -201,14 +228,19 @@
           <span class="visually-hidden">Loading...</span>
         </div>
         <div class="mt-2">
-          {{ processed_tiles }} von {{ tiles.length }} verarbeitet
+          {{
+            this.$t("tile-processing", {
+              current: processed_tiles,
+              amount: tiles.length,
+            })
+          }}
         </div>
       </div>
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
-      <div>{{ colors.length }} von 16 Farben</div>
+      <div>{{ this.$t("amount-colors", { amount: colors.length }) }}</div>
       <button type="button" class="btn btn-primary" @click="goBack()">
-        Fertig
+        {{ this.$t("finish") }}
       </button>
     </div>
   </div>
@@ -287,8 +319,8 @@ export default {
     getColorInformations(color) {
       if (color[0] == 255 && color[1] == 255 && color[2] == 255) {
         return {
-          name_place: "Weiß",
-          name_pixelhobby: "Weiß",
+          name_place: "white-place",
+          name_pixelhobby: "white-pixelhobby",
           hex_place: "#ffffff",
           hex_pixelhobby: "#e8ebed",
           number_place: 0,
@@ -296,8 +328,8 @@ export default {
         };
       } else if (color[0] == 228 && color[1] == 228 && color[2] == 228) {
         return {
-          name_place: "Hellgrau",
-          name_pixelhobby: "Turteltauben Grau",
+          name_place: "light-gray-place",
+          name_pixelhobby: "light-gray-pixelhobby",
           hex_place: "#e4e4e4",
           hex_pixelhobby: "#c4c7c8",
           number_place: 1,
@@ -305,8 +337,8 @@ export default {
         };
       } else if (color[0] == 136 && color[1] == 136 && color[2] == 136) {
         return {
-          name_place: "Grau",
-          name_pixelhobby: "Granitgrau",
+          name_place: "dark-gray-place",
+          name_pixelhobby: "dark-gray-pixelhobby",
           hex_place: "#888888",
           hex_pixelhobby: "#b0d3cd",
           number_place: 2,
@@ -314,8 +346,8 @@ export default {
         };
       } else if (color[0] == 34 && color[1] == 34 && color[2] == 34) {
         return {
-          name_place: "Schwarz",
-          name_pixelhobby: "Schwarz",
+          name_place: "black-place",
+          name_pixelhobby: "black-pixelhobby",
           hex_place: "#222222",
           hex_pixelhobby: "#1f2a32",
           number_place: 3,
@@ -323,8 +355,8 @@ export default {
         };
       } else if (color[0] == 255 && color[1] == 167 && color[2] == 209) {
         return {
-          name_place: "Pink",
-          name_pixelhobby: "Helles Altrosa",
+          name_place: "light-pink-place",
+          name_pixelhobby: "light-pink-pixelhobby",
           hex_place: "#ffa7d1",
           hex_pixelhobby: "#e7c0c3",
           number_place: 4,
@@ -332,8 +364,8 @@ export default {
         };
       } else if (color[0] == 229 && color[1] == 0 && color[2] == 0) {
         return {
-          name_place: "Rot",
-          name_pixelhobby: "Leuchtendes Rot",
+          name_place: "red-place",
+          name_pixelhobby: "red-pixelhobby",
           hex_place: "#e50000",
           hex_pixelhobby: "#b22e23",
           number_place: 5,
@@ -341,8 +373,8 @@ export default {
         };
       } else if (color[0] == 229 && color[1] == 149 && color[2] == 0) {
         return {
-          name_place: "Orange",
-          name_pixelhobby: "Mandarinenorange",
+          name_place: "orange-place",
+          name_pixelhobby: "orange-pixelhobby",
           hex_place: "#e59500",
           hex_pixelhobby: "#e79523",
           number_place: 6,
@@ -350,8 +382,8 @@ export default {
         };
       } else if (color[0] == 160 && color[1] == 106 && color[2] == 66) {
         return {
-          name_place: "Braun",
-          name_pixelhobby: "Mokkabraun",
+          name_place: "brown-place",
+          name_pixelhobby: "brown-pixelhobby",
           hex_place: "#a06a42",
           hex_pixelhobby: "#9a6944",
           number_place: 7,
@@ -359,8 +391,8 @@ export default {
         };
       } else if (color[0] == 229 && color[1] == 217 && color[2] == 0) {
         return {
-          name_place: "Gelb",
-          name_pixelhobby: "Zitronengelb",
+          name_place: "yellow-place",
+          name_pixelhobby: "yellow-pixelhobby",
           hex_place: "#e5d900",
           hex_pixelhobby: "#d6cd30",
           number_place: 8,
@@ -368,8 +400,8 @@ export default {
         };
       } else if (color[0] == 148 && color[1] == 224 && color[2] == 68) {
         return {
-          name_place: "Hellgrün",
-          name_pixelhobby: "Frühlingsgrün",
+          name_place: "light-green-place",
+          name_pixelhobby: "light-green-pixelhobby",
           hex_place: "#94e044",
           hex_pixelhobby: "#75a958",
           number_place: 9,
@@ -377,8 +409,8 @@ export default {
         };
       } else if (color[0] == 2 && color[1] == 190 && color[2] == 1) {
         return {
-          name_place: "Grün",
-          name_pixelhobby: "Grün",
+          name_place: "green-place",
+          name_pixelhobby: "green-pixelhobby",
           hex_place: "#02be01",
           hex_pixelhobby: "#328529",
           number_place: 10,
@@ -386,8 +418,8 @@ export default {
         };
       } else if (color[0] == 0 && color[1] == 211 && color[2] == 221) {
         return {
-          name_place: "Grün-Blau",
-          name_pixelhobby: "Dunkles Meergrün",
+          name_place: "cyan-place",
+          name_pixelhobby: "cyan-pixelhobby",
           hex_place: "#00d3dd",
           hex_pixelhobby: "#00a99d",
           number_place: 11,
@@ -395,8 +427,8 @@ export default {
         };
       } else if (color[0] == 0 && color[1] == 131 && color[2] == 199) {
         return {
-          name_place: "Wasserblau",
-          name_pixelhobby: "Meerblau",
+          name_place: "gray-blue-place",
+          name_pixelhobby: "gray-blue-pixelhobby",
           hex_place: "#0083c7",
           hex_pixelhobby: "#459bc1",
           number_place: 12,
@@ -404,8 +436,8 @@ export default {
         };
       } else if (color[0] == 0 && color[1] == 0 && color[2] == 234) {
         return {
-          name_place: "Blau",
-          name_pixelhobby: "Königsblau",
+          name_place: "blue-place",
+          name_pixelhobby: "blue-pixelhobby",
           hex_place: "#0000ea",
           hex_pixelhobby: "#005eab",
           number_place: 13,
@@ -413,8 +445,8 @@ export default {
         };
       } else if (color[0] == 207 && color[1] == 110 && color[2] == 228) {
         return {
-          name_place: "Violett",
-          name_pixelhobby: "Helles Lila-Rosa",
+          name_place: "pink-place",
+          name_pixelhobby: "pink-pixelhobby",
           hex_place: "#cf6ee4",
           hex_pixelhobby: "#b285af",
           number_place: 14,
@@ -422,8 +454,8 @@ export default {
         };
       } else if (color[0] == 130 && color[1] == 0 && color[2] == 128) {
         return {
-          name_place: "Lila",
-          name_pixelhobby: "Fuchsia",
+          name_place: "purple-place",
+          name_pixelhobby: "purple-pixelhobby",
           hex_place: "#820080",
           hex_pixelhobby: "#97326b",
           number_place: 15,
@@ -431,8 +463,8 @@ export default {
         };
       } else {
         return {
-          name_place: "Unbekannt",
-          name_pixelhobby: "Unbekannt",
+          name_place: "unknown",
+          name_pixelhobby: "unknown",
           hex_place: "#00000000",
           hex_pixelhobby: "#00000000",
           number_place: -1,

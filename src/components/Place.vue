@@ -20,7 +20,8 @@
           checked
         />
         <label class="btn btn-outline-secondary" for="btn-check-original">
-          <font-awesome-icon :icon="['fas', 'certificate']" /> Original
+          <font-awesome-icon :icon="['fas', 'certificate']" />
+          {{ $t("original") }}
         </label>
 
         <input
@@ -32,7 +33,8 @@
           v-model="placeVariant"
         />
         <label class="btn btn-outline-secondary" for="btn-check-cleaned">
-          <font-awesome-icon :icon="['fas', 'sparkles']" /> Bereinigt
+          <font-awesome-icon :icon="['fas', 'sparkles']" />
+          {{ $t("cleaned") }}
         </label>
       </div>
 
@@ -47,7 +49,7 @@
         <label class="btn btn-secondary" for="btn-check-grid">
           <font-awesome-icon v-if="grid" :icon="['far', 'th']" />
           <font-awesome-icon v-if="!grid" :icon="['far', 'square']" />
-          Raster
+          {{ $t("grid") }}
         </label>
       </div>
     </div>

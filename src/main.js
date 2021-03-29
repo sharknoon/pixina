@@ -14,6 +14,8 @@ import '@/js/bootstrap'
 import '@/js/fontawesome'
 // Service Worker
 import '@/js/registerServiceWorker'
+// Flag Icons
+import '@/js/flag-icons'
 
 new Vue({
     el: '#app',

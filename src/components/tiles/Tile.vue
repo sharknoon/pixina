@@ -48,15 +48,11 @@ export default {
   },
   computed: {
     title() {
-      return (
-        "Bild Nr. " +
-        this.number +
-        " (" +
-        (this.number % 20) +
-        "|" +
-        Math.floor(this.number / 20) +
-        ")"
-      );
+      return this.$t("tile-title", {
+        number: this.number,
+        x: this.number % 20,
+        y: Math.floor(this.number / 20),
+      });
     },
     src() {
       return require("@/assets/images/templates/" +

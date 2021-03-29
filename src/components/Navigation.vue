@@ -27,6 +27,7 @@
           </span>
         </router-link>
       </nav>
+      <LanguageDropdown class="d-grid mt-auto" />
     </div>
     <div class="d-flex flex-grow-1 flex-column">
       <!-- In case of mobile view, display top navigation bar -->
@@ -72,6 +73,7 @@
                 </router-link>
               </li>
             </ul>
+            <LanguageDropdown class="d-grid" />
           </div>
         </div>
       </nav>
@@ -82,38 +84,43 @@
   </div>
 </template>
 <script>
+import LanguageDropdown from "@/components/navigation/LanguageDropdown";
+
 export default {
   name: "Navigation",
-  data() {
-    return {
-      items: [
+  computed: {
+    items() {
+      return [
         {
-          name: "Vorlagen",
+          name: this.$t("templates"),
           icon: ["fal", "book-open"],
           to: "/templates",
         },
         {
-          name: "Place",
+          name: this.$t("image"),
           icon: ["fal", "image"],
           to: "/place",
         },
         {
-          name: "Entstehung",
+          name: this.$t("history"),
           icon: ["fal", "history"],
           to: "/history",
         },
         {
-          name: "Atlas",
+          name: this.$t("atlas"),
           icon: ["fal", "compass"],
           to: "/atlas",
         },
         {
-          name: "Werkzeuge",
+          name: this.$t("tools"),
           icon: ["fal", "wrench"],
           to: "/tools",
         },
-      ],
-    };
+      ];
+    },
+  },
+  components: {
+    LanguageDropdown,
   },
 };
 </script>

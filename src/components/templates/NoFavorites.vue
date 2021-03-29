@@ -1,16 +1,14 @@
 <template>
   <div class="d-flex flex-column align-items-center">
-    <div>Keine Favoriten vorhanden</div>
+    <div>{{ $t("no-favorites") }}</div>
     <div>
-      <small>
-        Füge Favoriten hinzu, indem du
+      <i18n path="add-favorites" tag="small">
         <font-awesome-icon
           :icon="['far', 'star']"
           style="color: orange"
           size="lg"
         />
-        auswählst
-      </small>
+      </i18n>
     </div>
   </div>
 </template>

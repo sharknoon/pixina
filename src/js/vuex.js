@@ -11,7 +11,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     plugins: [createPersistedState()],
     state: {
-        favoriteTiles: []
+        favoriteTiles: [],
+        locale: ""
     },
     mutations: {
         toggleFavoriteTile(state, favoriteTile) {
@@ -22,10 +23,13 @@ export default new Vuex.Store({
                 state.favoriteTiles.push(favoriteTile)
             }
         },
+        changeLocale(state, locale) {
+            state.locale = locale;
+        }
     },
     getters: {
         isFavorite: (state) => (tile) => {
             return state.favoriteTiles.includes(tile)
-        }
+        },
     },
 })
