@@ -1,6 +1,8 @@
 {
   "meta": {
-    "name": "English (United States)"
+    "name": "English (United States)",
+    "act-as-fallback": true,
+    "locale": "en-US"
   },
   "templates": "Templates",
   "image": "Image",

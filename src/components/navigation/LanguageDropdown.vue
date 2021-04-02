@@ -9,13 +9,14 @@
     >
       <span
         :class="
-          'flag-icon flag-icon-' + $i18n.locale.substring(3, 5).toLowerCase()
+          'flag-icon flag-icon-' +
+          currentMessage.meta.locale.substring(3, 5).toLowerCase()
         "
       ></span>
-      {{ localeNames[$i18n.locale] }}
+      {{ currentMessage.meta.name }}
     </button>
     <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
-      <li v-for="(name, code) in localeNames" :key="code">
+      <li v-for="(message, code) in messagesWithCountry" :key="code">
         <button
           class="dropdown-item"
           type="button"
@@ -26,28 +27,34 @@
           <span
             :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()"
           ></span>
-          {{ name }}
+          {{ message.meta.name }}
         </button>
       </li>
     </ul>
   </div>
 </template>
 <script>
-import { localeNames } from "@/js/i18n";
-
 export default {
   name: "LanguageDropdown",
-  data() {
-    return {
-      localeNames: localeNames,
-    };
+  computed: {
+    currentMessage() {
+      return this.$i18n.messages[this.$i18n.locale];
+    },
+    messagesWithCountry() {
+      const messagesWithCountry = {};
+      for (const locale in this.$i18n.messages) {
+        if (locale.includes("-")) {
+          messagesWithCountry[locale] = this.$i18n.messages[locale];
+        }
+      }
+      return messagesWithCountry;
+    },
   },
   methods: {
     changeLanguage(locale) {
       this.$i18n.locale = locale;
       this.$store.commit("changeLocale", locale);
     },
-    getLocale() {},
   },
 };
 </script>

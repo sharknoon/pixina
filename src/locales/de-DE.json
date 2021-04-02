@@ -1,6 +1,8 @@
 {
   "meta": {
-    "name": "Deutsch (Deutschland)"
+    "name": "Deutsch (Deutschland)",
+    "act-as-fallback": true,
+    "locale": "de-DE"
   },
   "templates": "Vorlagen",
   "image": "Bild",
@@ -63,6 +65,6 @@
   "color": "Farbe",
   "name": "Name",
   "color-value": "Farbwert",
-  "Index": "Index",
-  "Code": "Code"
+  "index": "Index",
+  "code": "Code"
 }
