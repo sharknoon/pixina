@@ -1,58 +1,69 @@
-name: Build and Publish
-
+name: Build & Deploy
 on:
-  workflow_dispatch:
-    inputs:
-      name: 
-        description: 'Modpack name'
-        required: true
-      version:
-        description: 'Modpack version'
-        required: true
-      java-version:
-        description: 'Java version'
-        default: 11
+  push:
+    branches:
+    - main
 
 jobs:
   build:
-    env:
-      NAME: ${{ github.event.inputs.name }}
-      VERSION: ${{ github.event.inputs.version }}
-      JAVA_VERSION: ${{ github.event.inputs.java-version }}
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v2
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
+      - uses: actions/checkout@v2
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          submodules: 'recursive'
 
       - name: Login to Github Container Registry
-        uses: docker/login-action@v1
+        run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
+
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/sharknoon/pixina --build-arg FONTAWESOME_NPM_AUTH_TOKEN=${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} .
+        
+      - name: Push Image to Registry
+        run: docker push ghcr.io/sharknoon/pixina
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove existing Container
+        uses: garygrossgarten/github-action-ssh@release
         with:
-          registry: ghcr.io
-          username: ${{ secrets.GHCR_USERNAME }}
-          password: ${{ secrets.GHCR_TOKEN }}
+          command: sudo docker stop pixina; sudo docker rm pixina; sudo docker rmi ghcr.io/sharknoon/pixina
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASS }}
+   
+      - name: Start new Container
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: echo ${{ secrets.GHCR_PAT }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin && sudo docker pull ghcr.io/sharknoon/pixina && sudo docker run -d --name pixina --network traefik-net --restart=always ghcr.io/sharknoon/pixina
+          host: ${{ secrets.SERVER_HOST }}
+          port: ${{ secrets.SERVER_PORT }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASS }}
 
-      - name: Build image
-        run: |
-          docker build . \
-            -t curseforge/${NAME}:${VERSION} \
-            -t ghcr.io/curseforge-docker/${NAME}:${VERSION} \
-            -t curseforge/${NAME}:latest \
-            -t ghcr.io/curseforge-docker/${NAME}:latest \
-            --build-arg VERSION \
-            --build-arg JAVA_VERSION
-
-      - name: Push to Docker Hub
-        run: |
-          docker push curseforge/${NAME}:${VERSION}
-          docker push curseforge/${NAME}:latest
-
-      - name: Push to Github Container Registry
-        run: |
-          docker push ghcr.io/curseforge-docker/${NAME}:${VERSION}
-          docker push ghcr.io/curseforge-docker/${NAME}:latest
+  clean:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete untagged Images
+        uses: actions/github-script@v3
+        with:
+          github-token: ${{ secrets.GHCR_PAT }}
+          script: |
+            const response = await github.request("GET /user/packages/container/${{ env.PACKAGE_NAME }}/versions",
+              { 
+                per_page: ${{ env.PER_PAGE }}
+              }
+            );
+            for(version of response.data) {
+                if (version.metadata.container.tags.length == 0) {
+                    console.log("Deleting " + version.id)
+                    const deleteResponse = await github.request("DELETE /user/packages/container/${{ env.PACKAGE_NAME }}/versions/" + version.id, { });
+                    console.log("Deleted " + deleteResponse.status)
+                }
+            }
+        env:
+          PACKAGE_NAME: pixina
+          PER_PAGE: 100
