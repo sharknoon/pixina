@@ -5,14 +5,7 @@
 </template>
 <script>
 export default {
-  name: "Download",
-  data() {
-    return {
-      tile: require("./../../assets/images/templates/" +
-        this.tileNumber +
-        "-detailed.webp"),
-    };
-  },
+  name: "DownloadButton",
   props: {
     tileNumber: {
       type: Number,
@@ -21,7 +14,7 @@ export default {
   },
   methods: {
     download() {
-      const url = require("./../../assets/images/templates/" +
+      const url = require("@/assets/images/templates/" +
         this.tileNumber +
         "-detailed.webp");
       const a = document.createElement("a");

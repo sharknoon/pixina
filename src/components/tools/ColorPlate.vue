@@ -1,6 +1,7 @@
 <template>
   <canvas
-    :id="'plate-canvas-' + color.number_pixelhobby + '-' + (color.amount % 140)"
+    class="img-pixelated"
+    :id="'plate-canvas-' + color.number_pixelhobby"
   ></canvas>
 </template>
 <script>
@@ -11,27 +12,12 @@ export default {
       type: Object,
       required: true,
     },
-    withCuttingLine: {
-      type: Boolean,
-      default: false,
-    },
-    usedPixels: {
-      type: Number,
-      default: 0,
-    },
   },
-  mounted() {
-    this.drawPlateCanvas();
-  },
-  methods: {
-    isDarkContrast(hexcolor) {
-      let color = hexcolor.substring(1, hexcolor.length - 1); // remove #
-      let r = parseInt(color.substring(0, 2), 16); // hexToR
-      let g = parseInt(color.substring(2, 4), 16); // hexToG
-      let b = parseInt(color.substring(4, 6), 16); // hexToB
-      return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? true : false;
+  computed: {
+    amount() {
+      return this.color.amount;
     },
-    calculateCutting(amountPixels) {
+    cutInfo() {
       const n = 12;
       const set = new Array(n);
       for (let x = 0; x < n; x++) {
@@ -40,7 +26,7 @@ export default {
           set[x][y] = false;
         }
       }
-      const amountRestPixels = amountPixels % 140;
+      const amountRestPixels = this.amount % 140;
       let pixelCounter = amountRestPixels;
 
       for (let x = 0; x < n; x++) {
@@ -64,12 +50,26 @@ export default {
       }
       return set;
     },
+  },
+  mounted() {
+    this.drawPlateCanvas();
+  },
+  watch: {
+    amount() {
+      this.drawPlateCanvas();
+    },
+  },
+  methods: {
+    isDarkContrast(hexcolor) {
+      let color = hexcolor.substring(1, hexcolor.length - 1); // remove #
+      let r = parseInt(color.substring(0, 2), 16); // hexToR
+      let g = parseInt(color.substring(2, 4), 16); // hexToG
+      let b = parseInt(color.substring(4, 6), 16); // hexToB
+      return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? true : false;
+    },
     drawPlateCanvas() {
       let c = document.getElementById(
-        "plate-canvas-" +
-          this.color.number_pixelhobby +
-          "-" +
-          (this.color.amount % 140)
+        "plate-canvas-" + this.color.number_pixelhobby
       );
       if (this.isDarkContrast(this.color.hex_place)) {
         c.parentElement.parentElement.classList += " modal-content-dark";
@@ -77,6 +77,7 @@ export default {
       c.width = 1000;
       c.height = 1000;
       let ctx = c.getContext("2d");
+      ctx.clearRect(0, 0, c.width, c.height);
 
       let amountColumns = 6;
       let amountRows = amountColumns;
@@ -87,6 +88,7 @@ export default {
       let smallStrokeWidth = mainStrokeWidth / 2;
       let mainColor = this.color.hex_place;
       let cuttingColor = this.color.number_pixelhobby == 155 ? "black" : "red";
+      let unusedColor = mainColor + "66";
       let cuttingLineDash = [30];
       let mainFont = "Arial";
       let mainFontSize = Math.min(c.height, c.width) / 20;
@@ -215,21 +217,52 @@ export default {
       }
       ctx.restore();
 
+      // The unused pixels
+      ctx.fillStyle = unusedColor;
+
+      for (
+        let xCoordinate = 0;
+        xCoordinate < this.cutInfo.length;
+        xCoordinate++
+      ) {
+        for (
+          let yCoordinate = 0;
+          yCoordinate < this.cutInfo[xCoordinate].length;
+          yCoordinate++
+        ) {
+          const currentPixel = this.cutInfo[xCoordinate][yCoordinate];
+          // Black out only the not used pixels (false)
+          if (currentPixel) continue;
+          ctx.fillRect(
+            mainStrokeWidth / 2 +
+              xCoordinate * (columnWidth / amountPixelsPerSquareRow),
+            mainStrokeWidth / 2 +
+              yCoordinate * (rowHeight / amountPixelsPerSquareColumn),
+            columnWidth / amountPixelsPerSquareRow,
+            rowHeight / amountPixelsPerSquareColumn
+          );
+        }
+      }
+      ctx.restore();
+
       // The cutting Line
       ctx.strokeStyle = cuttingColor;
       ctx.setLineDash(cuttingLineDash);
 
-      const info = this.calculateCutting(this.color.amount);
-      for (let xCoordinate = 0; xCoordinate < info.length; xCoordinate++) {
+      for (
+        let xCoordinate = 0;
+        xCoordinate < this.cutInfo.length;
+        xCoordinate++
+      ) {
         for (
           let yCoordinate = 0;
-          yCoordinate < info[xCoordinate].length;
+          yCoordinate < this.cutInfo[xCoordinate].length;
           yCoordinate++
         ) {
-          const currentPixel = info[xCoordinate][yCoordinate];
+          const currentPixel = this.cutInfo[xCoordinate][yCoordinate];
           // Check bottom pixel
-          if (yCoordinate < info[xCoordinate].length - 1) {
-            const bottomPixel = info[xCoordinate][yCoordinate + 1];
+          if (yCoordinate < this.cutInfo[xCoordinate].length - 1) {
+            const bottomPixel = this.cutInfo[xCoordinate][yCoordinate + 1];
             if (currentPixel != bottomPixel) {
               ctx.beginPath();
               ctx.moveTo(
@@ -248,8 +281,8 @@ export default {
             }
           }
           // Check right pixel
-          if (xCoordinate < info.length - 1) {
-            const rightPixel = info[xCoordinate + 1][yCoordinate];
+          if (xCoordinate < this.cutInfo.length - 1) {
+            const rightPixel = this.cutInfo[xCoordinate + 1][yCoordinate];
             if (currentPixel != rightPixel) {
               ctx.beginPath();
               ctx.moveTo(
@@ -276,19 +309,15 @@ export default {
 </script>
 <style lang="scss" scoped>
 canvas {
-  image-rendering: -moz-crisp-edges;
-  image-rendering: pixelated;
-
   width: 100%;
 }
 </style>
-
 <style lang="scss">
 @import "bootstrap";
 
 .modal-content-dark {
-  background: #1e1e1e;
-  color: white;
+  background: $dark;
+  color: $light;
   .btn-close {
     @extend .btn-close-white;
   }

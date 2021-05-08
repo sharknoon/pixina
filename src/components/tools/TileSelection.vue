@@ -172,10 +172,10 @@ export default {
       };
     },
     getTileThumbnail(number) {
-      return require("./../../assets/images/templates/" + number + ".webp");
+      return require("@/assets/images/templates/" + number + ".webp");
     },
     getTileTemplate(number) {
-      return require("./../../assets/images/templates/" +
+      return require("@/assets/images/templates/" +
         number +
         "-detailed.webp");
     },

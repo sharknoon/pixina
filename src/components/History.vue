@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     getItemUrl(number) {
-      return require("./../assets/images/history/" + number + ".webp");
+      return require("@/assets/images/history/" + number + ".webp");
     },
   },
   mounted() {

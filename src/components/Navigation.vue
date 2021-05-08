@@ -10,7 +10,7 @@
         <img
           id="navigation-logo"
           class="img-fluid mb-2"
-          src="./../assets/images/logo-white.svg"
+          src="@/assets/images/logo-white.svg"
         />
       </router-link>
       <!-- Items Area -->
@@ -41,7 +41,7 @@
             <img
               id="navigation-logo"
               class="img-fluid"
-              src="./../assets/images/logo-white.svg"
+              src="@/assets/images/logo-white.svg"
             />
           </router-link>
           <button
@@ -93,8 +93,13 @@ export default {
       return [
         {
           name: this.$t("templates"),
-          icon: ["fal", "book-open"],
+          icon: ["fal", "images"],
           to: "/templates",
+        },
+        {
+          name: this.$t("informations"),
+          icon: ["fal", "book-open"],
+          to: "/informations",
         },
         {
           name: this.$t("image"),

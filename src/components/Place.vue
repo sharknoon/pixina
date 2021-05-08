@@ -111,7 +111,7 @@ export default {
   computed: {
     placeUrl: function () {
       let fileName = this.placeVariant + (this.grid ? "_grid" : "");
-      return require("./../assets/images/place/" + fileName + ".webp");
+      return require("@/assets/images/place/" + fileName + ".webp");
     },
   },
   components: {

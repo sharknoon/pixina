@@ -43,6 +43,14 @@ const router = new VueRouter({
             },
         },
         {
+            path: 'informations',
+            component: () =>
+                import('@/components/Informations.vue'),
+            meta: {
+                title: 'Anleitung'
+            },
+        },
+        {
             path: 'place',
             component: () =>
                 import('@/components/Place.vue'),
