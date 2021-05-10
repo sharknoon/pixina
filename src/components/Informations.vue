@@ -42,9 +42,7 @@
           <img :src="galleryPicture.image" class="card-img-top" />
           <div class="card-body">
             <h5 class="card-title">{{ galleryPicture.title }}</h5>
-            <p class="card-text">
-              {{ galleryPicture.text }}
-            </p>
+            <p class="card-text" v-html="galleryPicture.text"></p>
           </div>
         </div>
       </div>
@@ -87,6 +85,10 @@ export default {
           title: this.$t("informations-faq-duration-title"),
           text: this.$t("informations-faq-duration-text"),
         },
+        {
+          title: this.$t("informations-faq-persons-title"),
+          text: this.$t("informations-faq-persons-text"),
+        },
       ];
     },
     galleryPictures() {
@@ -104,7 +106,9 @@ export default {
         {
           image: require("@/assets/images/informations/base-color-selection.webp"),
           title: this.$t("informations-gallery-base-color-selection-title"),
-          text: this.$t("informations-gallery-base-color-selection-text"),
+          text: this.$t("informations-gallery-base-color-selection-text", {
+            link: '<a href="https://pixelhobby-shop.de/">Pixelhobby</a>',
+          }),
         },
         {
           image: require("@/assets/images/informations/first-pixel.webp"),
