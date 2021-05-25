@@ -68,8 +68,8 @@ export default {
         {
           title: this.$t("informations-faq-reddit-title"),
           text: this.$t("informations-faq-reddit-text", {
-            "link-reddit": '<a href="https://www.reddit.com/">Reddit</a>',
-            "link-subreddit":
+            linkreddit: '<a href="https://www.reddit.com/">Reddit</a>',
+            linksubreddit:
               '<a href="https://www.reddit.com/r/place/">Subreddit</a>',
           }),
         },
