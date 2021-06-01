@@ -27,6 +27,7 @@ import {
 } from "@fortawesome/pro-solid-svg-icons";
 import {
     faInfoCircle as farInfoCircle,
+    faShoppingCart,
     faSquare,
     faStar as farStar,
     faTh as farTh,
@@ -63,6 +64,7 @@ library.add(
     falStar,
     faPrint,
     farInfoCircle,
+    faShoppingCart,
     farStar,
     farTh,
     fasImage,

@@ -29,15 +29,31 @@
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>{{ this.$t("amount-colors", { amount: sortedColors.length }) }}</div>
-      <button type="button" class="btn btn-primary" @click="goBack()">
-        {{ this.$t("finish") }}
-      </button>
+      <div>
+        <a
+          href="#"
+          class="btn btn-secondary me-3"
+          data-bs-toggle="modal"
+          data-bs-target="#orderModal"
+        >
+          <font-awesome-icon
+            :icon="['far', 'shopping-cart']"
+            class="align-middle"
+          />
+          Bestellen
+        </a>
+        <button type="button" class="btn btn-primary" @click="goBack()">
+          {{ this.$t("finish") }}
+        </button>
+      </div>
     </div>
+    <OrderModal :colors="colors" />
   </div>
 </template>
 <script>
 import ColorCard from "./ColorCard";
 import colorsInfos from "@/data/colors";
+import OrderModal from "@/components/tools/OrderModal"
 
 export default {
   name: "TileColors",
@@ -49,6 +65,7 @@ export default {
   },
   components: {
     ColorCard,
+    OrderModal,
   },
   computed: {
     tiles() {
@@ -85,7 +102,6 @@ export default {
         this.processed_tiles += 1;
         // Check if it was last tile
         if (index === this.tiles.length - 1) {
-          console.log("last tile");
           this.colors = countedColors;
         }
       };
