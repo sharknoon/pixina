@@ -98,5 +98,11 @@
   "informations-gallery-new-color-plates-title": "Nachschub",
   "informations-gallery-new-color-plates-text": "Um mit weiteren Pixeln versorgt zu sein, muss ständig Nachschub bestellt werden. Dies war meine erste Bestellung, welche für ~10 Platten ausreicht. Aufgrund der großen Differenz in der Anzahl der Platten der jeweiligen Farben müssen die Farben (natürlich automatisiert) gezählt werden. In diesem Beispiel werden 51 Farbplatten der Farbe Hellgrau, jedoch aber nur 2 Pixel (eine Farbplatte hat 140 Pixel) Lila benötigt.",
   "informations-gallery-image-numbering-title": "Nummerierung auf der Rückseite einer Platte",
-  "informations-gallery-image-numbering-text": "Um die Platten schnell zu identifizieren, beinhaltet jede Rückseite einen kleinen Sticker mit der Bildnummer und dessen Koordinaten. Die erste Zahl ist die Bildnummer (0-499) und die zwei Zahlen in den Klammern repäsentieren die Zeilen- und Spaltennummer. Gezählt wird von unten links nach oben rechts. Sie startet bei 0."
+  "informations-gallery-image-numbering-text": "Um die Platten schnell zu identifizieren, beinhaltet jede Rückseite einen kleinen Sticker mit der Bildnummer und dessen Koordinaten. Die erste Zahl ist die Bildnummer (0-499) und die zwei Zahlen in den Klammern repäsentieren die Zeilen- und Spaltennummer. Gezählt wird von unten links nach oben rechts. Sie startet bei 0.",
+  "order": "Bestellen",
+  "pixelhobby-cookie": "Cart-Cookie von pixelhobby-shop.de",
+  "pixelhobby-cookie-description": "Kopieren Sie den Wert des Cookies \"cart\" und fügen Sie ihn hier ein, um Ihre Artikel zum Warenkorb hinzugefügt zu bekommen",
+  "open-shop": "Shop öffnen",
+  "add-to-cart": "Zum Warenkorb hinzufügen",
+  "invalid-cookie": "Bitte geben Sie einen gültigen Warenkorb-Cookie-Wert an."
 }

@@ -19,7 +19,7 @@
         </div>
         <div class="mt-2">
           {{
-            this.$t("tile-processing", {
+            $t("tile-processing", {
               current: processed_tiles,
               amount: tiles.length,
             })
@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
-      <div>{{ this.$t("amount-colors", { amount: sortedColors.length }) }}</div>
+      <div>{{ $t("amount-colors", { amount: sortedColors.length }) }}</div>
       <div>
         <a
           href="#"
@@ -40,20 +40,20 @@
             :icon="['far', 'shopping-cart']"
             class="align-middle"
           />
-          Bestellen
+          {{ $t("order") }}
         </a>
         <button type="button" class="btn btn-primary" @click="goBack()">
-          {{ this.$t("finish") }}
+          {{ $t("finish") }}
         </button>
       </div>
     </div>
-    <OrderModal :colors="colors" />
+    <OrderModal :colors="sortedColors" />
   </div>
 </template>
 <script>
 import ColorCard from "./ColorCard";
 import colorsInfos from "@/data/colors";
-import OrderModal from "@/components/tools/OrderModal"
+import OrderModal from "@/components/tools/OrderModal";
 
 export default {
   name: "TileColors",

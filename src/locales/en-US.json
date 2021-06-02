@@ -98,5 +98,11 @@
   "informations-gallery-new-color-plates-title": "Replenishment",
   "informations-gallery-new-color-plates-text": "To be supplied with more pixels, supplies have to be ordered constantly. This was my first order, which is enough for ~10 plates. Because of the big difference in the number of plates of the respective colors, the colors have to be counted (automated, of course). In this example, 51 color plates of the color light gray are needed, but only 2 pixels (one color plate has 140 pixels) of purple.",
   "informations-gallery-image-numbering-title": "Numbering on the back of a plate",
-  "informations-gallery-image-numbering-text": "To quickly identify the plates, each back includes a small sticker with the image number and its coordinates. The first number is the image number (0-499) and the two numbers in brackets represent the row and column number. It is counted from the bottom left to the top right. It starts at 0."
+  "informations-gallery-image-numbering-text": "To quickly identify the plates, each back includes a small sticker with the image number and its coordinates. The first number is the image number (0-499) and the two numbers in brackets represent the row and column number. It is counted from the bottom left to the top right. It starts at 0.",
+  "order": "Order",
+  "pixelhobby-cookie": "Cart-Cookie from pixelhobby-shop.de",
+  "pixelhobby-cookie-description": "Copy the value of the Cookie \"cart\" and paste it here in order to get your items added",
+  "open-shop": "Open Shop",
+  "add-to-cart": "Add to Cart",
+  "invalid-cookie": "Please enter a valid cart cookie."
 }
