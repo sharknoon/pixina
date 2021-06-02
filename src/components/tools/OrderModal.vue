@@ -46,6 +46,13 @@
             :disabled="!isValidCookie"
             @click="order"
           >
+            <div
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+              v-if="apiLoading"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
             {{ $t("add-to-cart") }}
           </button>
         </div>
@@ -68,6 +75,7 @@ export default {
     return {
       cartCookie: "",
       cartCookieRegex: new RegExp("^[a-f0-9]{32}$"),
+      apiLoading: false,
     };
   },
   computed: {
@@ -84,6 +92,7 @@ export default {
         return;
       }
 
+      this.apiLoading = true;
       let body = this.colors.map((c) => {
         return {
           id: c.id_pixelhobby,
@@ -104,8 +113,13 @@ export default {
       fetch(
         "https://pixina.app/api/v1/cart/" + this.cartCookie + "/add",
         requestOptions
-      ).then((response) => console.log(response));
-      new Modal(document.getElementById("orderModal")).hide();
+      ).then((response) => {
+        this.apiLoading = false;
+        if (response.status >= 200 && response.status <= 299) {
+          new Modal(document.getElementById("orderModal")).hide();
+        }
+        console.log(response);
+      });
     },
   },
 };
