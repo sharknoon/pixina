@@ -47,7 +47,7 @@
         </button>
       </div>
     </div>
-    <OrderModal :colors="sortedColors" />
+    <OrderModal :colors="sortedColors" :tiles="tiles" />
   </div>
 </template>
 <script>

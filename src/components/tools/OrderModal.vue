@@ -62,11 +62,16 @@
 </template>
 <script>
 import { Modal } from "bootstrap";
+import tileInfos from "@/data/tile";
 
 export default {
   name: "OrderModal",
   props: {
     colors: {
+      type: Array,
+      required: true,
+    },
+    tiles: {
       type: Array,
       required: true,
     },
@@ -99,6 +104,11 @@ export default {
           quantity: Math.ceil(c.amount / 140),
         };
       });
+      let tile = {
+        id: tileInfos.id_pixelhobby,
+        quantity: this.tiles.length,
+      };
+      body.push(tile);
       console.log(JSON.stringify(body));
 
       const requestOptions = {
