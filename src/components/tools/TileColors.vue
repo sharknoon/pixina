@@ -30,18 +30,19 @@
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>{{ $t("amount-colors", { amount: sortedColors.length }) }}</div>
       <div>
-        <a
-          href="#"
+        <button
+          type="button"
           class="btn btn-secondary me-3"
           data-bs-toggle="modal"
           data-bs-target="#orderModal"
+          :disabled="processed_tiles < tiles.length"
         >
           <font-awesome-icon
             :icon="['far', 'shopping-cart']"
             class="align-middle"
           />
           {{ $t("order") }}
-        </a>
+        </button>
         <button type="button" class="btn btn-primary" @click="goBack()">
           {{ $t("finish") }}
         </button>
