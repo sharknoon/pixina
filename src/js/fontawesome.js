@@ -26,6 +26,8 @@ import {
     faTh as fasTh,
 } from "@fortawesome/pro-solid-svg-icons";
 import {
+    faChevronLeft,
+    faChevronRight,
     faInfoCircle as farInfoCircle,
     faShoppingCart,
     faSquare,
@@ -52,6 +54,8 @@ library.add(
     faBookOpen,
     faCertificate,
     faCheckCircle,
+    faChevronLeft,
+    faChevronRight,
     faCompass,
     faCubes,
     faCut,

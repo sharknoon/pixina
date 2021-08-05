@@ -11,6 +11,7 @@ const router = new VueRouter({
     mode: 'history',
     routes: [{
         path: '/templates/:number',
+        name: 'Template',
         component: () =>
             import('@/components/tiles/Tile.vue'),
         meta: {
@@ -36,6 +37,7 @@ const router = new VueRouter({
         },
         {
             path: 'templates',
+            name: 'Templates',
             component: () =>
                 import('@/components/Templates.vue'),
             meta: {

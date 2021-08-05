@@ -5,10 +5,16 @@
 </template>
 <script>
 export default {
-  name: "BackButton",
+  name: "CloseButton",
+  props: {
+    route: {
+      type: Object,
+      required: true,
+    },
+  },
   methods: {
     goBack() {
-      window.history.length > 1 ? this.$router.go(-1) : this.$router.push("/");
+      this.$router.push(this.route);
     },
   },
 };
