@@ -19,7 +19,7 @@
   "grid": "Raster",
   "tile-selection-counter": "Keine Bilder ausgewählt | {amount} Bild ausgewählt | {amount} Bilder ausgewählt",
   "next": "Weiter",
-  "tile-title": "Kachel Nr. {number} ({x}|{y})",
+  "tile-title": "Kachel Nr. {number} ({x}{'|'}{y})",
   "tile-processing": "{current} von {amount} verarbeitet",
   "amount-colors": "{amount} von 16 Farben",
   "finish": "Fertig",
@@ -58,7 +58,6 @@
   "pink-pixelhobby": "Helles Lila-Rosa",
   "purple-place": "Lila",
   "purple-pixelhobby": "Fuchsia",
-  "unknown": "Unbekannt",
   "color-informations": "Farbinformationen",
   "original-image": "Originalbild",
   "pixelhobby-pixels": "Pixelhobby Pixel",
@@ -104,5 +103,6 @@
   "pixelhobby-cookie-description": "Kopieren Sie den Wert des Cookies \"cart\" und fügen Sie ihn hier ein, um Ihre Artikel zum Warenkorb hinzugefügt zu bekommen",
   "open-shop": "Shop öffnen",
   "add-to-cart": "Zum Warenkorb hinzufügen",
-  "invalid-cookie": "Bitte geben Sie einen gültigen Warenkorb-Cookie-Wert an."
+  "invalid-cookie": "Bitte geben Sie einen gültigen Warenkorb-Cookie-Wert an.",
+  "donate": "Spenden"
 }

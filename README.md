@@ -1,4 +1,3 @@
-![Build & Deploy](https://github.com/Sharknoon/pixina/workflows/Build%20&%20Deploy/badge.svg)
 # pixina
 
 ## Project setup

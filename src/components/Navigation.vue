@@ -27,13 +27,23 @@
           </span>
         </router-link>
       </nav>
-      <LanguageDropdown class="d-grid mt-auto" />
+      <div class="mt-auto d-grid gap-2">
+        <DonationButton />
+        <LanguageDropdown class="d-grid" />
+      </div>
     </div>
     <div class="d-flex flex-grow-1 flex-column">
       <!-- In case of mobile view, display top navigation bar -->
       <nav
         id="navigation-bar"
-        class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
+        class="
+          navbar
+          d-md-none
+          navbar-expand-lg navbar-light
+          p-2
+          background
+          flex-grow-0 flex-shrink-0
+        "
       >
         <div class="container-fluid p-0">
           <!-- Logo Area -->
@@ -73,7 +83,10 @@
                 </router-link>
               </li>
             </ul>
-            <LanguageDropdown class="d-grid" />
+            <div class="d-grid gap-2">
+              <DonationButton />
+              <LanguageDropdown class="d-grid" />
+            </div>
           </div>
         </div>
       </nav>
@@ -84,6 +97,7 @@
   </div>
 </template>
 <script>
+import DonationButton from "@/components/navigation/DonationButton";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown";
 
 export default {
@@ -125,12 +139,22 @@ export default {
     },
   },
   components: {
+    DonationButton,
     LanguageDropdown,
   },
 };
 </script>
 <style scoped lang="scss">
+@import "bootstrap";
+
 // Common styles for mobile and desktop
+#main-content {
+  max-width: 100vw;
+  @include media-breakpoint-up(md) {
+    max-width: calc(100vw - 20rem);
+  }
+}
+
 .background {
   background: url("./../assets/images/background.webp") no-repeat;
   background-size: cover;

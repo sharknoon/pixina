@@ -13,7 +13,9 @@
           currentMessage.meta.locale.substring(3, 5).toLowerCase()
         "
       ></span>
-      {{ currentMessage.meta.name }}
+      <span class="mx-1 mt-20">
+        {{ currentMessage.meta.name }}
+      </span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
       <li v-for="(message, code) in messagesWithCountry" :key="code">

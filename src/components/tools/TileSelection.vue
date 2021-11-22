@@ -1,6 +1,9 @@
 <template>
   <div class="selection-wrapper h-100 d-flex flex-column">
-    <div class="d-flex flex-wrap justify-content-start p-2 overflow-auto">
+    <div
+      class="d-flex flex-wrap p-2 overflow-auto"
+      :class="!onlyFavorites ? 'justify-content-evenly' : ''"
+    >
       <div
         v-for="tile in tiles"
         :key="tile.number"
@@ -10,7 +13,7 @@
         <img
           :src="tile.src_thumbnail"
           alt="picture"
-          width="75px"
+          width="75"
           class="thumbnail"
           :id="'thumbnail-' + tile.number"
           :class="
@@ -45,7 +48,14 @@
           </div>
         </div>
         <div
-          class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
+          class="
+            thumbnail-footer
+            position-absolute
+            bottom-0
+            text-dark
+            fw-bold
+            w-100
+          "
         >
           {{ tile.title }}
         </div>
@@ -139,9 +149,8 @@ export default {
         let toNumber = number; // inclusive
 
         if (event.shiftKey) {
-          let last_selected_tile = this.selected_tiles_numbers[
-            this.selected_tiles_numbers.length - 1
-          ];
+          let last_selected_tile =
+            this.selected_tiles_numbers[this.selected_tiles_numbers.length - 1];
           if (last_selected_tile < number) {
             fromNumber = last_selected_tile + 1;
             toNumber = number;
@@ -175,9 +184,7 @@ export default {
       return require("@/assets/images/templates/" + number + ".webp");
     },
     getTileTemplate(number) {
-      return require("@/assets/images/templates/" +
-        number +
-        "-detailed.webp");
+      return require("@/assets/images/templates/" + number + "-detailed.webp");
     },
     getTileCoordinates(number) {
       let x = number % 20;

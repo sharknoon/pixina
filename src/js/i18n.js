@@ -1,7 +1,8 @@
-import Vue from "vue"
-import VueI18n from "vue-i18n"
+///////////////////////////////////////////
+//                 i18n                  //
+///////////////////////////////////////////
 
-Vue.use(VueI18n);
+import { createI18n } from 'vue-i18n'
 
 function loadLocaleMessages() {
   const locales = require.context("@/locales", true, /[A-Za-z0-9-_\s]+\.json$/i);
@@ -41,7 +42,7 @@ function getBrowserLocale() {
   return locales.filter(l => messages[l])[0];
 }
 
-export default new VueI18n({
+export default createI18n({
   locale: getStoredLocale() || getBrowserLocale() || "en-US",
   fallbackLocale: "en-US",
   messages: messages,

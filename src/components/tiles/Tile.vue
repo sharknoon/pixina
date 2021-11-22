@@ -9,13 +9,7 @@
         <PrintButton :tileNumber="number" class="ms-2" />
         <CloseButton :route="{ name: 'Templates' }" class="ms-2" />
       </div>
-      <pinch-zoom
-        limitZoom="15"
-        disableZoomControl="disable"
-        class="flex-grow-1 h-100 bg-transparent"
-      >
-        <img :src="src" class="img-pixelated" />
-      </pinch-zoom>
+      <Zoom class="flex-grow-1" :src="src"></Zoom>
       <div class="text-light p-2 text-center">
         {{ title }}
       </div>
@@ -31,6 +25,7 @@
   </div>
 </template>
 <script>
+import Zoom from "@/components/common/Zoom";
 import ShareButton from "./ShareButton";
 import DownloadButton from "./DownloadButton";
 import InfoButton from "./InfoButton";
@@ -42,7 +37,6 @@ import PrevNextButton from "./PrevNextButton";
 export default {
   name: "Tile",
   components: {
-    PinchZoom: () => import("vue-pinch-zoom"),
     ShareButton,
     DownloadButton,
     InfoButton,
@@ -50,6 +44,7 @@ export default {
     PrintButton,
     CloseButton,
     PrevNextButton,
+    Zoom,
   },
   computed: {
     title() {

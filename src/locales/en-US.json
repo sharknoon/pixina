@@ -19,7 +19,7 @@
   "grid": "Grid",
   "tile-selection-counter": "No images selected | {amount} image selected | {amount} images selected",
   "next": "Next",
-  "tile-title": "Tile nr. {number} ({x}|{y})",
+  "tile-title": "Tile nr. {number} ({x}{'|'}{y})",
   "tile-processing": "{current} of {amount} processed",
   "amount-colors": "{amount} of 16 colors",
   "finish": "Finish",
@@ -58,7 +58,6 @@
   "pink-pixelhobby": "Light purple-pink",
   "purple-place": "Purple",
   "purple-pixelhobby": "Fuchsia",
-  "unknown": "Unknown",
   "color-informations": "Color informations",
   "original-image": "Original image",
   "pixelhobby-pixels": "Pixelhobby pixels",
@@ -104,5 +103,6 @@
   "pixelhobby-cookie-description": "Copy the value of the Cookie \"cart\" and paste it here in order to get your items added",
   "open-shop": "Open Shop",
   "add-to-cart": "Add to Cart",
-  "invalid-cookie": "Please enter a valid cart cookie."
+  "invalid-cookie": "Please enter a valid cart cookie.",
+  "donate": "Donate"
 }

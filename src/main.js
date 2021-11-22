@@ -1,5 +1,5 @@
 // Vue
-import Vue from 'vue'
+import { createApp } from 'vue'
 // Vue Router
 import router from '@/js/vue-router'
 // Pixina
@@ -11,16 +11,15 @@ import store from '@/js/vuex'
 // Bootstrap 
 import '@/js/bootstrap'
 // Fontawesome
-import '@/js/fontawesome'
+import FontAwesomeIcon from '@/js/fontawesome'
 // Service Worker
 import '@/js/registerServiceWorker'
 // Flag Icons
 import '@/js/flag-icons'
 
-new Vue({
-    el: '#app',
-    router: router,
-    render: h => h(Pixina),
-    i18n,
-    store: store
-})
+createApp(Pixina)
+    .use(router)
+    .use(i18n)
+    .use(store)
+    .component('font-awesome-icon', FontAwesomeIcon)
+    .mount('#app')

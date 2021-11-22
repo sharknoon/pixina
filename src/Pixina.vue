@@ -50,7 +50,6 @@ body,
 }
 
 .img-pixelated {
-  image-rendering: -moz-crisp-edges;
   image-rendering: pixelated;
 }
 </style>

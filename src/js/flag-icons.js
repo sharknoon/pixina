@@ -2,4 +2,4 @@
 //              Flag Icons               //
 ///////////////////////////////////////////
 
-import 'flag-icon-css/css/flag-icon.css'
+import 'flag-icon-css/css/flag-icons.css'

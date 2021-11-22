@@ -22,9 +22,9 @@ export default {
           "-detailed.webp"),
         type: "image",
         header: this.$t("tile-title", {
-          number: this.number,
-          x: this.number % 20,
-          y: Math.floor(this.number / 20),
+          number: this.tileNumber,
+          x: this.tileNumber % 20,
+          y: Math.floor(this.tileNumber / 20),
         }),
         headerStyle: "font-family: Arial;",
         style: "@page { size: auto;  margin: 0mm; } html { margin: 10% }",

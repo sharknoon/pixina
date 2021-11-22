@@ -2,9 +2,8 @@
 //             FontAwesome               //
 ///////////////////////////////////////////
 
-import Vue from 'vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 // Icons
 
@@ -29,6 +28,8 @@ import {
     faChevronLeft,
     faChevronRight,
     faInfoCircle as farInfoCircle,
+    faMinus,
+    faPlus,
     faShoppingCart,
     faSquare,
     faStar as farStar,
@@ -38,6 +39,7 @@ import {
     faArrowToBottom,
     faBookOpen,
     faCompass,
+    faDonate,
     faHistory,
     faImage as falImage,
     faImages,
@@ -59,20 +61,23 @@ library.add(
     faCompass,
     faCubes,
     faCut,
+    faDonate,
     faEnvelope,
     faFacebookF,
     faHistory,
-    falImage,
     faImages,
+    falImage,
     falInfoCircle,
     falStar,
+    faMinus,
+    faPlus,
     faPrint,
     farInfoCircle,
-    faShoppingCart,
     farStar,
     farTh,
-    fasImage,
     faShareAlt,
+    faShoppingCart,
+    fasImage,
     faSparkles,
     faSquare,
     fasStar,
@@ -84,4 +89,4 @@ library.add(
     faWrench,
 );
 
-Vue.component('font-awesome-icon', FontAwesomeIcon)
+export default FontAwesomeIcon;

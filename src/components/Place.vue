@@ -1,13 +1,6 @@
 <template>
   <div id="place-wrapper" class="h-100 d-flex flex-column">
-    <pinch-zoom
-      limitZoom="15"
-      backgroundColor="white"
-      disableZoomControl="disable"
-      class="h-100 flex-grow-1"
-    >
-      <img :src="placeUrl" />
-    </pinch-zoom>
+    <Zoom class="flex-grow-1" :src="placeUrl"></Zoom>
     <div class="d-flex justify-content-between p-4">
       <div class="btn-group me-2" role="group" aria-label="Image type">
         <input
@@ -37,7 +30,6 @@
           {{ $t("cleaned") }}
         </label>
       </div>
-
       <div>
         <input
           v-model="grid"
@@ -56,6 +48,8 @@
   </div>
 </template>
 <script>
+import Zoom from "@/components/common/Zoom";
+
 export default {
   name: "Place",
   data() {
@@ -64,29 +58,11 @@ export default {
       placeVariant: "original",
     };
   },
+  components: {
+    Zoom,
+  },
   mounted() {
-    const variant = this.$route.query.variant;
-    if (variant) {
-      switch (variant.toLowerCase()) {
-        case "original":
-          this.placeVariant = "original";
-          break;
-        case "cleaned":
-          this.placeVariant = "cleaned";
-          break;
-      }
-    }
-    const grid = this.$route.query.grid;
-    if (grid) {
-      switch (grid.toLowerCase()) {
-        case "true":
-          this.grid = true;
-          break;
-        case "false":
-          this.grid = false;
-          break;
-      }
-    }
+    this.readQueryParams();
   },
   watch: {
     placeVariant() {
@@ -97,6 +73,30 @@ export default {
     },
   },
   methods: {
+    readQueryParams() {
+      const variant = this.$route.query.variant;
+      if (variant) {
+        switch (variant.toLowerCase()) {
+          case "original":
+            this.placeVariant = "original";
+            break;
+          case "cleaned":
+            this.placeVariant = "cleaned";
+            break;
+        }
+      }
+      const grid = this.$route.query.grid;
+      if (grid) {
+        switch (grid.toLowerCase()) {
+          case "true":
+            this.grid = true;
+            break;
+          case "false":
+            this.grid = false;
+            break;
+        }
+      }
+    },
     updateQueryParams() {
       const query = {};
       if (this.placeVariant === "cleaned") {
@@ -114,16 +114,5 @@ export default {
       return require("@/assets/images/place/" + fileName + ".webp");
     },
   },
-  components: {
-    PinchZoom: () => import("vue-pinch-zoom"),
-  },
 };
 </script>
-<style lang="scss" scoped>
-#place-wrapper {
-  img {
-    image-rendering: -moz-crisp-edges;
-    image-rendering: pixelated;
-  }
-}
-</style>

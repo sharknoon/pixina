@@ -1,13 +1,6 @@
 <template>
   <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <pinch-zoom
-      limitZoom="15"
-      backgroundColor="white"
-      disableZoomControl="disable"
-      class="h-100 flex-grow-1"
-    >
-      <img :src="items[current_item].src" />
-    </pinch-zoom>
+    <Zoom class="flex-grow-1" :src="items[current_item].src"></Zoom>
     <input
       type="range"
       class="form-range p-4"
@@ -17,6 +10,8 @@
   </div>
 </template>
 <script>
+import Zoom from "@/components/common/Zoom";
+
 export default {
   name: "History",
   data() {
@@ -26,7 +21,7 @@ export default {
     };
   },
   components: {
-    PinchZoom: () => import("vue-pinch-zoom"),
+    Zoom,
   },
   methods: {
     getItemUrl(number) {
@@ -35,7 +30,7 @@ export default {
   },
   mounted() {
     this.items = [];
-    for (let index = 0; index < 100; index++) {
+    for (let index = 0; index < 99; index++) {
       let image = new Image();
       image.src = this.getItemUrl(index);
       this.items.push(image);
@@ -43,11 +38,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-#history-wrapper {
-  img {
-    image-rendering: -moz-crisp-edges;
-    image-rendering: pixelated;
-  }
-}
-</style>
