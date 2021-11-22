@@ -145,15 +145,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import "bootstrap";
-
 // Common styles for mobile and desktop
-#main-content {
-  max-width: 100vw;
-  @include media-breakpoint-up(md) {
-    max-width: calc(100vw - 20rem);
-  }
-}
 
 .background {
   background: url("./../assets/images/background.webp") no-repeat;
