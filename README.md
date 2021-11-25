@@ -1,6 +1,7 @@
 # Pixina
 
 [![Build & Deploy](https://github.com/Sharknoon/pixina/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/Sharknoon/pixina/actions/workflows/build-and-deploy.yml)
+[![CodeQL](https://github.com/Sharknoon/pixina/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/Sharknoon/pixina/actions/workflows/codeql-analysis.yml)
 
 [Pixina](https://pixina.app) is a website that accompanies the creation and construction of a work of art from many small physical pixels. The artwork will be a 2.5m x 2.5m (8.2ft x 8.2ft) plug-in image.
 

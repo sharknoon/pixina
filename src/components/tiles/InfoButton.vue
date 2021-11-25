@@ -1,6 +1,12 @@
 <template>
-  <button @click="showInfo()" class="btn btn-dark">
-    <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
+  <button
+    class="btn btn-dark"
+    @click="showInfo()"
+  >
+    <font-awesome-icon
+      :icon="['fal', 'info-circle']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>

@@ -1,6 +1,12 @@
 <template>
-  <button @click="close()" class="btn btn-dark">
-    <font-awesome-icon :icon="['fal', 'times']" size="lg" />
+  <button
+    class="btn btn-dark"
+    @click="close()"
+  >
+    <font-awesome-icon
+      :icon="['fal', 'times']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>

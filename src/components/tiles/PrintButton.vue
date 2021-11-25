@@ -1,13 +1,19 @@
 <template>
-  <button @click="print()" class="btn btn-dark">
-    <font-awesome-icon :icon="['fal', 'print']" size="lg" />
+  <button
+    class="btn btn-dark"
+    @click="print()"
+  >
+    <font-awesome-icon
+      :icon="['fal', 'print']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>
 import { useI18n } from "vue-i18n";
 import printJS from "print-js";
 
-const i18n = useI18n();
+const { t } = useI18n();
 
 const props = defineProps({
   tileNumber: {
@@ -22,7 +28,7 @@ function print() {
       props.tileNumber +
       "-detailed.webp"),
     type: "image",
-    header: i18n.t("tile-title", {
+    header: t("tile-title", {
       number: props.tileNumber,
       x: props.tileNumber % 20,
       y: Math.floor(props.tileNumber / 20),

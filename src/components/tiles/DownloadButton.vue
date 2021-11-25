@@ -1,6 +1,12 @@
 <template>
-  <button class="btn btn-dark" @click="download()">
-    <font-awesome-icon :icon="['fal', 'arrow-to-bottom']" size="lg" />
+  <button
+    class="btn btn-dark"
+    @click="download()"
+  >
+    <font-awesome-icon
+      :icon="['fal', 'arrow-to-bottom']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>

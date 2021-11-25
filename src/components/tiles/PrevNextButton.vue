@@ -1,6 +1,13 @@
 <template>
-  <button @click="goToPrevNext()" class="btn btn-dark m-3" :disabled="disabled">
-    <font-awesome-icon :icon="icon" size="2x" />
+  <button
+    class="btn btn-dark m-3"
+    :disabled="disabled"
+    @click="goToPrevNext()"
+  >
+    <font-awesome-icon
+      :icon="icon"
+      size="2x"
+    />
   </button>
 </template>
 <script setup>

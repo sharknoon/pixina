@@ -1,10 +1,17 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
+    <div
+      id="navigation-sidebar"
+      class="text-start d-none d-md-flex flex-column background p-2"
+    >
       <!-- Logo Area -->
       <router-link to="/">
-        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
+        <img
+          id="navigation-logo"
+          class="img-fluid mb-2"
+          src="@/assets/images/logo-white.svg"
+        >
       </router-link>
       <!-- Items Area -->
       <nav>
@@ -14,7 +21,10 @@
           :to="item.to"
           class="router-link d-flex align-items-center py-1"
         >
-          <font-awesome-icon class="me-2" :icon="item.icon" />
+          <font-awesome-icon
+            class="me-2"
+            :icon="item.icon"
+          />
           <span class="pt-1">{{ item.name }}</span>
         </router-link>
       </nav>
@@ -31,8 +41,15 @@
       >
         <div class="container-fluid p-0">
           <!-- Logo Area -->
-          <router-link class="navbar-brand p-0 ps-2" to="/">
-            <img id="navigation-logo" class="img-fluid" src="@/assets/images/logo-white.svg" />
+          <router-link
+            class="navbar-brand p-0 ps-2"
+            to="/"
+          >
+            <img
+              id="navigation-logo"
+              class="img-fluid"
+              src="@/assets/images/logo-white.svg"
+            >
           </router-link>
           <button
             class="navbar-toggler"
@@ -43,19 +60,32 @@
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span class="navbar-toggler-icon" />
           </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div
+            id="navbarSupportedContent"
+            class="collapse navbar-collapse"
+          >
             <ul class="navbar-nav me-auto pt-2">
-              <li v-for="item in items" :key="item.name" class="nav-item">
-                <router-link :to="item.to" class="nav-link router-link">
+              <li
+                v-for="item in items"
+                :key="item.name"
+                class="nav-item"
+              >
+                <router-link
+                  :to="item.to"
+                  class="nav-link router-link"
+                >
                   <div
                     class="d-flex align-items-center"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                   >
-                    <font-awesome-icon class="me-2" :icon="item.icon" />
+                    <font-awesome-icon
+                      class="me-2"
+                      :icon="item.icon"
+                    />
                     <span class="pt-1">{{ item.name }}</span>
                   </div>
                 </router-link>
@@ -68,8 +98,11 @@
           </div>
         </div>
       </nav>
-      <div id="main-content" class="overflow-auto w-100 h-100">
-        <router-view></router-view>
+      <div
+        id="main-content"
+        class="overflow-auto w-100 h-100"
+      >
+        <router-view />
       </div>
     </div>
   </div>
@@ -80,36 +113,36 @@ import { useI18n } from "vue-i18n";
 import DonationButton from "@/components/navigation/DonationButton";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown";
 
-const i18n = useI18n();
+const { t } = useI18n();
 
 const items = computed(() => [
   {
-    name: i18n.t("templates"),
+    name: t("templates"),
     icon: ["fal", "images"],
     to: "/templates",
   },
   {
-    name: i18n.t("informations"),
+    name: t("informations"),
     icon: ["fal", "book-open"],
     to: "/informations",
   },
   {
-    name: i18n.t("image"),
+    name: t("image"),
     icon: ["fal", "image"],
     to: "/place",
   },
   {
-    name: i18n.t("history"),
+    name: t("history"),
     icon: ["fal", "history"],
     to: "/history",
   },
   {
-    name: i18n.t("atlas"),
+    name: t("atlas"),
     icon: ["fal", "compass"],
     to: "/atlas",
   },
   {
-    name: i18n.t("tools"),
+    name: t("tools"),
     icon: ["fal", "wrench"],
     to: "/tools",
   }

@@ -2,7 +2,11 @@
   <div class="h-100 d-flex flex-column">
     <div class="flex-grow-1 overflow-auto p-2 position-relative">
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div v-for="color in sortedColors" :key="color.number_pixelhobby" class="col p-2">
+        <div
+          v-for="color in sortedColors"
+          :key="color.number_pixelhobby"
+          class="col p-2"
+        >
           <ColorCard :color="color" />
         </div>
       </div>
@@ -10,21 +14,23 @@
         v-if="processed_tiles < tiles.length"
         class="position-absolute start-0 top-0 bottom-0 end-0 d-flex flex-column align-items-center justify-content-center"
       >
-        <div class="spinner-border" role="status">
+        <div
+          class="spinner-border"
+          role="status"
+        >
           <span class="visually-hidden">Loading...</span>
         </div>
         <div class="mt-2">
           {{
-            $t("tile-processing", {
-              current: processed_tiles,
-              amount: tiles.length,
+            t("tile-processing", {
+              current: processed_tiles, amount: tiles.length,
             })
           }}
         </div>
       </div>
     </div>
     <div class="p-4 d-flex align-items-center justify-content-between">
-      <div>{{ $t("amount-colors", { amount: sortedColors.length }) }}</div>
+      <div>{{ t("amount-colors", { amount: sortedColors.length }) }}</div>
       <div>
         <button
           type="button"
@@ -33,22 +39,36 @@
           data-bs-target="#orderModal"
           :disabled="processed_tiles < tiles.length"
         >
-          <font-awesome-icon :icon="['far', 'shopping-cart']" class="align-middle" />
-          {{ $t("order") }}
+          <font-awesome-icon
+            :icon="['far', 'shopping-cart']"
+            class="align-middle"
+          />
+          {{ t("order") }}
         </button>
-        <button type="button" class="btn btn-primary" @click="goBack()">{{ $t("finish") }}</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          @click="goBack()"
+        >
+          {{ t("finish") }}
+        </button>
       </div>
     </div>
-    <OrderModal :colors="sortedColors" :tiles="tiles" />
+    <OrderModal
+      :colors="sortedColors"
+      :tiles="tiles"
+    />
   </div>
 </template>
 <script setup>
 import { computed, onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 import ColorCard from "@/components/tools/ColorCard";
 import colorsInfos from "@/data/colors";
 import OrderModal from "@/components/tools/OrderModal";
 
+const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 

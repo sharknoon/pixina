@@ -1,7 +1,18 @@
 <template>
-  <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <Zoom class="flex-grow-1" :src="items[current_item].src"></Zoom>
-    <input type="range" class="form-range p-4" :max="items.length - 1" v-model="current_item" />
+  <div
+    id="history-wrapper"
+    class="h-100 d-flex flex-column"
+  >
+    <Zoom
+      class="flex-grow-1"
+      :src="items[current_item].src"
+    />
+    <input
+      v-model="current_item"
+      type="range"
+      class="form-range p-4"
+      :max="items.length - 1"
+    >
   </div>
 </template>
 <script setup>

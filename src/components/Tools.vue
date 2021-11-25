@@ -1,5 +1,8 @@
 <template>
-  <div id="tools-wrapper" class="h-100">
+  <div
+    id="tools-wrapper"
+    class="h-100"
+  >
     <TileSelection :multi="true" />
   </div>
 </template>

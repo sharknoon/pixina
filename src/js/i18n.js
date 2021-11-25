@@ -46,5 +46,6 @@ export default createI18n({
   locale: getStoredLocale() || getBrowserLocale() || "en-US",
   fallbackLocale: "en-US",
   messages: messages,
-  silentFallbackWarn: true
+  silentFallbackWarn: true,
+  legacy: false
 });

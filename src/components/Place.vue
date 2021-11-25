@@ -1,47 +1,72 @@
 <template>
-  <div id="place-wrapper" class="h-100 d-flex flex-column">
-    <Zoom class="flex-grow-1" :src="placeUrl"></Zoom>
+  <div
+    id="place-wrapper"
+    class="h-100 d-flex flex-column"
+  >
+    <Zoom
+      class="flex-grow-1"
+      :src="placeUrl"
+    />
     <div class="d-flex justify-content-between p-4">
-      <div class="btn-group me-2" role="group" aria-label="Image type">
+      <div
+        class="btn-group me-2"
+        role="group"
+        aria-label="Image type"
+      >
         <input
+          id="btn-check-original"
+          v-model="variant"
           type="radio"
           class="btn-check"
-          id="btn-check-original"
           autocomplete="off"
           value="original"
-          v-model="variant"
           checked
-        />
-        <label class="btn btn-outline-secondary" for="btn-check-original">
+        >
+        <label
+          class="btn btn-outline-secondary"
+          for="btn-check-original"
+        >
           <font-awesome-icon :icon="['fas', 'certificate']" />
-          {{ $t("original") }}
+          {{ t("original") }}
         </label>
 
         <input
+          id="btn-check-cleaned"
+          v-model="variant"
           type="radio"
           class="btn-check"
-          id="btn-check-cleaned"
           autocomplete="off"
           value="cleaned"
-          v-model="variant"
-        />
-        <label class="btn btn-outline-secondary" for="btn-check-cleaned">
+        >
+        <label
+          class="btn btn-outline-secondary"
+          for="btn-check-cleaned"
+        >
           <font-awesome-icon :icon="['fas', 'sparkles']" />
-          {{ $t("cleaned") }}
+          {{ t("cleaned") }}
         </label>
       </div>
       <div>
         <input
+          id="btn-check-grid"
           v-model="grid"
           type="checkbox"
           class="btn-check"
-          id="btn-check-grid"
           autocomplete="off"
-        />
-        <label class="btn btn-secondary" for="btn-check-grid">
-          <font-awesome-icon v-if="grid" :icon="['far', 'th']" />
-          <font-awesome-icon v-if="!grid" :icon="['far', 'square']" />
-          {{ $t("grid") }}
+        >
+        <label
+          class="btn btn-secondary"
+          for="btn-check-grid"
+        >
+          <font-awesome-icon
+            v-if="grid"
+            :icon="['far', 'th']"
+          />
+          <font-awesome-icon
+            v-if="!grid"
+            :icon="['far', 'square']"
+          />
+          {{ t("grid") }}
         </label>
       </div>
     </div>
@@ -50,10 +75,12 @@
 <script setup>
 import { ref, onMounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 import Zoom from "@/components/common/Zoom";
 
 const route = useRoute();
 const router = useRouter();
+const { t } = useI18n();
 
 const grid = ref(false);
 const variant = ref("original");

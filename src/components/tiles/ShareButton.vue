@@ -1,13 +1,20 @@
 <template>
-  <button v-if="webShareApiSupported()" @click="share()" class="btn btn-dark">
-    <font-awesome-icon :icon="['fal', 'share-alt']" size="lg" />
+  <button
+    v-if="webShareApiSupported()"
+    class="btn btn-dark"
+    @click="share()"
+  >
+    <font-awesome-icon
+      :icon="['fal', 'share-alt']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
-const i18n = useI18n();
+const { t } = useI18n();
 
 const props = defineProps({
   tileNumber: {
@@ -39,12 +46,12 @@ function share() {
   if (webShareApiSupported()) {
     navigator.share({
       files: filesArray.value,
-      title: i18n.t("tile-title", {
+      title: t("tile-title", {
         number: props.tileNumber,
         x: props.tileNumber % 20,
         y: Math.floor(props.tileNumber / 20),
       }),
-      text: i18n.t("share-description"),
+      text: t("share-description"),
       url: window.location.href,
     });
   }

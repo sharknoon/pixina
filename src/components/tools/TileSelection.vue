@@ -11,23 +11,26 @@
         @click="toggleTileSelection($event, tile.number)"
       >
         <img
+          :id="'thumbnail-' + tile.number"
           :src="tile.src_thumbnail"
           alt="picture"
           width="75"
           class="img-pixelated"
-          :id="'thumbnail-' + tile.number"
           :class="
             selected_tiles_numbers.includes(tile.number)
               ? 'thumbnail-selected'
               : ''
           "
-        />
+        >
         <div v-if="multi">
           <div
             v-if="selected_tiles_numbers.includes(tile.number)"
             class="position-absolute top-0 end-0 p-1"
           >
-            <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
+            <font-awesome-icon
+              :icon="['fas', 'check-circle']"
+              size="lg"
+            />
           </div>
         </div>
         <div v-else>
@@ -49,39 +52,48 @@
         </div>
         <div
           class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
-        >{{ tile.title }}</div>
+        >
+          {{ tile.title }}
+        </div>
       </div>
     </div>
 
-    <div v-if="multi" class="p-4 d-flex align-items-center justify-content-between">
+    <div
+      v-if="multi"
+      class="p-4 d-flex align-items-center justify-content-between"
+    >
       <div>
         {{
-          $tc("tile-selection-counter", selected_tiles.length, {
-            amount: selected_tiles.length,
-          })
+          t("tile-selection-counter", {
+            amount: selected_tiles.length
+          }, selected_tiles.length)
         }}
       </div>
       <div>
         <button
           type="button"
           class="btn btn-primary"
+          :disabled="selected_tiles.length < 1"
           @click="
             $router.push({
               name: 'colorCountTools',
               query: { tiles: selected_tiles_numbers },
             })
           "
-          :disabled="selected_tiles.length < 1"
-        >{{ $t("next") }}</button>
+        >
+          {{ t("next") }}
+        </button>
       </div>
     </div>
   </div>
 </template>
 <script setup>
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
 
+const { t } = useI18n();
 const router = useRouter();
 const store = useStore();
 

@@ -1,5 +1,8 @@
 <template>
-  <canvas class="img-pixelated" :id="'plate-canvas-' + color.number_pixelhobby"></canvas>
+  <canvas
+    :id="'plate-canvas-' + color.number_pixelhobby"
+    class="img-pixelated"
+  />
 </template>
 <script setup>
 import { computed, onMounted, watch } from "vue"

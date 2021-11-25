@@ -1,7 +1,7 @@
 <template>
   <div
-    class="modal fade"
     :id="'cuttingModal' + color.number_pixelhobby"
+    class="modal fade"
     tabindex="-1"
     :aria-labelledby="'cuttingModal' + color.number_pixelhobby + 'Label'"
     aria-hidden="true"
@@ -14,31 +14,33 @@
             size="lg"
             class="align-middle mb-1 me-2"
           />
-          <h5 class="modal-title">{{ $t("cutting-information") }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          <h5 class="modal-title">
+            {{ t("cutting-information") }}
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body">
           <h5>
-            {{
-              $tc("amount-colorplates", Math.floor(color.amount / 140), {
-                amount: Math.floor(color.amount / 140),
-              })
-            }}
+            {{ t("amount-colorplates", { amount: Math.floor(color.amount / 140) }, Math.floor(color.amount / 140)) }}
             +
           </h5>
           <ColorPlate :color="color" />
-          {{
-            $tc("amount-pixels", color.amount % 140, {
-              amount: color.amount % 140,
-            })
-          }}
+          {{ t("amount-pixels", { amount: color.amount % 140 }, color.amount % 140) }}
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup>
+import { useI18n } from "vue-i18n";
 import ColorPlate from "@/components/tools/ColorPlate";
+
+const { t } = useI18n();
 
 defineProps({
   color: {

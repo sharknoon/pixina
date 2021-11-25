@@ -1,6 +1,12 @@
 <template>
-  <button @click="toggleFavorite()" class="btn btn-dark">
-    <font-awesome-icon :icon="[iconStyle, 'star']" size="lg" />
+  <button
+    class="btn btn-dark"
+    @click="toggleFavorite()"
+  >
+    <font-awesome-icon
+      :icon="[iconStyle, 'star']"
+      size="lg"
+    />
   </button>
 </template>
 <script setup>

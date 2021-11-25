@@ -5,32 +5,42 @@
         class="col-3"
         :style="
           'background: ' +
-          color.hex_place +
-          '; border-radius: 0.25rem 0 0 0.25rem'
+            color.hex_place +
+            '; border-radius: 0.25rem 0 0 0.25rem'
         "
-      ></div>
+      />
       <div class="col-9 d-flex flex-column">
         <div class="card-body">
-          <h5 class="card-title">{{ $t(color.name_place) }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ color.number_pixelhobby }}</h6>
+          <h5 class="card-title">
+            {{ t(color.name_place) }}
+          </h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ color.number_pixelhobby }}
+          </h6>
           <font-awesome-icon :icon="['fas', 'cubes']" />
           {{
-            $tc("amount-pixels", color.amount, {
-              amount: color.amount,
-            })
+            t("amount-pixels", {
+              amount: color.amount
+            }, color.amount)
           }}
-          <div v-if="color.amount > 140" class="d-flex">
-            <font-awesome-icon :icon="['fas', 'th']" class="me-1" />
+          <div
+            v-if="color.amount > 140"
+            class="d-flex"
+          >
+            <font-awesome-icon
+              :icon="['fas', 'th']"
+              class="me-1"
+            />
             {{
-              $tc("amount-colorplates", Math.floor(color.amount / 140), {
-                amount: Math.floor(color.amount / 140),
-              })
+              t("amount-colorplates", {
+                amount: Math.floor(color.amount / 140)
+              }, Math.floor(color.amount / 140))
             }}
             +
             {{
-              $tc("amount-pixels", color.amount % 140, {
-                amount: color.amount % 140,
-              })
+              t("amount-pixels", {
+                amount: color.amount % 140
+              }, color.amount % 140)
             }}
           </div>
           <a
@@ -39,7 +49,10 @@
             data-bs-toggle="modal"
             :data-bs-target="'#infoModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon :icon="['far', 'info-circle']" class="align-middle" />
+            <font-awesome-icon
+              :icon="['far', 'info-circle']"
+              class="align-middle"
+            />
           </a>
         </div>
         <div class="card-footer p-2">
@@ -49,8 +62,11 @@
             data-bs-toggle="modal"
             :data-bs-target="'#cuttingModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon :icon="['fas', 'cut']" class="align-middle mb-1" />
-            {{ $t("cut") }}
+            <font-awesome-icon
+              :icon="['fas', 'cut']"
+              class="align-middle mb-1"
+            />
+            {{ t("cut") }}
           </a>
         </div>
       </div>
@@ -60,8 +76,11 @@
   </div>
 </template>
 <script setup>
+import { useI18n } from "vue-i18n";
 import InfoModal from "@/components/tools/InfoModal";
 import CuttingModal from "@/components/tools/CuttingModal";
+
+const { t } = useI18n();
 
 defineProps({
   color: {

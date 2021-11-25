@@ -4,10 +4,18 @@
     class="btn btn-outline-light"
     role="button"
   >
-    <font-awesome-icon class="me-2" :icon="['fal', 'donate']" />
-    {{ $t("donate") }}
+    <font-awesome-icon
+      class="me-2"
+      :icon="['fal', 'donate']"
+    />
+    {{ t("donate") }}
   </a>
 </template>
+<script setup>
+import { useI18n } from "vue-i18n";
+
+const { t } = useI18n();
+</script>
 <style lang="scss" scoped>
 a {
   text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);

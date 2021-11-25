@@ -1,6 +1,4 @@
 module.exports = {
-  runtimeCompiler: true,
-
   pwa: {
     name: 'Pixina',
     themeColor: '#dc143c',
@@ -85,12 +83,11 @@ module.exports = {
       ]
     }
   },
+
   pluginOptions: {
     i18n: {
-      locale: 'de-DE',
-      fallbackLocale: 'en-US',
-      localeDir: 'locales',
-      enableInSFC: false
+      compositionOnly: true,
+      fullInstall: true
     }
   }
 }

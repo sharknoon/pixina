@@ -1,12 +1,22 @@
 <template>
   <div class="container py-3">
-    <h1>{{ $t("informations-title") }}</h1>
-    <p>{{ $t("informations-body") }}</p>
+    <h1>{{ t("informations-title") }}</h1>
+    <p>{{ t("informations-body") }}</p>
 
-    <h3>{{ $t("informations-faq") }}</h3>
-    <div class="accordion pb-3" id="faq-accordion">
-      <div v-for="(faq, index) in faqs" :key="faq.title" class="accordion-item">
-        <h2 class="accordion-header" :id="'heading-faq-' + index">
+    <h3>{{ t("informations-faq") }}</h3>
+    <div
+      id="faq-accordion"
+      class="accordion pb-3"
+    >
+      <div
+        v-for="(faq, index) in faqs"
+        :key="faq.title"
+        class="accordion-item"
+      >
+        <h2
+          :id="'heading-faq-' + index"
+          class="accordion-header"
+        >
           <button
             class="accordion-button"
             :class="index == 0 ? '' : 'collapsed'"
@@ -15,7 +25,9 @@
             :data-bs-target="'#collapse-faq-' + index"
             :aria-expanded="index == 0 ? 'true' : 'false'"
             :aria-controls="'collapse-faq-' + index"
-          >{{ faq.title }}</button>
+          >
+            {{ faq.title }}
+          </button>
         </h2>
         <div
           :id="'collapse-faq-' + index"
@@ -24,19 +36,32 @@
           :aria-labelledby="'heading-faq-' + index"
           data-bs-parent="#faq-accordion"
         >
-          <div class="accordion-body" v-html="faq.text"></div>
+          <div class="accordion-body">
+            {{ faq.text }}
+          </div>
         </div>
       </div>
     </div>
 
-    <h3>{{ $t("informations-gallery") }}</h3>
+    <h3>{{ t("informations-gallery") }}</h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <div v-for="galleryPicture in galleryPictures" :key="galleryPicture.title" class="col">
+      <div
+        v-for="galleryPicture in galleryPictures"
+        :key="galleryPicture.title"
+        class="col"
+      >
         <div class="card h-100">
-          <img :src="galleryPicture.image" class="card-img-top" />
+          <img
+            :src="galleryPicture.image"
+            class="card-img-top"
+          >
           <div class="card-body">
-            <h5 class="card-title">{{ galleryPicture.title }}</h5>
-            <p class="card-text" v-html="galleryPicture.text"></p>
+            <h5 class="card-title">
+              {{ galleryPicture.title }}
+            </h5>
+            <p class="card-text">
+              {{ galleryPicture.text }}
+            </p>
           </div>
         </div>
       </div>
@@ -47,76 +72,68 @@
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 
-const i18n = useI18n();
+const { t } = useI18n();
 
 const faqs = computed(() => [
   {
-    title: i18n.t("informations-faq-pixina-title"),
-    text: i18n.t("informations-faq-pixina-text"),
+    title: t("informations-faq-pixina-title"),
+    text: t("informations-faq-pixina-text"),
   },
   {
-    title: i18n.t("informations-faq-place-title"),
-    text: i18n.t("informations-faq-place-text", {
-      link: '<a href="/place">Place</a>',
-    }),
+    title: t("informations-faq-place-title"),
+    text: t("informations-faq-place-text"),
   },
   {
-    title: i18n.t("informations-faq-reddit-title"),
-    text: i18n.t("informations-faq-reddit-text", {
-      linkreddit: '<a href="https://www.reddit.com/">Reddit</a>',
-      linksubreddit:
-        '<a href="https://www.reddit.com/r/place/">Subreddit</a>',
-    }),
+    title: t("informations-faq-reddit-title"),
+    text: t("informations-faq-reddit-text"),
   },
   {
-    title: i18n.t("informations-faq-art-title"),
-    text: i18n.t("informations-faq-art-text"),
+    title: t("informations-faq-art-title"),
+    text: t("informations-faq-art-text"),
   },
   {
-    title: i18n.t("informations-faq-size-title"),
-    text: i18n.t("informations-faq-size-text"),
+    title: t("informations-faq-size-title"),
+    text: t("informations-faq-size-text"),
   },
   {
-    title: i18n.t("informations-faq-duration-title"),
-    text: i18n.t("informations-faq-duration-text"),
+    title: t("informations-faq-duration-title"),
+    text: t("informations-faq-duration-text"),
   },
   {
-    title: i18n.t("informations-faq-persons-title"),
-    text: i18n.t("informations-faq-persons-text"),
+    title: t("informations-faq-persons-title"),
+    text: t("informations-faq-persons-text"),
   }
 ]);
 const galleryPictures = computed(() => [
   {
     image: require("@/assets/images/informations/pixeling.webp"),
-    title: i18n.t("informations-gallery-pixeling-title"),
-    text: i18n.t("informations-gallery-pixeling-text"),
+    title: t("informations-gallery-pixeling-title"),
+    text: t("informations-gallery-pixeling-text"),
   },
   {
     image: require("@/assets/images/informations/base-colors.webp"),
-    title: i18n.t("informations-gallery-base-colors-title"),
-    text: i18n.t("informations-gallery-base-colors-text"),
+    title: t("informations-gallery-base-colors-title"),
+    text: t("informations-gallery-base-colors-text"),
   },
   {
     image: require("@/assets/images/informations/base-color-selection.webp"),
-    title: i18n.t("informations-gallery-base-color-selection-title"),
-    text: i18n.t("informations-gallery-base-color-selection-text", {
-      link: '<a href="https://pixelhobby-shop.de/">Pixelhobby</a>',
-    }),
+    title: t("informations-gallery-base-color-selection-title"),
+    text: t("informations-gallery-base-color-selection-text"),
   },
   {
     image: require("@/assets/images/informations/first-pixel.webp"),
-    title: i18n.t("informations-gallery-first-pixel-title"),
-    text: i18n.t("informations-gallery-first-pixel-text"),
+    title: t("informations-gallery-first-pixel-title"),
+    text: t("informations-gallery-first-pixel-text"),
   },
   {
     image: require("@/assets/images/informations/new-color-plates.webp"),
-    title: i18n.t("informations-gallery-new-color-plates-title"),
-    text: i18n.t("informations-gallery-new-color-plates-text"),
+    title: t("informations-gallery-new-color-plates-title"),
+    text: t("informations-gallery-new-color-plates-text"),
   },
   {
     image: require("@/assets/images/informations/image-numbering.webp"),
-    title: i18n.t("informations-gallery-image-numbering-title"),
-    text: i18n.t("informations-gallery-image-numbering-text"),
+    title: t("informations-gallery-image-numbering-title"),
+    text: t("informations-gallery-image-numbering-text"),
   }
 ]);
 </script>

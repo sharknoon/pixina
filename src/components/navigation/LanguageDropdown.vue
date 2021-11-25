@@ -1,22 +1,28 @@
 <template>
   <div class="dropup">
     <button
+      id="button-dropdown-languages"
       class="btn btn-light dropdown-toggle"
       type="button"
-      id="button-dropdown-languages"
       data-bs-toggle="dropdown"
       aria-expanded="false"
     >
       <span
         :class="
           'flag-icon flag-icon-' +
-          currentMessage.meta.locale.substring(3, 5).toLowerCase()
+            currentMessage.meta.locale.substring(3, 5).toLowerCase()
         "
-      ></span>
+      />
       <span class="mx-1 mt-20">{{ currentMessage.meta.name }}</span>
     </button>
-    <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
-      <li v-for="(message, code) in messagesWithCountry" :key="code">
+    <ul
+      class="dropdown-menu"
+      aria-labelledby="button-dropdown-languages"
+    >
+      <li
+        v-for="(message, code) in messagesWithCountry"
+        :key="code"
+      >
         <button
           class="dropdown-item"
           type="button"
@@ -24,7 +30,7 @@
           data-bs-target="#navbarSupportedContent"
           @click="changeLanguage(code)"
         >
-          <span :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()"></span>
+          <span :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()" />
           {{ message.meta.name }}
         </button>
       </li>
