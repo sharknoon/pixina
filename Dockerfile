@@ -1,10 +1,10 @@
-FROM node:14 as build-stage
+FROM node:16 as build-stage
 ARG FONTAWESOME_NPM_AUTH_TOKEN
 WORKDIR /app
 COPY package*.json ./
 RUN npm config set "@fortawesome:registry" https://npm.fontawesome.com/
 RUN npm config set "//npm.fontawesome.com/:_authToken" "${FONTAWESOME_NPM_AUTH_TOKEN}"
-RUN npm install
+RUN npm ci
 COPY ./ .
 RUN npm run build
 

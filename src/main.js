@@ -14,8 +14,6 @@ import '@/js/bootstrap'
 import FontAwesomeIcon from '@/js/fontawesome'
 // Service Worker
 import '@/js/registerServiceWorker'
-// Flag Icons
-import '@/js/flag-icons'
 
 createApp(Pixina)
     .use(router)

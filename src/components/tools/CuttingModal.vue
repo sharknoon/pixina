@@ -14,15 +14,8 @@
             size="lg"
             class="align-middle mb-1 me-2"
           />
-          <h5 class="modal-title">
-            {{ $t("cutting-information") }}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          ></button>
+          <h5 class="modal-title">{{ $t("cutting-information") }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
           <h5>
@@ -44,19 +37,13 @@
     </div>
   </div>
 </template>
-<script>
-import ColorPlate from "./ColorPlate";
+<script setup>
+import ColorPlate from "@/components/tools/ColorPlate";
 
-export default {
-  name: "CuttingModal",
-  props: {
-    color: {
-      type: Object,
-      required: true,
-    },
-  },
-  components: {
-    ColorPlate,
-  },
-};
+defineProps({
+  color: {
+    type: Object,
+    required: true,
+  }
+})
 </script>

@@ -9,7 +9,7 @@
           id="btn-check-original"
           autocomplete="off"
           value="original"
-          v-model="placeVariant"
+          v-model="variant"
           checked
         />
         <label class="btn btn-outline-secondary" for="btn-check-original">
@@ -23,7 +23,7 @@
           id="btn-check-cleaned"
           autocomplete="off"
           value="cleaned"
-          v-model="placeVariant"
+          v-model="variant"
         />
         <label class="btn btn-outline-secondary" for="btn-check-cleaned">
           <font-awesome-icon :icon="['fas', 'sparkles']" />
@@ -47,72 +47,60 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { ref, onMounted, computed, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import Zoom from "@/components/common/Zoom";
 
-export default {
-  name: "Place",
-  data() {
-    return {
-      grid: false,
-      placeVariant: "original",
-    };
-  },
-  components: {
-    Zoom,
-  },
-  mounted() {
-    this.readQueryParams();
-  },
-  watch: {
-    placeVariant() {
-      this.updateQueryParams();
-    },
-    grid() {
-      this.updateQueryParams();
-    },
-  },
-  methods: {
-    readQueryParams() {
-      const variant = this.$route.query.variant;
-      if (variant) {
-        switch (variant.toLowerCase()) {
-          case "original":
-            this.placeVariant = "original";
-            break;
-          case "cleaned":
-            this.placeVariant = "cleaned";
-            break;
-        }
-      }
-      const grid = this.$route.query.grid;
-      if (grid) {
-        switch (grid.toLowerCase()) {
-          case "true":
-            this.grid = true;
-            break;
-          case "false":
-            this.grid = false;
-            break;
-        }
-      }
-    },
-    updateQueryParams() {
-      const query = {};
-      if (this.placeVariant === "cleaned") {
-        query["variant"] = this.placeVariant;
-      }
-      if (this.grid) {
-        query["grid"] = this.grid;
-      }
-      this.$router.replace({ query: query });
-    },
-  },
-  computed: {
-    placeUrl: function () {
-      let fileName = this.placeVariant + (this.grid ? "_grid" : "");
-      return require("@/assets/images/place/" + fileName + ".webp");
-    },
-  },
-};
+const route = useRoute();
+const router = useRouter();
+
+const grid = ref(false);
+const variant = ref("original");
+
+const placeUrl = computed(() => {
+  let fileName = variant.value + (grid.value ? "_grid" : "");
+  return require("@/assets/images/place/" + fileName + ".webp");
+})
+
+watch(variant, () => updateQueryParams());
+watch(grid, () => updateQueryParams());
+
+onMounted(() => readQueryParams());
+
+function readQueryParams() {
+  const variantQuery = route.query.variant;
+  if (variantQuery) {
+    switch (variantQuery.toString().toLowerCase()) {
+      case "original":
+        variant.value = "original";
+        break;
+      case "cleaned":
+        variant.value = "cleaned";
+        break;
+    }
+  }
+  const gridQuery = route.query.grid;
+  if (gridQuery) {
+    switch (gridQuery.toString().toLowerCase()) {
+      case "true":
+        grid.value = true;
+        break;
+      case "false":
+        grid.value = false;
+        break;
+    }
+  }
+}
+
+function updateQueryParams() {
+  const query = {};
+  if (variant.value === "cleaned") {
+    query["variant"] = variant.value;
+  }
+  if (grid.value) {
+    query["grid"] = grid.value;
+  }
+  router.replace({ query: query });
+}
 </script>

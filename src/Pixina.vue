@@ -4,12 +4,6 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Pixina",
-};
-</script>
-
 <style lang="scss">
 #app {
   font-family: Kumbh Sans, Avenir, Helvetica, Arial, sans-serif;

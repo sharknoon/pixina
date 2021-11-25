@@ -13,9 +13,7 @@
           currentMessage.meta.locale.substring(3, 5).toLowerCase()
         "
       ></span>
-      <span class="mx-1 mt-20">
-        {{ currentMessage.meta.name }}
-      </span>
+      <span class="mx-1 mt-20">{{ currentMessage.meta.name }}</span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
       <li v-for="(message, code) in messagesWithCountry" :key="code">
@@ -26,37 +24,59 @@
           data-bs-target="#navbarSupportedContent"
           @click="changeLanguage(code)"
         >
-          <span
-            :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()"
-          ></span>
+          <span :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()"></span>
           {{ message.meta.name }}
         </button>
       </li>
     </ul>
   </div>
 </template>
-<script>
-export default {
-  name: "LanguageDropdown",
-  computed: {
-    currentMessage() {
-      return this.$i18n.messages[this.$i18n.locale];
-    },
-    messagesWithCountry() {
-      const messagesWithCountry = {};
-      for (const locale in this.$i18n.messages) {
-        if (locale.includes("-")) {
-          messagesWithCountry[locale] = this.$i18n.messages[locale];
-        }
-      }
-      return messagesWithCountry;
-    },
-  },
-  methods: {
-    changeLanguage(locale) {
-      this.$i18n.locale = locale;
-      this.$store.commit("changeLocale", locale);
-    },
-  },
-};
+<script setup>
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
+import { useStore } from "vuex";
+
+const i18n = useI18n();
+const store = useStore();
+
+const currentMessage = computed(() => i18n.messages.value[i18n.locale.value]);
+const messagesWithCountry = computed(() => {
+  const result = {};
+  for (const locale in i18n.messages.value) {
+    if (locale.includes("-")) {
+      result[locale] = i18n.messages.value[locale];
+    }
+  }
+  return result;
+});
+
+function changeLanguage(locale) {
+  i18n.locale.value = locale;
+  store.commit("changeLocale", locale);
+}
 </script>
+<style lang="scss">
+@use 'sass:math';
+
+.flag-icon {
+  background-size: contain;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  position: relative;
+  display: inline-block;
+  width: math.div(4, 3) * 1em;
+  line-height: 1em;
+  &:before {
+    content: "\00a0";
+  }
+}
+
+@mixin flag-icon($country) {
+  .flag-icon-#{$country} {
+    background-image: url("../../assets/images/navigation/#{$country}.svg");
+  }
+}
+
+@include flag-icon(de);
+@include flag-icon(us);
+</style>

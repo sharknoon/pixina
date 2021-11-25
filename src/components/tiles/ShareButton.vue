@@ -3,50 +3,50 @@
     <font-awesome-icon :icon="['fal', 'share-alt']" size="lg" />
   </button>
 </template>
-<script>
-export default {
-  name: "ShareButton",
-  data() {
-    return {
-      filesArray: [],
-    };
+<script setup>
+import { onMounted, ref } from "vue";
+import { useI18n } from "vue-i18n";
+
+const i18n = useI18n();
+
+const props = defineProps({
+  tileNumber: {
+    type: Number,
+    required: true,
   },
-  props: {
-    tileNumber: {
-      type: Number,
-      required: true,
-    },
-  },
-  mounted() {
-    fetch(
-      require("@/assets/images/templates/" + this.tileNumber + "-detailed.webp")
-    )
-      .then((res) => res.blob())
-      .then((blob) => {
-        const file = new File([blob], "tile_" + this.tileNumber + ".webp", {
-          type: blob.type,
-        });
-        this.filesArray = [file];
+});
+
+let filesArray = ref([]);
+
+onMounted(() => {
+  fetch(
+    require("@/assets/images/templates/" + props.tileNumber + "-detailed.webp")
+  )
+    .then((res) => res.blob())
+    .then((blob) => {
+      const file = new File([blob], "tile_" + props.tileNumber + ".webp", {
+        type: blob.type,
       });
-  },
-  methods: {
-    webShareApiSupported() {
-      return navigator.share && navigator.canShare({ files: this.filesArray });
-    },
-    share() {
-      if (this.webShareApiSupported()) {
-        navigator.share({
-          files: this.filesArray,
-          title: this.$t("tile-title", {
-            number: this.tileNumber,
-            x: this.tileNumber % 20,
-            y: Math.floor(this.tileNumber / 20),
-          }),
-          text: this.$t("share-description"),
-          url: window.location.href,
-        });
-      }
-    },
-  },
-};
+      filesArray.value = [file];
+    });
+});
+
+function webShareApiSupported() {
+  return navigator.share && navigator.canShare({ files: filesArray.value });
+}
+
+function share() {
+  if (webShareApiSupported()) {
+    navigator.share({
+      files: filesArray.value,
+      title: i18n.t("tile-title", {
+        number: props.tileNumber,
+        x: props.tileNumber % 20,
+        y: Math.floor(props.tileNumber / 20),
+      }),
+      text: i18n.t("share-description"),
+      url: window.location.href,
+    });
+  }
+}
 </script>

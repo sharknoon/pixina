@@ -1,21 +1,14 @@
 <template>
-  <button @click="goBack()" class="btn btn-dark">
+  <button @click="close()" class="btn btn-dark">
     <font-awesome-icon :icon="['fal', 'times']" size="lg" />
   </button>
 </template>
-<script>
-export default {
-  name: "CloseButton",
-  props: {
-    route: {
-      type: Object,
-      required: true,
-    },
-  },
-  methods: {
-    goBack() {
-      this.$router.push(this.route);
-    },
-  },
-};
+<script setup>
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+function close() {
+  router.push({ name: "Templates" });
+}
 </script>

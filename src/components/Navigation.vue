@@ -1,17 +1,10 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div
-      id="navigation-sidebar"
-      class="text-start d-none d-md-flex flex-column background p-2"
-    >
+    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
       <!-- Logo Area -->
       <router-link to="/">
-        <img
-          id="navigation-logo"
-          class="img-fluid mb-2"
-          src="@/assets/images/logo-white.svg"
-        />
+        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
       </router-link>
       <!-- Items Area -->
       <nav>
@@ -22,9 +15,7 @@
           class="router-link d-flex align-items-center py-1"
         >
           <font-awesome-icon class="me-2" :icon="item.icon" />
-          <span class="pt-1">
-            {{ item.name }}
-          </span>
+          <span class="pt-1">{{ item.name }}</span>
         </router-link>
       </nav>
       <div class="mt-auto d-grid gap-2">
@@ -36,23 +27,12 @@
       <!-- In case of mobile view, display top navigation bar -->
       <nav
         id="navigation-bar"
-        class="
-          navbar
-          d-md-none
-          navbar-expand-lg navbar-light
-          p-2
-          background
-          flex-grow-0 flex-shrink-0
-        "
+        class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
       >
         <div class="container-fluid p-0">
           <!-- Logo Area -->
           <router-link class="navbar-brand p-0 ps-2" to="/">
-            <img
-              id="navigation-logo"
-              class="img-fluid"
-              src="@/assets/images/logo-white.svg"
-            />
+            <img id="navigation-logo" class="img-fluid" src="@/assets/images/logo-white.svg" />
           </router-link>
           <button
             class="navbar-toggler"
@@ -76,9 +56,7 @@
                     data-bs-target="#navbarSupportedContent"
                   >
                     <font-awesome-icon class="me-2" :icon="item.icon" />
-                    <span class="pt-1">
-                      {{ item.name }}
-                    </span>
+                    <span class="pt-1">{{ item.name }}</span>
                   </div>
                 </router-link>
               </li>
@@ -96,53 +74,46 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
+import { computed } from "vue";
+import { useI18n } from "vue-i18n";
 import DonationButton from "@/components/navigation/DonationButton";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown";
 
-export default {
-  name: "Navigation",
-  computed: {
-    items() {
-      return [
-        {
-          name: this.$t("templates"),
-          icon: ["fal", "images"],
-          to: "/templates",
-        },
-        {
-          name: this.$t("informations"),
-          icon: ["fal", "book-open"],
-          to: "/informations",
-        },
-        {
-          name: this.$t("image"),
-          icon: ["fal", "image"],
-          to: "/place",
-        },
-        {
-          name: this.$t("history"),
-          icon: ["fal", "history"],
-          to: "/history",
-        },
-        {
-          name: this.$t("atlas"),
-          icon: ["fal", "compass"],
-          to: "/atlas",
-        },
-        {
-          name: this.$t("tools"),
-          icon: ["fal", "wrench"],
-          to: "/tools",
-        },
-      ];
-    },
+const i18n = useI18n();
+
+const items = computed(() => [
+  {
+    name: i18n.t("templates"),
+    icon: ["fal", "images"],
+    to: "/templates",
   },
-  components: {
-    DonationButton,
-    LanguageDropdown,
+  {
+    name: i18n.t("informations"),
+    icon: ["fal", "book-open"],
+    to: "/informations",
   },
-};
+  {
+    name: i18n.t("image"),
+    icon: ["fal", "image"],
+    to: "/place",
+  },
+  {
+    name: i18n.t("history"),
+    icon: ["fal", "history"],
+    to: "/history",
+  },
+  {
+    name: i18n.t("atlas"),
+    icon: ["fal", "compass"],
+    to: "/atlas",
+  },
+  {
+    name: i18n.t("tools"),
+    icon: ["fal", "wrench"],
+    to: "/tools",
+  }
+]);
 </script>
 <style scoped lang="scss">
 // Common styles for mobile and desktop

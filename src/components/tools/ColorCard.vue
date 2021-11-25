@@ -12,9 +12,7 @@
       <div class="col-9 d-flex flex-column">
         <div class="card-body">
           <h5 class="card-title">{{ $t(color.name_place) }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            {{ color.number_pixelhobby }}
-          </h6>
+          <h6 class="card-subtitle mb-2 text-muted">{{ color.number_pixelhobby }}</h6>
           <font-awesome-icon :icon="['fas', 'cubes']" />
           {{
             $tc("amount-pixels", color.amount, {
@@ -41,10 +39,7 @@
             data-bs-toggle="modal"
             :data-bs-target="'#infoModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon
-              :icon="['far', 'info-circle']"
-              class="align-middle"
-            />
+            <font-awesome-icon :icon="['far', 'info-circle']" class="align-middle" />
           </a>
         </div>
         <div class="card-footer p-2">
@@ -54,10 +49,7 @@
             data-bs-toggle="modal"
             :data-bs-target="'#cuttingModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon
-              :icon="['fas', 'cut']"
-              class="align-middle mb-1"
-            />
+            <font-awesome-icon :icon="['fas', 'cut']" class="align-middle mb-1" />
             {{ $t("cut") }}
           </a>
         </div>
@@ -67,23 +59,16 @@
     <CuttingModal :color="color" />
   </div>
 </template>
-<script>
-import InfoModal from "./InfoModal";
-import CuttingModal from "./CuttingModal";
+<script setup>
+import InfoModal from "@/components/tools/InfoModal";
+import CuttingModal from "@/components/tools/CuttingModal";
 
-export default {
-  name: "ColorCard",
-  props: {
-    color: {
-      type: Object,
-      required: true,
-    },
+defineProps({
+  color: {
+    type: Object,
+    required: true,
   },
-  components: {
-    InfoModal,
-    CuttingModal,
-  },
-};
+});
 </script>
 <style lang="scss" scoped>
 .card {

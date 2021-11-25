@@ -8,11 +8,6 @@
     {{ $t("donate") }}
   </a>
 </template>
-<script>
-export default {
-  name: "DonationButton",
-};
-</script>
 <style lang="scss" scoped>
 a {
   text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);

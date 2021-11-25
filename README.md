@@ -1,4 +1,4 @@
-# pixina
+# Pixina
 
 [![Build & Deploy](https://github.com/Sharknoon/pixina/actions/workflows/build-and-deploy.yml/badge.svg)](https://github.com/Sharknoon/pixina/actions/workflows/build-and-deploy.yml)
 

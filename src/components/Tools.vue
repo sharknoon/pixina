@@ -1,15 +1,8 @@
 <template>
   <div id="tools-wrapper" class="h-100">
-    <TileSelection :multi-selection="true" />
+    <TileSelection :multi="true" />
   </div>
 </template>
-<script>
-import TileSelection from "./tools/TileSelection";
-
-export default {
-  name: "Tools",
-  components: {
-    TileSelection,
-  },
-};
+<script setup>
+import TileSelection from "@/components/tools/TileSelection";
 </script>
