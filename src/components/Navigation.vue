@@ -14,12 +14,16 @@
         >
       </router-link>
       <!-- Items Area -->
-      <nav>
+      <nav class="d-flex flex-column">
+        <div
+          class="indicator"
+          :style="`transform: translateY(${translationY}rem);`"
+        />
         <router-link
           v-for="item in items"
           :key="item.name"
           :to="item.to"
-          class="router-link d-flex align-items-center py-1"
+          class="router-link d-flex align-items-center"
         >
           <font-awesome-icon
             class="me-2"
@@ -108,11 +112,13 @@
   </div>
 </template>
 <script setup>
-import { computed } from "vue";
+import { computed, watchEffect, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import DonationButton from "@/components/navigation/DonationButton";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown";
 
+const router = useRouter();
 const { t } = useI18n();
 
 const items = computed(() => [
@@ -147,6 +153,14 @@ const items = computed(() => [
     to: "/tools",
   }
 ]);
+
+const translationY = ref(-0.25);
+
+watchEffect(() => {
+  const path = router.currentRoute.value.path;
+  const index = items.value.findIndex((item) => item.to === path);
+  translationY.value = (index * 2.8) - 0.25;
+});
 </script>
 <style scoped lang="scss">
 // Common styles for mobile and desktop
@@ -161,14 +175,13 @@ const items = computed(() => [
   box-shadow: inset -0.5rem 0 2rem -0.5rem rgba(0, 0, 0, 0.15);
 
   nav {
+    margin: 0.5rem -0.5rem 0.5rem 2.1rem;
+    gap: 0.75rem;
+    position: relative;
     .router-link {
+      position: relative;
       font-size: larger;
       color: white;
-      margin-right: -0.5rem;
-      margin-left: 1.5rem;
-      padding: 0.2rem 0 0.2rem 0.6rem;
-      margin-top: 0.25rem;
-      margin-bottom: 0.25rem;
       text-decoration: initial;
       text-shadow: 0rem 0.25rem 0.75rem rgba(0, 0, 0, 0.95);
       svg {
@@ -176,15 +189,49 @@ const items = computed(() => [
       }
     }
 
-    .router-link-active {
+    .indicator {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 2.55rem;
+      margin-left: -0.6rem;
       background: white;
       border-radius: 0.6rem 0 0 0.6rem;
-      color: black;
       box-shadow: -1rem 0.5rem 1rem rgba(0, 0, 0, 0.15);
+      transition: 0.2s;
+    }
+
+    .indicator::before {
+      content: "";
+      position: absolute;
+      width: 0.6rem;
+      height: 0.6rem;
+      background: transparent;
+      top: -0.6rem;
+      right: 0;
+      border-bottom-right-radius: 0.6rem;
+      box-shadow: 0.2rem 0.2rem 0 0.2rem white;
+    }
+
+    .indicator::after {
+      content: "";
+      position: absolute;
+      width: 0.6rem;
+      height: 0.6rem;
+      background: transparent;
+      bottom: -0.6rem;
+      right: 0;
+      border-top-right-radius: 0.6rem;
+      box-shadow: 0.2rem -0.2rem 0 0.2rem white;
+    }
+
+    .router-link-active {
+      color: black;
       text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
       svg {
         filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
       }
+      transition: 0.1s;
     }
   }
 
