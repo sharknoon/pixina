@@ -23,7 +23,7 @@ const props = defineProps({
 
 function showInfo() {
   router.push({
-    name: "ColorCountTile",
+    name: "Colors",
     query: { tiles: [props.tileNumber] },
   });
 }

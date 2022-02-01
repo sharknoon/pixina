@@ -158,7 +158,7 @@ const translationY = ref(-0.25);
 
 watchEffect(() => {
   const path = router.currentRoute.value.path;
-  const index = items.value.findIndex((item) => item.to === path);
+  const index = items.value.findIndex((item) => path.startsWith(item.to));
   translationY.value = (index * 2.8) - 0.25;
 });
 </script>

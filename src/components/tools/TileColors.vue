@@ -61,7 +61,7 @@
   </div>
 </template>
 <script setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
 import ColorCard from "@/components/tools/ColorCard";
@@ -75,7 +75,17 @@ const router = useRouter();
 const processed_tiles = ref(0);
 const colors = ref([]);
 
-const tiles = computed(() => route.query.tiles || []);
+const tiles = computed(() => {
+  const queryParam = route.query.tiles;
+  if (!queryParam) {
+    return [];
+  }
+  if (!Array.isArray(queryParam)) {
+    return [queryParam];
+  }
+  return queryParam;
+});
+
 const sortedColors = computed(() => {
   return Object.values(colors.value).sort((a, b) => {
     return b.amount - a.amount;

@@ -18,12 +18,12 @@ const router = createRouter({
             }
         },
         {
-            path: '/templates/:number/colorCount',
-            name: 'ColorCountTile',
+            path: '/templates/:number/colors',
+            name: 'Colors',
             component: () =>
                 import('@/components/tools/TileColors.vue'),
             meta: {
-                title: 'Farbenzählung'
+                title: 'Farben'
             }
         },
         {
@@ -83,16 +83,18 @@ const router = createRouter({
                         import('@/components/Tools.vue'),
                     meta: {
                         title: 'Werkzeuge'
-                    }
-                },
-                {
-                    path: 'tools/colorCount',
-                    name: 'colorCountTools',
-                    component: () =>
-                        import('@/components/tools/TileColors.vue'),
-                    meta: {
-                        title: 'Farbenzählung'
-                    }
+                    },
+                    children: [
+                        {
+                            path: 'colorCount',
+                            name: 'colorCountTools',
+                            component: () =>
+                                import('@/components/tools/TileColors.vue'),
+                            meta: {
+                                title: 'Farbenzählung'
+                            }
+                        },
+                    ]
                 },
             ]
         },

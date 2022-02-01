@@ -6,62 +6,31 @@
     >
       <div
         v-for="tile in tiles"
-        :key="tile.number"
+        :key="tile"
         class="position-relative m-2"
-        @click="toggleTileSelection($event, tile.number)"
+        @click="toggleTileSelection($event, tile)"
       >
-        <img
-          :id="'thumbnail-' + tile.number"
-          :src="tile.src_thumbnail"
-          alt="picture"
-          width="75"
-          class="img-pixelated"
+        <TileThumbnail
+          :number="tile"
           :class="
-            selected_tiles_numbers.includes(tile.number)
+            selected_tiles.includes(tile)
               ? 'thumbnail-selected'
               : ''
           "
-        >
-        <div v-if="multi">
-          <div
-            v-if="selected_tiles_numbers.includes(tile.number)"
-            class="position-absolute top-0 end-0 p-1"
-          >
-            <font-awesome-icon
-              :icon="['fas', 'check-circle']"
-              size="lg"
-            />
-          </div>
-        </div>
-        <div v-else>
-          <div
-            class="position-absolute top-0 end-0 p-1"
-            @click.stop="toggleTileFavorite(tile.number)"
-          >
-            <font-awesome-icon
-              :icon="[
-                $store.state.favoriteTiles.includes(tile.number)
-                  ? 'fas'
-                  : 'far',
-                'star',
-              ]"
-              style="color: orange"
-              size="lg"
-            />
-          </div>
-        </div>
+        />
         <div
-          class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
+          v-if="selected_tiles.includes(tile)"
+          class="position-absolute top-0 end-0 p-1"
         >
-          {{ tile.title }}
+          <font-awesome-icon
+            :icon="['fas', 'check-circle']"
+            size="lg"
+          />
         </div>
       </div>
     </div>
 
-    <div
-      v-if="multi"
-      class="p-4 d-flex align-items-center justify-content-between"
-    >
+    <div class="p-4 d-flex align-items-center justify-content-between">
       <div>
         {{
           t("tile-selection-counter", {
@@ -77,7 +46,7 @@
           @click="
             $router.push({
               name: 'colorCountTools',
-              query: { tiles: selected_tiles_numbers },
+              query: { tiles: selected_tiles },
             })
           "
         >
@@ -88,113 +57,45 @@
   </div>
 </template>
 <script setup>
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import TileThumbnail from "@/components/common/TileThumbnail";
 
 const { t } = useI18n();
-const router = useRouter();
-const store = useStore();
 
-const props = defineProps({
-  multi: {
-    type: Boolean,
-    default: false,
-  },
-  filter: {
-    type: String,
-    default: "all",
-    validator(value) {
-      return ["all", "favorites"].includes(value);
-    },
-  },
-});
+const selected_tiles = ref([]);
 
-const selected_tiles_numbers = ref([]);
-
-const tiles = computed(() => {
-  if (props.filter === "favorites") {
-    return store.state.favoriteTiles
-      .map((number) => getTile(number))
-      .sort(function (tileA, tileB) {
-        return tileA.number - tileB.number;
-      });
-  } else {
-    let tiles = [];
-    for (let number = 0; number < 500; number++) {
-      tiles.push(getTile(number));
-    }
-    return tiles;
-  }
-})
-const selected_tiles = computed(() => {
-  return selected_tiles_numbers.value.map((number) => tiles.value[number]);
-});
-
-function toggleTileFavorite(number) {
-  if (props.multi) {
-    return;
-  }
-  store.commit("toggleFavoriteTile", number);
+const tiles = [];
+for (let number = 0; number < 500; number++) {
+  tiles.push(number);
 }
 
 function toggleTileSelection(event, number) {
-  if (props.multi) {
-    let fromNumber = number; // inclusive
-    let toNumber = number; // inclusive
+  let fromNumber = number; // inclusive
+  let toNumber = number; // inclusive
 
-    if (event.shiftKey) {
-      let last_selected_tile =
-        selected_tiles_numbers.value[selected_tiles_numbers.value.length - 1];
-      if (last_selected_tile < number) {
-        fromNumber = last_selected_tile + 1;
-        toNumber = number;
-      } else {
-        fromNumber = number;
-        toNumber = last_selected_tile - 1;
-      }
+  if (event.shiftKey) {
+    let last_selected_tile = selected_tiles.value[selected_tiles.value.length - 1];
+    if (last_selected_tile < number) {
+      fromNumber = last_selected_tile + 1;
+      toNumber = number;
+    } else {
+      fromNumber = number;
+      toNumber = last_selected_tile - 1;
     }
+  }
 
-    for (let number = fromNumber; number <= toNumber; number++) {
-      let index = selected_tiles_numbers.value.indexOf(number);
-      if (index >= 0) {
-        selected_tiles_numbers.value.splice(index, 1);
-      } else {
-        selected_tiles_numbers.value.push(number);
-      }
+  for (let number = fromNumber; number <= toNumber; number++) {
+    let index = selected_tiles.value.indexOf(number);
+    if (index >= 0) {
+      selected_tiles.value.splice(index, 1);
+    } else {
+      selected_tiles.value.push(number);
     }
-  } else {
-    router.push("/templates/" + number);
   }
 }
-
-function getTile(number) {
-  return {
-    src_thumbnail: getTileThumbnail(number),
-    src: getTileTemplate(number),
-    title: getTileTitle(number),
-    number: number,
-  };
-}
-function getTileThumbnail(number) {
-  return require("@/assets/images/templates/" + number + ".webp");
-}
-function getTileTemplate(number) {
-  return require("@/assets/images/templates/" + number + "-detailed.webp");
-}
-function getTileCoordinates(number) {
-  let x = number % 20;
-  let y = Math.floor(number / 20);
-  return [x, y];
-}
-function getTileTitle(number) {
-  let coordinates = getTileCoordinates(number);
-  let short = number + " (" + coordinates[0] + "|" + coordinates[1] + ")";
-  return short;
-}
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
 .selection-wrapper {
   user-select: none;
   -moz-user-select: none;
@@ -202,14 +103,7 @@ function getTileTitle(number) {
   -ms-user-select: none;
 }
 
-.thumbnail-selected {
+.thumbnail-selected img {
   filter: opacity(0.25);
-}
-
-.thumbnail-footer {
-  padding: 0.1rem;
-  font-family: arial;
-  font-size: small;
-  background: rgba(255, 255, 255, 0.9);
 }
 </style>
