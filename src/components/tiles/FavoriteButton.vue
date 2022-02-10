@@ -11,7 +11,7 @@
 </template>
 <script setup>
 import { computed } from "vue";
-import { useStore } from "@/js/pinia";
+import { useStore } from "@/stores/favorite-tiles";
 
 const store = useStore();
 

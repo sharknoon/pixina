@@ -33,7 +33,7 @@
 <script setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "@/js/pinia";
+import { useStore } from "@/stores/favorite-tiles";
 import TileThumbnail from "@/components/common/TileThumbnail";
 
 const router = useRouter();

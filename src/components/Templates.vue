@@ -13,7 +13,7 @@
 </template>
 <script setup>
 import { useI18n } from "vue-i18n";
-import { useStore } from "@/js/pinia";
+import { useStore } from "@/stores/favorite-tiles";
 import TileList from "@/components/templates/TileList";
 import NoFavorites from "@/components/templates/NoFavorites";
 

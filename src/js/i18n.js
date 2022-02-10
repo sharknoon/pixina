@@ -23,8 +23,12 @@ function loadLocaleMessages() {
 }
 
 function getStoredLocale() {
-  const item = localStorage.getItem("vuex") || "{}";
-  return JSON.parse(item).locale;
+  try {
+    const item = localStorage.getItem("locale") || "{}";
+    return JSON.parse(item).locale
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 const messages = loadLocaleMessages();

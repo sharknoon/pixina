@@ -7,7 +7,7 @@ import Pixina from '@/Pixina.vue'
 // Internationalization
 import i18n from '@/js/i18n'
 // Pinia
-import pinia from '@/js/pinia'
+import pinia from '@/stores'
 // Bootstrap 
 import '@/js/bootstrap'
 // Fontawesome

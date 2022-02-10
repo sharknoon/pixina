@@ -40,7 +40,7 @@
 <script setup>
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { useStore } from "@/js/pinia";
+import { useStore } from "@/stores/locale";
 
 const i18n = useI18n();
 const store = useStore();
