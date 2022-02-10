@@ -6,8 +6,8 @@ import router from '@/js/vue-router'
 import Pixina from '@/Pixina.vue'
 // Internationalization
 import i18n from '@/js/i18n'
-// Vuex
-import store from '@/js/vuex'
+// Pinia
+import pinia from '@/js/pinia'
 // Bootstrap 
 import '@/js/bootstrap'
 // Fontawesome
@@ -18,6 +18,6 @@ import '@/js/registerServiceWorker'
 createApp(Pixina)
     .use(router)
     .use(i18n)
-    .use(store)
+    .use(pinia)
     .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app')

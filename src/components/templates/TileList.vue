@@ -17,7 +17,7 @@
         >
           <font-awesome-icon
             :icon="[
-              $store.state.favoriteTiles.includes(tile)
+              store.favoriteTiles.includes(tile)
                 ? 'fas'
                 : 'far',
               'star',
@@ -33,7 +33,7 @@
 <script setup>
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
+import { useStore } from "@/js/pinia";
 import TileThumbnail from "@/components/common/TileThumbnail";
 
 const router = useRouter();
@@ -51,7 +51,7 @@ const props = defineProps({
 
 const tiles = computed(() => {
   if (props.filter === "favorites") {
-    return store.state.favoriteTiles
+    return store.favoriteTiles
       .concat() // basically copies the array
       .sort(function (tileA, tileB) {
         return tileA - tileB;
@@ -66,7 +66,7 @@ const tiles = computed(() => {
 })
 
 function toggleTileFavorite(number) {
-  store.commit("toggleFavoriteTile", number);
+  store.toggleFavoriteTile(number);
 }
 
 function openTile(number) {

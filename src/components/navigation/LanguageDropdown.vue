@@ -40,7 +40,7 @@
 <script setup>
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { useStore } from "vuex";
+import { useStore } from "@/js/pinia";
 
 const i18n = useI18n();
 const store = useStore();
@@ -58,7 +58,7 @@ const messagesWithCountry = computed(() => {
 
 function changeLanguage(locale) {
   i18n.locale.value = locale;
-  store.commit("changeLocale", locale);
+  store.changeLocale(locale);
 }
 </script>
 <style lang="scss">

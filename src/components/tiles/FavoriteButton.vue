@@ -11,7 +11,7 @@
 </template>
 <script setup>
 import { computed } from "vue";
-import { useStore } from "vuex";
+import { useStore } from "@/js/pinia";
 
 const store = useStore();
 
@@ -23,10 +23,10 @@ const props = defineProps({
 });
 
 const iconStyle = computed(() =>
-  store.getters.isFavorite(props.tileNumber) ? "fas" : "fal"
+  store.isFavorite(props.tileNumber) ? "fas" : "fal"
 );
 
 function toggleFavorite() {
-  store.commit("toggleFavoriteTile", props.tileNumber);
+  store.toggleFavoriteTile(props.tileNumber);
 }
 </script>
