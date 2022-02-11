@@ -1,9 +1,6 @@
 <template>
   <div class="list-wrapper h-100 d-flex flex-column">
-    <div
-      class="d-flex flex-wrap p-2 overflow-auto"
-      :class="tiles.length > 3 ? 'justify-content-evenly' : ''"
-    >
+    <div class="d-flex flex-wrap p-2 overflow-auto">
       <div
         v-for="tile in tiles"
         :key="tile"
