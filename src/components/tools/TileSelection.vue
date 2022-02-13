@@ -12,13 +12,12 @@
       >
         <TileThumbnail
           :number="tile"
-          :class="
-            selected_tiles.includes(tile)
-              ? 'thumbnail-selected'
-              : ''
-          "
+          :class="selected_tiles.includes(tile) ? 'thumbnail-selected' : ''"
         />
-        <div v-if="selected_tiles.includes(tile)" class="position-absolute top-0 end-0 p-1">
+        <div
+          v-if="selected_tiles.includes(tile)"
+          class="position-absolute top-0 end-0 p-1"
+        >
           <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
         </div>
       </div>
@@ -27,9 +26,13 @@
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>
         {{
-          t("tile-selection-counter", {
-            amount: selected_tiles.length
-          }, selected_tiles.length)
+          t(
+            "tile-selection-counter",
+            {
+              amount: selected_tiles.length,
+            },
+            selected_tiles.length
+          )
         }}
       </div>
       <div>
@@ -43,7 +46,9 @@
               query: { tiles: selected_tiles },
             })
           "
-        >{{ t("next") }}</button>
+        >
+          {{ t("next") }}
+        </button>
       </div>
     </div>
   </div>
@@ -59,7 +64,7 @@ const { t } = useI18n();
 const selected_tiles: Ref<number[]> = ref([]);
 
 const tiles: number[] = [];
-for (let number: number = 0; number < 500; number++) {
+for (let number = 0; number < 500; number++) {
   tiles.push(number);
 }
 
@@ -68,7 +73,8 @@ function toggleTileSelection(event: MouseEvent, number: number) {
   let toNumber = number; // inclusive
 
   if (event.shiftKey) {
-    let last_selected_tile: number = selected_tiles.value[selected_tiles.value.length - 1];
+    let last_selected_tile: number =
+      selected_tiles.value[selected_tiles.value.length - 1];
     if (last_selected_tile < number) {
       fromNumber = last_selected_tile + 1;
       toNumber = number;

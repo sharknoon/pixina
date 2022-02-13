@@ -1,0 +1,13 @@
+# npm packages
+node_modules
+
+# Editor directories and files
+.idea
+.vscode
+
+# Distribution folders
+**/dist
+/dist
+
+
+public

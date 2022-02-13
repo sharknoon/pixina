@@ -1,5 +1,9 @@
 <template>
-  <div v-if="$router.currentRoute.value.path === '/tools'" id="tools-wrapper" class="h-100">
+  <div
+    v-if="$router.currentRoute.value.path === '/tools'"
+    id="tools-wrapper"
+    class="h-100"
+  >
     <TileSelection />
   </div>
   <router-view />

@@ -12,25 +12,39 @@
       <div class="col-9 d-flex flex-column">
         <div class="card-body">
           <h5 class="card-title">{{ t(color.name_place) }}</h5>
-          <h6 class="card-subtitle mb-2 text-muted">{{ color.number_pixelhobby }}</h6>
+          <h6 class="card-subtitle mb-2 text-muted">
+            {{ color.number_pixelhobby }}
+          </h6>
           <font-awesome-icon :icon="['fas', 'cubes']" />
           {{
-            t("amount-pixels", {
-              amount: color.amount
-            }, color.amount)
+            t(
+              "amount-pixels",
+              {
+                amount: color.amount,
+              },
+              color.amount
+            )
           }}
           <div v-if="color.amount > 140" class="d-flex">
             <font-awesome-icon :icon="['fas', 'th']" class="me-1" />
             {{
-              t("amount-colorplates", {
-                amount: Math.floor(color.amount / 140)
-              }, Math.floor(color.amount / 140))
+              t(
+                "amount-colorplates",
+                {
+                  amount: Math.floor(color.amount / 140),
+                },
+                Math.floor(color.amount / 140)
+              )
             }}
             +
             {{
-              t("amount-pixels", {
-                amount: color.amount % 140
-              }, color.amount % 140)
+              t(
+                "amount-pixels",
+                {
+                  amount: color.amount % 140,
+                },
+                color.amount % 140
+              )
             }}
           </div>
           <a
@@ -39,7 +53,10 @@
             data-bs-toggle="modal"
             :data-bs-target="'#infoModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon :icon="['far', 'info-circle']" class="align-middle" />
+            <font-awesome-icon
+              :icon="['far', 'info-circle']"
+              class="align-middle"
+            />
           </a>
         </div>
         <div class="card-footer p-2">
@@ -49,7 +66,10 @@
             data-bs-toggle="modal"
             :data-bs-target="'#cuttingModal' + color.number_pixelhobby"
           >
-            <font-awesome-icon :icon="['fas', 'cut']" class="align-middle mb-1" />
+            <font-awesome-icon
+              :icon="['fas', 'cut']"
+              class="align-middle mb-1"
+            />
             {{ t("cut") }}
           </a>
         </div>

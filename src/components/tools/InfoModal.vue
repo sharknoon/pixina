@@ -15,7 +15,12 @@
             class="align-middle mb-1 me-2"
           />
           <h5 class="modal-title">{{ t("color-informations") }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body">
           <h6>
@@ -89,7 +94,7 @@ defineProps({
     type: Object,
     required: true,
   },
-})
+});
 </script>
 <style lang="scss" scoped>
 .table > :not(caption) > * > * {

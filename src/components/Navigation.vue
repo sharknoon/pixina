@@ -1,14 +1,24 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
+    <div
+      id="navigation-sidebar"
+      class="text-start d-none d-md-flex flex-column background p-2"
+    >
       <!-- Logo Area -->
       <router-link to="/">
-        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
+        <img
+          id="navigation-logo"
+          class="img-fluid mb-2"
+          src="@/assets/images/logo-white.svg"
+        />
       </router-link>
       <!-- Items Area -->
       <nav class="d-flex flex-column">
-        <div class="indicator" :style="`transform: translateY(${translationY}rem);`" />
+        <div
+          class="indicator"
+          :style="`transform: translateY(${translationY}rem);`"
+        />
         <router-link
           v-for="item in items"
           :key="item.name"
@@ -33,7 +43,11 @@
         <div class="container-fluid p-0">
           <!-- Logo Area -->
           <router-link class="navbar-brand p-0 ps-2" to="/">
-            <img id="navigation-logo" class="img-fluid" src="@/assets/images/logo-white.svg" />
+            <img
+              id="navigation-logo"
+              class="img-fluid"
+              src="@/assets/images/logo-white.svg"
+            />
           </router-link>
           <button
             class="navbar-toggler"
@@ -115,7 +129,7 @@ const items = computed(() => [
     name: t("tools"),
     icon: ["fal", "wrench"],
     to: "/tools",
-  }
+  },
 ]);
 
 const translationY = ref(-0.25);
@@ -123,7 +137,7 @@ const translationY = ref(-0.25);
 watchEffect(() => {
   const path = router.currentRoute.value.path;
   const index = items.value.findIndex((item) => path.startsWith(item.to));
-  translationY.value = (index * 2.8) - 0.25;
+  translationY.value = index * 2.8 - 0.25;
 });
 </script>
 <style scoped lang="scss">

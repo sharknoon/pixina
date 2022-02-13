@@ -15,7 +15,12 @@
             class="align-middle mb-1 me-2"
           />
           <h5 class="modal-title">{{ t("order") }}</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          />
         </div>
         <div class="modal-body">
           <label class="form-label">{{ t("pixelhobby-cookie") }}</label>
@@ -30,9 +35,20 @@
           <small>{{ t("pixelhobby-cookie-description") }}</small>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" @click="openShop">{{ t("open-shop") }}</button>
-          <button type="button" class="btn btn-primary" :disabled="!isValidCookie" @click="order">
-            <div v-if="apiLoading" class="spinner-border spinner-border-sm me-1" role="status">
+          <button type="button" class="btn btn-secondary" @click="openShop">
+            {{ t("open-shop") }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            :disabled="!isValidCookie"
+            @click="order"
+          >
+            <div
+              v-if="apiLoading"
+              class="spinner-border spinner-border-sm me-1"
+              role="status"
+            >
               <span class="visually-hidden">Loading...</span>
             </div>
             {{ t("add-to-cart") }}
@@ -56,21 +72,21 @@ interface Color {
   hex_pixelhobby: string;
   number_place: number;
   number_pixelhobby: number;
-  id_pixelhobby: number
+  id_pixelhobby: number;
 }
 
 const { t } = useI18n();
 
 const props = defineProps<{
-  colors: Color[],
-  tiles: number[],
+  colors: Color[];
+  tiles: number[];
 }>();
 
-const cartCookie = ref("")
-const cartCookieRegex = new RegExp("^[a-f0-9]{32}$")
-const apiLoading = ref(false)
+const cartCookie = ref("");
+const cartCookieRegex = new RegExp("^[a-f0-9]{32}$");
+const apiLoading = ref(false);
 
-const isValidCookie = computed(() => cartCookieRegex.test(cartCookie.value))
+const isValidCookie = computed(() => cartCookieRegex.test(cartCookie.value));
 
 function openShop() {
   window.open("https://pixelhobby-shop.de", "_blank");
@@ -95,6 +111,7 @@ function order() {
   body.push(tile);
   console.log(JSON.stringify(body));
 
+  // eslint-disable-next-line no-undef
   const requestOptions: RequestInit = {
     method: "POST",
     mode: "same-origin",
@@ -104,7 +121,8 @@ function order() {
     },
     body: JSON.stringify(body),
   };
-  fetch(`https://pixina.app/api/v1/cart/${cartCookie.value}/add`,
+  fetch(
+    `https://pixina.app/api/v1/cart/${cartCookie.value}/add`,
     requestOptions
   ).then((response: Response) => {
     apiLoading.value = false;

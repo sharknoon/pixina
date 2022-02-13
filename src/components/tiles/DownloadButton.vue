@@ -12,7 +12,10 @@ const props = defineProps({
 });
 
 function download() {
-  const url = new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href;
+  const url = new URL(
+    `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
+    import.meta.url
+  ).href;
   const a = document.createElement("a");
   a.style.display = "none";
   a.href = url;

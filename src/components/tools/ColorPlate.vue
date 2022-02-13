@@ -1,19 +1,22 @@
 <template>
-  <canvas :id="'plate-canvas-' + color.number_pixelhobby" class="img-pixelated" />
+  <canvas
+    :id="'plate-canvas-' + color.number_pixelhobby"
+    class="img-pixelated"
+  />
 </template>
 <script setup lang="ts">
-import { computed, onMounted, watch } from "vue"
+import { computed, onMounted, watch } from "vue";
 
 const props = defineProps({
   color: {
     type: Object,
     required: true,
   },
-})
+});
 
 const amount = computed(() => props.color.amount);
 const cutInfo = computed(() => {
-  const n: number = 12;
+  const n = 12;
   const set: boolean[][] = new Array(n);
   for (let x = 0; x < n; x++) {
     set[x] = new Array(n);
@@ -24,8 +27,8 @@ const cutInfo = computed(() => {
   const amountRestPixels = amount.value % 140;
   let pixelCounter = amountRestPixels;
 
-  for (let x: number = 0; x < n; x++) {
-    for (let y: number = 0; y < n; y++) {
+  for (let x = 0; x < n; x++) {
+    for (let y = 0; y < n; y++) {
       // Abort when all pixels are set
       if (pixelCounter < 1) return set;
       // Circle in the middle
@@ -59,7 +62,9 @@ function isDarkContrast(hexcolor: string): boolean {
 }
 
 function drawPlateCanvas() {
-  let canvas: HTMLElement | null = document.getElementById(`plate-canvas-${props.color.number_pixelhobby}`)
+  let canvas: HTMLElement | null = document.getElementById(
+    `plate-canvas-${props.color.number_pixelhobby}`
+  );
   if (!canvas) return;
   let c: HTMLCanvasElement = canvas as HTMLCanvasElement;
   if (isDarkContrast(props.color.hex_place)) {
@@ -67,24 +72,29 @@ function drawPlateCanvas() {
   }
   c.width = 1000;
   c.height = 1000;
-  let ctx: CanvasRenderingContext2D = c.getContext("2d") as CanvasRenderingContext2D;
+  let ctx: CanvasRenderingContext2D = c.getContext(
+    "2d"
+  ) as CanvasRenderingContext2D;
   if (!ctx) return;
   ctx.clearRect(0, 0, c.width, c.height);
 
-  let amountColumns: number = 6;
+  let amountColumns = 6;
   let amountRows: number = amountColumns;
-  let amountPixelsPerSquareRow: number = 2;
+  let amountPixelsPerSquareRow = 2;
   let amountPixelsPerSquareColumn: number = amountPixelsPerSquareRow;
 
   let mainStrokeWidth: number = Math.min(c.height, c.width) / 37;
   let smallStrokeWidth: number = mainStrokeWidth / 2;
   let mainColor: string = props.color.hex_place;
-  let cuttingColor: string = props.color.number_pixelhobby == 155 ? "black" : "red";
+  let cuttingColor: string =
+    props.color.number_pixelhobby == 155 ? "black" : "red";
   let unusedColor: string = mainColor + "66";
   let cuttingLineDash: number[] = [30];
-  let mainFont: string = "Arial";
+  let mainFont = "Arial";
   let mainFontSize: number = Math.min(c.height, c.width) / 20;
+  // eslint-disable-next-line no-undef
   let mainFontHorizontalAlignment: CanvasTextAlign = "center";
+  // eslint-disable-next-line no-undef
   let mainFontVerticalAlignment: CanvasTextBaseline = "middle";
 
   ctx.lineWidth = mainStrokeWidth;
@@ -138,7 +148,8 @@ function drawPlateCanvas() {
   // The pixels itself
   let innerColumnWidth: number = columnWidth - mainStrokeWidth;
   let innerRowHeight: number = rowHeight - mainStrokeWidth;
-  let pixelWidth: number = (innerColumnWidth / amountPixelsPerSquareRow) * (3 / 5);
+  let pixelWidth: number =
+    (innerColumnWidth / amountPixelsPerSquareRow) * (3 / 5);
   let pixelHeight: number =
     (innerRowHeight / amountPixelsPerSquareColumn) * (3 / 5);
   let marginX: number =
@@ -150,19 +161,26 @@ function drawPlateCanvas() {
   ctx.lineWidth = smallStrokeWidth;
   let amountPixelsPerRow: number = amountColumns * amountPixelsPerSquareRow;
   let amountPixelsPerColumn: number = amountRows * amountPixelsPerSquareColumn;
-  for (let outerX: number = 0; outerX < amountColumns; outerX++) {
-    for (let outerY: number = 0; outerY < amountRows; outerY++) {
-      for (let innerX: number = 0; innerX < amountPixelsPerSquareRow; innerX++) {
-        for (let innerY: number = 0; innerY < amountPixelsPerSquareColumn; innerY++) {
+  for (let outerX = 0; outerX < amountColumns; outerX++) {
+    for (let outerY = 0; outerY < amountRows; outerY++) {
+      for (let innerX = 0; innerX < amountPixelsPerSquareRow; innerX++) {
+        for (let innerY = 0; innerY < amountPixelsPerSquareColumn; innerY++) {
           let fullX: number = outerX * amountPixelsPerSquareRow + innerX;
           let fullY: number = outerY * amountPixelsPerSquareColumn + innerY;
           let middlePixelX: number = amountPixelsPerRow / 2 - 1;
           let middlePixelY: number = amountPixelsPerColumn / 2 - 1;
 
-          if (fullX >= Math.ceil(middlePixelX) &&
-            fullX <= (amountPixelsPerRow % 2 == 0 ? middlePixelX + 1 : Math.floor(middlePixelX)) &&
+          if (
+            fullX >= Math.ceil(middlePixelX) &&
+            fullX <=
+              (amountPixelsPerRow % 2 == 0
+                ? middlePixelX + 1
+                : Math.floor(middlePixelX)) &&
             fullY >= Math.ceil(middlePixelY) &&
-            fullY <= (amountPixelsPerColumn % 2 == 0 ? middlePixelY + 1 : Math.floor(middlePixelY))
+            fullY <=
+              (amountPixelsPerColumn % 2 == 0
+                ? middlePixelY + 1
+                : Math.floor(middlePixelY))
           ) {
             continue;
           }
@@ -178,8 +196,10 @@ function drawPlateCanvas() {
             pixelHeight
           );
           ctx.beginPath();
-          let lineX: number = squareX + innerX * squareColumnWidth + marginX + pixelWidth / 2;
-          let lineY: number = squareY + innerY * squareRowHeight + marginY + pixelHeight / 2;
+          let lineX: number =
+            squareX + innerX * squareColumnWidth + marginX + pixelWidth / 2;
+          let lineY: number =
+            squareY + innerY * squareRowHeight + marginY + pixelHeight / 2;
           ctx.moveTo(lineX, lineY);
           // Line to top
           if (innerY <= amountPixelsPerSquareColumn / 2 - 1) {
@@ -199,16 +219,20 @@ function drawPlateCanvas() {
   // The unused pixels
   ctx.fillStyle = unusedColor;
 
-  for (let xCoordinate: number = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
-    for (let yCoordinate: number = 0; yCoordinate < cutInfo.value[xCoordinate].length; yCoordinate++) {
+  for (let xCoordinate = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
+    for (
+      let yCoordinate = 0;
+      yCoordinate < cutInfo.value[xCoordinate].length;
+      yCoordinate++
+    ) {
       const currentPixel: boolean = cutInfo.value[xCoordinate][yCoordinate];
       // Black out only the not used pixels (false)
       if (currentPixel) continue;
       ctx.fillRect(
         mainStrokeWidth / 2 +
-        xCoordinate * (columnWidth / amountPixelsPerSquareRow),
+          xCoordinate * (columnWidth / amountPixelsPerSquareRow),
         mainStrokeWidth / 2 +
-        yCoordinate * (rowHeight / amountPixelsPerSquareColumn),
+          yCoordinate * (rowHeight / amountPixelsPerSquareColumn),
         columnWidth / amountPixelsPerSquareRow,
         rowHeight / amountPixelsPerSquareColumn
       );
@@ -220,29 +244,30 @@ function drawPlateCanvas() {
   ctx.strokeStyle = cuttingColor;
   ctx.setLineDash(cuttingLineDash);
 
-  for (let xCoordinate: number = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
+  for (let xCoordinate = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
     for (
-      let yCoordinate: number = 0;
+      let yCoordinate = 0;
       yCoordinate < cutInfo.value[xCoordinate].length;
       yCoordinate++
     ) {
       const currentPixel: boolean = cutInfo.value[xCoordinate][yCoordinate];
       // Check bottom pixel
       if (yCoordinate < cutInfo.value[xCoordinate].length - 1) {
-        const bottomPixel: boolean = cutInfo.value[xCoordinate][yCoordinate + 1];
+        const bottomPixel: boolean =
+          cutInfo.value[xCoordinate][yCoordinate + 1];
         if (currentPixel != bottomPixel) {
           ctx.beginPath();
           ctx.moveTo(
             mainStrokeWidth / 2 +
-            xCoordinate * (columnWidth / amountPixelsPerSquareRow),
+              xCoordinate * (columnWidth / amountPixelsPerSquareRow),
             mainStrokeWidth / 2 +
-            (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
+              (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
           );
           ctx.lineTo(
             mainStrokeWidth / 2 +
-            (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
+              (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
             mainStrokeWidth / 2 +
-            (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
+              (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
           );
           ctx.stroke();
         }
@@ -254,15 +279,15 @@ function drawPlateCanvas() {
           ctx.beginPath();
           ctx.moveTo(
             mainStrokeWidth / 2 +
-            (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
+              (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
             mainStrokeWidth / 2 +
-            yCoordinate * (rowHeight / amountPixelsPerSquareColumn)
+              yCoordinate * (rowHeight / amountPixelsPerSquareColumn)
           );
           ctx.lineTo(
             mainStrokeWidth / 2 +
-            (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
+              (xCoordinate + 1) * (columnWidth / amountPixelsPerSquareRow),
             mainStrokeWidth / 2 +
-            (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
+              (yCoordinate + 1) * (rowHeight / amountPixelsPerSquareColumn)
           );
           ctx.stroke();
         }

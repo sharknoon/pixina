@@ -20,7 +20,12 @@ const props = defineProps({
 let filesArray: Ref<File[]> = ref([]);
 
 onMounted(() => {
-  fetch(new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href)
+  fetch(
+    new URL(
+      `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
+      import.meta.url
+    ).href
+  )
     .then((res: Response) => res.blob())
     .then((blob: Blob) => {
       const file: File = new File([blob], `tile_${props.tileNumber}.webp`, {

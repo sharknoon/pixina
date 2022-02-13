@@ -62,8 +62,9 @@ const variant = ref("original");
 
 const placeUrl = computed(() => {
   let fileName: string = variant.value + (grid.value ? "_grid" : "");
-  return new URL(`../assets/images/place/${fileName}.webp`, import.meta.url).href;
-})
+  return new URL(`../assets/images/place/${fileName}.webp`, import.meta.url)
+    .href;
+});
 
 watch(variant, () => updateQueryParams());
 watch(grid, () => updateQueryParams());
@@ -100,24 +101,24 @@ function updateQueryParams() {
     router.replace({
       query: {
         variant: "cleaned",
-        grid: "true"
-      }
+        grid: "true",
+      },
     });
   } else if (variant.value === "cleaned") {
     router.replace({
       query: {
         variant: "cleaned",
-      }
+      },
     });
   } else if (grid.value) {
     router.replace({
       query: {
-        grid: "true"
-      }
+        grid: "true",
+      },
     });
   } else {
     router.replace({
-      query: {}
+      query: {},
     });
   }
 }

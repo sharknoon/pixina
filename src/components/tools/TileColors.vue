@@ -2,7 +2,11 @@
   <div class="h-100 d-flex flex-column">
     <div class="flex-grow-1 overflow-auto p-2 position-relative">
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div v-for="color in sortedColors" :key="color.number_pixelhobby" class="col p-2">
+        <div
+          v-for="color in sortedColors"
+          :key="color.number_pixelhobby"
+          class="col p-2"
+        >
           <ColorCard :color="color" />
         </div>
       </div>
@@ -16,7 +20,8 @@
         <div class="mt-2">
           {{
             t("tile-processing", {
-              current: processed_tiles, amount: tiles.length,
+              current: processed_tiles,
+              amount: tiles.length,
             })
           }}
         </div>
@@ -32,10 +37,15 @@
           data-bs-target="#orderModal"
           :disabled="processed_tiles < tiles.length"
         >
-          <font-awesome-icon :icon="['far', 'shopping-cart']" class="align-middle" />
+          <font-awesome-icon
+            :icon="['far', 'shopping-cart']"
+            class="align-middle"
+          />
           {{ t("order") }}
         </button>
-        <button type="button" class="btn btn-primary" @click="goBack()">{{ t("finish") }}</button>
+        <button type="button" class="btn btn-primary" @click="goBack()">
+          {{ t("finish") }}
+        </button>
       </div>
     </div>
     <OrderModal :colors="sortedColors" :tiles="tiles" />
@@ -58,7 +68,7 @@ interface Color {
   hex_pixelhobby: string;
   number_place: number;
   number_pixelhobby: number;
-  id_pixelhobby: number
+  id_pixelhobby: number;
 }
 
 const { t } = useI18n();
@@ -93,16 +103,25 @@ onMounted(() => {
       let canvas: HTMLCanvasElement = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      let context: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
+      let context: CanvasRenderingContext2D = canvas.getContext(
+        "2d"
+      ) as CanvasRenderingContext2D;
       context.drawImage(img, 0, 0, img.width, img.height);
       let x: number, y: number;
       for (x = 0; x < img.width; x++) {
         for (y = 0; y < img.height; y++) {
-          let colorArray: Uint8ClampedArray = context.getImageData(x, y, 1, 1).data;
+          let colorArray: Uint8ClampedArray = context.getImageData(
+            x,
+            y,
+            1,
+            1
+          ).data;
           // a simple hash for the color, just to identify it and count the amount
-          const color: number = colorArray[0] + (colorArray[1] * 1000) + colorArray[2] * 1000000;
+          const color: number =
+            colorArray[0] + colorArray[1] * 1000 + colorArray[2] * 1000000;
           if (color in countedColors) {
-            countedColors[color].amount = (countedColors[color].amount || 0) + 1;
+            countedColors[color].amount =
+              (countedColors[color].amount || 0) + 1;
           } else {
             countedColors[color] = getColorInformations(Array.from(colorArray));
             countedColors[color].amount = 1;
@@ -115,7 +134,10 @@ onMounted(() => {
         colors.value = countedColors;
       }
     };
-    img.src = new URL(`../../assets/images/templates/${number}.webp`, import.meta.url).href;
+    img.src = new URL(
+      `../../assets/images/templates/${number}.webp`,
+      import.meta.url
+    ).href;
   });
 });
 
@@ -154,7 +176,7 @@ function getColorInformations(color: number[]): Color {
     return colorsInfos[13];
   } else if (color[0] == 207 && color[1] == 110 && color[2] == 228) {
     return colorsInfos[14];
-  } else /*if (color[0] == 130 && color[1] == 0 && color[2] == 128)*/ {
+  } /*if (color[0] == 130 && color[1] == 0 && color[2] == 128)*/ else {
     return colorsInfos[15];
   }
 }

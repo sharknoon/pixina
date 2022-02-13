@@ -17,7 +17,8 @@
       ]
     },
     "types": [
-      "@intlify/vite-plugin-vue-i18n/client"
+      "@intlify/vite-plugin-vue-i18n/client",
+      "vite-plugin-pwa/client"
     ]
   },
   "references": [

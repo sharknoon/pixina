@@ -18,7 +18,10 @@ const props = defineProps({
 
 function print() {
   printJS({
-    printable: new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href,
+    printable: new URL(
+      `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
+      import.meta.url
+    ).href,
     type: "image",
     header: t("tile-title", {
       number: props.tileNumber,

@@ -24,8 +24,12 @@
           data-bs-target="#navbarSupportedContent"
           @click="changeLanguage(locale)"
         >
-          <span :class="'flag-icon flag-icon-' + locale.substring(3, 5).toLowerCase()" />
-          {{ (message.meta as any).name }}
+          <span
+            :class="
+              'flag-icon flag-icon-' + locale.substring(3, 5).toLowerCase()
+            "
+          />
+          {{ i18n.t("meta.name", 1, { locale: locale }) }}
         </button>
       </li>
     </ul>
@@ -40,11 +44,13 @@ import { useLocaleStore } from "@/stores/locale";
 const i18n = useI18n();
 const store = useLocaleStore();
 
-const messagesWithCountry = computed<Record<string, LocaleMessageDictionary<VueMessageType>>>(() => {
+const messagesWithCountry = computed<
+  Record<string, LocaleMessageDictionary<VueMessageType>>
+>(() => {
   const result: Record<string, LocaleMessageDictionary<VueMessageType>> = {};
   for (const locale of i18n.availableLocales) {
     if (locale.includes("-")) {
-      result[locale] = (i18n.messages.value as any)[locale];
+      result[locale] = i18n.getLocaleMessage(locale);
     }
   }
   return result;
@@ -56,7 +62,7 @@ function changeLanguage(locale: string) {
 }
 </script>
 <style lang="scss">
-@use 'sass:math';
+@use "sass:math";
 
 .flag-icon {
   background-size: contain;

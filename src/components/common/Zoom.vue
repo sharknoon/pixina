@@ -1,6 +1,9 @@
 <template>
   <div class="position-relative overflow-hidden" style="touch-action: none">
-    <div class="position-absolute end-0 bottom-0 m-4 btn-group-vertical" style="z-index: 1">
+    <div
+      class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
+      style="z-index: 1"
+    >
       <button type="button" class="btn btn-secondary" @click="zoomIn()">
         <font-awesome-icon :icon="['far', 'plus']" />
       </button>
@@ -29,7 +32,7 @@ defineProps({
 const zoom = ref();
 
 onMounted(() => {
-  const zoomImg = document.getElementById("zoom-img")
+  const zoomImg = document.getElementById("zoom-img");
   if (zoomImg instanceof HTMLImageElement) zoom.value = new Zoom(zoomImg);
 });
 

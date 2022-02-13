@@ -11,8 +11,14 @@
       </div>
       <Zoom class="flex-grow-1" :src="src" />
       <div class="text-light p-2 text-center">{{ title }}</div>
-      <PrevNextButton type="prev" class="position-absolute top-50 start-0 translate-middle-y" />
-      <PrevNextButton type="next" class="position-absolute top-50 end-0 translate-middle-y" />
+      <PrevNextButton
+        type="prev"
+        class="position-absolute top-50 start-0 translate-middle-y"
+      />
+      <PrevNextButton
+        type="next"
+        class="position-absolute top-50 end-0 translate-middle-y"
+      />
     </div>
   </div>
 </template>
@@ -47,5 +53,11 @@ const title = computed(() =>
     y: Math.floor(number.value / 20),
   })
 );
-const src = computed(() => new URL(`../../assets/images/templates/${number.value}-detailed.webp`, import.meta.url).href);
+const src = computed(
+  () =>
+    new URL(
+      `../../assets/images/templates/${number.value}-detailed.webp`,
+      import.meta.url
+    ).href
+);
 </script>
