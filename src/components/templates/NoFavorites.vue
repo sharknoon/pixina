@@ -2,20 +2,13 @@
   <div class="d-flex flex-column align-items-center">
     <div>{{ t("no-favorites") }}</div>
     <div>
-      <i18n-t
-        keypath="add-favorites"
-        tag="small"
-      >
-        <font-awesome-icon
-          :icon="['far', 'star']"
-          style="color: orange"
-          size="lg"
-        />
+      <i18n-t keypath="add-favorites" tag="small">
+        <font-awesome-icon :icon="['far', 'star']" style="color: orange" size="lg" />
       </i18n-t>
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n"
 
 const { t } = useI18n();

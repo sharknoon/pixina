@@ -1,10 +1,7 @@
 <template>
-  <canvas
-    :id="'plate-canvas-' + color.number_pixelhobby"
-    class="img-pixelated"
-  />
+  <canvas :id="'plate-canvas-' + color.number_pixelhobby" class="img-pixelated" />
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed, onMounted, watch } from "vue"
 
 const props = defineProps({
@@ -16,8 +13,8 @@ const props = defineProps({
 
 const amount = computed(() => props.color.amount);
 const cutInfo = computed(() => {
-  const n = 12;
-  const set = new Array(n);
+  const n: number = 12;
+  const set: boolean[][] = new Array(n);
   for (let x = 0; x < n; x++) {
     set[x] = new Array(n);
     for (let y = 0; y < n; y++) {
@@ -27,8 +24,8 @@ const cutInfo = computed(() => {
   const amountRestPixels = amount.value % 140;
   let pixelCounter = amountRestPixels;
 
-  for (let x = 0; x < n; x++) {
-    for (let y = 0; y < n; y++) {
+  for (let x: number = 0; x < n; x++) {
+    for (let y: number = 0; y < n; y++) {
       // Abort when all pixels are set
       if (pixelCounter < 1) return set;
       // Circle in the middle
@@ -53,41 +50,42 @@ watch(amount, () => drawPlateCanvas());
 
 onMounted(() => drawPlateCanvas());
 
-function isDarkContrast(hexcolor) {
-  let color = hexcolor.substring(1, hexcolor.length - 1); // remove #
-  let r = parseInt(color.substring(0, 2), 16); // hexToR
-  let g = parseInt(color.substring(2, 4), 16); // hexToG
-  let b = parseInt(color.substring(4, 6), 16); // hexToB
+function isDarkContrast(hexcolor: string): boolean {
+  let color: string = hexcolor.substring(1, hexcolor.length - 1); // remove #
+  let r: number = parseInt(color.substring(0, 2), 16); // hexToR
+  let g: number = parseInt(color.substring(2, 4), 16); // hexToG
+  let b: number = parseInt(color.substring(4, 6), 16); // hexToB
   return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? true : false;
 }
 
 function drawPlateCanvas() {
-  let c = document.getElementById(
-    "plate-canvas-" + props.color.number_pixelhobby
-  );
+  let canvas: HTMLElement | null = document.getElementById(`plate-canvas-${props.color.number_pixelhobby}`)
+  if (!canvas) return;
+  let c: HTMLCanvasElement = canvas as HTMLCanvasElement;
   if (isDarkContrast(props.color.hex_place)) {
-    c.parentElement.parentElement.classList += " modal-content-dark";
+    c.parentElement?.parentElement?.classList.add("modal-content-dark");
   }
   c.width = 1000;
   c.height = 1000;
-  let ctx = c.getContext("2d");
+  let ctx: CanvasRenderingContext2D = c.getContext("2d") as CanvasRenderingContext2D;
+  if (!ctx) return;
   ctx.clearRect(0, 0, c.width, c.height);
 
-  let amountColumns = 6;
-  let amountRows = amountColumns;
-  let amountPixelsPerSquareRow = 2;
-  let amountPixelsPerSquareColumn = amountPixelsPerSquareRow;
+  let amountColumns: number = 6;
+  let amountRows: number = amountColumns;
+  let amountPixelsPerSquareRow: number = 2;
+  let amountPixelsPerSquareColumn: number = amountPixelsPerSquareRow;
 
-  let mainStrokeWidth = Math.min(c.height, c.width) / 37;
-  let smallStrokeWidth = mainStrokeWidth / 2;
-  let mainColor = props.color.hex_place;
-  let cuttingColor = props.color.number_pixelhobby == 155 ? "black" : "red";
-  let unusedColor = mainColor + "66";
-  let cuttingLineDash = [30];
-  let mainFont = "Arial";
-  let mainFontSize = Math.min(c.height, c.width) / 20;
-  let mainFontHorizontalAlignment = "center";
-  let mainFontVerticalAlignment = "middle";
+  let mainStrokeWidth: number = Math.min(c.height, c.width) / 37;
+  let smallStrokeWidth: number = mainStrokeWidth / 2;
+  let mainColor: string = props.color.hex_place;
+  let cuttingColor: string = props.color.number_pixelhobby == 155 ? "black" : "red";
+  let unusedColor: string = mainColor + "66";
+  let cuttingLineDash: number[] = [30];
+  let mainFont: string = "Arial";
+  let mainFontSize: number = Math.min(c.height, c.width) / 20;
+  let mainFontHorizontalAlignment: CanvasTextAlign = "center";
+  let mainFontVerticalAlignment: CanvasTextBaseline = "middle";
 
   ctx.lineWidth = mainStrokeWidth;
   ctx.strokeStyle = mainColor;
@@ -99,7 +97,7 @@ function drawPlateCanvas() {
   ctx.save();
 
   // Horizontal Lines
-  let rowHeight = (c.height - mainStrokeWidth) / amountRows;
+  let rowHeight: number = (c.height - mainStrokeWidth) / amountRows;
   for (let i = 0; i < amountRows + 1; i++) {
     ctx.beginPath();
     ctx.moveTo(0, mainStrokeWidth / 2 + i * rowHeight);
@@ -108,7 +106,7 @@ function drawPlateCanvas() {
   }
 
   // Vertical Lines
-  let columnWidth = (c.width - mainStrokeWidth) / amountColumns;
+  let columnWidth: number = (c.width - mainStrokeWidth) / amountColumns;
   for (let i = 0; i < amountColumns + 1; i++) {
     ctx.beginPath();
     ctx.moveTo(mainStrokeWidth / 2 + i * columnWidth, 0);
@@ -138,52 +136,41 @@ function drawPlateCanvas() {
   ctx.restore();
 
   // The pixels itself
-  let innerColumnWidth = columnWidth - mainStrokeWidth;
-  let innerRowHeight = rowHeight - mainStrokeWidth;
-  let pixelWidth = (innerColumnWidth / amountPixelsPerSquareRow) * (3 / 5);
-  let pixelHeight =
+  let innerColumnWidth: number = columnWidth - mainStrokeWidth;
+  let innerRowHeight: number = rowHeight - mainStrokeWidth;
+  let pixelWidth: number = (innerColumnWidth / amountPixelsPerSquareRow) * (3 / 5);
+  let pixelHeight: number =
     (innerRowHeight / amountPixelsPerSquareColumn) * (3 / 5);
-  let marginX =
+  let marginX: number =
     (innerColumnWidth - amountPixelsPerSquareRow * pixelWidth) /
     (2 * amountPixelsPerSquareRow);
-  let marginY =
+  let marginY: number =
     (innerRowHeight - amountPixelsPerSquareColumn * pixelHeight) /
     (2 * amountPixelsPerSquareColumn);
   ctx.lineWidth = smallStrokeWidth;
-  let amountPixelsPerRow = amountColumns * amountPixelsPerSquareRow;
-  let amountPixelsPerColumn = amountRows * amountPixelsPerSquareColumn;
-  for (let outerX = 0; outerX < amountColumns; outerX++) {
-    for (let outerY = 0; outerY < amountRows; outerY++) {
-      for (let innerX = 0; innerX < amountPixelsPerSquareRow; innerX++) {
-        for (
-          let innerY = 0;
-          innerY < amountPixelsPerSquareColumn;
-          innerY++
-        ) {
-          let fullX = outerX * amountPixelsPerSquareRow + innerX;
-          let fullY = outerY * amountPixelsPerSquareColumn + innerY;
-          let middlePixelX = amountPixelsPerRow / 2 - 1;
-          let middlePixelY = amountPixelsPerColumn / 2 - 1;
+  let amountPixelsPerRow: number = amountColumns * amountPixelsPerSquareRow;
+  let amountPixelsPerColumn: number = amountRows * amountPixelsPerSquareColumn;
+  for (let outerX: number = 0; outerX < amountColumns; outerX++) {
+    for (let outerY: number = 0; outerY < amountRows; outerY++) {
+      for (let innerX: number = 0; innerX < amountPixelsPerSquareRow; innerX++) {
+        for (let innerY: number = 0; innerY < amountPixelsPerSquareColumn; innerY++) {
+          let fullX: number = outerX * amountPixelsPerSquareRow + innerX;
+          let fullY: number = outerY * amountPixelsPerSquareColumn + innerY;
+          let middlePixelX: number = amountPixelsPerRow / 2 - 1;
+          let middlePixelY: number = amountPixelsPerColumn / 2 - 1;
 
-          if (
-            fullX >= Math.ceil(middlePixelX) &&
-            fullX <=
-            (amountPixelsPerRow % 2 == 0
-              ? middlePixelX + 1
-              : Math.floor(middlePixelX)) &&
+          if (fullX >= Math.ceil(middlePixelX) &&
+            fullX <= (amountPixelsPerRow % 2 == 0 ? middlePixelX + 1 : Math.floor(middlePixelX)) &&
             fullY >= Math.ceil(middlePixelY) &&
-            fullY <=
-            (amountPixelsPerColumn % 2 == 0
-              ? middlePixelY + 1
-              : Math.floor(middlePixelY))
+            fullY <= (amountPixelsPerColumn % 2 == 0 ? middlePixelY + 1 : Math.floor(middlePixelY))
           ) {
             continue;
           }
 
-          let squareX = mainStrokeWidth + outerX * columnWidth;
-          let squareY = mainStrokeWidth + outerY * rowHeight;
-          let squareColumnWidth = 2 * marginX + pixelWidth;
-          let squareRowHeight = 2 * marginY + pixelHeight;
+          let squareX: number = mainStrokeWidth + outerX * columnWidth;
+          let squareY: number = mainStrokeWidth + outerY * rowHeight;
+          let squareColumnWidth: number = 2 * marginX + pixelWidth;
+          let squareRowHeight: number = 2 * marginY + pixelHeight;
           ctx.fillRect(
             squareX + innerX * squareColumnWidth + marginX,
             squareY + innerY * squareRowHeight + marginY,
@@ -191,10 +178,8 @@ function drawPlateCanvas() {
             pixelHeight
           );
           ctx.beginPath();
-          let lineX =
-            squareX + innerX * squareColumnWidth + marginX + pixelWidth / 2;
-          let lineY =
-            squareY + innerY * squareRowHeight + marginY + pixelHeight / 2;
+          let lineX: number = squareX + innerX * squareColumnWidth + marginX + pixelWidth / 2;
+          let lineY: number = squareY + innerY * squareRowHeight + marginY + pixelHeight / 2;
           ctx.moveTo(lineX, lineY);
           // Line to top
           if (innerY <= amountPixelsPerSquareColumn / 2 - 1) {
@@ -214,17 +199,9 @@ function drawPlateCanvas() {
   // The unused pixels
   ctx.fillStyle = unusedColor;
 
-  for (
-    let xCoordinate = 0;
-    xCoordinate < cutInfo.value.length;
-    xCoordinate++
-  ) {
-    for (
-      let yCoordinate = 0;
-      yCoordinate < cutInfo.value[xCoordinate].length;
-      yCoordinate++
-    ) {
-      const currentPixel = cutInfo.value[xCoordinate][yCoordinate];
+  for (let xCoordinate: number = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
+    for (let yCoordinate: number = 0; yCoordinate < cutInfo.value[xCoordinate].length; yCoordinate++) {
+      const currentPixel: boolean = cutInfo.value[xCoordinate][yCoordinate];
       // Black out only the not used pixels (false)
       if (currentPixel) continue;
       ctx.fillRect(
@@ -243,20 +220,16 @@ function drawPlateCanvas() {
   ctx.strokeStyle = cuttingColor;
   ctx.setLineDash(cuttingLineDash);
 
-  for (
-    let xCoordinate = 0;
-    xCoordinate < cutInfo.value.length;
-    xCoordinate++
-  ) {
+  for (let xCoordinate: number = 0; xCoordinate < cutInfo.value.length; xCoordinate++) {
     for (
-      let yCoordinate = 0;
+      let yCoordinate: number = 0;
       yCoordinate < cutInfo.value[xCoordinate].length;
       yCoordinate++
     ) {
-      const currentPixel = cutInfo.value[xCoordinate][yCoordinate];
+      const currentPixel: boolean = cutInfo.value[xCoordinate][yCoordinate];
       // Check bottom pixel
       if (yCoordinate < cutInfo.value[xCoordinate].length - 1) {
-        const bottomPixel = cutInfo.value[xCoordinate][yCoordinate + 1];
+        const bottomPixel: boolean = cutInfo.value[xCoordinate][yCoordinate + 1];
         if (currentPixel != bottomPixel) {
           ctx.beginPath();
           ctx.moveTo(
@@ -276,7 +249,7 @@ function drawPlateCanvas() {
       }
       // Check right pixel
       if (xCoordinate < cutInfo.value.length - 1) {
-        const rightPixel = cutInfo.value[xCoordinate + 1][yCoordinate];
+        const rightPixel: boolean = cutInfo.value[xCoordinate + 1][yCoordinate];
         if (currentPixel != rightPixel) {
           ctx.beginPath();
           ctx.moveTo(

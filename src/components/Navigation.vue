@@ -1,34 +1,21 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div
-      id="navigation-sidebar"
-      class="text-start d-none d-md-flex flex-column background p-2"
-    >
+    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
       <!-- Logo Area -->
       <router-link to="/">
-        <img
-          id="navigation-logo"
-          class="img-fluid mb-2"
-          src="@/assets/images/logo-white.svg"
-        >
+        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
       </router-link>
       <!-- Items Area -->
       <nav class="d-flex flex-column">
-        <div
-          class="indicator"
-          :style="`transform: translateY(${translationY}rem);`"
-        />
+        <div class="indicator" :style="`transform: translateY(${translationY}rem);`" />
         <router-link
           v-for="item in items"
           :key="item.name"
           :to="item.to"
           class="router-link d-flex align-items-center"
         >
-          <font-awesome-icon
-            class="me-2"
-            :icon="item.icon"
-          />
+          <font-awesome-icon class="me-2" :icon="item.icon" />
           <span class="pt-1">{{ item.name }}</span>
         </router-link>
       </nav>
@@ -45,15 +32,8 @@
       >
         <div class="container-fluid p-0">
           <!-- Logo Area -->
-          <router-link
-            class="navbar-brand p-0 ps-2"
-            to="/"
-          >
-            <img
-              id="navigation-logo"
-              class="img-fluid"
-              src="@/assets/images/logo-white.svg"
-            >
+          <router-link class="navbar-brand p-0 ps-2" to="/">
+            <img id="navigation-logo" class="img-fluid" src="@/assets/images/logo-white.svg" />
           </router-link>
           <button
             class="navbar-toggler"
@@ -67,29 +47,16 @@
             <span class="navbar-toggler-icon" />
           </button>
 
-          <div
-            id="navbarSupportedContent"
-            class="collapse navbar-collapse"
-          >
+          <div id="navbarSupportedContent" class="collapse navbar-collapse">
             <ul class="navbar-nav me-auto pt-2">
-              <li
-                v-for="item in items"
-                :key="item.name"
-                class="nav-item"
-              >
-                <router-link
-                  :to="item.to"
-                  class="nav-link router-link"
-                >
+              <li v-for="item in items" :key="item.name" class="nav-item">
+                <router-link :to="item.to" class="nav-link router-link">
                   <div
                     class="d-flex align-items-center"
                     data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent"
                   >
-                    <font-awesome-icon
-                      class="me-2"
-                      :icon="item.icon"
-                    />
+                    <font-awesome-icon class="me-2" :icon="item.icon" />
                     <span class="pt-1">{{ item.name }}</span>
                   </div>
                 </router-link>
@@ -102,21 +69,18 @@
           </div>
         </div>
       </nav>
-      <div
-        id="main-content"
-        class="overflow-auto w-100 h-100"
-      >
+      <div id="main-content" class="overflow-auto w-100 h-100">
         <router-view />
       </div>
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed, watchEffect, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import DonationButton from "@/components/navigation/DonationButton";
-import LanguageDropdown from "@/components/navigation/LanguageDropdown";
+import DonationButton from "@/components/navigation/DonationButton.vue";
+import LanguageDropdown from "@/components/navigation/LanguageDropdown.vue";
 
 const router = useRouter();
 const { t } = useI18n();

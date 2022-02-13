@@ -1,38 +1,45 @@
 <template>
   <div class="position-relative">
     <img
-      :id="'thumbnail-' + tile.number"
-      :src="tile.thumbnail"
+      :id="'thumbnail-' + tile?.number"
+      :src="tile?.thumbnail"
       alt="picture"
       width="75"
       class="img-pixelated"
-    >
+    />
     <div
       class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
-    >
-      {{ tile.title }}
-    </div>
+    >{{ tile?.title }}</div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import { ref } from "vue";
+
 const props = defineProps({
-    number: {
-        type: Number,
-        required: true,
-    }
+  number: {
+    type: Number,
+    required: true,
+  }
 });
 
-const tile = {
-    number: props.number,
-    thumbnail: require("@/assets/images/templates/" + props.number + ".webp"),
-    title: `${props.number} (${props.number % 20}|${Math.floor(props.number / 20)})`,
+interface Tile {
+  number: number;
+  thumbnail: string;
+  title: string;
+}
+
+const tile: Tile = {
+  number: props.number,
+  thumbnail: new URL(`../../assets/images/templates/${props.number}.webp`, import.meta.url).href,
+  title: `${props.number} (${props.number % 20}|${Math.floor(props.number / 20)})`,
 };
+
 </script>
 <style lang="scss" scoped>
 .thumbnail-footer {
-    padding: 0.1rem;
-    font-family: arial;
-    font-size: small;
-    background: rgba(255, 255, 255, 0.9);
+  padding: 0.1rem;
+  font-family: arial;
+  font-size: small;
+  background: rgba(255, 255, 255, 0.9);
 }
 </style>

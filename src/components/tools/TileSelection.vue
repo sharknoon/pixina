@@ -18,14 +18,8 @@
               : ''
           "
         />
-        <div
-          v-if="selected_tiles.includes(tile)"
-          class="position-absolute top-0 end-0 p-1"
-        >
-          <font-awesome-icon
-            :icon="['fas', 'check-circle']"
-            size="lg"
-          />
+        <div v-if="selected_tiles.includes(tile)" class="position-absolute top-0 end-0 p-1">
+          <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
         </div>
       </div>
     </div>
@@ -49,33 +43,32 @@
               query: { tiles: selected_tiles },
             })
           "
-        >
-          {{ t("next") }}
-        </button>
+        >{{ t("next") }}</button>
       </div>
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { Ref } from "vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
-import TileThumbnail from "@/components/common/TileThumbnail";
+import TileThumbnail from "@/components/common/TileThumbnail.vue";
 
 const { t } = useI18n();
 
-const selected_tiles = ref([]);
+const selected_tiles: Ref<number[]> = ref([]);
 
-const tiles = [];
-for (let number = 0; number < 500; number++) {
+const tiles: number[] = [];
+for (let number: number = 0; number < 500; number++) {
   tiles.push(number);
 }
 
-function toggleTileSelection(event, number) {
+function toggleTileSelection(event: MouseEvent, number: number) {
   let fromNumber = number; // inclusive
   let toNumber = number; // inclusive
 
   if (event.shiftKey) {
-    let last_selected_tile = selected_tiles.value[selected_tiles.value.length - 1];
+    let last_selected_tile: number = selected_tiles.value[selected_tiles.value.length - 1];
     if (last_selected_tile < number) {
       fromNumber = last_selected_tile + 1;
       toNumber = number;
@@ -85,8 +78,8 @@ function toggleTileSelection(event, number) {
     }
   }
 
-  for (let number = fromNumber; number <= toNumber; number++) {
-    let index = selected_tiles.value.indexOf(number);
+  for (let number: number = fromNumber; number <= toNumber; number++) {
+    let index: number = selected_tiles.value.indexOf(number);
     if (index >= 0) {
       selected_tiles.value.splice(index, 1);
     } else {

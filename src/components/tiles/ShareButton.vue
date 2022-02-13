@@ -1,16 +1,10 @@
 <template>
-  <button
-    v-if="webShareApiSupported()"
-    class="btn btn-dark"
-    @click="share()"
-  >
-    <font-awesome-icon
-      :icon="['fal', 'share-alt']"
-      size="lg"
-    />
+  <button v-if="webShareApiSupported()" class="btn btn-dark" @click="share()">
+    <font-awesome-icon :icon="['fal', 'share-alt']" size="lg" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { Ref } from "vue";
 import { onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 
@@ -23,15 +17,13 @@ const props = defineProps({
   },
 });
 
-let filesArray = ref([]);
+let filesArray: Ref<File[]> = ref([]);
 
 onMounted(() => {
-  fetch(
-    require("@/assets/images/templates/" + props.tileNumber + "-detailed.webp")
-  )
-    .then((res) => res.blob())
-    .then((blob) => {
-      const file = new File([blob], "tile_" + props.tileNumber + ".webp", {
+  fetch(new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href)
+    .then((res: Response) => res.blob())
+    .then((blob: Blob) => {
+      const file: File = new File([blob], `tile_${props.tileNumber}.webp`, {
         type: blob.type,
       });
       filesArray.value = [file];
@@ -39,7 +31,10 @@ onMounted(() => {
 });
 
 function webShareApiSupported() {
-  return navigator.share && navigator.canShare({ files: filesArray.value });
+  if (!navigator.canShare) {
+    return false;
+  }
+  return navigator.canShare({ files: filesArray.value });
 }
 
 function share() {

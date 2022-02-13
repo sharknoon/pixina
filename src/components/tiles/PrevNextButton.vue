@@ -1,16 +1,9 @@
 <template>
-  <button
-    class="btn btn-dark m-3"
-    :disabled="disabled"
-    @click="goToPrevNext()"
-  >
-    <font-awesome-icon
-      :icon="icon"
-      size="2x"
-    />
+  <button class="btn btn-dark m-3" :disabled="disabled" @click="goToPrevNext()">
+    <font-awesome-icon :icon="icon" size="2x" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
@@ -28,7 +21,14 @@ const icon = computed(() => [
   "far",
   props.type === "next" ? "chevron-right" : "chevron-left",
 ]);
-const number = computed(() => parseInt(route.params.number));
+const number = computed(() => {
+  const paramNumber = route.params.number;
+  if (Array.isArray(paramNumber)) {
+    return parseInt(paramNumber[0]);
+  } else {
+    return parseInt(paramNumber);
+  }
+});
 const disabled = computed(() =>
   props.type === "next" ? number.value >= 499 : number.value <= 0
 );

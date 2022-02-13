@@ -4,14 +4,11 @@
     class="btn btn-outline-light"
     role="button"
   >
-    <font-awesome-icon
-      class="me-2"
-      :icon="['fal', 'donate']"
-    />
+    <font-awesome-icon class="me-2" :icon="['fal', 'donate']" />
     {{ t("donate") }}
   </a>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();

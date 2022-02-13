@@ -14,15 +14,8 @@
             size="lg"
             class="align-middle mb-1 me-2"
           />
-          <h5 class="modal-title">
-            {{ t("color-informations") }}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
+          <h5 class="modal-title">{{ t("color-informations") }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
         <div class="modal-body">
           <h6>
@@ -31,8 +24,8 @@
           </h6>
           <table class="table table-borderless">
             <colgroup>
-              <col class="w-50">
-              <col class="w-50">
+              <col class="w-50" />
+              <col class="w-50" />
             </colgroup>
             <tbody>
               <tr>
@@ -59,8 +52,8 @@
           </h6>
           <table class="table table-borderless mb-0">
             <colgroup>
-              <col class="w-50">
-              <col class="w-50">
+              <col class="w-50" />
+              <col class="w-50" />
             </colgroup>
             <tbody>
               <tr>
@@ -86,7 +79,7 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
 
 const { t } = useI18n();

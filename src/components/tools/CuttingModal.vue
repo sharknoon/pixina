@@ -14,15 +14,8 @@
             size="lg"
             class="align-middle mb-1 me-2"
           />
-          <h5 class="modal-title">
-            {{ t("cutting-information") }}
-          </h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
+          <h5 class="modal-title">{{ t("cutting-information") }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
         <div class="modal-body">
           <h5>
@@ -36,9 +29,9 @@
     </div>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import ColorPlate from "@/components/tools/ColorPlate";
+import ColorPlate from "@/components/tools/ColorPlate.vue";
 
 const { t } = useI18n();
 

@@ -1,15 +1,9 @@
 <template>
-  <button
-    class="btn btn-dark"
-    @click="showInfo()"
-  >
-    <font-awesome-icon
-      :icon="['fal', 'info-circle']"
-      size="lg"
-    />
+  <button class="btn btn-dark" @click="showInfo()">
+    <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useRouter } from "vue-router";
 
 const router = useRouter();

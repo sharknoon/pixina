@@ -10,53 +10,47 @@
       <span
         :class="
           'flag-icon flag-icon-' +
-            currentMessage.meta.locale.substring(3, 5).toLowerCase()
+          i18n.locale.value.substring(3, 5).toLowerCase()
         "
       />
-      <span class="mx-1 mt-20">{{ currentMessage.meta.name }}</span>
+      <span class="mx-1 mt-20">{{ i18n.t("meta.name") }}</span>
     </button>
-    <ul
-      class="dropdown-menu"
-      aria-labelledby="button-dropdown-languages"
-    >
-      <li
-        v-for="(message, code) in messagesWithCountry"
-        :key="code"
-      >
+    <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
+      <li v-for="(message, locale) in messagesWithCountry" :key="locale">
         <button
           class="dropdown-item"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarSupportedContent"
-          @click="changeLanguage(code)"
+          @click="changeLanguage(locale)"
         >
-          <span :class="'flag-icon flag-icon-' + code.substring(3, 5).toLowerCase()" />
-          {{ message.meta.name }}
+          <span :class="'flag-icon flag-icon-' + locale.substring(3, 5).toLowerCase()" />
+          {{ (message.meta as any).name }}
         </button>
       </li>
     </ul>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { LocaleMessageDictionary, VueMessageType } from "vue-i18n";
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
-import { useStore } from "@/stores/locale";
+import { useLocaleStore } from "@/stores/locale";
 
 const i18n = useI18n();
-const store = useStore();
+const store = useLocaleStore();
 
-const currentMessage = computed(() => i18n.messages.value[i18n.locale.value]);
-const messagesWithCountry = computed(() => {
-  const result = {};
-  for (const locale in i18n.messages.value) {
+const messagesWithCountry = computed<Record<string, LocaleMessageDictionary<VueMessageType>>>(() => {
+  const result: Record<string, LocaleMessageDictionary<VueMessageType>> = {};
+  for (const locale of i18n.availableLocales) {
     if (locale.includes("-")) {
-      result[locale] = i18n.messages.value[locale];
+      result[locale] = (i18n.messages.value as any)[locale];
     }
   }
   return result;
 });
 
-function changeLanguage(locale) {
+function changeLanguage(locale: string) {
   i18n.locale.value = locale;
   store.changeLocale(locale);
 }

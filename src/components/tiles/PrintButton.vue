@@ -1,15 +1,9 @@
 <template>
-  <button
-    class="btn btn-dark"
-    @click="print()"
-  >
-    <font-awesome-icon
-      :icon="['fal', 'print']"
-      size="lg"
-    />
+  <button class="btn btn-dark" @click="print()">
+    <font-awesome-icon :icon="['fal', 'print']" size="lg" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
 import printJS from "print-js";
 
@@ -24,9 +18,7 @@ const props = defineProps({
 
 function print() {
   printJS({
-    printable: require("@/assets/images/templates/" +
-      props.tileNumber +
-      "-detailed.webp"),
+    printable: new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href,
     type: "image",
     header: t("tile-title", {
       number: props.tileNumber,

@@ -1,19 +1,13 @@
 <template>
-  <button
-    class="btn btn-dark"
-    @click="toggleFavorite()"
-  >
-    <font-awesome-icon
-      :icon="[iconStyle, 'star']"
-      size="lg"
-    />
+  <button class="btn btn-dark" @click="toggleFavorite()">
+    <font-awesome-icon :icon="[iconStyle, 'star']" size="lg" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
 import { computed } from "vue";
-import { useStore } from "@/stores/favorite-tiles";
+import { useFavoriteTilesStore } from "@/stores/favorite-tiles";
 
-const store = useStore();
+const store = useFavoriteTilesStore();
 
 const props = defineProps({
   tileNumber: {

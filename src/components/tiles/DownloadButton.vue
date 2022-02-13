@@ -1,15 +1,9 @@
 <template>
-  <button
-    class="btn btn-dark"
-    @click="download()"
-  >
-    <font-awesome-icon
-      :icon="['fal', 'arrow-to-bottom']"
-      size="lg"
-    />
+  <button class="btn btn-dark" @click="download()">
+    <font-awesome-icon :icon="['fal', 'arrow-to-bottom']" size="lg" />
   </button>
 </template>
-<script setup>
+<script setup lang="ts">
 const props = defineProps({
   tileNumber: {
     type: Number,
@@ -18,9 +12,7 @@ const props = defineProps({
 });
 
 function download() {
-  const url = require("@/assets/images/templates/" +
-    props.tileNumber +
-    "-detailed.webp");
+  const url = new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href;
   const a = document.createElement("a");
   a.style.display = "none";
   a.href = url;

@@ -2,11 +2,7 @@
   <div class="h-100 d-flex flex-column">
     <div class="flex-grow-1 overflow-auto p-2 position-relative">
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div
-          v-for="color in sortedColors"
-          :key="color.number_pixelhobby"
-          class="col p-2"
-        >
+        <div v-for="color in sortedColors" :key="color.number_pixelhobby" class="col p-2">
           <ColorCard :color="color" />
         </div>
       </div>
@@ -14,10 +10,7 @@
         v-if="processed_tiles < tiles.length"
         class="position-absolute start-0 top-0 bottom-0 end-0 d-flex flex-column align-items-center justify-content-center"
       >
-        <div
-          class="spinner-border"
-          role="status"
-        >
+        <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
         <div class="mt-2">
@@ -39,77 +32,79 @@
           data-bs-target="#orderModal"
           :disabled="processed_tiles < tiles.length"
         >
-          <font-awesome-icon
-            :icon="['far', 'shopping-cart']"
-            class="align-middle"
-          />
+          <font-awesome-icon :icon="['far', 'shopping-cart']" class="align-middle" />
           {{ t("order") }}
         </button>
-        <button
-          type="button"
-          class="btn btn-primary"
-          @click="goBack()"
-        >
-          {{ t("finish") }}
-        </button>
+        <button type="button" class="btn btn-primary" @click="goBack()">{{ t("finish") }}</button>
       </div>
     </div>
-    <OrderModal
-      :colors="sortedColors"
-      :tiles="tiles"
-    />
+    <OrderModal :colors="sortedColors" :tiles="tiles" />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
+import type { Ref } from "vue";
 import { computed, ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute, useRouter } from "vue-router";
-import ColorCard from "@/components/tools/ColorCard";
-import colorsInfos from "@/data/colors";
-import OrderModal from "@/components/tools/OrderModal";
+import ColorCard from "@/components/tools/ColorCard.vue";
+import colorsInfos from "@/data/colors.json";
+import OrderModal from "@/components/tools/OrderModal.vue";
+
+interface Color {
+  amount?: number;
+  name_place: string;
+  name_pixelhobby: string;
+  hex_place: string;
+  hex_pixelhobby: string;
+  number_place: number;
+  number_pixelhobby: number;
+  id_pixelhobby: number
+}
 
 const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
-const processed_tiles = ref(0);
-const colors = ref([]);
+const processed_tiles: Ref<number> = ref(0);
+const colors: Ref<Color[]> = ref([]);
 
-const tiles = computed(() => {
+const tiles = computed<number[]>(() => {
   const queryParam = route.query.tiles;
   if (!queryParam) {
     return [];
   }
   if (!Array.isArray(queryParam)) {
-    return [queryParam];
+    return [parseInt(queryParam)];
   }
-  return queryParam;
+  return queryParam.map((tile) => parseInt(tile || "-1"));
 });
 
 const sortedColors = computed(() => {
   return Object.values(colors.value).sort((a, b) => {
-    return b.amount - a.amount;
+    return (b.amount || 0) - (a.amount || 0);
   });
 });
 
 onMounted(() => {
-  let countedColors = [];
+  let countedColors: Color[] = [];
   tiles.value.forEach((number, index) => {
-    let img = new Image();
+    let img: HTMLImageElement = new Image();
     img.onload = () => {
-      let canvas = document.createElement("canvas");
+      let canvas: HTMLCanvasElement = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
-      let context = canvas.getContext("2d");
+      let context: CanvasRenderingContext2D = canvas.getContext("2d") as CanvasRenderingContext2D;
       context.drawImage(img, 0, 0, img.width, img.height);
-      let x, y;
+      let x: number, y: number;
       for (x = 0; x < img.width; x++) {
         for (y = 0; y < img.height; y++) {
-          let color = context.getImageData(x, y, 1, 1).data;
+          let colorArray: Uint8ClampedArray = context.getImageData(x, y, 1, 1).data;
+          // a simple hash for the color, just to identify it and count the amount
+          const color: number = colorArray[0] + (colorArray[1] * 1000) + colorArray[2] * 1000000;
           if (color in countedColors) {
-            countedColors[color].amount += 1;
+            countedColors[color].amount = (countedColors[color].amount || 0) + 1;
           } else {
-            countedColors[color] = getColorInformations(color);
+            countedColors[color] = getColorInformations(Array.from(colorArray));
             countedColors[color].amount = 1;
           }
         }
@@ -120,7 +115,7 @@ onMounted(() => {
         colors.value = countedColors;
       }
     };
-    img.src = require("@/assets/images/templates/" + number + ".webp");
+    img.src = new URL(`../../assets/images/templates/${number}.webp`, import.meta.url).href;
   });
 });
 
@@ -128,7 +123,7 @@ function goBack() {
   window.history.length > 1 ? router.go(-1) : router.push("/");
 }
 
-function getColorInformations(color) {
+function getColorInformations(color: number[]): Color {
   if (color[0] == 255 && color[1] == 255 && color[2] == 255) {
     return colorsInfos[0];
   } else if (color[0] == 228 && color[1] == 228 && color[2] == 228) {
@@ -159,10 +154,8 @@ function getColorInformations(color) {
     return colorsInfos[13];
   } else if (color[0] == 207 && color[1] == 110 && color[2] == 228) {
     return colorsInfos[14];
-  } else if (color[0] == 130 && color[1] == 0 && color[2] == 128) {
+  } else /*if (color[0] == 130 && color[1] == 0 && color[2] == 128)*/ {
     return colorsInfos[15];
-  } else {
-    return {};
   }
 }
 </script>

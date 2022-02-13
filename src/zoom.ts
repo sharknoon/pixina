@@ -1,5 +1,24 @@
+interface ZoomOptions {
+    minZoom: number;
+    maxZoom: number;
+    zoomFactor: number;
+    restrictInsideParents: boolean;
+}
+
 export default class Zoom {
-    constructor(img, options = {
+
+    img: HTMLImageElement;
+    options: ZoomOptions;
+    style: CSSStyleDeclaration;
+    matrix: DOMMatrix;
+    scale: number;
+    currentTranslationX: number;
+    currentTranslationY: number;
+    startMouseX: number;
+    startMouseY: number;
+    panning: boolean;
+
+    constructor(img: HTMLImageElement, options: ZoomOptions = {
         minZoom: 1,
         maxZoom: 15,
         zoomFactor: 0.2,
@@ -23,17 +42,33 @@ export default class Zoom {
 
         // Panning
 
-        const handleTouchDown = function (event) {
+        const handleMouseDown = function (event: MouseEvent) {
+            handleDown(event.clientX, event.clientY);
+        }
+
+        const handlePointerDown = function (event: PointerEvent) {
+            handleDown(event.clientX, event.clientY);
+        }
+
+        function handleDown(clientX: number, clientY: number) {
             self.matrix = new DOMMatrix(self.style.transform);
             self.scale = self.matrix.a;
             self.currentTranslationX = self.matrix.e;
             self.currentTranslationY = self.matrix.f;
-            self.startMouseX = event.clientX - self.img.offsetLeft;
-            self.startMouseY = event.clientY - self.img.offsetTop;
+            self.startMouseX = clientX - self.img.offsetLeft;
+            self.startMouseY = clientY - self.img.offsetTop;
             self.panning = true;
         }
 
-        const handlePan = function (event) {
+        const handleMouseMove = function (event: MouseEvent) {
+            handleMove(event);
+        }
+
+        const handlePointerMove = function (event: PointerEvent) {
+            handleMove(event);
+        }
+
+        function handleMove(event: MouseEvent | PointerEvent) {
             if (!self.panning) return;
             event.preventDefault();
             const currentMouseX = event.clientX - self.img.offsetLeft;
@@ -44,10 +79,10 @@ export default class Zoom {
             let newTranslationY = self.currentTranslationY + deltaY;
             if (self.options.restrictInsideParents) {
                 const imageScaled = self.img.getBoundingClientRect();
-                newTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width, self.img.parentElement.clientWidth, newTranslationX);
-                newTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height, self.img.parentElement.clientHeight, newTranslationY);
+                newTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width, self.img.parentElement?.clientWidth || 0, newTranslationX);
+                newTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height, self.img.parentElement?.clientHeight || 0, newTranslationY);
             }
-            self.img.style.transform = new DOMMatrix([self.scale, 0, 0, self.scale, newTranslationX, newTranslationY]);
+            self.img.style.transform = new DOMMatrix([self.scale, 0, 0, self.scale, newTranslationX, newTranslationY]).toString();
         }
 
         const handleTouchUp = function () {
@@ -56,9 +91,9 @@ export default class Zoom {
 
         // Zooming
 
-        function getPointInOriginal(event) {
-            const mouseX = event.clientX - self.img.offsetLeft - self.img.parentElement.offsetLeft;
-            const mouseY = event.clientY - self.img.offsetTop - self.img.parentElement.offsetTop;
+        function getPointInOriginal(clientX: number, clientY: number) {
+            const mouseX = clientX - self.img.offsetLeft - (self.img.parentElement?.offsetLeft || 0);
+            const mouseY = clientY - self.img.offsetTop - (self.img.parentElement?.offsetTop || 0);
 
             const imageWidthDelta = self.img.getBoundingClientRect().width - self.img.width;
             const imageHeightDelta = self.img.getBoundingClientRect().height - self.img.height;
@@ -72,7 +107,7 @@ export default class Zoom {
             return { x: mouseXScaled, y: mouseYScaled };
         }
 
-        const handleWheel = function (event) {
+        const handleWheel = function (event: WheelEvent) {
             event.preventDefault();
 
             self.matrix = new DOMMatrix(self.style.transform);
@@ -92,36 +127,36 @@ export default class Zoom {
             const currentTranslationX = self.matrix.e * scaleDelta;
             const currentTranslationY = self.matrix.f * scaleDelta;
 
-            const currentCursorX = getPointInOriginal(event).x * scaleDelta;
-            const currentCursorY = getPointInOriginal(event).y * scaleDelta;
+            const currentCursorX = getPointInOriginal(event.clientX, event.clientY).x * scaleDelta;
+            const currentCursorY = getPointInOriginal(event.clientX, event.clientY).y * scaleDelta;
 
             // Apply scale and translate transform
-            self.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, currentTranslationX, currentTranslationY]);
+            self.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, currentTranslationX, currentTranslationY]).toString();
             self.matrix = new DOMMatrix(self.style.transform);
 
-            const newCursorX = getPointInOriginal(event).x;
-            const newCursorY = getPointInOriginal(event).y;
+            const newCursorX = getPointInOriginal(event.clientX, event.clientY).x;
+            const newCursorY = getPointInOriginal(event.clientX, event.clientY).y;
 
             let newTranslationX = currentTranslationX - (currentCursorX - newCursorX);
             let newTranslationY = currentTranslationY - (currentCursorY - newCursorY);
 
             if (self.options.restrictInsideParents) {
                 const imageScaled = self.img.getBoundingClientRect();
-                newTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width, self.img.parentElement.clientWidth, newTranslationX);
-                newTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height, self.img.parentElement.clientHeight, newTranslationY);
+                newTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width, self.img.parentElement?.clientWidth || 0, newTranslationX);
+                newTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height, self.img.parentElement?.clientHeight || 0, newTranslationY);
             }
 
-            self.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, newTranslationX, newTranslationY]);
+            self.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, newTranslationX, newTranslationY]).toString();
         };
 
         // Events
 
         // Allow pan start only on the image
-        this.img.onmousedown = handleTouchDown;
-        this.img.onpointerdown = handleTouchDown;
+        this.img.onmousedown = handleMouseDown;
+        this.img.onpointerdown = handlePointerDown;
 
-        document.onmousemove = handlePan;
-        document.onpointermove = handlePan;
+        document.onmousemove = handleMouseMove;
+        document.onpointermove = handlePointerMove;
         // Stop panning everywhere
         document.onmouseup = handleTouchUp;
         document.onpointerup = handleTouchUp;
@@ -141,7 +176,7 @@ export default class Zoom {
 
     }
 
-    zoom(direction) {
+    zoom(direction: number) {
         this.matrix = new DOMMatrix(this.style.transform);
 
         // Get old scale
@@ -160,18 +195,18 @@ export default class Zoom {
 
         if (this.options.restrictInsideParents) {
             const imageScaled = this.img.getBoundingClientRect();
-            currentTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width * scaleDelta, this.img.parentElement.clientWidth, currentTranslationX);
-            currentTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height * scaleDelta, this.img.parentElement.clientHeight, currentTranslationY);
+            currentTranslationX = Zoom.restrictTranslationInsideParent(imageScaled.width * scaleDelta, this.img.parentElement?.clientWidth || 0, currentTranslationX);
+            currentTranslationY = Zoom.restrictTranslationInsideParent(imageScaled.height * scaleDelta, this.img.parentElement?.clientHeight || 0, currentTranslationY);
         }
 
         // Apply scale and translate transform
-        this.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, currentTranslationX, currentTranslationY]);
+        this.img.style.transform = new DOMMatrix([newScale, 0, 0, newScale, currentTranslationX, currentTranslationY]).toString();
     }
 
 
     // Common functions
 
-    static restrictTranslationInsideParent(imgLength, parentLength, translate) {
+    static restrictTranslationInsideParent(imgLength: number, parentLength: number, translate: number) {
         // "overflow" left / right or top / bottom of image relative to its parent
         // Divide by 2 to get one bar out of the two
         const overflow = (imgLength - parentLength) / 2;

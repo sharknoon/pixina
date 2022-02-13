@@ -1,22 +1,18 @@
 <template>
   <div>
-    <h3 class="p-3 pb-0 m-0">
-      {{ t("favorites") }}
-    </h3>
+    <h3 class="p-3 pb-0 m-0">{{ t("favorites") }}</h3>
     <TileList filter="favorites" />
     <NoFavorites v-if="store.favoriteTiles.length < 1" />
-    <h3 class="p-3 pb-0 m-0">
-      {{ t("all-templates") }}
-    </h3>
+    <h3 class="p-3 pb-0 m-0">{{ t("all-templates") }}</h3>
     <TileList />
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import { useStore } from "@/stores/favorite-tiles";
-import TileList from "@/components/templates/TileList";
-import NoFavorites from "@/components/templates/NoFavorites";
+import { useFavoriteTilesStore } from "@/stores/favorite-tiles";
+import TileList from "@/components/templates/TileList.vue";
+import NoFavorites from "@/components/templates/NoFavorites.vue";
 
 const { t } = useI18n();
-const store = useStore();
+const store = useFavoriteTilesStore();
 </script>
