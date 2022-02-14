@@ -13,12 +13,6 @@ The goal of this artwork is to recreate Reddit Place, which is considered a piec
 
 ---
 
-## TODOs
-
-- make Pixina an PWA again
-
----
-
 ## Recommended IDE Setup
 
 [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.vscode-typescript-vue-plugin).
