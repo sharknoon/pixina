@@ -24,12 +24,16 @@ export const useFavoriteTilesStore = defineStore("favorite-tiles", {
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      const locale: string | null = localStorage.getItem("locale");
+      const favoriteTiles: string | null =
+        localStorage.getItem("favorite-tiles");
       const vuex: string | null = localStorage.getItem("vuex");
-      if (!locale && vuex) {
+      if (!favoriteTiles && vuex) {
         try {
-          const newLocale: string = JSON.parse(vuex).locale;
-          localStorage.setItem("locale", JSON.stringify({ locale: newLocale }));
+          const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
+          localStorage.setItem(
+            "favorite-tiles",
+            JSON.stringify({ favoriteTiles: newFavoriteTiles })
+          );
         } catch (e) {
           console.error(e);
         }
