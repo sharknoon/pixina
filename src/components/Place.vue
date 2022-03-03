@@ -97,29 +97,15 @@ function readQueryParams() {
 }
 
 function updateQueryParams() {
-  if (variant.value === "cleaned" && grid.value) {
-    router.replace({
-      query: {
-        variant: "cleaned",
-        grid: "true",
-      },
-    });
-  } else if (variant.value === "cleaned") {
-    router.replace({
-      query: {
-        variant: "cleaned",
-      },
-    });
-  } else if (grid.value) {
-    router.replace({
-      query: {
-        grid: "true",
-      },
-    });
-  } else {
-    router.replace({
-      query: {},
-    });
+  let query: Record<string, string> = {};
+  if (variant.value === "cleaned") {
+    query.variant = variant.value;
   }
+  if (grid.value) {
+    query.grid = grid.value.toString();
+  }
+  router.replace({
+    query: query,
+  });
 }
 </script>
