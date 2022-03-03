@@ -4,7 +4,7 @@
       <div class="text-light d-flex justify-content-end p-2">
         <ShareButton :tile-number="number" class="ms-2" />
         <DownloadButton :tile-number="number" class="ms-2" />
-        <InfoButton :tile-number="number" class="ms-2" />
+        <ColorsButton :tile-number="number" class="ms-2" />
         <FavoriteButton :tile-number="number" class="ms-2" />
         <PrintButton :tile-number="number" class="ms-2" />
         <CloseButton class="ms-2" />
@@ -29,7 +29,7 @@ import { useRoute } from "vue-router";
 import Zoom from "@/components/common/Zoom.vue";
 import ShareButton from "@/components/tiles/ShareButton.vue";
 import DownloadButton from "@/components/tiles/DownloadButton.vue";
-import InfoButton from "@/components/tiles/InfoButton.vue";
+import ColorsButton from "@/components/tiles/ColorsButton.vue";
 import FavoriteButton from "@/components/tiles/FavoriteButton.vue";
 import PrintButton from "@/components/tiles/PrintButton.vue";
 import CloseButton from "@/components/tiles/CloseButton.vue";

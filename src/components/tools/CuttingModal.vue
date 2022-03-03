@@ -10,7 +10,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <font-awesome-icon
-            :icon="['far', 'info-circle']"
+            :icon="['far', 'cut']"
             size="lg"
             class="align-middle mb-1 me-2"
           />

@@ -1,6 +1,6 @@
 <template>
-  <button class="btn btn-dark" @click="showInfo()">
-    <font-awesome-icon :icon="['fal', 'info-circle']" size="lg" />
+  <button class="btn btn-dark" @click="showColors()">
+    <font-awesome-icon :icon="['fal', 'palette']" size="lg" />
   </button>
 </template>
 <script setup lang="ts">
@@ -15,7 +15,7 @@ const props = defineProps({
   },
 });
 
-function showInfo() {
+function showColors() {
   router.push({
     name: "Colors",
     query: { tiles: [props.tileNumber] },
