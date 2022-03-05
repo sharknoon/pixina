@@ -24,16 +24,15 @@ export const useFavoriteTilesStore = defineStore("favorite-tiles", {
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      const favoriteTiles: string | null =
-        localStorage.getItem("favorite-tiles");
       const vuex: string | null = localStorage.getItem("vuex");
-      if (!favoriteTiles && vuex) {
+      if (vuex) {
         try {
           const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
           localStorage.setItem(
             "favorite-tiles",
             JSON.stringify({ favoriteTiles: newFavoriteTiles })
           );
+          localStorage.removeItem("vuex");
         } catch (e) {
           console.error(e);
         }

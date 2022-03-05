@@ -14,9 +14,8 @@ export const useLocaleStore = defineStore("locale", {
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      const locale: string | null = localStorage.getItem("locale");
       const vuex: string | null = localStorage.getItem("vuex");
-      if (!locale && vuex) {
+      if (vuex) {
         try {
           const newLocale: string = JSON.parse(vuex).locale;
           localStorage.setItem("locale", JSON.stringify({ locale: newLocale }));
