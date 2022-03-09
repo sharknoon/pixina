@@ -26,7 +26,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set ssh key
-        run: echo '${{ secrets.SERVER_PRIVATE_KEY }}' >> ~./ssh/authorized_hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo '${{ secrets.SERVER_PRIVATE_KEY }}' >> ~/.ssh/id_ed25519
 
       - name: Set docker context
         run: |
