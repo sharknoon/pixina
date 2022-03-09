@@ -25,19 +25,25 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
+      - name: Set ssh key
+        run: echo '${{ secrets.SERVER_PRIVATE_KEY }}' >> ~./ssh/authorized_hosts
+
+      - name: Set docker context
+        run: |
+          docker context create --docker host=ssh://${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} remote
+          docker context use remote
+
       - name: Remove existing Container
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: sudo docker stop pixina || true; sudo docker rm pixina || true; sudo docker rmi ghcr.io/sharknoon/pixina || true
-          host: ${{ secrets.SERVER_HOST }}
-          privateKey: ${{ secrets.SERVER_PRIVATE_KEY}}
+        run: |
+          sudo docker stop pixina
+          sudo docker rm pixina
+          sudo docker rmi ghcr.io/sharknoon/pixina
    
       - name: Start new Container
-        uses: garygrossgarten/github-action-ssh@release
-        with:
-          command: echo ${{ secrets.GHCR_PAT }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin && sudo docker pull ghcr.io/sharknoon/pixina && sudo docker run -d --name pixina --network traefik-net --restart=always ghcr.io/sharknoon/pixina
-          host: ${{ secrets.SERVER_HOST }}
-          privateKey: ${{ secrets.SERVER_PRIVATE_KEY}}
+        run: |
+          echo ${{ secrets.GHCR_PAT }} | sudo docker login ghcr.io -u ${{ github.actor }} --password-stdin
+          sudo docker pull ghcr.io/sharknoon/pixina
+          sudo docker run -d --name pixina --network traefik-net --restart=always ghcr.io/sharknoon/pixina
 
   clean:
     needs: deploy
