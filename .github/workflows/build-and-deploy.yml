@@ -30,10 +30,8 @@ jobs:
           mkdir -p ~/.ssh
           echo '${{ secrets.SERVER_PRIVATE_KEY }}' >> ~/.ssh/id_ed25519
 
-      - name: Set docker context
-        run: |
-          docker context create --docker host=ssh://${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }} remote
-          docker context use remote
+      - name: Set docker host
+        run: export DOCKER_HOST="ssh://${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}"
 
       - name: Remove existing Container
         run: |
