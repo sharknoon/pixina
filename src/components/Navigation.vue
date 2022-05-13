@@ -113,7 +113,7 @@ const items = computed(() => [
   {
     name: t("image"),
     icon: ["fal", "image"],
-    to: "/place",
+    to: "/image",
   },
   {
     name: t("history"),
@@ -138,6 +138,12 @@ watchEffect(() => {
   const path = router.currentRoute.value.path;
   const index = items.value.findIndex((item) => path.startsWith(item.to));
   translationY.value = index * 2.8 - 0.25;
+
+  const meta = router.currentRoute.value.meta;
+  let title = "Pixina";
+  if (meta.title) {
+    document.title = title + " - " + t(String(meta.title));
+  }
 });
 </script>
 <style scoped lang="scss">

@@ -17,7 +17,7 @@ const props = defineProps({
 
 function showColors() {
   router.push({
-    name: "Colors",
+    name: "ColorCount",
     query: { tiles: [props.tileNumber] },
   });
 }

@@ -42,7 +42,7 @@
           :disabled="selected_tiles.length < 1"
           @click="
             $router.push({
-              name: 'colorCountTools',
+              name: 'ColorCount',
               query: { tiles: selected_tiles },
             })
           "

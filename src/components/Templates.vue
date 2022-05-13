@@ -6,6 +6,7 @@
     <h3 class="p-3 pb-0 m-0">{{ t("all-templates") }}</h3>
     <TileList />
   </div>
+  <router-view />
 </template>
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";

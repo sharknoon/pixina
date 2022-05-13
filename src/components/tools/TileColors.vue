@@ -142,7 +142,7 @@ onMounted(() => {
 });
 
 function goBack() {
-  window.history.length > 1 ? router.go(-1) : router.push("/");
+  router.push({ name: "Tools" });
 }
 
 function getColorInformations(color: number[]): Color {

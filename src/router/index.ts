@@ -3,28 +3,10 @@ import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    // Fullscreen Routes
-    {
-      path: "/templates/:number",
-      name: "Template",
-      component: () => import("@/components/tiles/Tile.vue"),
-      meta: {
-        title: "Vorlage",
-      },
-    },
-    {
-      path: "/templates/:number/colors",
-      name: "Colors",
-      component: () => import("@/components/tools/TileColors.vue"),
-      meta: {
-        title: "Farben",
-      },
-    },
     {
       path: "/",
       component: () => import("@/components/Navigation.vue"),
       children: [
-        // Routes with Navigation
         {
           path: "",
           redirect: "templates",
@@ -34,50 +16,75 @@ const router = createRouter({
           name: "Templates",
           component: () => import("@/components/Templates.vue"),
           meta: {
-            title: "Vorlagen",
+            title: "templates",
           },
+          children: [
+            {
+              path: ":number",
+              name: "Template",
+              component: () => import("@/components/tiles/Tile.vue"),
+              meta: {
+                title: "template",
+              },
+              children: [
+                {
+                  path: "colors",
+                  redirect: { name: "ColorCount" },
+                },
+              ],
+            },
+          ],
         },
         {
           path: "informations",
           component: () => import("@/components/Informations.vue"),
           meta: {
-            title: "Anleitung",
+            title: "informations",
           },
         },
         {
           path: "place",
+          redirect: "image",
+        },
+        {
+          path: "image",
           component: () => import("@/components/Place.vue"),
           meta: {
-            title: "Place",
+            title: "image",
           },
         },
         {
           path: "history",
           component: () => import("@/components/History.vue"),
           meta: {
-            title: "Entstehung",
+            title: "history",
           },
         },
         {
           path: "atlas",
           component: () => import("@/components/PlaceAtlas.vue"),
           meta: {
-            title: "Atlas",
+            title: "atlas",
           },
         },
         {
           path: "tools",
+          name: "Tools",
           component: () => import("@/components/Tools.vue"),
           meta: {
-            title: "Werkzeuge",
+            title: "tools",
           },
           children: [
             {
               path: "colorCount",
-              name: "colorCountTools",
+              redirect: { name: "ColorCount" },
+            },
+            {
+              path: "color-count",
+              name: "ColorCount",
               component: () => import("@/components/tools/TileColors.vue"),
               meta: {
-                title: "Farbenzählung",
+                title: "color-count",
               },
             },
           ],
@@ -89,19 +96,8 @@ const router = createRouter({
       path: "/:pathMatch(.*)*",
       name: "not-found",
       component: () => import("@/components/NotFound.vue"),
-      meta: {
-        title: "Nicht gefunden",
-      },
     },
   ],
-});
-
-//Set the title of the tab
-router.afterEach((to) => {
-  document.title = "Pixina";
-  if (to.meta.title) {
-    document.title += " - " + to.meta.title;
-  }
 });
 
 export default router;
