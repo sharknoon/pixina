@@ -2,7 +2,7 @@ name: Build & Deploy
 on:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   build:
@@ -10,43 +10,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
         with:
-          submodules: 'recursive'
+          submodules: "recursive"
 
       - name: Login to Github Container Registry
-        run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin 
+        run: echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Build Docker Image
         run: docker build -t ghcr.io/sharknoon/pixina --build-arg FONTAWESOME_NPM_AUTH_TOKEN=${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }} .
-        
+
       - name: Push Image to Registry
         run: docker push ghcr.io/sharknoon/pixina
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set ssh key
-        run: |
-          mkdir -p ~/.ssh
-          echo '${{ secrets.SERVER_PRIVATE_KEY }}' >> ~/.ssh/id_ed25519
-
-      - name: Set docker host
-        run: export DOCKER_HOST="ssh://${{ secrets.SERVER_USERNAME }}@${{ secrets.SERVER_HOST }}"
-
-      - name: Remove existing Container
-        run: |
-          docker stop pixina
-          docker rm pixina
-          docker rmi ghcr.io/sharknoon/pixina
-   
-      - name: Start new Container
-        run: |
-          echo ${{ secrets.GHCR_PAT }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-          docker pull ghcr.io/sharknoon/pixina
-          docker run -d --name pixina --network traefik-net --restart=always ghcr.io/sharknoon/pixina
-
   clean:
-    needs: deploy
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Delete untagged Images

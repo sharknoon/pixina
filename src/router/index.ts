@@ -5,7 +5,7 @@ const router = createRouter({
   routes: [
     {
       path: "/",
-      component: () => import("@/components/Navigation.vue"),
+      component: () => import("@/components/NavigationComponent.vue"),
       children: [
         {
           path: "",
@@ -14,7 +14,7 @@ const router = createRouter({
         {
           path: "templates",
           name: "Templates",
-          component: () => import("@/components/Templates.vue"),
+          component: () => import("@/components/TemplatesComponent.vue"),
           meta: {
             title: "templates",
           },
@@ -22,7 +22,7 @@ const router = createRouter({
             {
               path: ":number",
               name: "Template",
-              component: () => import("@/components/tiles/Tile.vue"),
+              component: () => import("@/components/tiles/TileComponent.vue"),
               meta: {
                 title: "template",
               },
@@ -37,7 +37,7 @@ const router = createRouter({
         },
         {
           path: "informations",
-          component: () => import("@/components/Informations.vue"),
+          component: () => import("@/components/InformationsComponent.vue"),
           meta: {
             title: "informations",
           },
@@ -48,21 +48,21 @@ const router = createRouter({
         },
         {
           path: "image",
-          component: () => import("@/components/Place.vue"),
+          component: () => import("@/components/PlaceComponent.vue"),
           meta: {
             title: "image",
           },
         },
         {
           path: "history",
-          component: () => import("@/components/History.vue"),
+          component: () => import("@/components/HistoryComponent.vue"),
           meta: {
             title: "history",
           },
         },
         {
           path: "atlas",
-          component: () => import("@/components/PlaceAtlas.vue"),
+          component: () => import("@/components/PlaceAtlasComponent.vue"),
           meta: {
             title: "atlas",
           },
@@ -70,7 +70,7 @@ const router = createRouter({
         {
           path: "tools",
           name: "Tools",
-          component: () => import("@/components/Tools.vue"),
+          component: () => import("@/components/ToolsComponent.vue"),
           meta: {
             title: "tools",
           },
@@ -95,7 +95,7 @@ const router = createRouter({
       //Must be at the bottom, because of the asterix (*) path
       path: "/:pathMatch(.*)*",
       name: "not-found",
-      component: () => import("@/components/NotFound.vue"),
+      component: () => import("@/components/NotFoundComponent.vue"),
     },
   ],
 });

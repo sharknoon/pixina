@@ -1,6 +1,6 @@
 <template>
   <div id="place-wrapper" class="h-100 d-flex flex-column">
-    <Zoom class="flex-grow-1" :src="placeUrl" />
+    <ZoomWrapper class="flex-grow-1" :src="placeUrl" />
     <div class="d-flex justify-content-between p-4">
       <div class="btn-group me-2" role="group" aria-label="Image type">
         <input
@@ -51,7 +51,7 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import Zoom from "@/components/common/Zoom.vue";
+import ZoomWrapper from "@/components/common/ZoomWrapper.vue";
 
 const route = useRoute();
 const router = useRouter();

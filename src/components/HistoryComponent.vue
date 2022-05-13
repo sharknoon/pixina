@@ -1,6 +1,6 @@
 <template>
   <div id="history-wrapper" class="h-100 d-flex flex-column">
-    <Zoom class="flex-grow-1" :src="currentItemSrc" />
+    <ZoomWrapper class="flex-grow-1" :src="currentItemSrc" />
     <input
       v-model="currentItem"
       type="range"
@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import type { Ref } from "vue";
 import { computed, onMounted, ref } from "vue";
-import Zoom from "@/components/common/Zoom.vue";
+import ZoomWrapper from "@/components/common/ZoomWrapper.vue";
 
 const items: Ref<HTMLImageElement[]> = ref([]);
 const currentItem: Ref<number> = ref(0);

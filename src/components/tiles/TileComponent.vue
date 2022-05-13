@@ -9,7 +9,7 @@
         <PrintButton :tile-number="number" class="ms-2" />
         <CloseButton class="ms-2" />
       </div>
-      <Zoom class="flex-grow-1" :src="src" />
+      <ZoomWrapper class="flex-grow-1" :src="src" />
       <div class="text-light p-2 text-center">{{ title }}</div>
       <PrevNextButton
         type="prev"
@@ -26,7 +26,7 @@
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { useRoute } from "vue-router";
-import Zoom from "@/components/common/Zoom.vue";
+import ZoomWrapper from "@/components/common/ZoomWrapper.vue";
 import ShareButton from "@/components/tiles/ShareButton.vue";
 import DownloadButton from "@/components/tiles/DownloadButton.vue";
 import ColorsButton from "@/components/tiles/ColorsButton.vue";
