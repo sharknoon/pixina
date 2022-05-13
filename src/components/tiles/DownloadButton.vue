@@ -13,7 +13,7 @@ const props = defineProps({
 
 function download() {
   const url = new URL(
-    `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
+    `../../assets/images/templates/${props.tileNumber}-detailed.png`,
     import.meta.url
   ).href;
   const a = document.createElement("a");
