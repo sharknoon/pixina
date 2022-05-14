@@ -12,14 +12,17 @@
       >
         <TileThumbnail
           :number="tile"
+          class="thumbnail-selection"
           :class="selected_tiles.includes(tile) ? 'thumbnail-selected' : ''"
-        />
-        <div
-          v-if="selected_tiles.includes(tile)"
-          class="position-absolute top-0 end-0 p-1"
         >
-          <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
-        </div>
+          <template #top-end>
+            <Transition>
+              <div v-if="selected_tiles.includes(tile)" class="p-1">
+                <font-awesome-icon :icon="['fas', 'check-circle']" size="lg" />
+              </div>
+            </Transition>
+          </template>
+        </TileThumbnail>
       </div>
     </div>
 
@@ -100,6 +103,16 @@ function toggleTileSelection(event: MouseEvent, number: number) {
   -moz-user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.1s ease-out;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .thumbnail-selected img {

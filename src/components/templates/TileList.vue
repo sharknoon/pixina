@@ -1,23 +1,26 @@
 <template>
   <div class="list-wrapper h-100 d-flex flex-column">
-    <div class="d-flex flex-wrap p-2 overflow-auto">
+    <div class="d-flex flex-wrap p-2">
       <div
         v-for="tile in tiles"
         :key="tile"
         class="position-relative m-2"
         @click="openTile(tile)"
       >
-        <TileThumbnail :number="tile" />
-        <div
-          class="position-absolute top-0 end-0 p-1"
-          @click.stop="toggleTileFavorite(tile)"
-        >
-          <font-awesome-icon
-            :icon="[store.favoriteTiles.includes(tile) ? 'fas' : 'far', 'star']"
-            style="color: orange"
-            size="lg"
-          />
-        </div>
+        <TileThumbnail :number="tile">
+          <template #bottom-end>
+            <div class="favorite-button" @click.stop="toggleTileFavorite(tile)">
+              <font-awesome-icon
+                :icon="[
+                  store.favoriteTiles.includes(tile) ? 'fas' : 'far',
+                  'star',
+                ]"
+                style="color: orange"
+                size="lg"
+              />
+            </div>
+          </template>
+        </TileThumbnail>
       </div>
     </div>
   </div>
@@ -69,6 +72,9 @@ function openTile(number: number) {
 }
 </script>
 <style lang="scss" scoped>
+.favorite-button {
+  padding-right: 0.1rem;
+}
 .list-wrapper {
   user-select: none;
   -moz-user-select: none;

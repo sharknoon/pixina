@@ -1,16 +1,22 @@
 <template>
-  <div class="position-relative">
+  <div class="tile-thumbnail position-relative shadow rounded">
     <img
       :id="'thumbnail-' + tile?.number"
       :src="tile?.thumbnail"
       alt="picture"
       width="75"
-      class="img-pixelated"
+      class="img-pixelated rounded"
     />
+    <div class="position-absolute top-0 end-0">
+      <slot name="top-end"></slot>
+    </div>
     <div
-      class="thumbnail-footer position-absolute bottom-0 text-dark fw-bold w-100"
+      class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom"
     >
       {{ tile?.title }}
+    </div>
+    <div class="position-absolute bottom-0 end-0">
+      <slot name="bottom-end"></slot>
     </div>
   </div>
 </template>
@@ -34,16 +40,20 @@ const tile: Tile = {
     `../../assets/images/templates/${props.number}.webp`,
     import.meta.url
   ).href,
-  title: `${props.number} (${props.number % 20}|${Math.floor(
-    props.number / 20
-  )})`,
+  title: String(props.number),
 };
 </script>
 <style lang="scss" scoped>
+.tile-thumbnail {
+  transition: scale 0.1s ease-out;
+}
+.tile-thumbnail:hover {
+  scale: 1.2;
+}
 .thumbnail-footer {
+  font-size: 0.9rem;
   padding: 0.1rem;
   font-family: arial;
-  font-size: small;
   background: rgba(255, 255, 255, 0.9);
 }
 </style>
