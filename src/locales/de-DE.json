@@ -23,7 +23,7 @@
   "grid": "Raster",
   "tile-selection-counter": "Keine Bilder ausgewählt | {amount} Bild ausgewählt | {amount} Bilder ausgewählt",
   "next": "Weiter",
-  "tile-title": "Kachel Nr. {number} ({x}{'|'}{y})",
+  "tile-title": "Platte Nr. {number} ({x}{'|'}{y})",
   "tile-processing": "{current} von {amount} verarbeitet",
   "amount-colors": "{amount} von 16 Farben",
   "finish": "Fertig",
@@ -109,5 +109,10 @@
   "open-shop": "Shop öffnen",
   "add-to-cart": "Zum Warenkorb hinzufügen",
   "invalid-cookie": "Bitte geben Sie einen gültigen Warenkorb-Cookie-Wert an.",
-  "donate": "Spenden"
+  "donate": "Spenden",
+  "tiles": "Platten",
+  "finished": "Fertiggestellt",
+  "in-progress": "In Arbeit",
+  "reserved": "Reserviert",
+  "available": "Frei"
 }

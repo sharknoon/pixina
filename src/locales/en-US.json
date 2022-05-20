@@ -109,5 +109,10 @@
   "open-shop": "Open Shop",
   "add-to-cart": "Add to Cart",
   "invalid-cookie": "Please enter a valid cart cookie.",
-  "donate": "Donate"
+  "donate": "Donate",
+  "tiles": "tiles",
+  "finished": "Finished",
+  "in-progress": "In progress",
+  "reserved": "Reserved",
+  "available": "Available"
 }

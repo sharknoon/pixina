@@ -3,6 +3,8 @@
     <h1>{{ t("informations-title") }}</h1>
     <p>{{ t("informations-body") }}</p>
 
+    <ProjectProgress></ProjectProgress>
+
     <h3>{{ t("informations-faq") }}</h3>
     <div id="faq-accordion" class="accordion pb-3">
       <div v-for="(faq, index) in faqs" :key="faq.title" class="accordion-item">
@@ -52,6 +54,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
+import ProjectProgress from "./informations/ProjectProgress.vue";
 
 const { t } = useI18n();
 
