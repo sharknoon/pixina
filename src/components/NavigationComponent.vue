@@ -88,6 +88,7 @@
       </div>
     </div>
   </div>
+  <AdminModal></AdminModal>
 </template>
 <script setup lang="ts">
 import { computed, watchEffect, ref } from "vue";
@@ -95,6 +96,7 @@ import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import DonationButton from "@/components/navigation/DonationButton.vue";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown.vue";
+import AdminModal from "@/components/common/AdminModal.vue";
 
 const router = useRouter();
 const { t } = useI18n();

@@ -19,6 +19,7 @@ import {
   faSparkles,
   faStar as fasStar,
   faTh as fasTh,
+  faXmark,
 } from "@fortawesome/pro-solid-svg-icons";
 import {
   faChevronLeft,
@@ -86,7 +87,8 @@ library.add(
   faTimes,
   faTwitter,
   faWhatsapp,
-  faWrench
+  faWrench,
+  faXmark
 );
 
 export default FontAwesomeIcon;
