@@ -62,8 +62,10 @@
 import { onMounted, ref } from "vue";
 import { Modal } from "bootstrap";
 import { useProgressStore } from "@/stores/progress";
+import { useAdminStore } from "@/stores/admin";
 
 const progress = useProgressStore();
+const admin = useAdminStore();
 
 const apiLoading = ref(false);
 const apiError = ref(false);
@@ -77,7 +79,6 @@ function filterInput(event: KeyboardEvent) {
 }
 
 let modal: Modal;
-let modalShown = false;
 
 function sendUpdatedProgress() {
   apiLoading.value = true;
@@ -95,7 +96,7 @@ function sendUpdatedProgress() {
     .then((response: Response) => {
       apiLoading.value = false;
       if (response.status >= 200 && response.status <= 299) {
-        modal?.hide();
+        admin.adminModalShown = false;
       } else {
         apiError.value = true;
       }
@@ -114,23 +115,28 @@ const progressTitles = ref({
   available: "Available tiles",
 });
 
+admin.$subscribe((_mutation, admin) => {
+  console.log(admin);
+  if (admin.adminModalShown) {
+    modal.show();
+  } else {
+    modal.hide();
+  }
+});
+
 onMounted(() => {
+  modal = new Modal("#admin-modal");
+  const element = document.getElementById("admin-modal");
+  if (element) {
+    element.addEventListener("hide.bs.modal", () => {
+      admin.adminModalShown = false;
+    });
+  }
+
   document.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.altKey && event.shiftKey && event.key === "A") {
-      if (modalShown) return;
-      if (!modal) {
-        modal = new Modal("#admin-modal");
-        const element = document.getElementById("admin-modal");
-        if (element) {
-          element.addEventListener("show.bs.modal", () => {
-            modalShown = true;
-          });
-          element.addEventListener("hide.bs.modal", () => {
-            modalShown = false;
-          });
-        }
-      }
-      modal.show();
+      if (admin.adminModalShown) return;
+      admin.adminModalShown = true;
       event.preventDefault();
       event.stopPropagation();
     }
