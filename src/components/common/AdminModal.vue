@@ -76,6 +76,9 @@ function filterInput(event: KeyboardEvent) {
   }
 }
 
+let modal: Modal;
+let modalShown = false;
+
 function sendUpdatedProgress() {
   apiLoading.value = true;
   apiError.value = false;
@@ -92,7 +95,7 @@ function sendUpdatedProgress() {
     .then((response: Response) => {
       apiLoading.value = false;
       if (response.status >= 200 && response.status <= 299) {
-        new Modal("#admin-modal").hide();
+        modal?.hide();
       } else {
         apiError.value = true;
       }
@@ -114,7 +117,20 @@ const progressTitles = ref({
 onMounted(() => {
   document.addEventListener("keydown", (event) => {
     if (event.ctrlKey && event.altKey && event.shiftKey && event.key === "A") {
-      new Modal("#admin-modal").show();
+      if (modalShown) return;
+      if (!modal) {
+        modal = new Modal("#admin-modal");
+        const element = document.getElementById("admin-modal");
+        if (element) {
+          element.addEventListener("show.bs.modal", () => {
+            modalShown = true;
+          });
+          element.addEventListener("hide.bs.modal", () => {
+            modalShown = false;
+          });
+        }
+      }
+      modal.show();
       event.preventDefault();
       event.stopPropagation();
     }

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!apiError" class="position-relative">
+  <div v-if="!progress.isError" class="position-relative">
     <div class="container d-flex flex-column justify-content-center h-100 my-4">
       <h1 class="display-1 text-center mb-0 lh-1">
         {{ progress.finished / 5 }}%
@@ -65,7 +65,7 @@
     </div>
 
     <div
-      v-if="apiLoading"
+      v-if="!progress.isLoaded"
       class="position-absolute top-0 end-0 bottom-0 start-0 bg-white text-bg-white d-flex justify-content-center align-items-center"
     >
       <div class="spinner-grow text-primary" role="status">
@@ -83,8 +83,6 @@ const { t } = useI18n();
 const progress = useProgressStore();
 
 const currentMouseOver = ref<string>();
-let apiLoading = ref(true);
-let apiError = ref(false);
 
 const tileProgress = ref({
   finished: {
@@ -108,32 +106,6 @@ const tileProgress = ref({
     text: "available",
   },
 });
-
-fetch("https://pixina.app/api/v1/progress")
-  .then((response: Response) => {
-    apiLoading.value = false;
-    if (response.status >= 200 && response.status <= 299) {
-      response
-        .json()
-        .then((data) => {
-          progress.finished = data.finished;
-          progress.inProgress = data.inProgress;
-          progress.reserved = data.reserved;
-          progress.available =
-            500 - data.finished - data.inProgress - data.reserved;
-        })
-        .catch(() => {
-          apiError.value = true;
-        });
-    } else {
-      apiError.value = true;
-    }
-  })
-  .catch((error: Error) => {
-    apiLoading.value = false;
-    apiError.value = true;
-    console.error(error);
-  });
 </script>
 <style scoped>
 .v-enter-active,
