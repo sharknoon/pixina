@@ -11,7 +11,6 @@
           id="navigation-logo"
           class="img-fluid mb-2"
           src="@/assets/images/logo-white.svg"
-          @click="onLogoClicked"
         />
       </router-link>
       <!-- Items Area -->
@@ -48,7 +47,6 @@
               id="navigation-logo"
               src="@/assets/images/logo-white.svg"
               class="img-fluid"
-              @click="onLogoClicked"
             />
           </router-link>
           <button
@@ -90,20 +88,16 @@
       </div>
     </div>
   </div>
-  <AdminModal></AdminModal>
 </template>
 <script setup lang="ts">
 import { computed, watchEffect, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { useAdminStore } from "@/stores/admin";
 import DonationButton from "@/components/navigation/DonationButton.vue";
 import LanguageDropdown from "@/components/navigation/LanguageDropdown.vue";
-import AdminModal from "@/components/common/AdminModal.vue";
 
 const router = useRouter();
 const { t } = useI18n();
-const admin = useAdminStore();
 
 const items = computed(() => [
   {
@@ -151,16 +145,6 @@ watchEffect(() => {
     document.title = title + " - " + t(String(meta.title));
   }
 });
-
-let counter = 0;
-function onLogoClicked() {
-  if (counter === 0) setTimeout(() => (counter = 0), 1000);
-  counter++;
-  if (counter === 5) {
-    counter = 0;
-    admin.adminModalShown = true;
-  }
-}
 </script>
 <style scoped lang="scss">
 // Common styles for mobile and desktop
