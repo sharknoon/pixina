@@ -4,7 +4,6 @@
       <div
         v-for="tile in tiles"
         :key="tile"
-        ref="thumbnails"
         class="position-relative m-2"
         @click="toggleTileSelection($event, tile)"
       >
@@ -54,8 +53,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, type Ref } from "vue";
-import { ref } from "vue";
+import { ref, type Ref } from "vue";
 import { useI18n } from "vue-i18n";
 import TileThumbnail from "@/components/common/TileThumbnail.vue";
 
@@ -93,23 +91,6 @@ function toggleTileSelection(event: MouseEvent, number: number) {
     }
   }
 }
-
-const observer = new IntersectionObserver((entries, self) => {
-  entries.forEach((entry) => {
-    if (entry.isIntersecting) {
-      const img = entry.target.getElementsByTagName("img")[0];
-      img?.setAttribute("src", img?.getAttribute("data-src") || "");
-      self.unobserve(entry.target);
-    }
-  });
-});
-const thumbnails = ref<HTMLElement[]>([]);
-
-onMounted(() => {
-  thumbnails.value.forEach((thumbnail) =>
-    thumbnail ? observer.observe(thumbnail) : null
-  );
-});
 </script>
 <style lang="scss">
 .selection-wrapper {

@@ -2,7 +2,7 @@
   <div class="tile-thumbnail position-relative shadow rounded">
     <img
       :id="'thumbnail-' + tile?.number"
-      :data-src="tile?.thumbnail"
+      :src="tile?.thumbnail"
       :alt="'tile-' + tile?.number"
       width="75"
       height="60"
