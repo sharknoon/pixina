@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 export const useProgressStore = defineStore("progress", {
   state: () => {
     return {
+      error: false,
       finished: 0,
       inProgress: 0,
       reserved: 0,
@@ -10,19 +11,10 @@ export const useProgressStore = defineStore("progress", {
     };
   },
   getters: {
-    amountTiles(state): number {
+    isLoaded(state): boolean {
       return (
-        state.finished + state.inProgress + state.reserved + state.available
+        state.finished + state.inProgress + state.reserved + state.available > 0
       );
-    },
-    isLoaded(): boolean {
-      return this.amountTiles > 0;
-    },
-    isError(): boolean {
-      return this.amountTiles < 0;
-    },
-    validState(): boolean {
-      return this.amountTiles === 500;
     },
   },
 });
@@ -42,13 +34,15 @@ fetch("https://pixina.app/api/v1/progress")
             500 - data.finished - data.inProgress - data.reserved;
         })
         .catch((error: Error) => {
-          progress.finished = -1;
+          progress.error = true;
           console.error(error);
         });
     } else {
+      progress.error = true;
       console.error(response);
     }
   })
   .catch((error: Error) => {
+    progress.error = true;
     console.error(error);
   });

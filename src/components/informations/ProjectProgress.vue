@@ -1,5 +1,5 @@
 <template>
-  <div v-if="!progress.isError" class="position-relative">
+  <div v-if="!progress.error" class="position-relative">
     <div class="container d-flex flex-column justify-content-center h-100 my-4">
       <h1 class="display-1 text-center mb-0 lh-1">
         {{ progress.finished / 5 }}%
