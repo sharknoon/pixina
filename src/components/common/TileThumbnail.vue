@@ -2,9 +2,10 @@
   <div class="tile-thumbnail position-relative shadow rounded">
     <img
       :id="'thumbnail-' + tile?.number"
-      :src="tile?.thumbnail"
-      alt="picture"
+      :data-src="tile?.thumbnail"
+      :alt="'tile-' + tile?.number"
       width="75"
+      height="60"
       class="img-pixelated rounded"
     />
     <div class="position-absolute top-0 end-0">
@@ -44,12 +45,6 @@ const tile: Tile = {
 };
 </script>
 <style lang="scss" scoped>
-.tile-thumbnail {
-  transition: scale 0.1s ease-out;
-}
-.tile-thumbnail:hover {
-  scale: 1.2;
-}
 .thumbnail-footer {
   font-size: 0.9rem;
   padding: 0.1rem;

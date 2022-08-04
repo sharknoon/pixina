@@ -1,18 +1,15 @@
 <template>
   <div class="selection-wrapper h-100 d-flex flex-column">
-    <div
-      class="d-flex flex-wrap p-2 overflow-auto"
-      :class="tiles.length > 3 ? 'justify-content-evenly' : ''"
-    >
+    <div class="d-flex flex-wrap p-2 overflow-auto">
       <div
         v-for="tile in tiles"
         :key="tile"
+        ref="thumbnails"
         class="position-relative m-2"
         @click="toggleTileSelection($event, tile)"
       >
         <TileThumbnail
           :number="tile"
-          class="thumbnail-selection"
           :class="selected_tiles.includes(tile) ? 'thumbnail-selected' : ''"
         >
           <template #top-end>
@@ -57,7 +54,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import type { Ref } from "vue";
+import { onMounted, type Ref } from "vue";
 import { ref } from "vue";
 import { useI18n } from "vue-i18n";
 import TileThumbnail from "@/components/common/TileThumbnail.vue";
@@ -96,6 +93,23 @@ function toggleTileSelection(event: MouseEvent, number: number) {
     }
   }
 }
+
+const observer = new IntersectionObserver((entries, self) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target.getElementsByTagName("img")[0];
+      img?.setAttribute("src", img?.getAttribute("data-src") || "");
+      self.unobserve(entry.target);
+    }
+  });
+});
+const thumbnails = ref<HTMLElement[]>([]);
+
+onMounted(() => {
+  thumbnails.value.forEach((thumbnail) =>
+    thumbnail ? observer.observe(thumbnail) : null
+  );
+});
 </script>
 <style lang="scss">
 .selection-wrapper {

@@ -4,6 +4,7 @@
       <div
         v-for="tile in tiles"
         :key="tile"
+        ref="thumbnails"
         class="position-relative m-2"
         @click="openTile(tile)"
       >
@@ -26,7 +27,7 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 import { useFavoriteTilesStore } from "@/stores/favorite-tiles";
 import TileThumbnail from "@/components/common/TileThumbnail.vue";
@@ -70,6 +71,23 @@ function openTile(number: number) {
     params: { number: number },
   });
 }
+
+const observer = new IntersectionObserver((entries, self) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const img = entry.target.getElementsByTagName("img")[0];
+      img?.setAttribute("src", img?.getAttribute("data-src") || "");
+      self.unobserve(entry.target);
+    }
+  });
+});
+const thumbnails = ref<HTMLElement[]>([]);
+
+onMounted(() => {
+  thumbnails.value.forEach((thumbnail) =>
+    thumbnail ? observer.observe(thumbnail) : null
+  );
+});
 </script>
 <style lang="scss" scoped>
 .favorite-button {
