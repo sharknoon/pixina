@@ -10,13 +10,13 @@
       <span
         :class="
           'flag-icon flag-icon-' +
-          i18n.locale.value.substring(3, 5).toLowerCase()
+          i18n.t('meta.locale').substring(3, 5).toLowerCase()
         "
       />
       <span class="mx-1 mt-20">{{ i18n.t("meta.name") }}</span>
     </button>
     <ul class="dropdown-menu" aria-labelledby="button-dropdown-languages">
-      <li v-for="(message, locale) in messagesWithCountry" :key="locale">
+      <li v-for="(_, locale) in messagesWithCountry" :key="locale">
         <button
           class="dropdown-item"
           type="button"
