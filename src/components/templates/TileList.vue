@@ -1,6 +1,6 @@
 <template>
   <div class="list-wrapper h-100 d-flex flex-column">
-    <div class="d-flex flex-wrap p-2 justify-content-between">
+    <div class="d-flex flex-wrap p-2">
       <div v-for="tile in tiles" :key="tile" class="position-relative m-2" @click="openTile(tile)">
         <TileThumbnail :number="tile">
           <template #bottom-end>
