@@ -13,7 +13,6 @@
     "bootstrap": "^5.2.0",
     "pinia": "^2.0.14",
     "pinia-plugin-persistedstate": "^1.5.1",
-    "print-js": "^1.6.0",
     "vue": "^3.2.33",
     "vue-i18n": "^9.1.10",
     "vue-router": "^4.0.15"

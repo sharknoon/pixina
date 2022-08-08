@@ -9,7 +9,6 @@
 </template>
 <script setup lang="ts">
 import { useI18n } from "vue-i18n";
-import printJS from "print-js";
 
 const { t } = useI18n();
 
@@ -21,19 +20,40 @@ const props = defineProps({
 });
 
 function print() {
-  printJS({
-    printable: new URL(
-      `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
-      import.meta.url
-    ).href,
-    type: "image",
-    header: t("tile-title", {
+  const iframe = document.createElement('iframe');
+  iframe.style.height = '0';
+  iframe.style.visibility = 'hidden';
+  iframe.style.width = '0';
+  iframe.setAttribute('srcdoc', '<html><body></body></html>');
+
+  document.body.appendChild(iframe);
+
+  iframe.addEventListener('load', function () {
+    // Create the header
+    const header = document.createElement("h1");
+    header.innerText = t("tile-title", {
       number: props.tileNumber,
       x: props.tileNumber % 20,
       y: Math.floor(props.tileNumber / 20),
-    }),
-    headerStyle: "font-family: Arial;",
-    style: "@page { size: auto;  margin: 0mm; } html { margin: 10% }",
+    });
+    header.style.fontFamily = "sans-serif";
+
+    // Create the image
+    const image = document.createElement("img");
+    image.src = new URL(
+      `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
+      import.meta.url
+    ).href
+    image.style.maxWidth = '100%';
+
+    // Append the image to the iframe's body
+    iframe.contentDocument?.body?.append(header, image);
+
+    image.addEventListener('load', function () {
+      // Invoke the print when the image is ready
+      iframe.contentWindow?.print();
+    });
   });
 }
+
 </script>
