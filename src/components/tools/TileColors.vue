@@ -2,21 +2,27 @@
   <div class="h-100 d-flex flex-column">
     <div class="flex-grow-1 overflow-auto p-2 position-relative">
       <div class="row row-cols-1 row-cols-lg-2 row-cols-xxl-4 m-0">
-        <div v-for="color in sortedColors" :key="color.number_pixelhobby" class="col p-2">
+        <div
+          v-for="color in sortedColors"
+          :key="color.number_pixelhobby"
+          class="col p-2"
+        >
           <ColorCard :color="color" />
         </div>
       </div>
-      <div v-if="processed_tiles < tiles.length"
-        class="position-absolute start-0 top-0 bottom-0 end-0 d-flex flex-column align-items-center justify-content-center">
+      <div
+        v-if="processed_tiles < tiles.length"
+        class="position-absolute start-0 top-0 bottom-0 end-0 d-flex flex-column align-items-center justify-content-center"
+      >
         <div class="spinner-border" role="status">
           <span class="visually-hidden">Loading...</span>
         </div>
         <div class="mt-2">
           {{
-              t("tile-processing", {
-                current: processed_tiles,
-                amount: tiles.length,
-              })
+            t("tile-processing", {
+              current: processed_tiles,
+              amount: tiles.length,
+            })
           }}
         </div>
       </div>
@@ -24,12 +30,26 @@
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>{{ t("amount-colors", { amount: sortedColors.length }) }}</div>
       <div>
-        <button type="button" class="btn btn-secondary me-3" data-bs-toggle="modal" data-bs-target="#orderModal"
-          :disabled="processed_tiles < tiles.length">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-            stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round"
-              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+        <button
+          type="button"
+          class="btn btn-secondary me-3"
+          data-bs-toggle="modal"
+          data-bs-target="#orderModal"
+          :disabled="processed_tiles < tiles.length"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            />
           </svg>
           {{ t("order") }}
         </button>

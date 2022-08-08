@@ -1,16 +1,32 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
+    <div
+      id="navigation-sidebar"
+      class="text-start d-none d-md-flex flex-column background p-2"
+    >
       <!-- Logo Area -->
       <router-link to="/">
-        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
+        <img
+          id="navigation-logo"
+          class="img-fluid mb-2"
+          src="@/assets/images/logo-white.svg"
+        />
       </router-link>
       <!-- Items Area -->
       <nav class="d-flex flex-column">
-        <div class="indicator" :style="`transform: translateY(${translationY}rem);`" />
-        <router-link v-for="item in items" :key="item.name" :to="item.to" class="router-link d-flex align-items-center">
-          <span v-html="item.icon" class="mr-2"></span>
+        <div
+          class="indicator"
+          :style="`transform: translateY(${translationY}rem);`"
+        />
+        <router-link
+          v-for="item in items"
+          :key="item.name"
+          :to="item.to"
+          class="router-link d-flex align-items-center"
+        >
+          <!-- eslint-disable vue/no-v-html -->
+          <span class="mr-2" v-html="item.icon"></span>
           <span class="pt-1">{{ item.name }}</span>
         </router-link>
       </nav>
@@ -21,16 +37,28 @@
     </div>
     <div class="d-flex flex-grow-1 flex-column">
       <!-- In case of mobile view, display top navigation bar -->
-      <nav id="navigation-bar"
-        class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0">
+      <nav
+        id="navigation-bar"
+        class="navbar d-md-none navbar-expand-lg navbar-light p-2 background flex-grow-0 flex-shrink-0"
+      >
         <div class="container-fluid p-0">
           <!-- Logo Area -->
           <router-link class="navbar-brand p-0 ps-2" to="/">
-            <img id="navigation-logo" src="@/assets/images/logo-white.svg" class="img-fluid" />
+            <img
+              id="navigation-logo"
+              src="@/assets/images/logo-white.svg"
+              class="img-fluid"
+            />
           </router-link>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-            aria-label="Toggle navigation">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
             <span class="navbar-toggler-icon" />
           </button>
 
@@ -38,9 +66,13 @@
             <ul class="navbar-nav me-auto pt-2">
               <li v-for="item in items" :key="item.name" class="nav-item">
                 <router-link :to="item.to" class="nav-link router-link">
-                  <div class="d-flex align-items-center" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent">
-                    <span v-html="item.icon" class="mr-2"></span>
+                  <div
+                    class="d-flex align-items-center"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                  >
+                    <!-- eslint-disable vue/no-v-html -->
+                    <span class="mr-2" v-html="item.icon"></span>
                     <span class="pt-1">{{ item.name }}</span>
                   </div>
                 </router-link>

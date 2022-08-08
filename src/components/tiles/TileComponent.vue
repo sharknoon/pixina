@@ -11,8 +11,14 @@
       </div>
       <ZoomWrapper class="flex-grow-1" :src="src" />
       <div class="text-light p-2 text-center">{{ title }}</div>
-      <PrevNextButton type="prev" class="position-absolute top-50 start-0 translate-middle-y" />
-      <PrevNextButton type="next" class="position-absolute top-50 end-0 translate-middle-y" />
+      <PrevNextButton
+        type="prev"
+        class="position-absolute top-50 start-0 translate-middle-y"
+      />
+      <PrevNextButton
+        type="next"
+        class="position-absolute top-50 end-0 translate-middle-y"
+      />
     </div>
   </div>
 </template>

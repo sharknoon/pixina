@@ -1,15 +1,30 @@
 <template>
   <div class="selection-wrapper h-100 d-flex flex-column">
     <div class="d-flex flex-wrap p-2 overflow-auto">
-      <div v-for="tile in tiles" :key="tile" class="position-relative m-2" @click="toggleTileSelection($event, tile)">
-        <TileThumbnail :number="tile" :class="selected_tiles.includes(tile) ? 'thumbnail-selected' : ''">
+      <div
+        v-for="tile in tiles"
+        :key="tile"
+        class="position-relative m-2"
+        @click="toggleTileSelection($event, tile)"
+      >
+        <TileThumbnail
+          :number="tile"
+          :class="selected_tiles.includes(tile) ? 'thumbnail-selected' : ''"
+        >
           <template #top-end>
             <Transition>
               <div v-if="selected_tiles.includes(tile)" class="p-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-6 w-6"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                    clip-rule="evenodd" />
+                    clip-rule="evenodd"
+                  />
                 </svg>
               </div>
             </Transition>
@@ -21,22 +36,27 @@
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>
         {{
-            t(
-              "tile-selection-counter",
-              {
-                amount: selected_tiles.length,
-              },
-              selected_tiles.length
-            )
+          t(
+            "tile-selection-counter",
+            {
+              amount: selected_tiles.length,
+            },
+            selected_tiles.length
+          )
         }}
       </div>
       <div>
-        <button type="button" class="btn btn-primary" :disabled="selected_tiles.length < 1" @click="
-          $router.push({
-            name: 'ColorCount',
-            query: { tiles: selected_tiles },
-          })
-        ">
+        <button
+          type="button"
+          class="btn btn-primary"
+          :disabled="selected_tiles.length < 1"
+          @click="
+            $router.push({
+              name: 'ColorCount',
+              query: { tiles: selected_tiles },
+            })
+          "
+        >
           {{ t("next") }}
         </button>
       </div>
