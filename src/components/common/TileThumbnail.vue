@@ -1,19 +1,11 @@
 <template>
-  <div class="tile-thumbnail position-relative shadow rounded">
-    <img
-      :id="'thumbnail-' + tile?.number"
-      :src="tile?.thumbnail"
-      :alt="'tile-' + tile?.number"
-      width="75"
-      height="60"
-      class="img-pixelated rounded"
-    />
+  <div class="tile-thumbnail position-relative shadow-sm rounded" style="--bs-aspect-ratio: 80%;">
+    <img :id="'thumbnail-' + tile?.number" :src="tile?.thumbnail" :alt="'tile-' + tile?.number" width="75"
+      class="img-pixelated rounded" />
     <div class="position-absolute top-0 end-0">
       <slot name="top-end"></slot>
     </div>
-    <div
-      class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom"
-    >
+    <div class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom">
       {{ tile?.title }}
     </div>
     <div class="position-absolute bottom-0 end-0">

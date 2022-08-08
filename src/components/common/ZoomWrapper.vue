@@ -1,21 +1,21 @@
 <template>
   <div class="position-relative overflow-hidden" style="touch-action: none">
-    <div
-      class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
-      style="z-index: 1"
-    >
+    <div class="position-absolute end-0 bottom-0 m-4 btn-group-vertical" style="z-index: 1">
       <button type="button" class="btn btn-secondary" @click="zoomIn()">
-        <font-awesome-icon :icon="['far', 'plus']" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+        </svg>
       </button>
       <button type="button" class="btn btn-secondary" @click="zoomOut()">
-        <font-awesome-icon :icon="['far', 'minus']" />
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+          stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
+        </svg>
       </button>
     </div>
-    <img
-      id="zoom-img"
-      :src="src"
-      class="img-pixelated mw-100 mh-100 position-absolute top-0 end-0 bottom-0 start-0 m-auto"
-    />
+    <img id="zoom-img" :src="src"
+      class="img-pixelated mw-100 mh-100 position-absolute top-0 end-0 bottom-0 start-0 m-auto" />
   </div>
 </template>
 <script setup lang="ts">
