@@ -53,7 +53,7 @@
           </svg>
           {{ t("order") }}
         </button>
-        <button type="button" class="btn btn-primary" @click="goBack()">
+        <button type="button" class="btn btn-primary" @click="$router.back()">
           {{ t("finish") }}
         </button>
       </div>
@@ -65,7 +65,7 @@
 import type { Ref } from "vue";
 import { computed, ref, onMounted } from "vue";
 import { useI18n } from "vue-i18n";
-import { useRoute, useRouter } from "vue-router";
+import { useRoute } from "vue-router";
 import ColorCard from "@/components/tools/ColorCard.vue";
 import colorsInfos from "@/data/colors.json";
 import OrderModal from "@/components/tools/OrderModal.vue";
@@ -83,7 +83,6 @@ interface Color {
 
 const { t } = useI18n();
 const route = useRoute();
-const router = useRouter();
 
 const processed_tiles: Ref<number> = ref(0);
 const colors: Ref<Color[]> = ref([]);
@@ -150,10 +149,6 @@ onMounted(() => {
     ).href;
   });
 });
-
-function goBack() {
-  router.push({ name: "Tools" });
-}
 
 function getColorInformations(color: number[]): Color {
   if (color[0] == 255 && color[1] == 255 && color[2] == 255) {
