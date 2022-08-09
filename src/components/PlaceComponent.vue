@@ -15,7 +15,7 @@
         <label class="btn btn-outline-secondary" for="btn-check-original">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            style="height: 1.25rem; width: 1.25rem"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -39,7 +39,7 @@
         <label class="btn btn-outline-secondary" for="btn-check-cleaned">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            style="height: 1.25rem; width: 1.25rem"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -64,7 +64,7 @@
           <svg
             v-if="grid"
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            style="height: 1.5rem; width: 1.5rem"
             viewBox="0 0 20 20"
             fill="currentColor"
           >
@@ -75,7 +75,7 @@
           <svg
             v-else
             xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
+            style="height: 1.5rem; width: 1.5rem"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"

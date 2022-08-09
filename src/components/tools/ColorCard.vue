@@ -17,7 +17,7 @@
           </h6>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            class="h-5 w-5"
+            style="height: 1.25rem; width: 1.25rem"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -41,7 +41,8 @@
           <div v-if="color.amount > 140" class="d-flex">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6 mr-1"
+              class="me-1"
+              style="height: 1.5rem; width: 1.5rem"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -81,7 +82,7 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              style="height: 1.25rem; width: 1.25rem"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -104,7 +105,7 @@
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              class="h-5 w-5"
+              style="height: 1.25rem; width: 1.25rem"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
