@@ -1,7 +1,7 @@
 <template>
   <div class="position-fixed top-0 end-0 bottom-0 start-0">
     <div class="d-flex flex-column h-100 bg-dark position-relative">
-      <div class="text-light d-flex justify-content-end p-2">
+      <div class="text-light d-flex justify-content-end p-2 gap-1">
         <ShareButton :tile-number="number" />
         <DownloadButton :tile-number="number" />
         <ColorsButton :tile-number="number" />

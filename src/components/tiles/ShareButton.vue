@@ -1,5 +1,9 @@
 <template>
-  <button v-if="webShareApiSupported()" class="btn btn-dark" @click="share()">
+  <button
+    v-if="webShareApiSupported()"
+    class="btn btn-dark px-2"
+    @click="share()"
+  >
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style="height: 1.5rem; width: 1.5rem"

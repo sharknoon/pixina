@@ -4,7 +4,7 @@
       class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
       style="z-index: 1"
     >
-      <button type="button" class="btn btn-secondary" @click="zoomIn()">
+      <button type="button" class="btn btn-secondary px-2" @click="zoomIn()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           style="height: 1.5rem; width: 1.5rem"
@@ -20,7 +20,7 @@
           />
         </svg>
       </button>
-      <button type="button" class="btn btn-secondary" @click="zoomOut()">
+      <button type="button" class="btn btn-secondary px-2" @click="zoomOut()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           style="height: 1.5rem; width: 1.5rem"

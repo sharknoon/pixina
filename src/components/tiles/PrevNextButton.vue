@@ -1,9 +1,13 @@
 <template>
-  <button class="btn btn-dark m-3" :disabled="disabled" @click="goToPrevNext()">
+  <button
+    class="btn btn-dark m-3 px-0"
+    :disabled="disabled"
+    @click="goToPrevNext()"
+  >
     <svg
       v-if="props.type === 'next'"
       xmlns="http://www.w3.org/2000/svg"
-      style="height: 2.5rem; width: 2.5rem"
+      style="height: 2.5rem"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -14,7 +18,7 @@
     <svg
       v-else
       xmlns="http://www.w3.org/2000/svg"
-      style="height: 2.5rem; width: 2.5rem"
+      style="height: 2.5rem"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
