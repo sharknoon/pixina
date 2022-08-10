@@ -3,7 +3,7 @@
     <svg
       v-if="props.type === 'next'"
       xmlns="http://www.w3.org/2000/svg"
-      class="h-10 w-10"
+      style="height: 2.5rem; width: 2.5rem"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
@@ -14,7 +14,7 @@
     <svg
       v-else
       xmlns="http://www.w3.org/2000/svg"
-      class="h-10 w-10"
+      style="height: 2.5rem; width: 2.5rem"
       fill="none"
       viewBox="0 0 24 24"
       stroke="currentColor"
