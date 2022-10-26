@@ -3,7 +3,7 @@ import { createI18n } from "vue-i18n";
 
 const SUPPORTED_LOCALES = ["en", "de", "en-US", "de-DE"];
 
-function loadLocaleMessages(i18n: I18n<unknown, unknown, unknown, false>) {
+function loadLocaleMessages(i18n: I18n<{}, {}, {}, string, false>) {
   const locales = import.meta.glob("./locales/**/*.json");
   for (const path in locales) {
     locales[path]().then((m) => {
