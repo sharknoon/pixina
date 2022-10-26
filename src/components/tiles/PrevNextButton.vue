@@ -1,6 +1,6 @@
 <template>
   <button
-    class="btn btn-dark m-3 px-0"
+    class="btn text-white m-3 px-0"
     :disabled="disabled"
     @click="goToPrevNext()"
   >
@@ -13,6 +13,7 @@
       stroke="currentColor"
       stroke-width="2"
     >
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="6" stroke="#212529" d="M9 5l7 7-7 7" />
       <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
     </svg>
     <svg
@@ -24,6 +25,13 @@
       stroke="currentColor"
       stroke-width="2"
     >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="6"
+        stroke="#212529"
+        d="M15 19l-7-7 7-7"
+      />
       <path
         stroke-linecap="round"
         stroke-linejoin="round"

@@ -4,7 +4,7 @@
       class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
       style="z-index: 1"
     >
-      <button type="button" class="btn btn-secondary px-2" @click="zoomIn()">
+      <button type="button" class="btn text-white px-2" @click="zoomIn()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           style="height: 1.5rem; width: 1.5rem"
@@ -16,11 +16,18 @@
           <path
             stroke-linecap="round"
             stroke-linejoin="round"
+            stroke-width="6"
+            stroke="#212529"
+            d="M12 4v16m8-8H4"
+          />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
             d="M12 4v16m8-8H4"
           />
         </svg>
       </button>
-      <button type="button" class="btn btn-secondary px-2" @click="zoomOut()">
+      <button type="button" class="btn text-white px-2" @click="zoomOut()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           style="height: 1.5rem; width: 1.5rem"
@@ -29,6 +36,7 @@
           stroke="currentColor"
           stroke-width="2"
         >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="6" stroke="#212529" d="M20 12H4" />
           <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
         </svg>
       </button>
