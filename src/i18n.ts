@@ -3,10 +3,11 @@ import { createI18n } from "vue-i18n";
 
 const SUPPORTED_LOCALES = ["en", "de", "en-US", "de-DE"];
 
-function loadLocaleMessages(i18n: I18n<{}, {}, {}, string, false>) {
-  const locales = import.meta.glob("./locales/**/*.json");
+function loadLocaleMessages(i18n: I18n<object, object, object, string, false>) {
+  const locales = import.meta.glob<{ default: any }>("./locales/**/*.json");
   for (const path in locales) {
     locales[path]().then((m) => {
+      console.log(m);
       const message = m.default;
       const matched = path.match(/([A-Za-z0-9-_]+)\./i);
       if (matched && matched.length > 1) {
