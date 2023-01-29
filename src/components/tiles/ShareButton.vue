@@ -34,7 +34,7 @@ const props = defineProps({
   },
 });
 
-let filesArray: Ref<File[]> = ref([]);
+const filesArray: Ref<File[]> = ref([]);
 
 onMounted(() => {
   fetch(
