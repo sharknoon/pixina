@@ -36,7 +36,13 @@
           stroke="currentColor"
           stroke-width="2"
         >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="6" stroke="#212529" d="M20 12H4" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="6"
+            stroke="#212529"
+            d="M20 12H4"
+          />
           <path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4" />
         </svg>
       </button>

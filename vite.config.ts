@@ -1,17 +1,20 @@
-import path from "path";
-import { fileURLToPath, URL } from "url";
+import { resolve, dirname } from "node:path";
+import { fileURLToPath, URL } from "node:url";
 
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
-import vueI18n from "@intlify/vite-plugin-vue-i18n";
+import VueI18nPlugin from "@intlify/unplugin-vue-i18n/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     vue(),
-    vueI18n({
-      // you need to set i18n resource including paths !
-      include: path.resolve(__dirname, "./src/locales/**"),
+    VueI18nPlugin({
+      // locale messages resource pre-compile option
+      include: resolve(
+        dirname(fileURLToPath(import.meta.url)),
+        "./src/locales/**"
+      ),
     }),
   ],
   resolve: {
