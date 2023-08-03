@@ -152,12 +152,18 @@ const translationY = ref(-0.25);
 watchEffect(() => {
   const path = router.currentRoute.value.path;
   const index = items.value.findIndex((item) => path.startsWith(item.to));
-  translationY.value = index * 2.8 - 0.25;
+  if (index !== -1) {
+    translationY.value = index * 2.8 - 0.25;
+  } else {
+    translationY.value = -999;
+  }
 
   const meta = router.currentRoute.value.meta;
-  let title = "Pixina";
+  const title = "Pixina";
   if (meta.title) {
     document.title = title + " - " + t(String(meta.title));
+  } else {
+    document.title = title;
   }
 });
 </script>

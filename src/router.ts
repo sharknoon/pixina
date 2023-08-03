@@ -89,6 +89,13 @@ const router = createRouter({
             },
           ],
         },
+        {
+          path: "privacy",
+          component: () => import("@/components/privacy/PrivacyPolicy.vue"),
+          meta: {
+            title: "privacy",
+          },
+        },
       ],
     },
     {
