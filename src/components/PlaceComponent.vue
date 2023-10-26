@@ -25,7 +25,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          {{ t("original") }}
+          {{ t('original') }}
         </label>
 
         <input
@@ -49,7 +49,7 @@
               clip-rule="evenodd"
             />
           </svg>
-          {{ t("cleaned") }}
+          {{ t('cleaned') }}
         </label>
       </div>
       <div>
@@ -87,71 +87,70 @@
               d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
             />
           </svg>
-          {{ t("grid") }}
+          {{ t('grid') }}
         </label>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, onMounted, computed, watch } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import ZoomWrapper from "@/components/common/ZoomWrapper.vue";
+import { ref, onMounted, computed, watch } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import ZoomWrapper from '@/components/common/ZoomWrapper.vue'
 
-const route = useRoute();
-const router = useRouter();
-const { t } = useI18n();
+const route = useRoute()
+const router = useRouter()
+const { t } = useI18n()
 
-const grid = ref(false);
-const variant = ref("original");
+const grid = ref(false)
+const variant = ref('original')
 
 const placeUrl = computed(() => {
-  let fileName: string = variant.value + (grid.value ? "_grid" : "");
-  return new URL(`../assets/images/place/${fileName}.webp`, import.meta.url)
-    .href;
-});
+  const fileName: string = variant.value + (grid.value ? '_grid' : '')
+  return new URL(`../assets/images/place/${fileName}.webp`, import.meta.url).href
+})
 
-watch(variant, () => updateQueryParams());
-watch(grid, () => updateQueryParams());
+watch(variant, () => updateQueryParams())
+watch(grid, () => updateQueryParams())
 
-onMounted(() => readQueryParams());
+onMounted(() => readQueryParams())
 
 function readQueryParams() {
-  const variantQuery = route.query.variant;
+  const variantQuery = route.query.variant
   if (variantQuery) {
     switch (variantQuery.toString().toLowerCase()) {
-      case "original":
-        variant.value = "original";
-        break;
-      case "cleaned":
-        variant.value = "cleaned";
-        break;
+      case 'original':
+        variant.value = 'original'
+        break
+      case 'cleaned':
+        variant.value = 'cleaned'
+        break
     }
   }
-  const gridQuery = route.query.grid;
+  const gridQuery = route.query.grid
   if (gridQuery) {
     switch (gridQuery.toString().toLowerCase()) {
-      case "true":
-        grid.value = true;
-        break;
-      case "false":
-        grid.value = false;
-        break;
+      case 'true':
+        grid.value = true
+        break
+      case 'false':
+        grid.value = false
+        break
     }
   }
 }
 
 function updateQueryParams() {
-  let query: Record<string, string> = {};
-  if (variant.value === "cleaned") {
-    query.variant = variant.value;
+  const query: Record<string, string> = {}
+  if (variant.value === 'cleaned') {
+    query.variant = variant.value
   }
   if (grid.value) {
-    query.grid = grid.value.toString();
+    query.grid = grid.value.toString()
   }
   router.replace({
-    query: query,
-  });
+    query: query
+  })
 }
 </script>

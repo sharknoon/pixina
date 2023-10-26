@@ -1,24 +1,14 @@
 <template>
   <div class="h-100 d-flex">
     <!-- In case of desktop wiew, display left navigation bar -->
-    <div
-      id="navigation-sidebar"
-      class="text-start d-none d-md-flex flex-column background p-2"
-    >
+    <div id="navigation-sidebar" class="text-start d-none d-md-flex flex-column background p-2">
       <!-- Logo Area -->
       <router-link to="/">
-        <img
-          id="navigation-logo"
-          class="img-fluid mb-2"
-          src="@/assets/images/logo-white.svg"
-        />
+        <img id="navigation-logo" class="img-fluid mb-2" src="@/assets/images/logo-white.svg" />
       </router-link>
       <!-- Items Area -->
       <nav class="d-flex flex-column">
-        <div
-          class="indicator"
-          :style="`transform: translateY(${translationY}rem);`"
-        />
+        <div class="indicator" :style="`transform: translateY(${translationY}rem);`" />
         <router-link
           v-for="item in items"
           :key="item.name"
@@ -44,11 +34,7 @@
         <div class="container-fluid p-0">
           <!-- Logo Area -->
           <router-link class="navbar-brand p-0 ps-2" to="/">
-            <img
-              id="navigation-logo"
-              src="@/assets/images/logo-white.svg"
-              class="img-fluid"
-            />
+            <img id="navigation-logo" src="@/assets/images/logo-white.svg" class="img-fluid" />
           </router-link>
           <button
             class="navbar-toggler"
@@ -92,86 +78,86 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed, watchEffect, ref } from "vue";
-import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import DonationButton from "@/components/navigation/DonationButton.vue";
-import LanguageDropdown from "@/components/navigation/LanguageDropdown.vue";
+import { computed, watchEffect, ref } from 'vue'
+import { useRouter } from 'vue-router'
+import { useI18n } from 'vue-i18n'
+import DonationButton from '@/components/navigation/DonationButton.vue'
+import LanguageDropdown from '@/components/navigation/LanguageDropdown.vue'
 
-const router = useRouter();
-const { t } = useI18n();
+const router = useRouter()
+const { t } = useI18n()
 
 const items = computed(() => [
   {
-    name: t("templates"),
+    name: t('templates'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
 </svg>`,
-    to: "/templates",
+    to: '/templates'
   },
   {
-    name: t("informations"),
+    name: t('informations'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
 </svg>`,
-    to: "/informations",
+    to: '/informations'
   },
   {
-    name: t("image"),
+    name: t('image'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
 </svg>`,
-    to: "/image",
+    to: '/image'
   },
   {
-    name: t("history"),
+    name: t('history'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
 </svg>`,
-    to: "/history",
+    to: '/history'
   },
   {
-    name: t("atlas"),
+    name: t('atlas'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
 </svg>`,
-    to: "/atlas",
+    to: '/atlas'
   },
   {
-    name: t("tools"),
+    name: t('tools'),
     icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
   <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
   <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 </svg>`,
-    to: "/tools",
-  },
-]);
+    to: '/tools'
+  }
+])
 
-const translationY = ref(-0.25);
+const translationY = ref(-0.25)
 
 watchEffect(() => {
-  const path = router.currentRoute.value.path;
-  const index = items.value.findIndex((item) => path.startsWith(item.to));
+  const path = router.currentRoute.value.path
+  const index = items.value.findIndex((item) => path.startsWith(item.to))
   if (index !== -1) {
-    translationY.value = index * 2.8 - 0.25;
+    translationY.value = index * 2.8 - 0.25
   } else {
-    translationY.value = -999;
+    translationY.value = -999
   }
 
-  const meta = router.currentRoute.value.meta;
-  const title = "Pixina";
+  const meta = router.currentRoute.value.meta
+  const title = 'Pixina'
   if (meta.title) {
-    document.title = title + " - " + t(String(meta.title));
+    document.title = title + ' - ' + t(String(meta.title))
   } else {
-    document.title = title;
+    document.title = title
   }
-});
+})
 </script>
 <style scoped lang="scss">
 // Common styles for mobile and desktop
 
 .background {
-  background: url("./../assets/images/background.webp") no-repeat;
+  background: url('./../assets/images/background.webp') no-repeat;
   background-size: cover;
 }
 
@@ -209,7 +195,7 @@ watchEffect(() => {
     }
 
     .indicator::before {
-      content: "";
+      content: '';
       position: absolute;
       width: 0.6rem;
       height: 0.6rem;
@@ -221,7 +207,7 @@ watchEffect(() => {
     }
 
     .indicator::after {
-      content: "";
+      content: '';
       position: absolute;
       width: 0.6rem;
       height: 0.6rem;

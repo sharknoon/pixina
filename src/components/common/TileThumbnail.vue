@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="tile-thumbnail position-relative shadow-sm rounded"
-    style="--bs-aspect-ratio: 80%"
-  >
+  <div class="tile-thumbnail position-relative shadow-sm rounded" style="--bs-aspect-ratio: 80%">
     <img
       :id="'thumbnail-' + tile?.number"
       :src="tile?.thumbnail"
@@ -13,9 +10,7 @@
     <div class="position-absolute top-0 end-0">
       <slot name="top-end"></slot>
     </div>
-    <div
-      class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom"
-    >
+    <div class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom">
       {{ tile?.title }}
     </div>
     <div class="position-absolute bottom-0 end-0">
@@ -27,24 +22,21 @@
 const props = defineProps({
   number: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
 interface Tile {
-  number: number;
-  thumbnail: string;
-  title: string;
+  number: number
+  thumbnail: string
+  title: string
 }
 
 const tile: Tile = {
   number: props.number,
-  thumbnail: new URL(
-    `../../assets/images/templates/${props.number}.webp`,
-    import.meta.url
-  ).href,
-  title: String(props.number),
-};
+  thumbnail: new URL(`../../assets/images/templates/${props.number}.webp`, import.meta.url).href,
+  title: String(props.number)
+}
 </script>
 <style lang="scss" scoped>
 .thumbnail-footer {

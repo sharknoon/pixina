@@ -1,13 +1,9 @@
 <template>
   <div v-if="!progress.error" class="position-relative">
     <div class="container d-flex flex-column justify-content-center h-100 my-4">
-      <h1 class="display-1 text-center mb-0 lh-1">
-        {{ progress.finished / 5 }}%
-      </h1>
-      <h5 class="text-center mb-0">{{ t("finished") }}</h5>
-      <small class="text-center mb-4"
-        >{{ progress.finished }} / 500 {{ t("tiles") }}</small
-      >
+      <h1 class="display-1 text-center mb-0 lh-1">{{ progress.finished / 5 }}%</h1>
+      <h5 class="text-center mb-0">{{ t('finished') }}</h5>
+      <small class="text-center mb-4">{{ progress.finished }} / 500 {{ t('tiles') }}</small>
 
       <div
         class="progress rounded-pill overflow-visible"
@@ -33,7 +29,7 @@
               style="z-index: 100; translate: 0 -50%"
               class="position-absolute start-50 translate-middle bg-black text-white px-3 py-1 rounded"
             >
-              {{ progress[i] }} {{ t("tiles") }}
+              {{ progress[i] }} {{ t('tiles') }}
               <svg
                 width="1em"
                 height="1em"
@@ -75,37 +71,37 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
-import { useI18n } from "vue-i18n";
-import { useProgressStore } from "@/stores/progress";
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { useProgressStore } from '@/stores/progress'
 
-const { t } = useI18n();
-const progress = useProgressStore();
+const { t } = useI18n()
+const progress = useProgressStore()
 
-const currentMouseOver = ref<string>();
+const currentMouseOver = ref<string>()
 
 const tileProgress = ref({
   finished: {
-    classes: "bg-success text-bg-success",
-    styles: "border-radius: 50rem 0 0 50rem;",
-    text: "finished",
+    classes: 'bg-success text-bg-success',
+    styles: 'border-radius: 50rem 0 0 50rem;',
+    text: 'finished'
   },
   inProgress: {
-    classes: "bg-primary text-bg-primary",
-    styles: "",
-    text: "in-progress",
+    classes: 'bg-primary text-bg-primary',
+    styles: '',
+    text: 'in-progress'
   },
   reserved: {
-    classes: "bg-danger text-bg-danger",
-    styles: "",
-    text: "reserved",
+    classes: 'bg-danger text-bg-danger',
+    styles: '',
+    text: 'reserved'
   },
   available: {
-    classes: "bg-warning text-bg-warning",
-    styles: "border-radius: 0 50rem 50rem 0;",
-    text: "available",
-  },
-});
+    classes: 'bg-warning text-bg-warning',
+    styles: 'border-radius: 0 50rem 50rem 0;',
+    text: 'available'
+  }
+})
 </script>
 <style scoped>
 .v-enter-active,

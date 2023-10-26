@@ -1,28 +1,28 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
-export const useLocaleStore = defineStore("locale", {
+export const useLocaleStore = defineStore('locale', {
   state: () => {
     return {
-      locale: "",
-    };
+      locale: ''
+    }
   },
   actions: {
     changeLocale(locale: string) {
-      this.locale = locale;
-    },
+      this.locale = locale
+    }
   },
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      const vuex: string | null = localStorage.getItem("vuex");
+      const vuex: string | null = localStorage.getItem('vuex')
       if (vuex) {
         try {
-          const newLocale: string = JSON.parse(vuex).locale;
-          localStorage.setItem("locale", JSON.stringify({ locale: newLocale }));
+          const newLocale: string = JSON.parse(vuex).locale
+          localStorage.setItem('locale', JSON.stringify({ locale: newLocale }))
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
       }
-    },
-  },
-});
+    }
+  }
+})

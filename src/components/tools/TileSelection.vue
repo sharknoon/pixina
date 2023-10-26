@@ -37,9 +37,9 @@
       <div>
         {{
           t(
-            "tile-selection-counter",
+            'tile-selection-counter',
             {
-              amount: selected_tiles.length,
+              amount: selected_tiles.length
             },
             selected_tiles.length
           )
@@ -53,52 +53,51 @@
           @click="
             $router.push({
               name: 'ColorCount',
-              query: { tiles: selected_tiles },
+              query: { tiles: selected_tiles }
             })
           "
         >
-          {{ t("next") }}
+          {{ t('next') }}
         </button>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { ref, type Ref } from "vue";
-import { useI18n } from "vue-i18n";
-import TileThumbnail from "@/components/common/TileThumbnail.vue";
+import { ref, type Ref } from 'vue'
+import { useI18n } from 'vue-i18n'
+import TileThumbnail from '@/components/common/TileThumbnail.vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
-const selected_tiles: Ref<number[]> = ref([]);
+const selected_tiles: Ref<number[]> = ref([])
 
-const tiles: number[] = [];
+const tiles: number[] = []
 for (let number = 0; number < 500; number++) {
-  tiles.push(number);
+  tiles.push(number)
 }
 
 function toggleTileSelection(event: MouseEvent, number: number) {
-  let fromNumber = number; // inclusive
-  let toNumber = number; // inclusive
+  let fromNumber = number // inclusive
+  let toNumber = number // inclusive
 
   if (event.shiftKey) {
-    let last_selected_tile: number =
-      selected_tiles.value[selected_tiles.value.length - 1];
+    const last_selected_tile: number = selected_tiles.value[selected_tiles.value.length - 1]
     if (last_selected_tile < number) {
-      fromNumber = last_selected_tile + 1;
-      toNumber = number;
+      fromNumber = last_selected_tile + 1
+      toNumber = number
     } else {
-      fromNumber = number;
-      toNumber = last_selected_tile - 1;
+      fromNumber = number
+      toNumber = last_selected_tile - 1
     }
   }
 
   for (let number: number = fromNumber; number <= toNumber; number++) {
-    let index: number = selected_tiles.value.indexOf(number);
+    const index: number = selected_tiles.value.indexOf(number)
     if (index >= 0) {
-      selected_tiles.value.splice(index, 1);
+      selected_tiles.value.splice(index, 1)
     } else {
-      selected_tiles.value.push(number);
+      selected_tiles.value.push(number)
     }
   }
 }

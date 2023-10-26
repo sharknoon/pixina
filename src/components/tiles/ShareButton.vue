@@ -1,9 +1,5 @@
 <template>
-  <button
-    v-if="webShareApiSupported()"
-    class="btn btn-dark px-2"
-    @click="share()"
-  >
+  <button v-if="webShareApiSupported()" class="btn btn-dark px-2" @click="share()">
     <svg
       xmlns="http://www.w3.org/2000/svg"
       style="height: 1.5rem; width: 1.5rem"
@@ -21,56 +17,53 @@
   </button>
 </template>
 <script setup lang="ts">
-import type { Ref } from "vue";
-import { onMounted, ref } from "vue";
-import { useI18n } from "vue-i18n";
+import type { Ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const props = defineProps({
   tileNumber: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
-const filesArray: Ref<File[]> = ref([]);
+const filesArray: Ref<File[]> = ref([])
 
 onMounted(() => {
   fetch(
-    new URL(
-      `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
-      import.meta.url
-    ).href
+    new URL(`../../assets/images/templates/${props.tileNumber}-detailed.webp`, import.meta.url).href
   )
     .then((res: Response) => res.blob())
     .then((blob: Blob) => {
       const file: File = new File([blob], `tile_${props.tileNumber}.webp`, {
-        type: blob.type,
-      });
-      filesArray.value = [file];
-    });
-});
+        type: blob.type
+      })
+      filesArray.value = [file]
+    })
+})
 
 function webShareApiSupported() {
   if (!navigator.canShare) {
-    return false;
+    return false
   }
-  return navigator.canShare({ files: filesArray.value });
+  return navigator.canShare({ files: filesArray.value })
 }
 
 function share() {
   if (webShareApiSupported()) {
     navigator.share({
       files: filesArray.value,
-      title: t("tile-title", {
+      title: t('tile-title', {
         number: props.tileNumber,
         x: props.tileNumber % 20,
-        y: Math.floor(props.tileNumber / 20),
+        y: Math.floor(props.tileNumber / 20)
       }),
-      text: t("share-description"),
-      url: window.location.href,
-    });
+      text: t('share-description'),
+      url: window.location.href
+    })
   }
 }
 </script>

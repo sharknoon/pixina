@@ -24,19 +24,14 @@
               d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"
             />
           </svg>
-          <h5 class="modal-title">{{ t("cutting-information") }}</h5>
-          <button
-            type="button"
-            class="btn-close"
-            data-bs-dismiss="modal"
-            aria-label="Close"
-          />
+          <h5 class="modal-title">{{ t('cutting-information') }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" />
         </div>
         <div class="modal-body">
           <h5>
             {{
               t(
-                "amount-colorplates",
+                'amount-colorplates',
                 { amount: Math.floor(color.amount / 140) },
                 Math.floor(color.amount / 140)
               )
@@ -44,28 +39,22 @@
             +
           </h5>
           <ColorPlate :color="color" />
-          {{
-            t(
-              "amount-pixels",
-              { amount: color.amount % 140 },
-              color.amount % 140
-            )
-          }}
+          {{ t('amount-pixels', { amount: color.amount % 140 }, color.amount % 140) }}
         </div>
       </div>
     </div>
   </div>
 </template>
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
-import ColorPlate from "@/components/tools/ColorPlate.vue";
+import { useI18n } from 'vue-i18n'
+import ColorPlate from '@/components/tools/ColorPlate.vue'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 defineProps({
   color: {
     type: Object,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 </script>

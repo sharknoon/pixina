@@ -17,21 +17,21 @@
   </button>
 </template>
 <script setup lang="ts">
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router'
 
-const router = useRouter();
+const router = useRouter()
 
 const props = defineProps({
   tileNumber: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
 function showColors() {
   router.push({
-    name: "ColorCount",
-    query: { tiles: [props.tileNumber] },
-  });
+    name: 'ColorCount',
+    query: { tiles: [props.tileNumber] }
+  })
 }
 </script>

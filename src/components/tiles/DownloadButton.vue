@@ -20,21 +20,21 @@
 const props = defineProps({
   tileNumber: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
 function download() {
   const url = new URL(
     `../../assets/images/templates/${props.tileNumber}-detailed.png`,
     import.meta.url
-  ).href;
-  const a = document.createElement("a");
-  a.style.display = "none";
-  a.href = url;
-  a.download = "tile_" + props.tileNumber;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
+  ).href
+  const a = document.createElement('a')
+  a.style.display = 'none'
+  a.href = url
+  a.download = 'tile_' + props.tileNumber
+  document.body.appendChild(a)
+  a.click()
+  document.body.removeChild(a)
 }
 </script>

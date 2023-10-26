@@ -1,42 +1,42 @@
-import { defineStore } from "pinia";
+import { defineStore } from 'pinia'
 
-export const useFavoriteTilesStore = defineStore("favorite-tiles", {
+export const useFavoriteTilesStore = defineStore('favorite-tiles', {
   state: () => {
     return {
-      favoriteTiles: <number[]>[],
-    };
+      favoriteTiles: <number[]>[]
+    }
   },
   getters: {
     isFavorite: (state) => (tile: number) => {
-      return state.favoriteTiles.includes(tile);
-    },
+      return state.favoriteTiles.includes(tile)
+    }
   },
   actions: {
     toggleFavoriteTile(tile: number) {
-      const index = this.favoriteTiles.indexOf(tile);
+      const index = this.favoriteTiles.indexOf(tile)
       if (index >= 0) {
-        this.favoriteTiles.splice(index, 1);
+        this.favoriteTiles.splice(index, 1)
       } else {
-        this.favoriteTiles.push(tile);
+        this.favoriteTiles.push(tile)
       }
-    },
+    }
   },
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      const vuex: string | null = localStorage.getItem("vuex");
+      const vuex: string | null = localStorage.getItem('vuex')
       if (vuex) {
         try {
-          const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
+          const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles
           localStorage.setItem(
-            "favorite-tiles",
+            'favorite-tiles',
             JSON.stringify({ favoriteTiles: newFavoriteTiles })
-          );
-          localStorage.removeItem("vuex");
+          )
+          localStorage.removeItem('vuex')
         } catch (e) {
-          console.error(e);
+          console.error(e)
         }
       }
-    },
-  },
-});
+    }
+  }
+})

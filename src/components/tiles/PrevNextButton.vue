@@ -1,9 +1,5 @@
 <template>
-  <button
-    class="btn text-white m-3 px-0"
-    :disabled="disabled"
-    @click="goToPrevNext()"
-  >
+  <button class="btn text-white m-3 px-0" :disabled="disabled" @click="goToPrevNext()">
     <svg
       v-if="props.type === 'next'"
       xmlns="http://www.w3.org/2000/svg"
@@ -38,42 +34,36 @@
         stroke="#212529"
         d="M15 19l-7-7 7-7"
       />
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M15 19l-7-7 7-7"
-      />
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
     </svg>
   </button>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const route = useRoute();
-const router = useRouter();
+const route = useRoute()
+const router = useRouter()
 
 const props = defineProps({
   type: {
     type: String,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
 const number = computed(() => {
-  const paramNumber = route.params.number;
+  const paramNumber = route.params.number
   if (Array.isArray(paramNumber)) {
-    return parseInt(paramNumber[0]);
+    return parseInt(paramNumber[0])
   } else {
-    return parseInt(paramNumber);
+    return parseInt(paramNumber)
   }
-});
-const disabled = computed(() =>
-  props.type === "next" ? number.value >= 499 : number.value <= 0
-);
+})
+const disabled = computed(() => (props.type === 'next' ? number.value >= 499 : number.value <= 0))
 
 function goToPrevNext() {
-  const newNumber = props.type === "next" ? number.value + 1 : number.value - 1;
-  router.push({ name: "Template", params: { number: newNumber } });
+  const newNumber = props.type === 'next' ? number.value + 1 : number.value - 1
+  router.push({ name: 'Template', params: { number: newNumber } })
 }
 </script>

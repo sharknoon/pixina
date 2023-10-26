@@ -17,50 +17,50 @@
   </button>
 </template>
 <script setup lang="ts">
-import { useI18n } from "vue-i18n";
+import { useI18n } from 'vue-i18n'
 
-const { t } = useI18n();
+const { t } = useI18n()
 
 const props = defineProps({
   tileNumber: {
     type: Number,
-    required: true,
-  },
-});
+    required: true
+  }
+})
 
 function print() {
-  const iframe = document.createElement("iframe");
-  iframe.style.height = "0";
-  iframe.style.visibility = "hidden";
-  iframe.style.width = "0";
-  iframe.setAttribute("srcdoc", "<html><body></body></html>");
+  const iframe = document.createElement('iframe')
+  iframe.style.height = '0'
+  iframe.style.visibility = 'hidden'
+  iframe.style.width = '0'
+  iframe.setAttribute('srcdoc', '<html><body></body></html>')
 
-  document.body.appendChild(iframe);
+  document.body.appendChild(iframe)
 
-  iframe.addEventListener("load", function () {
+  iframe.addEventListener('load', function () {
     // Create the header
-    const header = document.createElement("h1");
-    header.innerText = t("tile-title", {
+    const header = document.createElement('h1')
+    header.innerText = t('tile-title', {
       number: props.tileNumber,
       x: props.tileNumber % 20,
-      y: Math.floor(props.tileNumber / 20),
-    });
-    header.style.fontFamily = "sans-serif";
+      y: Math.floor(props.tileNumber / 20)
+    })
+    header.style.fontFamily = 'sans-serif'
 
     // Create the image
-    const image = document.createElement("img");
+    const image = document.createElement('img')
     image.src = new URL(
       `../../assets/images/templates/${props.tileNumber}-detailed.webp`,
       import.meta.url
-    ).href;
-    image.style.maxWidth = "100%";
+    ).href
+    image.style.maxWidth = '100%'
 
-    iframe.contentDocument?.body?.append(header, image);
+    iframe.contentDocument?.body?.append(header, image)
 
     // Invoke the print when the image is ready
-    image.addEventListener("load", function () {
-      iframe.contentWindow?.print();
-    });
-  });
+    image.addEventListener('load', function () {
+      iframe.contentWindow?.print()
+    })
+  })
 }
 </script>

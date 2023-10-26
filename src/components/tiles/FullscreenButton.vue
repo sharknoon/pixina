@@ -34,25 +34,25 @@
   </button>
 </template>
 <script setup lang="ts">
-import { reactive } from "vue";
+import { reactive } from 'vue'
 
 const emit = defineEmits<{
-  (event: "fullscreen", state: boolean): void;
-}>();
+  (event: 'fullscreen', state: boolean): void
+}>()
 
-const state = reactive({ isFullscreen: !!document.fullscreenElement });
+const state = reactive({ isFullscreen: !!document.fullscreenElement })
 
 function toggleFullscreen() {
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen().then(() => {
-      state.isFullscreen = true;
-      emit("fullscreen", true);
-    });
+      state.isFullscreen = true
+      emit('fullscreen', true)
+    })
   } else if (document.exitFullscreen) {
     document.exitFullscreen().then(() => {
-      state.isFullscreen = false;
-      emit("fullscreen", false);
-    });
+      state.isFullscreen = false
+      emit('fullscreen', false)
+    })
   }
 }
 </script>

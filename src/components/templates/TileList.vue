@@ -1,12 +1,7 @@
 <template>
   <div class="list-wrapper h-100 d-flex flex-column">
     <div class="d-flex flex-wrap p-2">
-      <div
-        v-for="tile in tiles"
-        :key="tile"
-        class="position-relative m-2"
-        @click="openTile(tile)"
-      >
+      <div v-for="tile in tiles" :key="tile" class="position-relative m-2" @click="openTile(tile)">
         <TileThumbnail :number="tile">
           <template #bottom-end>
             <div class="favorite-button" @click.stop="toggleTileFavorite(tile)">
@@ -46,49 +41,49 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
-import { useRouter } from "vue-router";
-import { useFavoriteTilesStore } from "@/stores/favorite-tiles";
-import TileThumbnail from "@/components/common/TileThumbnail.vue";
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useFavoriteTilesStore } from '@/stores/favorite-tiles'
+import TileThumbnail from '@/components/common/TileThumbnail.vue'
 
-const router = useRouter();
-const store = useFavoriteTilesStore();
+const router = useRouter()
+const store = useFavoriteTilesStore()
 
 const props = defineProps({
   filter: {
     type: String,
-    default: "all",
+    default: 'all',
     validator(value: string) {
-      return ["all", "favorites"].includes(value);
-    },
-  },
-});
+      return ['all', 'favorites'].includes(value)
+    }
+  }
+})
 
 const tiles = computed(() => {
-  if (props.filter === "favorites") {
+  if (props.filter === 'favorites') {
     return store.favoriteTiles
       .concat() // basically copies the array
       .sort(function (tileA, tileB) {
-        return tileA - tileB;
-      });
+        return tileA - tileB
+      })
   } else {
-    let tiles = [];
+    const tiles = []
     for (let number = 0; number < 500; number++) {
-      tiles.push(number);
+      tiles.push(number)
     }
-    return tiles;
+    return tiles
   }
-});
+})
 
 function toggleTileFavorite(number: number) {
-  store.toggleFavoriteTile(number);
+  store.toggleFavoriteTile(number)
 }
 
 function openTile(number: number) {
   router.push({
-    name: "Template",
-    params: { number: number },
-  });
+    name: 'Template',
+    params: { number: number }
+  })
 }
 </script>
 <style lang="scss" scoped>
