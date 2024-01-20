@@ -12,31 +12,32 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@intlify/unplugin-vue-i18n": "^1.4.0",
+    "@intlify/unplugin-vue-i18n": "^2.0.0",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.2",
     "pinia": "^2.1.7",
-    "pinia-plugin-persistedstate": "^3.2.0",
-    "vue": "^3.3.7",
-    "vue-i18n": "^9.6.0",
+    "pinia-plugin-persistedstate": "^3.2.1",
+    "vue": "^3.4.15",
+    "vue-i18n": "^9.9.0",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
-    "@types/bootstrap": "^5.2.8",
-    "sass": "^1.69.5",
-    "@rushstack/eslint-patch": "^1.5.1",
+    "@types/bootstrap": "^5.2.10",
+    "sass": "^1.70.0",
+    "@rushstack/eslint-patch": "^1.7.0",
     "@tsconfig/node18": "^18.2.2",
-    "@types/node": "^20.8.9",
-    "@vitejs/plugin-vue": "^4.4.0",
-    "@vue/eslint-config-prettier": "^8.0.0",
+    "@types/node": "^20.11.5",
+    "@vitejs/plugin-vue": "^5.0.3",
+    "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/eslint-config-typescript": "^12.0.0",
-    "@vue/tsconfig": "^0.4.0",
-    "eslint": "^8.52.0",
-    "eslint-plugin-vue": "^9.18.0",
+    "@vue/tsconfig": "^0.5.1",
+    "eslint": "^8.56.0",
+    "eslint-plugin-vue": "^9.20.1",
     "npm-run-all2": "^6.1.1",
-    "prettier": "^3.0.3",
-    "typescript": "~5.2.2",
-    "vite": "^4.5.0",
-    "vue-tsc": "^1.8.22"
-  }
+    "prettier": "^3.2.4",
+    "typescript": "~5.3.3",
+    "vite": "^5.0.12",
+    "vue-tsc": "^1.8.27"
+  },
+  "type": "module"
 }
