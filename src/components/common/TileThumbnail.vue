@@ -7,13 +7,13 @@
       width="75"
       class="img-pixelated rounded"
     />
-    <div class="position-absolute top-0 end-0">
+    <div class="position-absolute top-0 end-0 d-flex gap-1">
       <slot name="top-end"></slot>
     </div>
     <div class="thumbnail-footer position-absolute bottom-0 text-dark w-100 fw-bold rounded-bottom">
       {{ tile?.title }}
     </div>
-    <div class="position-absolute bottom-0 end-0">
+    <div class="position-absolute bottom-0 end-0 d-flex gap-1">
       <slot name="bottom-end"></slot>
     </div>
   </div>

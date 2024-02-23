@@ -4,11 +4,11 @@ export const useProgressStore = defineStore('progress', {
   state: () => {
     return {
       error: false,
-      finished: [],
-      inProgress: [],
-      reserved: [],
-      availableInStock: [],
-      availableOutOfStock: []
+      finished: [] as number[],
+      inProgress: [] as number[],
+      reserved: [] as number[],
+      availableInStock: [] as number[],
+      availableOutOfStock: [] as number[]
     }
   },
   getters: {
