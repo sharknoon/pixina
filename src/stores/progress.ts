@@ -4,15 +4,23 @@ export const useProgressStore = defineStore('progress', {
   state: () => {
     return {
       error: false,
-      finished: 0,
-      inProgress: 0,
-      reserved: 0,
-      available: 0
+      finished: [],
+      inProgress: [],
+      reserved: [],
+      availableInStock: [],
+      availableOutOfStock: []
     }
   },
   getters: {
     isLoaded(state): boolean {
-      return state.finished + state.inProgress + state.reserved + state.available > 0
+      return (
+        state.finished.length +
+          state.inProgress.length +
+          state.reserved.length +
+          state.availableInStock.length +
+          state.availableOutOfStock.length >
+        0
+      )
     }
   }
 })
@@ -28,7 +36,8 @@ fetch('https://pixina.app/api/v1/progress')
           progress.finished = data.finished
           progress.inProgress = data.inProgress
           progress.reserved = data.reserved
-          progress.available = 500 - data.finished - data.inProgress - data.reserved
+          progress.availableInStock = data.availableInStock
+          progress.availableOutOfStock = data.availableOutOfStock
         })
         .catch((error: Error) => {
           progress.error = true

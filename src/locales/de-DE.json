@@ -114,6 +114,7 @@
   "finished": "Fertiggestellt",
   "in-progress": "In Arbeit",
   "reserved": "Reserviert",
-  "available": "Frei",
+  "available-in-stock": "Frei",
+  "available-out-of-stock": "Frei (nicht lagernd)",
   "privacy": "Datenschutz"
 }

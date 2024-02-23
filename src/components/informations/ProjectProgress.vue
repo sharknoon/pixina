@@ -1,9 +1,9 @@
 <template>
   <div v-if="!progress.error" class="position-relative">
     <div class="container d-flex flex-column justify-content-center h-100 my-4">
-      <h1 class="display-1 text-center mb-0 lh-1">{{ progress.finished / 5 }}%</h1>
+      <h1 class="display-1 text-center mb-0 lh-1">{{ progress.finished.length / 5 }}%</h1>
       <h5 class="text-center mb-0">{{ t('finished') }}</h5>
-      <small class="text-center mb-4">{{ progress.finished }} / 500 {{ t('tiles') }}</small>
+      <small class="text-center mb-4">{{ progress.finished.length }} / 500 {{ t('tiles') }}</small>
 
       <div
         class="progress rounded-pill overflow-visible"
@@ -16,20 +16,20 @@
           :class="p.classes"
           class="progress-bar position-relative overflow-visible"
           role="progressbar"
-          :style="`width: ${progress[i] / 5}%; ${p.styles};`"
-          :aria-valuenow="progress[i]"
+          :style="`width: ${progress[i].length / 5}%; ${p.styles}; overflow-x: clip !important`"
+          :aria-valuenow="progress[i].length"
           aria-valuemin="0"
           aria-valuemax="100"
           @mouseover="currentMouseOver = i"
         >
-          {{ progress[i] / 5 }}%
+          {{ progress[i].length / 5 }}%
           <Transition>
             <div
               v-if="currentMouseOver === i"
               style="z-index: 100; translate: 0 -50%"
               class="position-absolute start-50 translate-middle bg-black text-white px-3 py-1 rounded"
             >
-              {{ progress[i] }} {{ t('tiles') }}
+              {{ progress[i].length }} {{ t('tiles') }}
               <svg
                 width="1em"
                 height="1em"
@@ -96,10 +96,15 @@ const tileProgress = ref({
     styles: '',
     text: 'reserved'
   },
-  available: {
+  availableInStock: {
     classes: 'bg-warning text-bg-warning',
     styles: 'border-radius: 0 50rem 50rem 0;',
-    text: 'available'
+    text: 'available-in-stock'
+  },
+  availableOutOfStock: {
+    classes: 'bg-info text-bg-info',
+    styles: 'border-radius: 0 50rem 50rem 0;',
+    text: 'available-out-of-stock'
   }
 })
 </script>

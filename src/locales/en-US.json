@@ -114,6 +114,7 @@
   "finished": "Finished",
   "in-progress": "In progress",
   "reserved": "Reserved",
-  "available": "Available",
+  "available-in-stock": "Available",
+  "available-out-of-stock": "Available (out of stock)",
   "privacy": "Privacy"
 }
