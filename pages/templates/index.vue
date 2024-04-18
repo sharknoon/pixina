@@ -1,0 +1,18 @@
+<script setup lang="ts">
+definePageMeta({
+  name: "templates",
+});
+
+const favoriteTiles = useFavoriteTilesStore();
+</script>
+<template>
+  <div>
+    <h3 class="p-3 pb-0 m-0">{{ $t("favorites") }}</h3>
+    <TemplatesTileList filter="favorites" />
+    <TemplatesNoFavorites v-if="favoriteTiles.favoriteTiles.length < 1" />
+    <h3 class="p-3 pb-0 m-0">{{ $t("all-templates") }}</h3>
+    <TemplatesTileList />
+    <TemplatesLegendComponent />
+  </div>
+  <slot />
+</template>
