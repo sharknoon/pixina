@@ -5,9 +5,9 @@
         {{ progress.finished.length / 5 }}%
       </h1>
       <h5 class="text-center mb-0">{{ $t("finished") }}</h5>
-      <small class="text-center mb-4"
-        >{{ progress.finished.length }} / 500 {{ $t("tiles") }}</small
-      >
+      <small class="text-center mb-4">
+        {{ progress.finished.length }} / 500 {{ $t("tiles") }}
+      </small>
 
       <div
         class="progress rounded-pill overflow-visible"

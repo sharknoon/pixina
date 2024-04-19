@@ -2,12 +2,10 @@
   <div class="position-fixed top-0 end-0 bottom-0 start-0">
     <div class="d-flex flex-column h-100 bg-dark position-relative">
       <div class="text-light d-flex justify-content-end p-2 gap-1">
-        <ClientOnly>
-          <TemplatesNumberFullscreenButton
-            @fullscreen="(s) => (state.isFullscreen = s)"
-          />
-          <TemplatesNumberShareButton :tile-number="number" />
-        </ClientOnly>
+        <TemplatesNumberFullscreenButton
+          @fullscreen="(s) => (state.isFullscreen = s)"
+        />
+        <TemplatesNumberShareButton :tile-number="number" />
         <TemplatesNumberDownloadButton :tile-number="number" />
         <TemplatesNumberColorsButton :tile-number="number" />
         <TemplatesNumberFavoriteButton :tile-number="number" />
@@ -46,7 +44,7 @@ const title = computed(() =>
     number: number.value,
     x: number.value % 20,
     y: Math.floor(number.value / 20),
-  }),
+  })
 );
 const src = computed(() => `/images/templates/${number.value}-detailed.webp`);
 const state = reactive({ isFullscreen: false });

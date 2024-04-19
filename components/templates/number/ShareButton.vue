@@ -44,6 +44,9 @@ onMounted(() => {
 });
 
 function webShareApiSupported() {
+  if (typeof navigator === "undefined") {
+    return false;
+  }
   if (!navigator.canShare) {
     return false;
   }

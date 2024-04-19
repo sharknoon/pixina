@@ -105,7 +105,7 @@ const router = useRouter();
 const { t } = useI18n();
 const progress = useProgressStore();
 
-await callOnce(progress.fetchProgress);
+onMounted(async () => await progress.fetchProgress());
 
 useHead({
   titleTemplate: computed(() => {

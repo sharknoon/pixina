@@ -38,9 +38,13 @@ const emit = defineEmits<{
   (event: "fullscreen", state: boolean): void;
 }>();
 
-const state = reactive({ isFullscreen: !!document.fullscreenElement });
+const state = reactive({
+  isFullscreen:
+    typeof document === "undefined" ? false : !!document.fullscreenElement,
+});
 
 function toggleFullscreen() {
+  if (typeof document === "undefined") return;
   if (!document.fullscreenElement) {
     document.documentElement.requestFullscreen().then(() => {
       state.isFullscreen = true;

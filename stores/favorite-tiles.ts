@@ -22,19 +22,22 @@ export const useFavoriteTilesStore = defineStore("favorite-tiles", {
   persist: {
     // Keep backward compatability
     beforeRestore: () => {
-      /*const vuex: string | null = localStorage.getItem('vuex')
+      if (typeof localStorage === "undefined") {
+        return;
+      }
+      const vuex: string | null = localStorage.getItem("vuex");
       if (vuex) {
         try {
-          const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles
+          const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
           localStorage.setItem(
-            'favorite-tiles',
+            "favorite-tiles",
             JSON.stringify({ favoriteTiles: newFavoriteTiles })
-          )
-          localStorage.removeItem('vuex')
+          );
+          localStorage.removeItem("vuex");
         } catch (e) {
-          console.error(e)
+          console.error(e);
         }
-      }TODO*/
+      }
     },
   },
 });
