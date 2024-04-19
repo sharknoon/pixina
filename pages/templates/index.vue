@@ -5,7 +5,12 @@ const favoriteTiles = useFavoriteTilesStore();
   <div>
     <h3 class="p-3 pb-0 m-0">{{ $t("favorites") }}</h3>
     <TemplatesTileList filter="favorites" />
-    <TemplatesNoFavorites v-if="favoriteTiles.favoriteTiles.length < 1" />
+    <ClientOnly>
+      <TemplatesNoFavorites v-if="favoriteTiles.favoriteTiles.length < 1" />
+      <template #fallback>
+        <TemplatesNoFavorites />
+      </template>
+    </ClientOnly>
     <h3 class="p-3 pb-0 m-0">{{ $t("all-templates") }}</h3>
     <TemplatesTileList />
     <TemplatesLegendComponent />
