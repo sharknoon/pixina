@@ -118,7 +118,6 @@ function order() {
   body.push(tile);
   console.log(JSON.stringify(body));
 
-  // eslint-disable-next-line no-undef
   const requestOptions: RequestInit = {
     method: "POST",
     mode: "same-origin",

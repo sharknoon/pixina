@@ -1,5 +1,7 @@
-// @ts-check
-import withNuxt from "./.nuxt/eslint.config.mjs";
+import { createConfigForNuxt } from "@nuxt/eslint-config/flat";
+import eslintConfigPrettier from "eslint-config-prettier";
 
-export default withNuxt();
-// Your custom configs here
+export default createConfigForNuxt({}, [
+  { ignores: ["public/*"] },
+  eslintConfigPrettier,
+]);
