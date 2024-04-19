@@ -24,6 +24,7 @@
           :key="item.name"
           :to="item.to"
           class="router-link d-flex align-items-center"
+          :class="{ 'router-link-active': $route.path.startsWith(item.to) }"
         >
           <!-- eslint-disable vue/no-v-html -->
           <span class="me-2" v-html="item.icon"></span>
@@ -31,7 +32,9 @@
         </NuxtLink>
       </nav>
       <div class="mt-auto d-grid gap-2">
-        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{ $t("privacy") }}</NuxtLink>
+        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
+          $t("privacy")
+        }}</NuxtLink>
         <LayoutDonationButton />
         <LayoutLanguageDropdown class="d-grid" />
       </div>
@@ -80,7 +83,11 @@
               </li>
             </ul>
             <div class="d-grid gap-2">
-              <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{ $t("privacy") }}</NuxtLink>
+              <NuxtLink
+                to="/privacy"
+                class="link-light link-underline-opacity-0"
+                >{{ $t("privacy") }}</NuxtLink
+              >
               <LayoutDonationButton />
               <LayoutLanguageDropdown class="d-grid" />
             </div>
