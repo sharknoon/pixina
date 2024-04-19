@@ -1,0 +1,36 @@
+permissions:
+  packages: write
+
+name: Build
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: "recursive"
+
+      - name: Login to Github Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker Image
+        run: docker build -t ghcr.io/sharknoon/pixina .
+
+      - name: Push Image to Registry
+        run: docker push ghcr.io/sharknoon/pixina
+
+  clean:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete old image versions
+        uses: actions/delete-package-versions@v5
+        with:
+          package-type: "container"
+          package-name: "pixina"
+          min-versions-to-keep: 1

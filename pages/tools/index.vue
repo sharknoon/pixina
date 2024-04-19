@@ -41,7 +41,7 @@
             {
               amount: selected_tiles.length,
             },
-            selected_tiles.length
+            selected_tiles.length,
           )
         }}
       </div>
@@ -53,7 +53,7 @@
           @click="
             $router.push(
               '/tools/color-count?' +
-                selected_tiles.map((tile) => `tiles=${tile}`).join('&')
+                selected_tiles.map((tile) => `tiles=${tile}`).join('&'),
             )
           "
         >

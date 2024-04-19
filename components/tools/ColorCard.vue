@@ -3,7 +3,11 @@
     <div class="flex-fill row g-0">
       <div
         class="col-3"
-        :style="'background: ' + color.hex_place + '; border-radius: 0.25rem 0 0 0.25rem'"
+        :style="
+          'background: ' +
+          color.hex_place +
+          '; border-radius: 0.25rem 0 0 0.25rem'
+        "
       />
       <div class="col-9 d-flex flex-column">
         <div class="card-body">
@@ -27,11 +31,11 @@
           </svg>
           {{
             $t(
-              'amount-pixels',
+              "amount-pixels",
               {
-                amount: color.amount
+                amount: color.amount,
               },
-              color.amount
+              color.amount,
             )
           }}
           <div v-if="color.amount > 140" class="d-flex">
@@ -52,21 +56,21 @@
             </svg>
             {{
               $t(
-                'amount-colorplates',
+                "amount-colorplates",
                 {
-                  amount: Math.floor(color.amount / 140)
+                  amount: Math.floor(color.amount / 140),
                 },
-                Math.floor(color.amount / 140)
+                Math.floor(color.amount / 140),
               )
             }}
             +
             {{
               $t(
-                'amount-pixels',
+                "amount-pixels",
                 {
-                  amount: color.amount % 140
+                  amount: color.amount % 140,
                 },
-                color.amount % 140
+                color.amount % 140,
               )
             }}
           </div>
@@ -113,7 +117,7 @@
                 d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z"
               />
             </svg>
-            {{ $t('cut') }}
+            {{ $t("cut") }}
           </a>
         </div>
       </div>
@@ -126,9 +130,9 @@
 defineProps({
   color: {
     type: Object,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 </script>
 <style lang="scss" scoped>
 .card {

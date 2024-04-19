@@ -13,7 +13,7 @@
 const items: Ref<HTMLImageElement[]> = ref([]);
 const currentItem: Ref<number> = ref(0);
 const currentItemSrc = computed(
-  () => items.value[currentItem.value]?.src || ""
+  () => items.value[currentItem.value]?.src || "",
 );
 
 onMounted(() => {

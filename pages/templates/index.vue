@@ -10,5 +10,4 @@ const favoriteTiles = useFavoriteTilesStore();
     <TemplatesTileList />
     <TemplatesLegendComponent />
   </div>
-  <slot />
 </template>

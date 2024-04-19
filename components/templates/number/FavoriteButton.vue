@@ -29,16 +29,16 @@
   </button>
 </template>
 <script setup lang="ts">
-const store = useFavoriteTilesStore()
+const store = useFavoriteTilesStore();
 
 const props = defineProps({
   tileNumber: {
     type: Number,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
 function toggleFavorite() {
-  store.toggleFavoriteTile(props.tileNumber)
+  store.toggleFavoriteTile(props.tileNumber);
 }
 </script>

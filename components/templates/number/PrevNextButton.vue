@@ -66,7 +66,7 @@ const number = computed(() => {
   }
 });
 const disabled = computed(() =>
-  props.type === "next" ? number.value >= 499 : number.value <= 0
+  props.type === "next" ? number.value >= 499 : number.value <= 0,
 );
 
 function goToPrevNext() {

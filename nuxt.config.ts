@@ -9,7 +9,12 @@ export default defineNuxtConfig({
         parseInt(process.env.PIXELHOBBY_TILE_ID ?? "") || 35007450218648,
     },
   },
-  modules: ["@nuxtjs/i18n", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
+  modules: [
+    "@nuxtjs/i18n",
+    "@pinia/nuxt",
+    "@pinia-plugin-persistedstate/nuxt",
+    "@nuxt/eslint",
+  ],
   i18n: {
     strategy: "no_prefix",
     locales: [

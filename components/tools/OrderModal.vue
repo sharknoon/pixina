@@ -130,7 +130,7 @@ function order() {
   };
   fetch(
     `${runtimeConfig.public.apiUrl}/cart/${cartCookie.value}/add`,
-    requestOptions
+    requestOptions,
   ).then((response: Response) => {
     apiLoading.value = false;
     if (response.status >= 200 && response.status <= 299) {

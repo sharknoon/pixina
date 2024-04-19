@@ -1,9 +1,13 @@
 <template>
   <div v-if="!progress.error" class="position-relative">
     <div class="container d-flex flex-column justify-content-center h-100 my-4">
-      <h1 class="display-1 text-center mb-0 lh-1">{{ progress.finished.length / 5 }}%</h1>
-      <h5 class="text-center mb-0">{{ $t('finished') }}</h5>
-      <small class="text-center mb-4">{{ progress.finished.length }} / 500 {{ $t('tiles') }}</small>
+      <h1 class="display-1 text-center mb-0 lh-1">
+        {{ progress.finished.length / 5 }}%
+      </h1>
+      <h5 class="text-center mb-0">{{ $t("finished") }}</h5>
+      <small class="text-center mb-4"
+        >{{ progress.finished.length }} / 500 {{ $t("tiles") }}</small
+      >
 
       <div
         class="progress rounded-pill overflow-visible"
@@ -29,7 +33,7 @@
               style="z-index: 100; translate: 0 -50%"
               class="position-absolute start-50 translate-middle bg-black text-white px-3 py-1 rounded"
             >
-              {{ progress[i].length }} {{ $t('tiles') }}
+              {{ progress[i].length }} {{ $t("tiles") }}
               <svg
                 width="1em"
                 height="1em"
@@ -71,37 +75,37 @@
   </div>
 </template>
 <script setup lang="ts">
-const progress = useProgressStore()
+const progress = useProgressStore();
 
-const currentMouseOver = ref<string>()
+const currentMouseOver = ref<string>();
 
 const tileProgress = ref({
   finished: {
-    classes: 'bg-success text-bg-success',
-    styles: 'border-radius: 50rem 0 0 50rem;',
-    text: 'finished'
+    classes: "bg-success text-bg-success",
+    styles: "border-radius: 50rem 0 0 50rem;",
+    text: "finished",
   },
   inProgress: {
-    classes: 'bg-primary text-bg-primary',
-    styles: '',
-    text: 'in-progress'
+    classes: "bg-primary text-bg-primary",
+    styles: "",
+    text: "in-progress",
   },
   reserved: {
-    classes: 'bg-danger text-bg-danger',
-    styles: '',
-    text: 'reserved'
+    classes: "bg-danger text-bg-danger",
+    styles: "",
+    text: "reserved",
   },
   availableInStock: {
-    classes: 'bg-warning text-bg-warning',
-    styles: 'border-radius: 0 50rem 50rem 0;',
-    text: 'available-in-stock'
+    classes: "bg-warning text-bg-warning",
+    styles: "border-radius: 0 50rem 50rem 0;",
+    text: "available-in-stock",
   },
   availableOutOfStock: {
-    classes: 'bg-info text-bg-info',
-    styles: 'border-radius: 0 50rem 50rem 0;',
-    text: 'available-out-of-stock'
-  }
-})
+    classes: "bg-info text-bg-info",
+    styles: "border-radius: 0 50rem 50rem 0;",
+    text: "available-out-of-stock",
+  },
+});
 </script>
 <style scoped>
 .v-enter-active,

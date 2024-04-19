@@ -3,7 +3,7 @@
     <h1>{{ $t("informations-title") }}</h1>
     <p>{{ $t("informations-body") }}</p>
 
-    <InformationsProjectProgress></InformationsProjectProgress>
+    <InformationsProjectProgress />
 
     <h3>{{ $t("informations-faq") }}</h3>
     <div id="faq-accordion" class="accordion pb-3">

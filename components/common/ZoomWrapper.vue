@@ -1,6 +1,9 @@
 <template>
   <div class="position-relative overflow-hidden" style="touch-action: none">
-    <div class="position-absolute end-0 bottom-0 m-4 btn-group-vertical" style="z-index: 1">
+    <div
+      class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
+      style="z-index: 1"
+    >
       <button type="button" class="btn text-white px-2" @click="zoomIn()">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +20,11 @@
             stroke="#212529"
             d="M12 4v16m8-8H4"
           />
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M12 4v16m8-8H4"
+          />
         </svg>
       </button>
       <button type="button" class="btn text-white px-2" @click="zoomOut()">
@@ -48,28 +55,29 @@
   </div>
 </template>
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import Zoom from '~/utils/zoom';
+import { onMounted, ref } from "vue";
+import Zoom from "~/utils/zoom";
 
 defineProps({
   src: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const currentZoom = ref<Zoom>()
+const currentZoom = ref<Zoom>();
 
 onMounted(() => {
-  const zoomImg = document.getElementById('zoom-img')
-  if (zoomImg instanceof HTMLImageElement) currentZoom.value = new Zoom(zoomImg)
-})
+  const zoomImg = document.getElementById("zoom-img");
+  if (zoomImg instanceof HTMLImageElement)
+    currentZoom.value = new Zoom(zoomImg);
+});
 
 function zoomIn() {
-  if (currentZoom.value) currentZoom.value.zoom(1)
+  if (currentZoom.value) currentZoom.value.zoom(1);
 }
 
 function zoomOut() {
-  if (currentZoom.value) currentZoom.value.zoom(-1)
+  if (currentZoom.value) currentZoom.value.zoom(-1);
 }
 </script>
