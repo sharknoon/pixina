@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   middleware: function () {
-    return navigateTo({ name: "templates" });
+    return navigateTo({ name: "image" });
   },
 });
 </script>

@@ -31,6 +31,7 @@
         </NuxtLink>
       </nav>
       <div class="mt-auto d-grid gap-2">
+        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{ $t("privacy") }}</NuxtLink>
         <LayoutDonationButton />
         <LayoutLanguageDropdown class="d-grid" />
       </div>
@@ -79,6 +80,7 @@
               </li>
             </ul>
             <div class="d-grid gap-2">
+              <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{ $t("privacy") }}</NuxtLink>
               <LayoutDonationButton />
               <LayoutLanguageDropdown class="d-grid" />
             </div>
@@ -94,12 +96,15 @@
 <script setup lang="ts">
 const router = useRouter();
 const { t } = useI18n();
+const progress = useProgressStore();
+
+await callOnce(progress.fetchProgress);
 
 useHead({
-  titleTemplate: () => {
+  titleTemplate: computed(() => {
     const name = router.currentRoute.value.name?.toString();
     return name ? `Pixina - ${t(name)}` : "Pixina";
-  },
+  }),
 });
 
 const items = computed(() => [

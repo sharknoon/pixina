@@ -1,5 +1,5 @@
 {
-  "template": "Template",
+  "templates-number": "Template",
   "templates": "Templates",
   "informations": "Informations",
   "place": "Place",
@@ -7,7 +7,7 @@
   "history": "History",
   "atlas": "Atlas",
   "tools": "Tools",
-  "color-count": "Color count",
+  "tools-color-count": "Color count",
   "not-found": "Not found",
   "favorites": "Favorites",
   "no-favorites": "No favorites available",

@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  name: "templates",
-});
-
 const favoriteTiles = useFavoriteTilesStore();
 </script>
 <template>

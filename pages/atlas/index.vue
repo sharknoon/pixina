@@ -1,8 +1,3 @@
-<script setup lang="ts">
-definePageMeta({
-  name: "atlas",
-});
-</script>
 <template>
   <iframe
     class="d-block w-100 h-100 border-0 position-relative"

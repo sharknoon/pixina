@@ -5,6 +5,7 @@
       :src="tile?.thumbnail"
       :alt="'tile-' + tile?.number"
       width="75"
+      height="60"
       class="img-pixelated rounded"
     />
     <div class="position-absolute top-0 end-0 d-flex gap-1">

@@ -1,5 +1,5 @@
 {
-  "template": "Vorlage",
+  "templates-number": "Vorlage",
   "templates": "Vorlagen",
   "informations": "Informationen",
   "place": "Place",
@@ -7,7 +7,7 @@
   "history": "Entstehung",
   "atlas": "Atlas",
   "tools": "Werkzeuge",
-  "color-count": "Farbenzählung",
+  "tools-color-count": "Farbenzählung",
   "not-found": "Nicht gefunden",
   "favorites": "Favoriten",
   "no-favorites": "Keine Favoriten vorhanden",

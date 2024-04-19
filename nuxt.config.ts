@@ -5,11 +5,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: process.env.API_URL || "https://pixina.app/api/v1/progress",
-      pixelhobbTileId: process.env.PIXELHOBBY_TILE_ID || 35007450218648,
+      pixelhobbTileId:
+        parseInt(process.env.PIXELHOBBY_TILE_ID ?? "") || 35007450218648,
     },
   },
   modules: ["@nuxtjs/i18n", "@pinia/nuxt", "@pinia-plugin-persistedstate/nuxt"],
   i18n: {
+    strategy: "no_prefix",
     locales: [
       {
         code: "en-US",
@@ -25,6 +27,8 @@ export default defineNuxtConfig({
     lazy: true,
     langDir: "lang",
     defaultLocale: "de-DE",
+    customRoutes: "config",
+    pages: {},
   },
   piniaPersistedstate: {
     storage: "localStorage",
