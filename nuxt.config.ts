@@ -4,9 +4,9 @@ export default defineNuxtConfig({
   css: ["bootstrap/dist/css/bootstrap.min.css", "/assets/main.css"],
   runtimeConfig: {
     public: {
-      apiUrl: process.env.API_URL || "https://pixina.app/api/v1/progress",
+      apiUrl: process.env.PIXINA_API_URL || "https://pixina.app/api/v1/progress",
       pixelhobbTileId:
-        parseInt(process.env.PIXELHOBBY_TILE_ID ?? "") || 35007450218648,
+        parseInt(process.env.PIXINA_PIXELHOBBY_TILE_ID ?? "") || 35007450218648,
     },
   },
   modules: [
