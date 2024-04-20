@@ -103,7 +103,7 @@ onMounted(() => {
       canvas.width = img.width;
       canvas.height = img.height;
       const context: CanvasRenderingContext2D = canvas.getContext(
-        "2d"
+        "2d",
       ) as CanvasRenderingContext2D;
       context.drawImage(img, 0, 0, img.width, img.height);
       let x: number, y: number;
@@ -113,7 +113,7 @@ onMounted(() => {
             x,
             y,
             1,
-            1
+            1,
           ).data;
           // a simple hash for the color, just to identify it and count the amount
           const color: number =

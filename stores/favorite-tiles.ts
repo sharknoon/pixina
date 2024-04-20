@@ -31,7 +31,7 @@ export const useFavoriteTilesStore = defineStore("favorite-tiles", {
           const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
           localStorage.setItem(
             "favorite-tiles",
-            JSON.stringify({ favoriteTiles: newFavoriteTiles })
+            JSON.stringify({ favoriteTiles: newFavoriteTiles }),
           );
           localStorage.removeItem("vuex");
         } catch (e) {

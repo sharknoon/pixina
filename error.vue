@@ -1,6 +1,8 @@
 <template>
   <NuxtLayout>
-    <div class="d-flex flex-column align-items-center justify-content-center h-100">
+    <div
+      class="d-flex flex-column align-items-center justify-content-center h-100"
+    >
       <template v-if="error.statusCode === 404">
         <h1>404!</h1>
         <p>{{ $t("page-not-found-explanation") }}</p>
