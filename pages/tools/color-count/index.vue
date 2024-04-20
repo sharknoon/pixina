@@ -30,54 +30,28 @@
     <div class="p-4 d-flex align-items-center justify-content-between">
       <div>{{ $t("amount-colors", { amount: sortedColors.length }) }}</div>
       <div>
-        <ClientOnly>
-          <button
-            type="button"
-            class="btn btn-secondary me-3"
-            data-bs-toggle="modal"
-            data-bs-target="#orderModal"
-            :disabled="processed_tiles < tiles.length"
+        <button
+          type="button"
+          class="btn btn-secondary me-3"
+          data-bs-toggle="modal"
+          data-bs-target="#orderModal"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            style="height: 1.5rem; width: 1.5rem"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
           >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              style="height: 1.5rem; width: 1.5rem"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-              stroke-width="2"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-              />
-            </svg>
-            {{ $t("order") }}
-          </button>
-          <template #fallback>
-            <button
-              type="button"
-              class="btn btn-secondary me-3"
-              disabled="true"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                style="height: 1.5rem; width: 1.5rem"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                stroke-width="2"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                />
-              </svg>
-              {{ $t("order") }}
-            </button>
-          </template>
-        </ClientOnly>
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+            />
+          </svg>
+          {{ $t("order") }}
+        </button>
         <button type="button" class="btn btn-primary" @click="$router.back()">
           {{ $t("finish") }}
         </button>

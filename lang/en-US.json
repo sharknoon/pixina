@@ -111,5 +111,9 @@
   "reserved": "Reserved",
   "available-in-stock": "Available",
   "available-out-of-stock": "Available (out of stock)",
-  "privacy": "Privacy"
+  "privacy": "Privacy",
+  "page-not-found-explanation": "This page could not be found. Please check the URL or go back to the home page.",
+  "error-occured": "An error occurred",
+  "error-explanation": "This error should not have occured. Please report this error to Josua Frank (frank.josua{'@'}gmail.com) to fix this issue.", 
+  "go-back-home": "Home page"
 }
