@@ -31,6 +31,6 @@ jobs:
       - name: Delete old image versions
         uses: actions/delete-package-versions@v5
         with:
-          package-type: 'container'
-          package-name: 'pixina'
+          package-type: "container"
+          package-name: "pixina"
           min-versions-to-keep: 1

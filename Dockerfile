@@ -5,8 +5,8 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM nginx:alpine as production-stage
+FROM node:21-alpine as production-stage
 RUN mkdir /app
-COPY --from=build-stage /app/dist /app
-COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 80
+COPY --from=build-stage /app/.output /app
+EXPOSE 3000
+CMD [ "node", "/app/server/index.mjs" ]
