@@ -2,7 +2,7 @@
   <div class="d-flex flex-column align-items-center">
     <div>{{ $t("no-favorites") }}</div>
     <div>
-      <i18n-t keypath="add-favorites" tag="small">
+      <i18n-t keypath="add-favorites" tag="small" scope="global">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           class="text-warning"

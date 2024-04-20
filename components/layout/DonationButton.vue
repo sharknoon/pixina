@@ -2,6 +2,7 @@
   <a
     href="https://www.paypal.com/donate/?hosted_button_id=2XRA22TYQP2FY"
     class="btn btn-outline-light"
+    target="_blank"
     role="button"
   >
     <svg
