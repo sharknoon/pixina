@@ -24,6 +24,10 @@ export const useProgressStore = defineStore("progress", {
   actions: {
     async fetchProgress() {
       const runtimeConfig = useRuntimeConfig();
+      if (!runtimeConfig.public.apiUrl) {
+        this.error = true;
+        return;
+      }
       await fetch(runtimeConfig.public.apiUrl)
         .then((response: Response) => {
           if (response.status >= 200 && response.status <= 299) {

@@ -127,6 +127,9 @@ function order() {
     },
     body: JSON.stringify(body),
   };
+  if (runtimeConfig.public.apiUrl === undefined) {
+    return;
+  }
   fetch(
     `${runtimeConfig.public.apiUrl}/cart/${cartCookie.value}/add`,
     requestOptions,
