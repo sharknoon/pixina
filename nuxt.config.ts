@@ -4,9 +4,8 @@ export default defineNuxtConfig({
   css: ["bootstrap/dist/css/bootstrap.min.css", "/assets/main.css"],
   runtimeConfig: {
     public: {
-      apiUrl: process.env.PIXINA_API_URL,
-      pixelhobbTileId:
-        parseInt(process.env.PIXINA_PIXELHOBBY_TILE_ID ?? "") || 35007450218648,
+      apiUrl: "", // can be overwritten by NUXT_PUBLIC_API_URL environment variable
+      pixelhobbyTileId: 35007450218648, // can be overwritten by NUXT_PUBLIC_PIXELHOBBY_TILE_ID environment variable
     },
   },
   modules: [

@@ -112,7 +112,7 @@ function order() {
     };
   });
   const tile = {
-    id: runtimeConfig.public.pixelhobbTileId,
+    id: runtimeConfig.public.pixelhobbyTileId,
     quantity: props.tiles.length,
   };
   body.push(tile);
