@@ -58,8 +58,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete old image versions
-        uses: actions/delete-package-versions@v5
+        uses: snok/container-retention-policy@v2
         with:
-          package-type: "container"
-          package-name: ${{ github.event.repository.name }}
-          min-versions-to-keep: 3
+          image-names: ${{ github.event.repository.name }}
+          cut-off: one hour ago UTC
+          account-type: personal
+          token: ${{ secrets.GITHUB_TOKEN }}
+          token-type: github-token
