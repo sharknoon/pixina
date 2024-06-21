@@ -1,11 +1,11 @@
-FROM node:21-alpine as build-stage
+FROM node:22-alpine as build-stage
 WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:21-alpine as production-stage
+FROM node:22-alpine as production-stage
 RUN mkdir /app
 COPY --from=build-stage /app/.output /app
 EXPOSE 3000
