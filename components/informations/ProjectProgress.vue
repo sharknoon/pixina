@@ -58,7 +58,7 @@
             :class="p.classes"
             class="d-inline-block ratio ratio-1x1"
             style="width: 1rem; height: 1rem"
-          ></div>
+          />
           {{ $t(p.text) }}
         </div>
       </div>

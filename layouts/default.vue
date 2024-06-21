@@ -27,7 +27,7 @@
           :class="{ 'router-link-active': $route.path.startsWith(item.to) }"
         >
           <!-- eslint-disable vue/no-v-html -->
-          <span class="me-2" v-html="item.icon"></span>
+          <span class="me-2" v-html="item.icon" />
           <span class="pt-1">{{ item.name }}</span>
         </NuxtLink>
       </nav>
@@ -76,7 +76,7 @@
                     data-bs-target="#navbarSupportedContent"
                   >
                     <!-- eslint-disable vue/no-v-html -->
-                    <span class="me-2" v-html="item.icon"></span>
+                    <span class="me-2" v-html="item.icon" />
                     <span class="pt-1">{{ item.name }}</span>
                   </div>
                 </NuxtLink>

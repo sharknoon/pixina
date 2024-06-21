@@ -24,4 +24,4 @@ logs
 !.env.example
 
 # Public files
-public/place-atlas
+public

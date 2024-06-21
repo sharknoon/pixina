@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center gap-4 mb-3 mt-1">
     <div v-for="(item, i) in items" :key="i" class="d-flex gap-2">
       <!-- eslint-disable-next-line vue/no-v-html -->
-      <div v-html="item.icon"></div>
+      <div v-html="item.icon" />
       {{ $t(item.name) }}
     </div>
   </div>
