@@ -12,24 +12,24 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt/eslint": "^0.3.8",
-    "@nuxtjs/i18n": "^8.3.0",
+    "@nuxt/eslint": "^0.3.13",
+    "@nuxtjs/i18n": "^8.3.1",
     "@pinia/nuxt": "^0.5.1",
     "bootstrap": "^5.3.3",
-    "nuxt": "^3.11.2",
+    "nuxt": "^3.12.2",
     "pinia": "^2.1.7",
-    "vue": "^3.4.23",
-    "vue-router": "^4.3.2"
+    "vue": "^3.4.29",
+    "vue-router": "^4.4.0"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "^0.3.8",
+    "@nuxt/eslint-config": "^0.3.13",
     "@pinia-plugin-persistedstate/nuxt": "^1.2.0",
     "@types/bootstrap": "^5.2.10",
     "@types/eslint-config-prettier": "^6.11.3",
-    "eslint": "^8.57.0",
+    "eslint": "^9.5.0",
     "eslint-config-prettier": "^9.1.0",
-    "prettier": "3.2.5",
-    "sass": "^1.75.0",
-    "typescript": "^5.4.5"
+    "prettier": "3.3.2",
+    "sass": "^1.77.6",
+    "typescript": "^5.5.2"
   }
 }
