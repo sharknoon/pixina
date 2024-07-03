@@ -12,28 +12,28 @@
       <div
         class="progress rounded-pill overflow-visible"
         style="height: 2.5rem"
-        @mouseleave="currentMouseOver = ''"
+        @mouseleave="currentMouseOver = -1"
       >
         <div
-          v-for="(p, i) in tileProgress"
+          v-for="(p, i) of tileProgress"
           :key="i"
           :class="p.classes"
           class="progress-bar position-relative overflow-visible"
           role="progressbar"
-          :style="`width: ${progress[i].length / 5}%; ${p.styles}; overflow-x: clip !important`"
-          :aria-valuenow="progress[i].length"
+          :style="`width: ${p.progress / 5}%; ${p.styles}; overflow-x: clip !important`"
+          :aria-valuenow="p.progress"
           aria-valuemin="0"
           aria-valuemax="100"
           @mouseover="currentMouseOver = i"
         >
-          {{ progress[i].length / 5 }}%
+          {{ p.progress / 5 }}%
           <Transition>
             <div
               v-if="currentMouseOver === i"
               style="z-index: 100; translate: 0 -50%"
               class="position-absolute start-50 translate-middle bg-black text-white px-3 py-1 rounded"
             >
-              {{ progress[i].length }} {{ $t("tiles") }}
+              {{ p.progress }} {{ $t("tiles") }}
               <svg
                 width="1em"
                 height="1em"
@@ -53,7 +53,7 @@
       </div>
 
       <div class="d-flex justify-content-around mt-3">
-        <div v-for="(p, i) in tileProgress" :key="i">
+        <div v-for="(p, i) of tileProgress" :key="i">
           <div
             :class="p.classes"
             class="d-inline-block ratio ratio-1x1"
@@ -77,35 +77,42 @@
 <script setup lang="ts">
 const progress = useProgressStore();
 
-const currentMouseOver = ref<string>();
+const currentMouseOver = ref<number>();
 
-const tileProgress = ref({
-  finished: {
-    classes: "bg-success text-bg-success",
-    styles: "border-radius: 50rem 0 0 50rem;",
-    text: "finished",
-  },
-  inProgress: {
-    classes: "bg-primary text-bg-primary",
-    styles: "",
-    text: "in-progress",
-  },
-  reserved: {
-    classes: "bg-danger text-bg-danger",
-    styles: "",
-    text: "reserved",
-  },
-  availableInStock: {
-    classes: "bg-warning text-bg-warning",
-    styles: "border-radius: 0 50rem 50rem 0;",
-    text: "available-in-stock",
-  },
-  availableOutOfStock: {
-    classes: "bg-info text-bg-info",
-    styles: "border-radius: 0 50rem 50rem 0;",
-    text: "available-out-of-stock",
-  },
-});
+const tileProgress = computed(() =>
+  [
+    {
+      classes: "bg-success text-bg-success",
+      styles: "border-radius: 50rem 0 0 50rem;",
+      text: "finished",
+      progress: progress.finished.length,
+    },
+    {
+      classes: "bg-primary text-bg-primary",
+      styles: "",
+      text: "in-progress",
+      progress: progress.inProgress.length,
+    },
+    {
+      classes: "bg-danger text-bg-danger",
+      styles: "",
+      text: "reserved",
+      progress: progress.reserved.length,
+    },
+    {
+      classes: "bg-warning text-bg-warning",
+      styles: "border-radius: 0 50rem 50rem 0;",
+      text: "available-in-stock",
+      progress: progress.availableInStock.length,
+    },
+    {
+      classes: "bg-info text-bg-info",
+      styles: "border-radius: 0 50rem 50rem 0;",
+      text: "available-out-of-stock",
+      progress: progress.availableOutOfStock.length,
+    },
+  ].filter((p) => p.progress > 0),
+);
 </script>
 <style scoped>
 .v-enter-active,
