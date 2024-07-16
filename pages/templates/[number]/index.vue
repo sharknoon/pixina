@@ -4,7 +4,7 @@
       <div class="text-light d-flex justify-content-between p-2 gap-1">
         <div class="p-2 d-flex align-items-center gap-3">
           <svg
-            v-if="progressStore.finished.includes(number)"
+            v-if="status === 'success' && data?.finished.includes(number)"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -16,11 +16,14 @@
               d="M14.778.085A.5.5 0 0 1 15 .5V8a.5.5 0 0 1-.314.464L14.5 8l.186.464-.003.001-.006.003-.023.009a12 12 0 0 1-.397.15c-.264.095-.631.223-1.047.35-.816.252-1.879.523-2.71.523-.847 0-1.548-.28-2.158-.525l-.028-.01C7.68 8.71 7.14 8.5 6.5 8.5c-.7 0-1.638.23-2.437.477A20 20 0 0 0 3 9.342V15.5a.5.5 0 0 1-1 0V.5a.5.5 0 0 1 1 0v.282c.226-.079.496-.17.79-.26C4.606.272 5.67 0 6.5 0c.84 0 1.524.277 2.121.519l.043.018C9.286.788 9.828 1 10.5 1c.7 0 1.638-.23 2.437-.477a20 20 0 0 0 1.349-.476l.019-.007.004-.002h.001"
             />
           </svg>
-          <div v-if="progressStore.finished.includes(number)" class="sm-hidden">
+          <div
+            v-if="status === 'success' && data?.finished.includes(number)"
+            class="sm-hidden"
+          >
             {{ $t("finished") }}
           </div>
           <svg
-            v-if="progressStore.inProgress.includes(number)"
+            v-if="status === 'success' && data?.inProgress.includes(number)"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -33,13 +36,13 @@
             />
           </svg>
           <div
-            v-if="progressStore.inProgress.includes(number)"
+            v-if="status === 'success' && data?.inProgress.includes(number)"
             class="sm-hidden"
           >
             {{ $t("in-progress") }}
           </div>
           <svg
-            v-if="progressStore.reserved.includes(number)"
+            v-if="status === 'success' && data?.reserved.includes(number)"
             xmlns="http://www.w3.org/2000/svg"
             width="16"
             height="16"
@@ -51,7 +54,10 @@
               d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2m3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2"
             />
           </svg>
-          <div v-if="progressStore.reserved.includes(number)" class="sm-hidden">
+          <div
+            v-if="status === 'success' && data?.reserved.includes(number)"
+            class="sm-hidden"
+          >
             {{ $t("reserved") }}
           </div>
         </div>
@@ -83,9 +89,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { Progress } from "~/types/progress";
+
 const { t } = useI18n();
 const route = useRoute();
-const progressStore = useProgressStore();
+const { status, data } = await useLazyFetch<Progress>("/api/v1/progress");
 
 const number = computed(() => {
   const paramsNumber = route.params.number;

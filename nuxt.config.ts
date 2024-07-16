@@ -2,18 +2,23 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
   css: ["bootstrap/dist/css/bootstrap.min.css", "/assets/main.css"],
+
   runtimeConfig: {
+    excelPollUrl: "", // can be overwritten by NUXT_EXCEL_POLL_URL environment variable
+    excelPollIntervalMs: 86400000, // can be overwritten by NUXT_EXCEL_POLL_INTERVAL_MS environment variable
+
     public: {
-      apiUrl: "", // can be overwritten by NUXT_PUBLIC_API_URL environment variable
       pixelhobbyTileId: 35007450218648, // can be overwritten by NUXT_PUBLIC_PIXELHOBBY_TILE_ID environment variable
     },
   },
+
   modules: [
     "@nuxtjs/i18n",
     "@pinia/nuxt",
     "@pinia-plugin-persistedstate/nuxt",
     "@nuxt/eslint",
   ],
+
   i18n: {
     strategy: "no_prefix",
     locales: [
@@ -34,7 +39,10 @@ export default defineNuxtConfig({
     customRoutes: "config",
     pages: {},
   },
+
   piniaPersistedstate: {
     storage: "localStorage",
   },
+
+  compatibilityDate: "2024-07-16",
 });

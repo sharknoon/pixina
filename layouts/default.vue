@@ -103,9 +103,6 @@
 <script setup lang="ts">
 const router = useRouter();
 const { t } = useI18n();
-const progress = useProgressStore();
-
-onMounted(async () => await progress.fetchProgress());
 
 useHead({
   titleTemplate: computed(() => {
@@ -241,12 +238,11 @@ watchEffect(() => {
     .router-link-active {
       color: black;
       text-shadow: 0rem 0.25rem 1.25rem rgba(0, 0, 0, 0.95);
+      transition: 0.1s;
 
       svg {
         filter: drop-shadow(0rem 0.25rem 0.45rem rgba(0, 0, 0, 0.95));
       }
-
-      transition: 0.1s;
     }
   }
 

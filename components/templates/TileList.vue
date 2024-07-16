@@ -11,7 +11,7 @@
           <template #bottom-end>
             <div>
               <svg
-                v-if="progressStore.finished.includes(tile)"
+                v-if="status === 'success' && data?.finished.includes(tile)"
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -24,7 +24,9 @@
                 />
               </svg>
               <svg
-                v-else-if="progressStore.inProgress.includes(tile)"
+                v-else-if="
+                  status === 'success' && data?.inProgress.includes(tile)
+                "
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -37,7 +39,9 @@
                 />
               </svg>
               <svg
-                v-else-if="progressStore.reserved.includes(tile)"
+                v-else-if="
+                  status === 'success' && data?.reserved.includes(tile)
+                "
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
                 height="16"
@@ -111,9 +115,11 @@
   </div>
 </template>
 <script setup lang="ts">
+import type { Progress } from "~/types/progress";
+
 const router = useRouter();
 const favoriteTileStore = useFavoriteTilesStore();
-const progressStore = useProgressStore();
+const { status, data } = await useLazyFetch<Progress>("/api/v1/progress");
 
 const props = defineProps({
   filter: {

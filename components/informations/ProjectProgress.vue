@@ -1,12 +1,15 @@
 <template>
-  <div v-if="!progress.error" class="position-relative">
-    <div class="container d-flex flex-column justify-content-center h-100 my-4">
+  <div class="position-relative">
+    <div
+      v-if="status === 'success'"
+      class="container d-flex flex-column justify-content-center h-100 my-4"
+    >
       <h1 class="display-1 text-center mb-0 lh-1">
-        {{ progress.finished.length / 5 }}%
+        {{ (data?.finished.length ?? 0) / 5 }}%
       </h1>
       <h5 class="text-center mb-0">{{ $t("finished") }}</h5>
       <small class="text-center mb-4">
-        {{ progress.finished.length }} / 500 {{ $t("tiles") }}
+        {{ data?.finished.length ?? 0 }} / 500 {{ $t("tiles") }}
       </small>
 
       <div
@@ -65,17 +68,23 @@
     </div>
 
     <div
-      v-if="!progress.isLoaded"
+      v-else-if="status === 'pending'"
       class="position-absolute top-0 end-0 bottom-0 start-0 bg-white text-bg-white d-flex justify-content-center align-items-center"
     >
       <div class="spinner-grow text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
+
+    <div v-else-if="status === 'error'">
+      {{ JSON.stringify(error) }}
+    </div>
   </div>
 </template>
 <script setup lang="ts">
-const progress = useProgressStore();
+import type { Progress } from "~/types/progress";
+const { status, data, error } =
+  await useLazyFetch<Progress>("/api/v1/progress");
 
 const currentMouseOver = ref<number>();
 
@@ -85,31 +94,31 @@ const tileProgress = computed(() =>
       classes: "bg-success text-bg-success",
       styles: "border-radius: 50rem 0 0 50rem;",
       text: "finished",
-      progress: progress.finished.length,
+      progress: data?.value?.finished.length ?? 0,
     },
     {
       classes: "bg-primary text-bg-primary",
       styles: "",
       text: "in-progress",
-      progress: progress.inProgress.length,
+      progress: data?.value?.inProgress.length ?? 0,
     },
     {
       classes: "bg-danger text-bg-danger",
       styles: "",
       text: "reserved",
-      progress: progress.reserved.length,
+      progress: data?.value?.reserved.length ?? 0,
     },
     {
       classes: "bg-warning text-bg-warning",
       styles: "border-radius: 0 50rem 50rem 0;",
       text: "available-in-stock",
-      progress: progress.availableInStock.length,
+      progress: data?.value?.availableInStock.length ?? 0,
     },
     {
       classes: "bg-info text-bg-info",
       styles: "border-radius: 0 50rem 50rem 0;",
       text: "available-out-of-stock",
-      progress: progress.availableOutOfStock.length,
+      progress: data?.value?.availableOutOfStock.length ?? 0,
     },
   ].filter((p) => p.progress > 0),
 );
