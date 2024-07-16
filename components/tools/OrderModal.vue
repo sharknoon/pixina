@@ -39,7 +39,7 @@
             type="text"
             class="form-control"
             :class="isValidCookie ? '' : 'is-invalid'"
-            placeholder="b7116d7da5b47de65afc8e83280fcb02"
+            placeholder="Z2NwLWV1cm9wZS13ZXN0MzowMUoyWFRGNk1UMDBWOVdOQlA0ODNNVlY3UQ%3Fkey%3De10a064a10bc06e3bc7bc249135530a8"
           />
           <div class="invalid-feedback">{{ $t("invalid-cookie") }}</div>
           <small>{{ $t("pixelhobby-cookie-description") }}</small>
@@ -48,21 +48,23 @@
           <button type="button" class="btn btn-secondary" @click="openShop">
             {{ $t("open-shop") }}
           </button>
-          <button
-            type="button"
-            class="btn btn-primary"
-            :disabled="!isValidCookie"
-            @click="order"
-          >
-            <div
-              v-if="apiLoading"
-              class="spinner-border spinner-border-sm me-1"
-              role="status"
+          <ClientOnly>
+            <button
+              type="button"
+              class="btn btn-primary"
+              :disabled="cartCookie.length < 75"
+              @click="order"
             >
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            {{ $t("add-to-cart") }}
-          </button>
+              <div
+                v-if="apiLoading"
+                class="spinner-border spinner-border-sm me-1"
+                role="status"
+              >
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              {{ $t("add-to-cart") }}
+            </button>
+          </ClientOnly>
         </div>
       </div>
     </div>
@@ -70,7 +72,6 @@
 </template>
 <script setup lang="ts">
 const { $bootstrap } = useNuxtApp();
-
 const runtimeConfig = useRuntimeConfig();
 
 interface Color {
@@ -90,20 +91,15 @@ const props = defineProps<{
 }>();
 
 const cartCookie = ref("");
-const cartCookieRegex = new RegExp("^[a-f0-9]{32}$");
 const apiLoading = ref(false);
 
-const isValidCookie = computed(() => cartCookieRegex.test(cartCookie.value));
+const isValidCookie = computed(() => cartCookie.value.length === 99);
 
 function openShop() {
   window.open("https://pixelhobby-shop.de", "_blank");
 }
 
-function order() {
-  if (!isValidCookie.value) {
-    return;
-  }
-
+async function order() {
   apiLoading.value = true;
   const body = props.colors.map((c: Color) => {
     return {
@@ -111,38 +107,24 @@ function order() {
       quantity: Math.ceil((c.amount || 0) / 140),
     };
   });
-  const tile = {
+  const baseplates = {
     id: runtimeConfig.public.pixelhobbyTileId,
     quantity: props.tiles.length,
   };
-  body.push(tile);
-  console.log(JSON.stringify(body));
+  body.push(baseplates);
 
-  const requestOptions: RequestInit = {
-    method: "POST",
-    mode: "same-origin",
-    headers: {
-      "Content-Type": "application/json",
-      Host: "pixina.app",
+  const { status } = await useFetch<string>(
+    `/api/v1/cart/${cartCookie.value}/add`,
+    {
+      method: "POST",
+      body: JSON.stringify(body),
     },
-    body: JSON.stringify(body),
-  };
-  if (runtimeConfig.public.apiUrl === undefined) {
-    return;
+  );
+
+  apiLoading.value = false;
+  if (status.value === "success") {
+    new $bootstrap.Modal("#orderModal").hide();
   }
-  fetch(
-    `${runtimeConfig.public.apiUrl}/cart/${cartCookie.value}/add`,
-    requestOptions,
-  ).then((response: Response) => {
-    apiLoading.value = false;
-    if (response.status >= 200 && response.status <= 299) {
-      const modalElement = document.getElementById("orderModal");
-      if (modalElement) {
-        new $bootstrap.Modal(modalElement).hide();
-      }
-    }
-    console.log(response);
-  });
 }
 </script>
 <style lang="scss" scoped>
