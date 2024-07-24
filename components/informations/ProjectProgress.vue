@@ -75,16 +75,11 @@
         <span class="visually-hidden">Loading...</span>
       </div>
     </div>
-
-    <div v-else-if="status === 'error'">
-      {{ JSON.stringify(error) }}
-    </div>
   </div>
 </template>
 <script setup lang="ts">
 import type { Progress } from "~/types/progress";
-const { status, data, error } =
-  await useLazyFetch<Progress>("/api/v1/progress");
+const { status, data } = await useLazyFetch<Progress>("/api/v1/progress");
 
 const currentMouseOver = ref<number>();
 
