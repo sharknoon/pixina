@@ -65,8 +65,6 @@ export default defineEventHandler(async () => {
         progress.reserved.push(number);
         break;
       case "Frei (lagernd)":
-      case "Frei (ehemals fertig)":
-      case "Frei (ehemals in Arbeit)":
         progress.availableInStock.push(number);
         break;
       case "Frei (nicht lagernd)":
