@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   modules: [
     "@nuxtjs/i18n",
     "@pinia/nuxt",
-    "@pinia-plugin-persistedstate/nuxt",
+    "pinia-plugin-persistedstate/nuxt",
     "@nuxt/eslint",
   ],
 
@@ -34,15 +34,14 @@ export default defineNuxtConfig({
       },
     ],
     lazy: true,
-    langDir: "lang",
     defaultLocale: "de-DE",
     customRoutes: "config",
     pages: {},
   },
 
-  piniaPersistedstate: {
+  piniaPluginPersistedstate: {
     storage: "localStorage",
   },
 
-  compatibilityDate: "2024-07-16",
+  compatibilityDate: "2024-11-17",
 });

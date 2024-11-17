@@ -143,7 +143,7 @@ if (props.filter === "favorites") {
             return tileA - tileB;
           });
       },
-      { immediate: true },
+      { immediate: true }
     );
   });
 } else {
