@@ -1,6 +1,7 @@
 <template>
   <div
     class="tile-thumbnail position-relative shadow-sm rounded"
+    :id="'tile-' + tile?.number"
     style="--bs-aspect-ratio: 80%"
   >
     <img

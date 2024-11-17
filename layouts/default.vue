@@ -57,43 +57,79 @@
           <button
             class="navbar-toggler"
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNavbar"
+            aria-controls="offcanvasNavbar"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
             <span class="navbar-toggler-icon" />
           </button>
 
-          <div id="navbarSupportedContent" class="collapse navbar-collapse">
-            <ul class="navbar-nav me-auto pt-2">
-              <li v-for="item in items" :key="item.name" class="nav-item">
-                <NuxtLink :to="item.to" class="nav-link router-link">
-                  <div
-                    class="d-flex align-items-center"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent"
-                  >
-                    <!-- eslint-disable vue/no-v-html -->
-                    <span class="me-2" v-html="item.icon" />
-                    <span class="pt-1">{{ item.name }}</span>
-                  </div>
-                </NuxtLink>
-              </li>
-            </ul>
-            <div class="d-grid gap-2">
-              <NuxtLink
-                to="/privacy"
-                class="link-light link-underline-opacity-0"
-                >{{ $t("privacy") }}</NuxtLink
+          <div id="offcanvasNavbar" class="offcanvas offcanvas-end background">
+            <div class="offcanvas-header">
+              <NuxtLink class="navbar-brand p-0 ps-2" to="/">
+                <img
+                  id="navigation-logo"
+                  src="/images/logo-white.svg"
+                  class="img-fluid"
+                />
+              </NuxtLink>
+              <button
+                type="button"
+                class="btn text-white ms-auto"
+                style="border: 0"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
               >
-              <LayoutDonationButton />
-              <LayoutLanguageDropdown class="d-grid" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="28"
+                  height="28"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-x"
+                >
+                  <path d="M18 6 6 18" />
+                  <path d="m6 6 12 12" />
+                </svg>
+              </button>
+            </div>
+            <div
+              class="offcanvas-body d-flex flex-column justify-content-between"
+            >
+              <ul class="navbar-nav pt-2">
+                <li v-for="item in items" :key="item.name" class="nav-item">
+                  <NuxtLink :to="item.to" class="nav-link router-link">
+                    <div
+                      class="d-flex align-items-center"
+                      data-bs-dismiss="offcanvas"
+                    >
+                      <!-- eslint-disable vue/no-v-html -->
+                      <span class="me-2" v-html="item.icon" />
+                      <span class="pt-1">{{ item.name }}</span>
+                    </div>
+                  </NuxtLink>
+                </li>
+              </ul>
+              <div class="d-grid gap-2">
+                <NuxtLink
+                  to="/privacy"
+                  class="link-light link-underline-opacity-0"
+                  >{{ $t("privacy") }}</NuxtLink
+                >
+                <LayoutDonationButton />
+                <LayoutLanguageDropdown class="d-grid" />
+              </div>
             </div>
           </div>
         </div>
       </nav>
+      <!-- Main content area -->
       <div id="main-content" class="overflow-auto w-100 h-100">
         <slot />
       </div>

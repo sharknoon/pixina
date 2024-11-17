@@ -63,7 +63,7 @@
         </div>
         <div>
           <TemplatesNumberFullscreenButton
-            @fullscreen="(s) => (state.isFullscreen = s)"
+            @fullscreen="(s: boolean) => (state.isFullscreen = s)"
           />
           <TemplatesNumberShareButton :tile-number="number" />
           <TemplatesNumberDownloadButton :tile-number="number" />
@@ -108,7 +108,7 @@ const title = computed(() =>
     number: number.value,
     x: number.value % 20,
     y: Math.floor(number.value / 20),
-  }),
+  })
 );
 const src = computed(() => `/images/templates/${number.value}-detailed.webp`);
 const state = reactive({ isFullscreen: false });
