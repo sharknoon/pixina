@@ -1,13 +1,15 @@
 import type { AuthModel } from "pocketbase";
 
 export const useUserStore = defineStore("user", () => {
-  const user = ref<AuthModel | null>(null);
+  const pocketBase = usePocketBase();
 
-  function setUser(newUser: AuthModel | null) {
-    user.value = newUser;
-  }
+  const user = ref<AuthModel | null>(pocketBase.authStore.model);
+
+  pocketBase.authStore.onChange((_, model) => {
+    user.value = model;
+  });
 
   const isLoggedIn = computed(() => user.value !== null);
 
-  return { user, setUser, isLoggedIn };
+  return { user, isLoggedIn };
 });

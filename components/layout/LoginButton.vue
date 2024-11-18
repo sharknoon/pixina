@@ -25,7 +25,7 @@
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ userStore.user?.meta?.name }}
+        {{ userStore.user?.name }}
       </button>
       <ul class="dropdown-menu">
         <li>
@@ -52,7 +52,11 @@ async function loginWith(provider: string) {
     const authData = await pocketBase
       .collection("users")
       .authWithOAuth2({ provider });
-    userStore.setUser(authData);
+
+    // Set name of user
+    await pocketBase.collection("users").update(authData.record.id, {
+      name: authData.meta?.name ?? "Unknown",
+    });
 
     // get local and cloud favorite tiles
     const localFavoriteTiles = favoriteTilesStore.favoriteTiles;
@@ -81,7 +85,6 @@ async function logout() {
   if (!pocketBase) return;
   try {
     pocketBase.authStore.clear();
-    userStore.setUser(null);
   } catch (error) {
     console.log("Logout failed: " + error);
   }

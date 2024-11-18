@@ -1,8 +1,12 @@
 import PocketBase from "pocketbase";
 
-//const runtimeConfig = useRuntimeConfig();
-const pb = new PocketBase("https://pocketbase.pixina.app");
+let pb: PocketBase | undefined = undefined;
 
 export default function () {
+  if (!pb) {
+    const runtimeConfig = useRuntimeConfig();
+    pb = new PocketBase(runtimeConfig.public.pocketbaseUrl);
+  }
+
   return pb;
 }
