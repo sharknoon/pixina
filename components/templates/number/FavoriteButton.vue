@@ -2,7 +2,7 @@
   <ClientOnly>
     <button class="btn btn-dark px-2" @click="toggleFavorite()">
       <svg
-        v-if="store.isFavorite(props.tileNumber)"
+        v-if="favoriteTilesStore.isFavorite(props.tileNumber)"
         xmlns="http://www.w3.org/2000/svg"
         style="height: 1.5rem; width: 1.5rem"
         viewBox="0 0 20 20"
@@ -49,7 +49,7 @@
   </ClientOnly>
 </template>
 <script setup lang="ts">
-const store = useFavoriteTilesStore();
+const favoriteTilesStore = useFavoriteTilesStore();
 
 const props = defineProps({
   tileNumber: {
@@ -59,6 +59,6 @@ const props = defineProps({
 });
 
 function toggleFavorite() {
-  store.toggleFavoriteTile(props.tileNumber);
+  favoriteTilesStore.toggleFavoriteTile(props.tileNumber);
 }
 </script>

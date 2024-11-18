@@ -60,7 +60,7 @@
                 @click.stop="toggleTileFavorite(tile)"
               >
                 <svg
-                  v-if="favoriteTileStore.favoriteTiles.includes(tile)"
+                  v-if="favoriteTilesStore.favoriteTiles.includes(tile)"
                   xmlns="http://www.w3.org/2000/svg"
                   class="text-warning"
                   style="height: 1.5rem; width: 1.5rem"
@@ -118,7 +118,7 @@
 import type { Progress } from "~/types/progress";
 
 const router = useRouter();
-const favoriteTileStore = useFavoriteTilesStore();
+const favoriteTilesStore = useFavoriteTilesStore();
 const { status, data } = await useLazyFetch<Progress>("/api/v1/progress");
 
 const props = defineProps({
@@ -135,9 +135,9 @@ const tiles = ref<number[]>([]);
 if (props.filter === "favorites") {
   onMounted(() => {
     watch(
-      favoriteTileStore,
+      favoriteTilesStore,
       () => {
-        tiles.value = favoriteTileStore.favoriteTiles
+        tiles.value = favoriteTilesStore.favoriteTiles
           .concat() // basically copies the array
           .sort(function (tileA, tileB) {
             return tileA - tileB;
@@ -155,7 +155,7 @@ if (props.filter === "favorites") {
 }
 
 function toggleTileFavorite(number: number) {
-  favoriteTileStore.toggleFavoriteTile(number);
+  favoriteTilesStore.toggleFavoriteTile(number);
 }
 
 function openTile(number: number) {

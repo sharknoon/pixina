@@ -1,12 +1,14 @@
 <script setup lang="ts">
-const favoriteTiles = useFavoriteTilesStore();
+const favoriteTilesStore = useFavoriteTilesStore();
 </script>
 <template>
   <div>
     <h3 class="p-3 pb-0 m-0">{{ $t("favorites") }}</h3>
     <TemplatesTileList filter="favorites" />
     <ClientOnly>
-      <TemplatesNoFavorites v-if="favoriteTiles.favoriteTiles.length < 1" />
+      <TemplatesNoFavorites
+        v-if="favoriteTilesStore.favoriteTiles.length < 1"
+      />
       <template #fallback>
         <TemplatesNoFavorites />
       </template>

@@ -105,6 +105,8 @@
   "add-to-cart": "Add to Cart",
   "invalid-cookie": "Please enter a valid cart cookie.",
   "donate": "Donate",
+  "login": "Login",
+  "logout": "Logout",
   "tiles": "tiles",
   "finished": "Finished",
   "in-progress": "In progress",

@@ -6,12 +6,13 @@
       class="text-start d-none d-md-flex flex-column background p-2"
     >
       <!-- Logo Area -->
-      <NuxtLink to="/">
+      <NuxtLink to="/" class="position-relative">
         <img
           id="navigation-logo"
           class="img-fluid mb-2"
           src="/images/logo-white.svg"
         />
+        <LayoutLoginButton class="position-absolute top-0 right-0" />
       </NuxtLink>
       <!-- Items Area -->
       <nav class="d-flex flex-column">
