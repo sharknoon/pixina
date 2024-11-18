@@ -39,22 +39,20 @@
 </template>
 
 <script setup lang="ts">
-const pocketbase = usePocketBase();
+const pocketBase = usePocketBase();
 const userStore = useUserStore();
 const favoriteTilesStore = useFavoriteTilesStore();
 
-const authMethods = await pocketbase.collection("users").listAuthMethods();
+const authMethods = await pocketBase.collection("users").listAuthMethods();
 
 async function loginWith(provider: string) {
-  if (!pocketbase) return;
+  if (!pocketBase) return;
   try {
     // login
-    const authData = await pocketbase
+    const authData = await pocketBase
       .collection("users")
       .authWithOAuth2({ provider });
     userStore.setUser(authData);
-
-    console.log(JSON.stringify(authData));
 
     // get local and cloud favorite tiles
     const localFavoriteTiles = favoriteTilesStore.favoriteTiles;
@@ -72,24 +70,17 @@ async function loginWith(provider: string) {
       new Set([...localFavoriteTiles, ...cloudFavoriteTiles])
     );
 
-    // save merged favorite tiles to local storage and cloud
-    try {
-      favoriteTilesStore.favoriteTiles = mergedFavoriteTiles;
-      await pocketbase.collection("users").update(authData.record.id, {
-        favorite_tiles: JSON.stringify(mergedFavoriteTiles),
-      });
-    } catch (error) {
-      console.log("Failed to merge favorite tiles: " + error);
-    }
+    // save merged favorite tiles
+    favoriteTilesStore.favoriteTiles = mergedFavoriteTiles;
   } catch (error) {
     console.log("Login failed: " + error);
   }
 }
 
 async function logout() {
-  if (!pocketbase) return;
+  if (!pocketBase) return;
   try {
-    pocketbase.authStore.clear();
+    pocketBase.authStore.clear();
     userStore.setUser(null);
   } catch (error) {
     console.log("Logout failed: " + error);
