@@ -32,9 +32,12 @@
         </NuxtLink>
       </nav>
       <div class="mt-auto d-grid gap-2">
-        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
-          $t("privacy")
-        }}</NuxtLink>
+        <div class="d-flex justify-content-between align-items-center">
+          <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
+            $t("privacy")
+          }}</NuxtLink>
+          <LayoutLoginButton />
+        </div>
         <LayoutDonationButton />
         <LayoutLanguageDropdown class="d-grid" />
       </div>
@@ -117,11 +120,14 @@
                 </li>
               </ul>
               <div class="d-grid gap-2">
-                <NuxtLink
-                  to="/privacy"
-                  class="link-light link-underline-opacity-0"
-                  >{{ $t("privacy") }}</NuxtLink
-                >
+                <div class="d-flex justify-content-between align-items-center">
+                  <NuxtLink
+                    to="/privacy"
+                    class="link-light link-underline-opacity-0"
+                    >{{ $t("privacy") }}</NuxtLink
+                  >
+                  <LayoutLoginButton />
+                </div>
                 <LayoutDonationButton />
                 <LayoutLanguageDropdown class="d-grid" />
               </div>

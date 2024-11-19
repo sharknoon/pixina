@@ -9,6 +9,7 @@ export default defineNuxtConfig({
 
     public: {
       pixelhobbyTileId: 35007450218648, // can be overwritten by NUXT_PUBLIC_PIXELHOBBY_TILE_ID environment variable
+      pocketbaseUrl: "", // can be overwritten by NUXT_PUBLIC_POCKETBASE_URL environment variable
     },
   },
 

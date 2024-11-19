@@ -108,7 +108,7 @@ const title = computed(() =>
     number: number.value,
     x: number.value % 20,
     y: Math.floor(number.value / 20),
-  })
+  }),
 );
 const src = computed(() => `/images/templates/${number.value}-detailed.webp`);
 const state = reactive({ isFullscreen: false });
