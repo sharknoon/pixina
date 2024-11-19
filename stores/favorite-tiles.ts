@@ -65,6 +65,16 @@ export const useFavoriteTilesStore = defineStore(
       });
     }
 
+    async function syncFavoriteTiles() {
+      const cloudFavoriteTiles = await getCloudFavoriteTiles();
+      if (cloudFavoriteTiles === undefined) return;
+      const mergedFavoriteTiles = Array.from(
+        new Set([...cloudFavoriteTiles, ...favoriteTiles.value])
+      );
+      favoriteTiles.value = mergedFavoriteTiles;
+      setCloudFavoriteTiles(mergedFavoriteTiles);
+    }
+
     async function subscribeFavoriteTiles(id: string) {
       await pocketBase.collection("users").subscribe(id, (e) => {
         favoriteTiles.value = e.record.favorite_tiles;
@@ -75,6 +85,7 @@ export const useFavoriteTilesStore = defineStore(
       subscribeFavoriteTiles(pocketBase.authStore.model.id);
     }
     authStore.onLogin(async (user) => {
+      syncFavoriteTiles();
       await subscribeFavoriteTiles(user.id);
     });
 

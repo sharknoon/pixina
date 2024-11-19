@@ -11,7 +11,7 @@
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
         <li v-for="provider in authProviders" :key="provider.name">
-          <button class="dropdown-item" @click="loginWith(provider.name)">
+          <button class="dropdown-item" @click="authStore.login(provider.name)">
             {{ $t("login-with-provider", { provider: provider.displayName }) }}
           </button>
         </li>
@@ -49,40 +49,8 @@
 
 <script setup lang="ts">
 const authStore = useAuthStore();
-const favoriteTilesStore = useFavoriteTilesStore();
-
-onMounted(() => {
-  authStore.refresh();
-});
 
 const authProviders = await authStore.authProviders;
-
-async function loginWith(provider: string) {
-  try {
-    const authData = await authStore.login(provider);
-
-    // get local and cloud favorite tiles
-    const localFavoriteTiles = favoriteTilesStore.favoriteTiles;
-    let cloudFavoriteTiles: number[] = [];
-    if (authData?.record?.favorite_tiles) {
-      try {
-        cloudFavoriteTiles = authData.record.favorite_tiles;
-      } catch (error) {
-        console.log("Failed to parse cloud favorite tiles: " + error);
-      }
-    }
-
-    // merge local and cloud favorite tiles
-    const mergedFavoriteTiles = Array.from(
-      new Set([...localFavoriteTiles, ...cloudFavoriteTiles]),
-    );
-
-    // save merged favorite tiles
-    favoriteTilesStore.favoriteTiles = mergedFavoriteTiles;
-  } catch (error) {
-    console.log("Login failed: " + error);
-  }
-}
 </script>
 
 <style lang="scss" scoped>

@@ -20,6 +20,10 @@ export const useAuthStore = defineStore("user", () => {
     refresh();
   });
 
+  onMounted(() => {
+    refresh();
+  });
+
   const onLoginListeners: ((user: RecordModel) => void)[] = [];
   const onLogin = (listener: (user: RecordModel) => void) => {
     onLoginListeners.push(listener);
