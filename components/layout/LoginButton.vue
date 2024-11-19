@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="dropdown" v-if="!userStore.isLoggedIn">
+    <div class="dropdown" v-if="!authStore.isLoggedIn">
       <button
         class="btn btn-sm btn-outline-light dropdown-toggle"
         type="button"
@@ -9,54 +9,57 @@
       >
         {{ $t("login") }}
       </button>
-      <ul class="dropdown-menu">
-        <li v-for="provider in authMethods.authProviders">
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li v-for="provider in authProviders">
           <button class="dropdown-item" @click="loginWith(provider.name)">
-            Login with {{ provider.displayName }}
+            {{ $t("login-with-provider", { provider: provider.displayName }) }}
           </button>
         </li>
       </ul>
     </div>
 
-    <div class="dropdown" v-if="userStore.isLoggedIn">
+    <div class="dropdown" v-if="authStore.isLoggedIn">
       <button
         class="btn btn-sm btn-outline-light dropdown-toggle"
         type="button"
         data-bs-toggle="dropdown"
         aria-expanded="false"
       >
-        {{ userStore.user?.name }}
+        {{ authStore.user?.name }}
       </button>
-      <ul class="dropdown-menu">
+      <ul class="dropdown-menu dropdown-menu-end">
         <li>
-          <button class="dropdown-item" @click="logout()">
+          <button class="dropdown-item" @click="authStore.logout()">
             {{ $t("logout") }}
           </button>
         </li>
       </ul>
     </div>
+    <template #fallback>
+      <button
+        class="btn btn-sm btn-outline-light dropdown-toggle"
+        type="button"
+        aria-expanded="false"
+      >
+        {{ $t("loading") }}
+      </button>
+    </template>
   </ClientOnly>
 </template>
 
 <script setup lang="ts">
-const pocketBase = usePocketBase();
-const userStore = useUserStore();
+const authStore = useAuthStore();
 const favoriteTilesStore = useFavoriteTilesStore();
 
-const authMethods = await pocketBase.collection("users").listAuthMethods();
+onMounted(() => {
+  authStore.refresh();
+});
+
+const authProviders = await authStore.authProviders;
 
 async function loginWith(provider: string) {
-  if (!pocketBase) return;
   try {
-    // login
-    const authData = await pocketBase
-      .collection("users")
-      .authWithOAuth2({ provider });
-
-    // Set name of user
-    await pocketBase.collection("users").update(authData.record.id, {
-      name: authData.meta?.name ?? "Unknown",
-    });
+    const authData = await authStore.login(provider);
 
     // get local and cloud favorite tiles
     const localFavoriteTiles = favoriteTilesStore.favoriteTiles;
@@ -71,22 +74,13 @@ async function loginWith(provider: string) {
 
     // merge local and cloud favorite tiles
     const mergedFavoriteTiles = Array.from(
-      new Set([...localFavoriteTiles, ...cloudFavoriteTiles])
+      new Set([...localFavoriteTiles, ...cloudFavoriteTiles]),
     );
 
     // save merged favorite tiles
     favoriteTilesStore.favoriteTiles = mergedFavoriteTiles;
   } catch (error) {
     console.log("Login failed: " + error);
-  }
-}
-
-async function logout() {
-  if (!pocketBase) return;
-  try {
-    pocketBase.authStore.clear();
-  } catch (error) {
-    console.log("Logout failed: " + error);
   }
 }
 </script>

@@ -117,5 +117,7 @@
   "page-not-found-explanation": "Diese Seite konnte leider nicht gefunden werden. Bitte überprüfe die URL oder kehre zur Startseite zurück.",
   "error-occured": "Ein Fehler ist aufgetreten",
   "error-explanation": "Dieser Fehler sollte nicht passieren. Bitte gebe Josua Bescheid, damit er den Fehler beheben kann (frank.josua{'@'}gmail.com). Danke!",
-  "go-back-home": "Zur Startseite"
+  "go-back-home": "Zur Startseite",
+  "loading": "Laden...",
+  "login-with-provider": "Mit {provider} anmelden"
 }

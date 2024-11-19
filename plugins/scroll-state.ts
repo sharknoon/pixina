@@ -5,7 +5,7 @@ export default defineNuxtPlugin(() => {
   // Wait for component to be mounted before adding router hooks
   if (import.meta.client) {
     // Only run on client-side
-    router.beforeEach((to, from) => {
+    router.beforeEach((_, from) => {
       // Ensure we're in browser environment and element exists
       if (typeof window !== "undefined") {
         const mainContent = document.getElementById("main-content");
