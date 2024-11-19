@@ -93,6 +93,11 @@ export const useFavoriteTilesStore = defineStore(
       await pocketBase.collection("users").unsubscribe();
     });
 
+    getCloudFavoriteTiles().then((cloudFavoriteTiles) => {
+      if (cloudFavoriteTiles === undefined) return;
+      favoriteTiles.value = cloudFavoriteTiles;
+    });
+
     return {
       favoriteTiles,
       isFavorite,
