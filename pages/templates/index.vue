@@ -10,9 +10,12 @@ const favoriteTilesStore = useFavoriteTilesStore();
         v-if="favoriteTilesStore.favoriteTiles.length < 1"
       />
       <template #fallback>
-        <TemplatesNoFavorites />
+        <div class="d-flex flex-column align-items-center">
+          <div>{{ $t("loading") }}</div>
+        </div>
       </template>
     </ClientOnly>
+
     <h3 class="p-3 pb-0 m-0">{{ $t("all-templates") }}</h3>
     <TemplatesTileList />
     <TemplatesLegendComponent />
