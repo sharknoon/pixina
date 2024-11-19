@@ -1,4 +1,4 @@
-import type { AuthModel } from "pocketbase";
+import type { AuthModel, RecordModel } from "pocketbase";
 
 export const useAuthStore = defineStore("user", () => {
   const pocketBase = usePocketBase();
@@ -20,6 +20,11 @@ export const useAuthStore = defineStore("user", () => {
     refresh();
   });
 
+  const onLoginListeners: ((user: RecordModel) => void)[] = [];
+  const onLogin = (listener: (user: RecordModel) => void) => {
+    onLoginListeners.push(listener);
+  };
+
   const login = async (provider: string) => {
     const authData = await pocketBase
       .collection("users")
@@ -30,12 +35,33 @@ export const useAuthStore = defineStore("user", () => {
       name: authData.meta?.name ?? "Unknown",
     });
 
+    for (const listener of onLoginListeners) {
+      listener(authData.record);
+    }
+
     return authData;
+  };
+
+  const onLogoutListeners: (() => void)[] = [];
+  const onLogout = (listener: () => void) => {
+    onLogoutListeners.push(listener);
   };
 
   const logout = () => {
     pocketBase.authStore.clear();
+    for (const listener of onLogoutListeners) {
+      listener();
+    }
   };
 
-  return { user, isLoggedIn, authProviders, refresh, login, logout };
+  return {
+    user,
+    isLoggedIn,
+    authProviders,
+    refresh,
+    login,
+    onLogin,
+    logout,
+    onLogout,
+  };
 });

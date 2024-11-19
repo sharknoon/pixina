@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
-import type { UnsubscribeFunc } from "pocketbase";
 
 export const useFavoriteTilesStore = defineStore(
   "favorite-tiles",
   () => {
     const pocketBase = usePocketBase();
+    const authStore = useAuthStore();
 
     const favoriteTiles = ref<number[]>([]);
 
@@ -64,6 +64,23 @@ export const useFavoriteTilesStore = defineStore(
         }
       });
     }
+
+    async function subscribeFavoriteTiles(id: string) {
+      await pocketBase.collection("users").subscribe(id, (e) => {
+        favoriteTiles.value = e.record.favorite_tiles;
+      });
+    }
+
+    if (pocketBase.authStore.model) {
+      subscribeFavoriteTiles(pocketBase.authStore.model.id);
+    }
+    authStore.onLogin(async (user) => {
+      await subscribeFavoriteTiles(user.id);
+    });
+
+    authStore.onLogout(async () => {
+      await pocketBase.collection("users").unsubscribe();
+    });
 
     return {
       favoriteTiles,
