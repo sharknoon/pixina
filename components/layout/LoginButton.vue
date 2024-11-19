@@ -1,6 +1,6 @@
 <template>
   <ClientOnly>
-    <div class="dropdown" v-if="!authStore.isLoggedIn">
+    <div v-if="!authStore.isLoggedIn" class="dropdown">
       <button
         class="btn btn-sm btn-outline-light dropdown-toggle"
         type="button"
@@ -10,7 +10,7 @@
         {{ $t("login") }}
       </button>
       <ul class="dropdown-menu dropdown-menu-end">
-        <li v-for="provider in authProviders">
+        <li v-for="provider in authProviders" :key="provider.name">
           <button class="dropdown-item" @click="loginWith(provider.name)">
             {{ $t("login-with-provider", { provider: provider.displayName }) }}
           </button>
@@ -18,7 +18,7 @@
       </ul>
     </div>
 
-    <div class="dropdown" v-if="authStore.isLoggedIn">
+    <div v-if="authStore.isLoggedIn" class="dropdown">
       <button
         class="btn btn-sm btn-outline-light dropdown-toggle"
         type="button"
