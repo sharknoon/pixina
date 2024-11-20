@@ -42,33 +42,17 @@ export default class Zoom {
   init() {
     // Panning
 
-    const handleMouseDown = (event: MouseEvent) => {
-      handleDown(event.clientX, event.clientY);
-    };
-
     const handlePointerDown = (event: PointerEvent) => {
-      handleDown(event.clientX, event.clientY);
-    };
-
-    const handleDown = (clientX: number, clientY: number) => {
       this.matrix = new DOMMatrix(this.style.transform);
       this.scale = this.matrix.a;
       this.currentTranslationX = this.matrix.e;
       this.currentTranslationY = this.matrix.f;
-      this.startMouseX = clientX - this.img.offsetLeft;
-      this.startMouseY = clientY - this.img.offsetTop;
+      this.startMouseX = event.clientX - this.img.offsetLeft;
+      this.startMouseY = event.clientY - this.img.offsetTop;
       this.panning = true;
     };
 
-    const handleMouseMove = (event: MouseEvent) => {
-      handleMove(event);
-    };
-
     const handlePointerMove = (event: PointerEvent) => {
-      handleMove(event);
-    };
-
-    const handleMove = (event: MouseEvent | PointerEvent) => {
       if (!this.panning) return;
       event.preventDefault();
       const currentMouseX = event.clientX - this.img.offsetLeft;
@@ -100,7 +84,7 @@ export default class Zoom {
       ]).toString();
     };
 
-    const handleTouchUp = () => {
+    const handlePointerUp = () => {
       this.panning = false;
     };
 
@@ -197,30 +181,29 @@ export default class Zoom {
     // Events
 
     // Allow pan start only on the image
-    this.img.onmousedown = handleMouseDown;
     this.img.onpointerdown = handlePointerDown;
 
-    document.onmousemove = handleMouseMove;
     document.onpointermove = handlePointerMove;
     // Stop panning everywhere
-    document.onmouseup = handleTouchUp;
-    document.onpointerup = handleTouchUp;
+    document.onpointerup = handlePointerUp;
 
     this.img.onwheel = handleWheel;
 
     // Fight browser defaults
 
     // Disable drag start (pan the image instead)
-    this.img.ondragstart = () => {
-      return false;
-    };
-
-    //document.addEventListener('gesturestart', function (e) {
-    //    e.preventDefault();
-    //});
+    this.img.ondragstart = () => false;
   }
 
-  zoom(direction: number) {
+  zoomIn() {
+    this.zoom(1);
+  }
+
+  zoomOut() {
+    this.zoom(-1);
+  }
+
+  zoom(direction: 1 | -1) {
     this.matrix = new DOMMatrix(this.style.transform);
 
     // Get old scale
@@ -265,16 +248,16 @@ export default class Zoom {
   // Common functions
 
   static restrictTranslationInsideParent(
-    imgLength: number,
-    parentLength: number,
+    elementLength: number,
+    parentElementLength: number,
     translate: number,
-  ) {
-    // "overflow" left / right or top / bottom of image relative to its parent
+  ): number {
+    // "overflow" left / right or top / bottom of element relative to its parent
     // Divide by 2 to get one bar out of the two
-    const overflow = (imgLength - parentLength) / 2;
-    // Max prevents negative values (if image is smaller than parent)
+    const overflow = (elementLength - parentElementLength) / 2;
+    // Prevents negative values (if element is smaller than parent)
     const maxTranslate = Math.max(0, overflow);
-    // Min prevents positive values (if image is smaller than parent)
+    // Prevents positive values (if element is smaller than parent)
     const minTranslate = Math.min(0, -overflow);
     if (translate < minTranslate) {
       return minTranslate;

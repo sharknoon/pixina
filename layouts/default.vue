@@ -38,7 +38,6 @@
           }}</NuxtLink>
           <LayoutLoginButton />
         </div>
-        <LayoutDonationButton />
         <LayoutLanguageDropdown class="d-grid" />
       </div>
     </div>
@@ -128,7 +127,6 @@
                   >
                   <LayoutLoginButton />
                 </div>
-                <LayoutDonationButton />
                 <LayoutLanguageDropdown class="d-grid" />
               </div>
             </div>
