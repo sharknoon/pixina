@@ -1,5 +1,5 @@
 <template>
-  <div class="position-relative overflow-hidden" style="touch-action: none">
+  <div class="position-relative overflow-hidden">
     <div
       class="position-absolute end-0 bottom-0 m-4 btn-group-vertical"
       style="z-index: 1"
