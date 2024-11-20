@@ -21,15 +21,20 @@ export default class Zoom {
   startPointerXRelativeToEl: number;
   startPointerYRelativeToEl: number;
   isPanning: boolean;
+  // Pinch to zoom
+  initialPinchDistance: number;
+  initialTouchX: number;
+  initialTouchY: number;
+  imageElementScale: number;
 
   constructor(
     el: HTMLElement,
     options: ZoomOptions = {
       minZoom: 1,
       maxZoom: 15,
-      zoomFactor: 0.2,
+      zoomFactor: 1.2,
       restrictInsideParents: true,
-    },
+    }
   ) {
     this.el = el;
     this.options = options;
@@ -38,6 +43,10 @@ export default class Zoom {
     this.startPointerXRelativeToEl = 0;
     this.startPointerYRelativeToEl = 0;
     this.isPanning = false;
+    this.initialPinchDistance = 0;
+    this.initialTouchX = 0;
+    this.initialTouchY = 0;
+    this.imageElementScale = 1;
     this.init();
   }
 
@@ -53,11 +62,24 @@ export default class Zoom {
     return this.matrix.f;
   }
 
+  static getTouchDistance = (touch1: Touch, touch2: Touch) => {
+    const deltaX = touch1.clientX - touch2.clientX;
+    const deltaY = touch1.clientY - touch2.clientY;
+    return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+  };
+
+  static getTouchCenter = (touch1: Touch, touch2: Touch) => {
+    const centerX = (touch1.clientX + touch2.clientX) / 2;
+    const centerY = (touch1.clientY + touch2.clientY) / 2;
+    return { x: centerX, y: centerY };
+  };
+
   init() {
     // Panning
 
     const handlePointerDown = (event: PointerEvent) => {
       this.matrix = new DOMMatrix(this.style.transform);
+
       this.startPointerXRelativeToEl = event.clientX - this.el.offsetLeft;
       this.startPointerYRelativeToEl = event.clientY - this.el.offsetTop;
       this.isPanning = true;
@@ -77,12 +99,12 @@ export default class Zoom {
         newTranslationX = Zoom.restrictTranslationInsideParent(
           elementScaled.width,
           this.el.parentElement?.clientWidth || 0,
-          newTranslationX,
+          newTranslationX
         );
         newTranslationY = Zoom.restrictTranslationInsideParent(
           elementScaled.height,
           this.el.parentElement?.clientHeight || 0,
-          newTranslationY,
+          newTranslationY
         );
       }
       this.el.style.transform = new DOMMatrix([
@@ -99,26 +121,24 @@ export default class Zoom {
       this.isPanning = false;
     };
 
-    // Zooming
+    // Zooming with wheel
 
     const getPointInOriginal = (clientX: number, clientY: number) => {
       const pointerX =
-        clientX -
-        this.el.offsetLeft -
-        (this.el.parentElement?.offsetLeft || 0);
+        clientX - this.el.offsetLeft - (this.el.parentElement?.offsetLeft || 0);
       const pointerY =
         clientY - this.el.offsetTop - (this.el.parentElement?.offsetTop || 0);
 
-      const elementWidthDelta =
-        this.el.getBoundingClientRect().width - this.el.clientWidth;
+      const boundingClientRect = this.el.getBoundingClientRect();
+      const elementWidthDelta = boundingClientRect.width - this.el.clientWidth;
       const elementHeightDelta =
-        this.el.getBoundingClientRect().height - this.el.clientHeight;
+        boundingClientRect.height - this.el.clientHeight;
 
       let pointerXScaled = pointerX + elementWidthDelta / 2;
       let pointerYScaled = pointerY + elementHeightDelta / 2;
 
-      pointerXScaled -= this.matrix.e;
-      pointerYScaled -= this.matrix.f;
+      pointerXScaled -= this.translationX;
+      pointerYScaled -= this.translationY;
 
       return { x: pointerXScaled, y: pointerYScaled };
     };
@@ -128,24 +148,24 @@ export default class Zoom {
 
       this.matrix = new DOMMatrix(this.style.transform);
 
-      // Get old scale
-      const currentScale = this.matrix.a;
       // Set the new scale
       const direction = event.deltaY > 0 ? -1 : 1;
-      let newScale = currentScale * (1 + direction * this.options.zoomFactor);
+      let newScale =
+        this.scale * (1 + direction * (this.options.zoomFactor - 1));
       if (newScale < this.options.minZoom) {
         newScale = this.options.minZoom;
       } else if (newScale > this.options.maxZoom) {
         newScale = this.options.maxZoom;
       }
-      const scaleDelta = newScale / currentScale;
+      const scaleDelta = newScale / this.scale;
       // Get translation
-      const currentTranslationX = this.matrix.e * scaleDelta;
-      const currentTranslationY = this.matrix.f * scaleDelta;
+      const currentTranslationX = this.translationX * scaleDelta;
+      const currentTranslationY = this.translationY * scaleDelta;
 
-      const currentCursorX =
+      //const currentPointer
+      const currentPointerX =
         getPointInOriginal(event.clientX, event.clientY).x * scaleDelta;
-      const currentCursorY =
+      const currentPointerY =
         getPointInOriginal(event.clientX, event.clientY).y * scaleDelta;
 
       // Apply scale and translate transform
@@ -159,23 +179,25 @@ export default class Zoom {
       ]).toString();
       this.matrix = new DOMMatrix(this.style.transform);
 
-      const newCursorX = getPointInOriginal(event.clientX, event.clientY).x;
-      const newCursorY = getPointInOriginal(event.clientX, event.clientY).y;
+      const newPointerX = getPointInOriginal(event.clientX, event.clientY).x;
+      const newPointerY = getPointInOriginal(event.clientX, event.clientY).y;
 
-      let newTranslationX = currentTranslationX - (currentCursorX - newCursorX);
-      let newTranslationY = currentTranslationY - (currentCursorY - newCursorY);
+      let newTranslationX =
+        currentTranslationX - (currentPointerX - newPointerX);
+      let newTranslationY =
+        currentTranslationY - (currentPointerY - newPointerY);
 
       if (this.options.restrictInsideParents) {
         const elementScaled = this.el.getBoundingClientRect();
         newTranslationX = Zoom.restrictTranslationInsideParent(
           elementScaled.width,
           this.el.parentElement?.clientWidth || 0,
-          newTranslationX,
+          newTranslationX
         );
         newTranslationY = Zoom.restrictTranslationInsideParent(
           elementScaled.height,
           this.el.parentElement?.clientHeight || 0,
-          newTranslationY,
+          newTranslationY
         );
       }
 
@@ -189,6 +211,74 @@ export default class Zoom {
       ]).toString();
     };
 
+    // Zooming with pinch
+
+    const handleTouchStart = (event: TouchEvent) => {
+      if (event.touches.length !== 2) return;
+      event.preventDefault();
+
+      const center = Zoom.getTouchCenter(event.touches[0], event.touches[1]);
+      this.initialTouchX = center.x;
+      this.initialTouchY = center.y;
+      this.initialPinchDistance = Zoom.getTouchDistance(
+        event.touches[0],
+        event.touches[1]
+      );
+    };
+
+    const handleTouchMove = (event: TouchEvent) => {
+      if (event.touches.length === 2) {
+        event.preventDefault();
+
+        // Calculate the new scale
+        const newPinchDistance = Zoom.getTouchDistance(
+          event.touches[0],
+          event.touches[1]
+        );
+        let newScale =
+          (newPinchDistance / this.initialPinchDistance) * this.scale;
+        if (newScale < this.options.minZoom) {
+          newScale = this.options.minZoom;
+        } else if (newScale > this.options.maxZoom) {
+          newScale = this.options.maxZoom;
+        }
+
+        // Calculate the new translation
+        const newCenter = Zoom.getTouchCenter(
+          event.touches[0],
+          event.touches[1]
+        );
+        const deltaX = newCenter.x - this.initialTouchX;
+        const deltaY = newCenter.y - this.initialTouchY;
+        let newTranslationX = this.translationX + deltaX;
+        let newTranslationY = this.translationY + deltaY;
+
+        // Apply scale and translate transform
+        this.el.style.transform = new DOMMatrix([
+          newScale,
+          0,
+          0,
+          newScale,
+          newTranslationX,
+          newTranslationY,
+        ]).toString();
+
+        /*if (this.options.restrictInsideParents) {
+          const elementScaled = this.el.getBoundingClientRect();
+          newTranslationX = Zoom.restrictTranslationInsideParent(
+            elementScaled.width,
+            this.el.parentElement?.clientWidth || 0,
+            newTranslationX
+          );
+          newTranslationY = Zoom.restrictTranslationInsideParent(
+            elementScaled.height,
+            this.el.parentElement?.clientHeight || 0,
+            newTranslationY
+          );
+        }*/
+      }
+    };
+
     // Events
 
     // Allow pan start only on the element
@@ -197,6 +287,9 @@ export default class Zoom {
     document.onpointerup = handlePointerUp;
     this.el.onwheel = handleWheel;
 
+    this.el.addEventListener("touchstart", handleTouchStart);
+    this.el.addEventListener("touchmove", handleTouchMove);
+
     // Fight browser defaults
 
     // Disable drag and drop start (pan the element instead)
@@ -204,7 +297,7 @@ export default class Zoom {
 
     // Disable panning and pinching geastures for touch devices
     if (this.el.parentElement) {
-      this.el.parentElement.style.touchAction = 'none';
+      this.el.parentElement.style.touchAction = "none";
     }
   }
 
@@ -220,9 +313,10 @@ export default class Zoom {
     this.matrix = new DOMMatrix(this.style.transform);
 
     // Get old scale
-    const currentScale = this.matrix.a;
+    const currentScale = this.scale;
     // Set the new scale
-    let newScale = currentScale * (1 + direction * this.options.zoomFactor);
+    let newScale =
+      currentScale * (1 + direction * (this.options.zoomFactor - 1));
     if (newScale < this.options.minZoom) {
       newScale = this.options.minZoom;
     } else if (newScale > this.options.maxZoom) {
@@ -230,20 +324,20 @@ export default class Zoom {
     }
     const scaleDelta = newScale / currentScale;
     // Get translation
-    let currentTranslationX = this.matrix.e * scaleDelta;
-    let currentTranslationY = this.matrix.f * scaleDelta;
+    let currentTranslationX = this.translationX * scaleDelta;
+    let currentTranslationY = this.translationY * scaleDelta;
 
     if (this.options.restrictInsideParents) {
       const elementScaled = this.el.getBoundingClientRect();
       currentTranslationX = Zoom.restrictTranslationInsideParent(
         elementScaled.width * scaleDelta,
         this.el.parentElement?.clientWidth || 0,
-        currentTranslationX,
+        currentTranslationX
       );
       currentTranslationY = Zoom.restrictTranslationInsideParent(
         elementScaled.height * scaleDelta,
         this.el.parentElement?.clientHeight || 0,
-        currentTranslationY,
+        currentTranslationY
       );
     }
 
@@ -263,7 +357,7 @@ export default class Zoom {
   static restrictTranslationInsideParent(
     elementLength: number,
     parentElementLength: number,
-    translate: number,
+    translate: number
   ): number {
     // "overflow" left / right or top / bottom of element relative to its parent
     // Divide by 2 to get one bar out of the two
