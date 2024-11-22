@@ -31,14 +31,14 @@
           <span class="pt-1">{{ item.name }}</span>
         </NuxtLink>
       </nav>
-      <div class="mt-auto d-flex justify-content-between align-items-center">
-        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
-          $t("privacy")
-        }}</NuxtLink>
-        <div class="d-flex gap-2">
-          <LayoutLanguageButton />
-          <LayoutLoginButton />
-        </div>
+      <div class="mt-auto d-flex align-items-center gap-2 flex-wrap">
+        <NuxtLink
+          to="/privacy"
+          class="link-light link-underline-opacity-0 flex-grow-1"
+          >{{ $t("privacy") }}</NuxtLink
+        >
+        <LayoutLanguageButton />
+        <LayoutLoginButton />
       </div>
     </div>
     <div class="d-flex flex-grow-1 flex-column">
@@ -118,16 +118,14 @@
                   </NuxtLink>
                 </li>
               </ul>
-              <div class="d-flex justify-content-between align-items-center">
+              <div class="mt-auto d-flex align-items-center gap-2 flex-wrap">
                 <NuxtLink
                   to="/privacy"
-                  class="link-light link-underline-opacity-0"
+                  class="link-light link-underline-opacity-0 flex-grow-1"
                   >{{ $t("privacy") }}</NuxtLink
                 >
-                <div class="d-flex gap-2">
-                  <LayoutLanguageButton />
-                  <LayoutLoginButton />
-                </div>
+                <LayoutLanguageButton />
+                <LayoutLoginButton />
               </div>
             </div>
           </div>
