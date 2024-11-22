@@ -31,14 +31,14 @@
           <span class="pt-1">{{ item.name }}</span>
         </NuxtLink>
       </nav>
-      <div class="mt-auto d-grid gap-2">
-        <div class="d-flex justify-content-between align-items-center">
-          <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
-            $t("privacy")
-          }}</NuxtLink>
+      <div class="mt-auto d-flex justify-content-between align-items-center">
+        <NuxtLink to="/privacy" class="link-light link-underline-opacity-0">{{
+          $t("privacy")
+        }}</NuxtLink>
+        <div class="d-flex gap-2">
+          <LayoutLanguageButton />
           <LayoutLoginButton />
         </div>
-        <LayoutLanguageDropdown class="d-grid" />
       </div>
     </div>
     <div class="d-flex flex-grow-1 flex-column">
@@ -118,16 +118,16 @@
                   </NuxtLink>
                 </li>
               </ul>
-              <div class="d-grid gap-2">
-                <div class="d-flex justify-content-between align-items-center">
-                  <NuxtLink
-                    to="/privacy"
-                    class="link-light link-underline-opacity-0"
-                    >{{ $t("privacy") }}</NuxtLink
-                  >
+              <div class="d-flex justify-content-between align-items-center">
+                <NuxtLink
+                  to="/privacy"
+                  class="link-light link-underline-opacity-0"
+                  >{{ $t("privacy") }}</NuxtLink
+                >
+                <div class="d-flex gap-2">
+                  <LayoutLanguageButton />
                   <LayoutLoginButton />
                 </div>
-                <LayoutLanguageDropdown class="d-grid" />
               </div>
             </div>
           </div>
@@ -189,10 +189,9 @@ const items = computed(() => [
   },
   {
     name: t("tools"),
-    icon: `<svg xmlns="http://www.w3.org/2000/svg" style="height: 1.5rem; width: 1.5rem" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>`,
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tools" viewBox="0 0 16 16">
+  <path d="M1 0 0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.27 3.27a.997.997 0 0 0 1.414 0l1.586-1.586a.997.997 0 0 0 0-1.414l-3.27-3.27a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3q0-.405-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814zm9.646 10.646a.5.5 0 0 1 .708 0l2.914 2.915a.5.5 0 0 1-.707.707l-2.915-2.914a.5.5 0 0 1 0-.708M3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026z"/>
+</svg>`,
     to: "/tools",
   },
 ]);
