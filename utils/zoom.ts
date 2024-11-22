@@ -18,8 +18,8 @@ export default class Zoom {
   // e = translation x
   // f = translation y
   matrix: DOMMatrix;
-  startPointerXRelativeToEl: number;
-  startPointerYRelativeToEl: number;
+  startPointerX: number;
+  startPointerY: number;
   isPanning: boolean;
   // Pinch to zoom
   initialPinchDistance: number;
@@ -40,8 +40,8 @@ export default class Zoom {
     this.options = options;
     this.style = window.getComputedStyle(this.el);
     this.matrix = new DOMMatrix();
-    this.startPointerXRelativeToEl = 0;
-    this.startPointerYRelativeToEl = 0;
+    this.startPointerX = 0;
+    this.startPointerY = 0;
     this.isPanning = false;
     this.initialPinchDistance = 0;
     this.initialTouchX = 0;
@@ -80,18 +80,17 @@ export default class Zoom {
     const handlePointerDown = (event: PointerEvent) => {
       this.matrix = new DOMMatrix(this.style.transform);
 
-      this.startPointerXRelativeToEl = event.clientX - this.el.offsetLeft;
-      this.startPointerYRelativeToEl = event.clientY - this.el.offsetTop;
+      this.startPointerX = event.clientX;
+      this.startPointerY = event.clientY;
       this.isPanning = true;
     };
 
     const handlePointerMove = (event: PointerEvent) => {
       if (!this.isPanning) return;
       event.preventDefault();
-      const pointerXRelativeToEl = event.clientX - this.el.offsetLeft;
-      const pointerYRelativeToEl = event.clientY - this.el.offsetTop;
-      const deltaX = pointerXRelativeToEl - this.startPointerXRelativeToEl;
-      const deltaY = pointerYRelativeToEl - this.startPointerYRelativeToEl;
+
+      const deltaX = event.clientX - this.startPointerX;
+      const deltaY = event.clientY - this.startPointerY;
       let newTranslationX = this.translationX + deltaX;
       let newTranslationY = this.translationY + deltaY;
       if (this.options.restrictInsideParents) {
@@ -250,8 +249,12 @@ export default class Zoom {
         );
         const deltaX = newCenter.x - this.initialTouchX;
         const deltaY = newCenter.y - this.initialTouchY;
-        let newTranslationX = this.translationX + deltaX;
-        let newTranslationY = this.translationY + deltaY;
+        const newTranslationX = this.translationX + deltaX;
+        const newTranslationY = this.translationY + deltaY;
+
+        console.log("newTranslationX", newTranslationX);
+        const elementScaled = this.el.getBoundingClientRect();
+        console.log(elementScaled.width);
 
         // Apply scale and translate transform
         this.el.style.transform = new DOMMatrix([
