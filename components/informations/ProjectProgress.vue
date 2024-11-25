@@ -83,11 +83,11 @@ const { status, data } = await useLazyFetch<Progress>("/api/v1/progress");
 
 const currentMouseOver = ref<number>();
 
-const tileProgress = computed(() =>
-  [
+const tileProgress = computed(() => {
+  const progress = [
     {
       classes: "bg-success text-bg-success",
-      styles: "border-radius: 50rem 0 0 50rem;",
+      styles: "",
       text: "finished",
       progress: data?.value?.finished.length ?? 0,
     },
@@ -105,18 +105,24 @@ const tileProgress = computed(() =>
     },
     {
       classes: "bg-warning text-bg-warning",
-      styles: "border-radius: 0 50rem 50rem 0;",
+      styles: "",
       text: "available-in-stock",
       progress: data?.value?.availableInStock.length ?? 0,
     },
     {
       classes: "bg-info text-bg-info",
-      styles: "border-radius: 0 50rem 50rem 0;",
+      styles: "",
       text: "available-out-of-stock",
       progress: data?.value?.availableOutOfStock.length ?? 0,
     },
-  ].filter((p) => p.progress > 0),
-);
+  ].filter((p) => p.progress > 0);
+  // Add border radius to first and last element
+  if (progress.length > 0) {
+    progress[0].styles = "border-radius: 50rem 0 0 50rem;";
+    progress[progress.length - 1].styles = "border-radius: 0 50rem 50rem 0;";
+  }
+  return progress;
+});
 </script>
 <style scoped>
 .v-enter-active,
