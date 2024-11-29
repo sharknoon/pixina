@@ -34,7 +34,7 @@ export default class Zoom {
       maxZoom: 15,
       zoomFactor: 1.2,
       restrictInsideParents: true,
-    }
+    },
   ) {
     this.el = el;
     this.options = options;
@@ -98,12 +98,12 @@ export default class Zoom {
         newTranslationX = Zoom.restrictTranslationInsideParent(
           elementScaled.width,
           this.el.parentElement?.clientWidth || 0,
-          newTranslationX
+          newTranslationX,
         );
         newTranslationY = Zoom.restrictTranslationInsideParent(
           elementScaled.height,
           this.el.parentElement?.clientHeight || 0,
-          newTranslationY
+          newTranslationY,
         );
       }
       this.el.style.transform = new DOMMatrix([
@@ -139,7 +139,7 @@ export default class Zoom {
       } else if (newScale > this.options.maxZoom) {
         newScale = this.options.maxZoom;
       }
-      let scaleDelata = newScale / this.scale;
+      const scaleDelata = newScale / this.scale;
 
       // From the pointers coordinate (relative to document / page), subtract the offset of the element its parent (distance to the page borders because of padding, margin, border, navigation-bars, etc...)
       // and subtract half of the element size to get the pointer position relative to the center of the element
@@ -161,12 +161,12 @@ export default class Zoom {
         newTranslationX = Zoom.restrictTranslationInsideParent(
           elementScaled.width,
           this.el.parentElement?.clientWidth ?? 0,
-          newTranslationX
+          newTranslationX,
         );
         newTranslationY = Zoom.restrictTranslationInsideParent(
           elementScaled.height,
           this.el.parentElement?.clientHeight ?? 0,
-          newTranslationY
+          newTranslationY,
         );
       }
 
@@ -192,7 +192,7 @@ export default class Zoom {
       this.initialTouchY = center.y;
       this.initialPinchDistance = Zoom.getTouchDistance(
         event.touches[0],
-        event.touches[1]
+        event.touches[1],
       );
     };
 
@@ -203,7 +203,7 @@ export default class Zoom {
         // Calculate the new scale
         const newPinchDistance = Zoom.getTouchDistance(
           event.touches[0],
-          event.touches[1]
+          event.touches[1],
         );
         let newScale =
           (newPinchDistance / this.initialPinchDistance) * this.scale;
@@ -216,7 +216,7 @@ export default class Zoom {
         // Calculate the new translation
         const newCenter = Zoom.getTouchCenter(
           event.touches[0],
-          event.touches[1]
+          event.touches[1],
         );
         const deltaX = newCenter.x - this.initialTouchX;
         const deltaY = newCenter.y - this.initialTouchY;
@@ -307,12 +307,12 @@ export default class Zoom {
       currentTranslationX = Zoom.restrictTranslationInsideParent(
         elementScaled.width * scaleDelta,
         this.el.parentElement?.clientWidth || 0,
-        currentTranslationX
+        currentTranslationX,
       );
       currentTranslationY = Zoom.restrictTranslationInsideParent(
         elementScaled.height * scaleDelta,
         this.el.parentElement?.clientHeight || 0,
-        currentTranslationY
+        currentTranslationY,
       );
     }
 
@@ -332,7 +332,7 @@ export default class Zoom {
   static restrictTranslationInsideParent(
     elementLength: number,
     parentElementLength: number,
-    translate: number
+    translate: number,
   ): number {
     // "overflow" left / right or top / bottom of element relative to its parent
     // Divide by 2 to get one bar out of the two
