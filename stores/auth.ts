@@ -3,17 +3,19 @@ import type { AuthModel, RecordModel } from "pocketbase";
 export const useAuthStore = defineStore("user", () => {
   const pocketBase = usePocketBase();
 
-  const user = ref<AuthModel | null>(pocketBase.authStore.model);
+  const user = ref<AuthModel | null>(pocketBase.authStore.record);
 
   const isLoggedIn = computed(() => user.value !== null);
 
   const authProviders = computed(async () => {
     const authMethods = await pocketBase.collection("users").listAuthMethods();
-    return authMethods.authProviders;
+    const oauth2 = authMethods.oauth2;
+    if (!oauth2.enabled) return [];
+    return authMethods.oauth2.providers;
   });
 
   const refresh = () => {
-    user.value = pocketBase.authStore.model;
+    user.value = pocketBase.authStore.record;
   };
 
   pocketBase.authStore.onChange(() => {

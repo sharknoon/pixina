@@ -22,19 +22,19 @@ export const useFavoriteTilesStore = defineStore(
     }
 
     async function getCloudFavoriteTiles(): Promise<number[] | undefined> {
-      if (!pocketBase.authStore.model) return;
+      if (!pocketBase.authStore.record) return;
       const user = await pocketBase
         .collection("users")
-        .getOne(pocketBase.authStore.model.id);
+        .getOne(pocketBase.authStore.record.id);
       if (!user) return;
       return user.favorite_tiles;
     }
 
     async function setCloudFavoriteTiles(favoriteTiles: number[]) {
-      if (!pocketBase.authStore.model) return;
+      if (!pocketBase.authStore.record) return;
       await pocketBase
         .collection("users")
-        .update(pocketBase.authStore.model.id, {
+        .update(pocketBase.authStore.record.id, {
           favorite_tiles: JSON.stringify(favoriteTiles),
         });
       console.log("Updated favorite tiles in the cloud");
@@ -69,7 +69,7 @@ export const useFavoriteTilesStore = defineStore(
       const cloudFavoriteTiles = await getCloudFavoriteTiles();
       if (cloudFavoriteTiles === undefined) return;
       const mergedFavoriteTiles = Array.from(
-        new Set([...cloudFavoriteTiles, ...favoriteTiles.value]),
+        new Set([...cloudFavoriteTiles, ...favoriteTiles.value])
       );
       favoriteTiles.value = mergedFavoriteTiles;
       setCloudFavoriteTiles(mergedFavoriteTiles);
@@ -81,8 +81,8 @@ export const useFavoriteTilesStore = defineStore(
       });
     }
 
-    if (pocketBase.authStore.model) {
-      subscribeFavoriteTiles(pocketBase.authStore.model.id);
+    if (pocketBase.authStore.record) {
+      subscribeFavoriteTiles(pocketBase.authStore.record.id);
     }
     authStore.onLogin(async (user) => {
       syncFavoriteTiles();
@@ -119,7 +119,7 @@ export const useFavoriteTilesStore = defineStore(
             const newFavoriteTiles: string = JSON.parse(vuex).favoriteTiles;
             localStorage.setItem(
               "favorite-tiles",
-              JSON.stringify({ favoriteTiles: newFavoriteTiles }),
+              JSON.stringify({ favoriteTiles: newFavoriteTiles })
             );
             localStorage.removeItem("vuex");
           } catch (e) {
@@ -128,5 +128,5 @@ export const useFavoriteTilesStore = defineStore(
         }
       },
     },
-  },
+  }
 );
