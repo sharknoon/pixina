@@ -10,6 +10,8 @@ export default defineNuxtConfig({
     public: {
       pixelhobbyTileId: 35007450218648, // can be overwritten by NUXT_PUBLIC_PIXELHOBBY_TILE_ID environment variable
       pocketbaseUrl: "", // can be overwritten by NUXT_PUBLIC_POCKETBASE_URL environment variable
+      umamiHost: "", // can be overwritten by NUXT_PUBLIC_UMAMI_HOST environment variable
+      umamiId: "", // can be overwritten by NUXT_PUBLIC_UMAMI_ID environment variable
     },
   },
 
@@ -18,7 +20,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@nuxt/eslint",
-    "nuxt-umami",
   ],
 
   i18n: {
@@ -43,11 +44,6 @@ export default defineNuxtConfig({
 
   piniaPluginPersistedstate: {
     storage: "localStorage",
-  },
-
-  umami: {
-    autoTrack: true,
-    ignoreLocalhost: true,
   },
 
   compatibilityDate: "2024-11-17",

@@ -122,8 +122,8 @@
                 <NuxtLink
                   to="/privacy"
                   class="link-light link-underline-opacity-0 flex-grow-1"
-                  >{{ $t("privacy") }}</NuxtLink
-                >
+                  >{{ $t("privacy") }}
+                </NuxtLink>
                 <LayoutLanguageButton />
                 <LayoutLoginButton />
               </div>
@@ -141,12 +141,23 @@
 <script setup lang="ts">
 const router = useRouter();
 const { t } = useI18n();
+const runtimeConfig = useRuntimeConfig();
+
+const script = [];
+if (runtimeConfig.public.umamiHost && runtimeConfig.public.umamiId) {
+  script.push({
+    defer: true,
+    src: `${runtimeConfig.public.umamiHost}/script.js`,
+    "data-website-id": String(runtimeConfig.public.umamiId),
+  });
+}
 
 useHead({
   titleTemplate: computed(() => {
     const name = router.currentRoute.value.name?.toString();
     return name ? `Pixina - ${t(name)}` : "Pixina";
   }),
+  script,
 });
 
 const items = computed(() => [
