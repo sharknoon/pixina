@@ -18,6 +18,7 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "@nuxt/eslint",
+    "nuxt-umami",
   ],
 
   i18n: {
@@ -42,6 +43,11 @@ export default defineNuxtConfig({
 
   piniaPluginPersistedstate: {
     storage: "localStorage",
+  },
+
+  umami: {
+    autoTrack: true,
+    ignoreLocalhost: true,
   },
 
   compatibilityDate: "2024-11-17",
