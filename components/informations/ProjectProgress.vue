@@ -118,8 +118,12 @@ const tileProgress = computed(() => {
   ].filter((p) => p.progress > 0);
   // Add border radius to first and last element
   if (progress.length > 0) {
-    progress[0].styles = "border-radius: 50rem 0 0 50rem;";
-    progress[progress.length - 1].styles = "border-radius: 0 50rem 50rem 0;";
+    if (progress.length === 1) {
+      progress[0].styles = "border-radius: 50rem 50rem 50rem 50rem;";
+    } else if (progress.lenth > 1) {
+      progress[0].styles = "border-radius: 50rem 0 0 50rem;";
+      progress[progress.length - 1].styles = "border-radius: 0 50rem 50rem 0;";
+    }
   }
   return progress;
 });
